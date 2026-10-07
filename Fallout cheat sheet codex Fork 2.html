@@ -1203,7 +1203,7 @@
             </div>
 
             <!-- Subpestaña 8: Municiones -->
-            <div id="sub-municion" class="ammoType" style="display:none; margin-top: 15px;">
+            <div id="sub-municion" class="equip-sub-content ammoType" style="display:none; margin-top: 15px;">
                 <h3>Municion</h3>
                 <p>Cada arma pequeña, arma de energía y arma pesada utiliza un tipo específico de munición, indicado al comienzo de su descripción. La munición se mide en <strong>disparos</strong>.</p>
                 <p>Cada vez que realizás un ataque con una de estas armas, debés gastar un disparo de munición correspondiente. Si no tenés munición de ese tipo, no podés realizar un ataque con esa arma.</p>
@@ -1212,11 +1212,10 @@
                 <p>La forma más sencilla de conseguir munición es comprarla a comerciantes, saquearla de enemigos muertos o encontrar escondites ocultos por el Yermo. Pero algunos tipos de munición son más difíciles de conseguir que otros.</p>
                 <p>La tabla <strong>Disponibilidad y Rareza de la Munición</strong> enumera los tipos de munición utilizados por las armas de este capítulo, ordenados según su Rareza, junto con la cantidad normal que se encuentra cuando ese tipo de munición está disponible para comprar o recolectar.</p>
                 <p>Los personajes con la ventaja <strong>Carroñero</strong> naturalmente encuentran más munición de cualquier tipo.</p>
-                
+               
                 <!-- Contenedor donde ira la tabla de municion -->
                 <div id="tabla-municion-container">
                 </div>
-
             </div>
 
             <!-- Subpestaña 9: Armas Pequeñas -->
@@ -2379,33 +2378,6 @@
                 );
         }
 
-        /* --- INICIALIZACION --- */
-        function inicializarTablasEquipamiento() {
-
-            renderMunicion();
-            renderArmasPequenas();
-            renderModsArmasPequenas();
-            renderArmasEnergia();
-            renderModsArmasEnergia();
-            renderArmasGrandes();
-            renderModsArmasGrandes();
-            renderArmasCaC();
-            renderModsArmasCaC();
-            renderArrojadizas();
-            renderExplosivos();
-
-            renderAparienciayArmaduras();
-            renderModsAparienciayArmaduras();
-            renderServoarmadura();
-            renderModsServoarmadura();
-            renderRoboArmor();
-            renderModsRoboArmor();
-
-            renderConsumibles();
-            renderLibros();
-            renderMiscelaneos();
-        }
-
         <!-- DB: Municiones -->
         const ammo = [
             { "id": "municion-1", "class": "ammoType", "name": ".38", "cantidad": "10 + 5CD", "peso": "&lt;1", "coste": "1", "rareza": "0", "descripcion": "Munición de pistola de pequeño calibre diseñada para revólveres de doble acción antes de la Gran Guerra. Es lo bastante abundante como para ser la munición preferida para la mayoría de las armas de fuego improvisadas, y varias armas más potentes pueden modificarse para aceptar cartuchos .38, sacrificando poder de detención a cambio de una mayor disponibilidad de munición." },
@@ -3517,6 +3489,33 @@
             );
         } else {
             inicializarTablasEquipamiento();
+        }
+
+        /* --- INICIALIZACION --- */
+        function inicializarTablasEquipamiento() {
+
+            renderMunicion();
+            renderArmasPequenas();
+            renderModsArmasPequenas();
+            renderArmasEnergia();
+            renderModsArmasEnergia();
+            renderArmasGrandes();
+            renderModsArmasGrandes();
+            renderArmasCaC();
+            renderModsArmasCaC();
+            renderArrojadizas();
+            renderExplosivos();
+
+            renderAparienciayArmaduras();
+            renderModsAparienciayArmaduras();
+            renderServoarmadura();
+            renderModsServoarmadura();
+            renderRoboArmor();
+            renderModsRoboArmor();
+
+            renderConsumibles();
+            renderLibros();
+            renderMiscelaneos();
         }
 
         // --- ESTADO DE HOMEBREW ---
