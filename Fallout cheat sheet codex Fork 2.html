@@ -682,6 +682,12 @@
             }
         }
 
+        .gen-botones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
         /* ==========================================================================
            4: FOOTER
            ========================================================================== */
@@ -3678,87 +3684,59 @@ function renderLibros() {
                 });
             }
 
+            
             function mostrarInformacion() {
                 if (!itemActual) {
                     contInfo.innerHTML = "";
                     return;
                 }
 
-                const item = itemActual;
                 const config = categorias[categoriaActual];
 
+                // No mostrar la ficha completa antes de las modificaciones.
+                // La ficha final se genera en mostrarResultado().
                 if (config.tieneMods) {
                     contInfo.innerHTML = `
                         <div class="gen-grupo">
-                            <h3>${escapar(item.name)}</h3>
-                            <p>${escapar(item.descripcion)}</p>
-
-                            <div style="overflow-x:auto">
-                                <table class="gen-tabla">
-                                    <thead>
-                                        <tr>
-                                            <th>Daño</th>
-                                            <th>Efecto</th>
-                                            <th>Cadencia</th>
-                                            <th>Alcance</th>
-                                            <th>Cualidades</th>
-                                            <th>Cargador</th>
-                                            <th>Peso</th>
-                                            <th>Coste</th>
-                                            <th>Rareza</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>${escapar(item["tipo de daño"])}</td>
-                                            <td>${escapar(item["efecto del daño"])}</td>
-                                            <td>${escapar(item.cadencia)}</td>
-                                            <td>${escapar(item.alcance)}</td>
-                                            <td>${escapar(item.cualidades)}</td>
-                                            <td>${escapar(item.cargador)}</td>
-                                            <td>${escapar(item.peso)}</td>
-                                            <td>${escapar(item.coste)}</td>
-                                            <td>${escapar(item.rareza)}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <h3>${escapar(itemActual.name)}</h3>
+                            <p>Seleccioná las modificaciones que quieras instalar.
+                            Pasá el cursor sobre una modificación para consultar
+                            sus efectos, coste, rareza y requisitos.</p>
                         </div>
                     `;
-                } else {
-                    // Mostrar los datos disponibles sin asumir que todas
-                    // las categorías tienen los mismos campos.
-                    const excluidos = new Set([
-                        "id", "class", "clase", "name", "descripcion",
-                        "mods", "modulos"
-                    ]);
-
-                    const campos = Object.entries(item).filter(
-                        ([clave, valor]) =>
-                            !excluidos.has(clave) &&
-                            !Array.isArray(valor) &&
-                            valor !== undefined &&
-                            valor !== null &&
-                            valor !== ""
-                    );
-
-                    contInfo.innerHTML = `
-                        <div class="gen-grupo">
-                            <h3>${escapar(item.name)}</h3>
-                            <p>${escapar(item.descripcion)}</p>
-                            <table class="gen-tabla">
-                                <tbody>
-                                    ${campos.map(([clave, valor]) => `
-                                        <tr>
-                                            <th>${escapar(clave)}</th>
-                                            <td>${escapar(valor)}</td>
-                                        </tr>
-                                    `).join("")}
-                                </tbody>
-                            </table>
-                        </div>
-                    `;
+                    return;
                 }
+
+                const excluidos = new Set([
+                    "id", "class", "clase", "name", "descripcion",
+                    "mods", "modulos"
+                ]);
+
+                const campos = Object.entries(itemActual).filter(
+                    ([clave, valor]) =>
+                        !excluidos.has(clave) &&
+                        !Array.isArray(valor) &&
+                        valor !== undefined &&
+                        valor !== null &&
+                        valor !== ""
+                );
+
+                contInfo.innerHTML = `
+                    <div class="gen-grupo">
+                        <h3>${escapar(itemActual.name)}</h3>
+                        <p>${escapar(itemActual.descripcion)}</p>
+                        <table class="gen-tabla">
+                            <tbody>
+                                ${campos.map(([clave, valor]) => `
+                                    <tr>
+                                        <th>${escapar(clave)}</th>
+                                        <td>${escapar(valor)}</td>
+                                    </tr>
+                                `).join("")}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
             }
 
             function mostrarModificaciones() {
@@ -3804,8 +3782,15 @@ function renderLibros() {
                                 )}
                                 ${compatibles.map(mod =>
                                     crearBoton(
-                                        `${escapar(mod.name)} (${escapar(mod.coste)})`,
-                                        `data-slot="${slot.key}" data-mod-id="${escapar(mod.id)}"`
+                                        escapar(mod.name),
+                                        `data-slot="${slot.key}"
+                                        data-mod-id="${escapar(mod.id)}"
+                                        title="${escapar(
+                                            `Beneficios: ${mod.efectos || "Sin efectos indicados"}\n` +
+                                            `Coste: ${mod.coste ?? "—"}\n` +
+                                            `Rareza: ${mod.rareza ?? "—"}\n` +
+                                            `Requisitos: ${mod.perk || "—"}`
+                                        )}"`
                                     )
                                 ).join("")}
                             </div>
