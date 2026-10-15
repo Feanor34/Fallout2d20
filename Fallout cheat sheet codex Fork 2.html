@@ -688,6 +688,10 @@
             gap: 5px;
         }
 
+        #gen-seccion-resultado {
+            margin-top: 30px;
+        }
+
         /* ==========================================================================
            4: FOOTER
            ========================================================================== */
@@ -1337,22 +1341,22 @@
                 </div>
             </section>
 
-            <!-- PASO 3: INFORMACIÓN DEL ARMA -->
-            <section id="gen-seccion-informacion">
-                <div id="gen-info-arma">
-                    <!-- Aquí se mostrará la descripción y las estadísticas del arma. -->
-                </div>
-            </section>
-
-            <!-- PASO 4: MODIFICACIONES -->
+            <!-- PASO 3: MODIFICACIONES POSIBLES -->
             <section id="gen-seccion-modificaciones">
                 <h3 id="gen-titulo-mods" hidden>
-                    3. Modificaciones compatibles
+                    3. Modificaciones posibles
                 </h3>
+                <div id="gen-lista-mods"></div>
+            </section>
 
-                <div id="gen-lista-mods">
-                    <!-- Aquí se generarán los botones de modificaciones por categoría. -->
-                </div>
+            <!-- PASO 4: ESTADÍSTICAS Y MODIFICACIONES INSTALADAS -->
+            <section id="gen-seccion-resultado">
+                <div id="gen-resultado"></div>
+            </section>
+
+            <!-- Información usada por categorías sin modificaciones -->
+            <section id="gen-seccion-informacion">
+                <div id="gen-info-arma"></div>
             </section>
 
             <!-- PASO 5: RESULTADO -->
@@ -2437,21 +2441,21 @@ function renderLibros() {
 
         <!-- DB: Armas pequeñas -->
         const armasPequeñas = [
-            {"id": "arpeq-1", "class": "arpeq", "name": "Pistola .44", "tipo de daño": "Físico", "efecto del daño": "Cruel", "cadencia": "1", "alcance": "C", "cualidades": "Corta Distancia", "cargador": "6", "peso": "4", "coste": "99", "rareza": "2", "descripcion": "La pistola .44 es un revólver de doble acción diseñado para utilizar cartuchos .44 Magnum. Es un arma potente, aunque no tan fácil de modificar como otras armas cortas. Gracias al diseño simple y resistente, sus dueños las valoran mucho, pero no son tan poco comunes como para considerarlas realmente raras.", "modReceptor": ["mod-rec-1", "mod-rec-2", "mod-rec-3"], "modCaño": ["mod-can-1", "mod-can-2"], "modEmpuñadura": ["mod-emp-1"], "modCulata": [], "modMira": ["mod-mir-1", "mod-mir-2", "mod-mir-3"], "modBoca": []},
-            {"id": "arpeq-2", "class": "arpeq", "name": "Pistola 10 mm", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "2", "alcance": "C", "cualidades": "Corta Distancia, Confiable", "cargador": "12", "peso": "4", "coste": "50", "rareza": "1", "descripcion": "Pequeña, confiable, razonablemente potente y fácil de conseguir, la pistola 10 mm es un elemento básico del combate en el Yermo desde que cayeron las bombas. Su versatilidad y sus posibilidades de modificación hacen que una pistola 10 mm bien cuidada pueda mantener a salvo a su dueño durante mucho tiempo.", "modReceptor": ["mod-rec-4", "mod-rec-1", "mod-rec-5", "mod-rec-6", "mod-rec-2", "mod-rec-3"], "modCaño": ["mod-can-3", "mod-can-4"], "modEmpuñadura": ["mod-emp-1", "mod-emp-2"], "modCulata": [], "modMira": ["mod-mir-2", "mod-mir-3"], "modBoca": ["mod-boc-1", "mod-boc-2"]},
-            {"id": "arpeq-3", "class": "arpeq", "name": "Pistola de Bengalas", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "0", "alcance": "M", "cualidades": "Confiable", "cargador": "1", "peso": "2", "coste": "50", "rareza": "1", "descripcion": "Una pistola de bengalas es un dispositivo de un solo disparo y apertura basculante que no está realmente diseñado para infligir daño. En su lugar, dispara bengalas de señalización que muchas facciones utilizan para pedir ayuda, lanzándolas a gran altura.", "modReceptor": [], "modCaño": [], "modEmpuñadura": [], "modCulata": [], "modMira": [], "modBoca": []},
-            {"id": "arpeq-4", "class": "arpeq", "name": "Rifle de Asalto", "tipo de daño": "Físico", "efecto del daño": "Ráfaga", "cadencia": "2", "alcance": "M", "cualidades": "A Dos Manos", "cargador": "30", "peso": "13", "coste": "144", "rareza": "2", "descripcion": "Este rifle accionado por gases es una imagen habitual en todo el Yermo. Es apreciado por su bajo retroceso, precisión razonable y facilidad para modificarlo. La mayoría de las versiones encontradas solo pueden disparar en modo semiautomático, pero el arma puede modificarse fácilmente para realizar fuego automático.", "modReceptor": ["mod-rec-4", "mod-rec-1", "mod-rec-5", "mod-rec-6", "mod-rec-2", "mod-rec-3"], "modCaño": ["mod-can-3", "mod-can-4", "mod-can-5"], "modEmpuñadura": [], "modCulata": ["mod-cul-1", "mod-cul-2", "mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-1", "mod-boc-2"]},
-            {"id": "arpeq-5", "class": "arpeq", "name": "Rifle de Combate", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "2", "alcance": "M", "cualidades": "A Dos Manos", "cargador": "20", "peso": "11", "coste": "117", "rareza": "2", "descripcion": "Un arma de antes de la guerra que se encuentra por todo el Yermo y que es utilizada en grandes cantidades por varias facciones agresivas. Los Rifles de Combate tienen un diseño resistente y adaptable, y pueden modificarse para cumplir una gran variedad de funciones en el campo de batalla.", "modReceptor": ["mod-rec-4", "mod-rec-1", "mod-rec-5", "mod-rec-6", "mod-rec-2", "mod-rec-3", "mod-rec-7", "mod-rec-8"], "modCaño": ["mod-can-3", "mod-can-4", "mod-can-5"], "modEmpuñadura": [], "modCulata": ["mod-cul-1", "mod-cul-2", "mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-3", "mod-boc-1", "mod-boc-2"]},
-            {"id": "arpeq-6", "class": "arpeq", "name": "Rifle Gauss", "tipo de daño": "Físico", "efecto del daño": "Perforante 1", "cadencia": "1", "alcance": "L", "cualidades": "A Dos Manos", "cargador": "7", "peso": "16", "coste": "228", "rareza": "4", "descripcion": "El rifle Gauss utiliza inducción magnética para propulsar un proyectil a velocidades increíbles y devastadoras. Cada disparo puede «cargarse» para obtener el máximo daño manteniendo el gatillo apretado durante un instante antes de soltarlo para disparar.", "modReceptor": [], "modCaño": ["mod-can-6"], "modEmpuñadura": [], "modCulata": ["mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-2"]},
-            {"id": "arpeq-7", "class": "arpeq", "name": "Rifle de Caza", "tipo de daño": "Físico", "efecto del daño": "Perforante 1", "cadencia": "0", "alcance": "M", "cualidades": "A Dos Manos", "cargador": "5", "peso": "10", "coste": "55", "rareza": "2", "descripcion": "Un rifle de cerrojo que suele encontrarse en manos de supermutantes y asaltantes. Su diseño sencillo hizo que fuera común entre cazadores y supervivientes antes de la Gran Guerra, y ofrece una cantidad enorme de posibilidades de modificación.", "modReceptor": ["mod-rec-6", "mod-rec-4", "mod-rec-1", "mod-rec-2", "mod-rec-7", "mod-rec-9"], "modCaño": ["mod-can-3", "mod-can-4", "mod-can-5"], "modEmpuñadura": [], "modCulata": ["mod-cul-1", "mod-cul-2"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-3", "mod-boc-2"]},
-            {"id": "arpeq-8", "class": "arpeq", "name": "Subfusil", "tipo de daño": "Físico", "efecto del daño": "Ráfaga", "cadencia": "3", "alcance": "C", "cualidades": "Imprecisa, A Dos Manos", "cargador": "50", "peso": "12", "coste": "109", "rareza": "1", "descripcion": "Estos subfusiles ya eran un diseño antiguo incluso antes de la guerra. Aunque son terriblemente imprecisos, su cadencia de fuego hace que la precisión no sea tan necesaria.", "modReceptor": ["mod-rec-1", "mod-rec-6", "mod-rec-2"], "modCaño": [], "modEmpuñadura": [], "modCulata": ["mod-cul-1", "mod-cul-3"], "modMira": ["mod-mir-2"], "modBoca": ["mod-boc-1", "mod-boc-4", "mod-boc-2"]},
-            {"id": "arpeq-9", "class": "arpeq", "name": "Escopeta de Combate", "tipo de daño": "Físico", "efecto del daño": "Dispersión", "cadencia": "2", "alcance": "C", "cualidades": "Imprecisa, A Dos Manos", "cargador": "8", "peso": "11", "coste": "87", "rareza": "2", "descripcion": "Las escopetas de combate son escopetas diseñadas para funciones ofensivas, normalmente utilizadas por fuerzas militares. Son ideales para combatir a corta distancia en túneles, dentro de edificios o entre las calles en ruinas de las antiguas ciudades.", "modReceptor": ["mod-rec-4", "mod-rec-1", "mod-rec-5", "mod-rec-6", "mod-rec-2", "mod-rec-3"], "modCaño": ["mod-can-3", "mod-can-4"], "modEmpuñadura": [], "modCulata": ["mod-cul-1", "mod-cul-2", "mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-3", "mod-boc-1", "mod-boc-4", "mod-boc-2"]},
-            {"id": "arpeq-10", "class": "arpeq", "name": "Escopeta de Doble Cañón", "tipo de daño": "Físico", "efecto del daño": "Dispersión, Cruel", "cadencia": "0", "alcance": "C", "cualidades": "Imprecisa, A Dos Manos", "cargador": "2", "peso": "9", "coste": "39", "rareza": "1", "descripcion": "Antes de la Gran Guerra, las escopetas de doble cañón se utilizaban principalmente para cazar y para la defensa del hogar, y esto no cambió demasiado. Son armas de apertura basculante y pueden tener los cañones uno al lado del otro o superpuestos.", "modReceptor": ["mod-rec-1", "mod-rec-6", "mod-rec-2", "mod-rec-3"], "modCaño": ["mod-can-3", "mod-can-7"], "modEmpuñadura": [], "modCulata": ["mod-cul-1"], "modMira": ["mod-mir-2"], "modBoca": ["mod-boc-4"]},
-            {"id": "arpeq-11", "class": "arpeq", "name": "Rifle de Cerrojo de Tubería", "tipo de daño": "Físico", "efecto del daño": "Perforante 1", "cadencia": "0", "alcance": "C", "cualidades": "Poco Confiable", "cargador": "6", "peso": "3", "coste": "30", "rareza": "0", "descripcion": "Un arma improvisada, normalmente en manos de quienes no pueden fabricar, comprar o encontrar algo mejor. Las armas de tubería son rudimentarias y algo poco confiables, pero lo bastante eficaces.", "modReceptor": ["mod-rec-4", "mod-rec-1", "mod-rec-2", "mod-rec-7", "mod-rec-9"], "modCaño": ["mod-can-3", "mod-can-4", "mod-can-8"], "modEmpuñadura": ["mod-emp-2"], "modCulata": ["mod-cul-1", "mod-cul-2", "mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-3", "mod-boc-1", "mod-boc-4", "mod-boc-2"]},
-            {"id": "arpeq-12", "class": "arpeq", "name": "Pistola de Tubería", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "2", "alcance": "C", "cualidades": "Corta Distancia, Poco Confiable", "cargador": "12", "peso": "2", "coste": "30", "rareza": "0", "descripcion": "Un arma rudimentaria y casera, normalmente en manos de quienes no pueden fabricar, comprar o encontrar algo mejor. Las armas de tubería son rudimentarias y algo poco confiables, pero lo bastante eficaces.", "modReceptor": ["mod-rec-4", "mod-rec-1", "mod-rec-5", "mod-rec-6", "mod-rec-2", "mod-rec-8"], "modCaño": ["mod-can-3", "mod-can-4", "mod-can-8"], "modEmpuñadura": ["mod-emp-2"], "modCulata": ["mod-cul-1", "mod-cul-2", "mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-3", "mod-boc-1", "mod-boc-4", "mod-boc-2"]},
-            {"id": "arpeq-13", "class": "arpeq", "name": "Revólver de Tubería", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "1", "alcance": "C", "cualidades": "Corta Distancia, Poco Confiable", "cargador": "6", "peso": "4", "coste": "25", "rareza": "0", "descripcion": "Al igual que las outras variantes de armas de tubería, el revólver de tubería es un arma improvisada o casera, en este caso basada en un revólver. Logra un equilibrio entre el poder de detención del rifle de cerrojo de tubería y la cadencia de fuego de la pistola de tubería.", "modReceptor": ["mod-rec-4", "mod-rec-1", "mod-rec-2", "mod-rec-7", "mod-rec-8"], "modCaño": ["mod-can-3", "mod-can-4", "mod-can-8"], "modEmpuñadura": ["mod-emp-2"], "modCulata": ["mod-cul-1", "mod-cul-2", "mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-3", "mod-boc-1", "mod-boc-4", "mod-boc-2"]},
-            {"id": "arpeq-14", "class": "arpeq", "name": "Rifle de Ferrocarril", "tipo de daño": "Físico", "efecto del daño": "Ruptura", "cadencia": "0", "alcance": "M", "cualidades": "Debilitante, A Dos Manos, Poco Confiable", "cargador": "10", "peso": "14", "coste": "290", "rareza": "4", "descripcion": "Un arma improvisada creada por ingenieros ingeniosos del Yermo. El rifle de ferrocarril utiliza vapor a alta presión para propulsar espigas de ferrocarril a velocidades suficientes para atravesar y empalar una gran variedad de objetivos.", "modReceptor": ["mod-rec-10"], "modCaño": ["mod-can-3"], "modEmpuñadura": [], "modCulata": ["mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-3"]},
-            {"id": "arpeq-15", "class": "arpeq", "name": "Fusil de jeringas", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "0", "alcance": "M", "cualidades": "A Dos Manos", "cargador": "1", "peso": "6", "coste": "132", "rareza": "2", "descripcion": "Un arma improvisada que utiliza presión de aire para propulsar jeringas modificadas hacia un objetivo. Por sí sola inflige poco daño, pero las jeringas pueden producir una amplia variedad de efectos debilitantes.", "modReceptor": [], "modCaño": ["mod-can-3"], "modEmpuñadura": [], "modCulata": ["mod-cul-2", "mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": []}
+            {"id": "arpeq-1", "class": "arpeq", "name": "Pistola .44", "daño": "6", "tipo de daño": "Físico", "efecto del daño": "Cruel", "cadencia": "1", "alcance": "C", "cualidades": "Corta Distancia", "cargador": "6", "peso": "4", "coste": "99", "rareza": "2", "descripcion": "La pistola .44 es un revólver de doble acción diseñado para utilizar cartuchos .44 Magnum. Es un arma potente, aunque no tan fácil de modificar como otras armas cortas. Gracias al diseño simple y resistente, sus dueños las valoran mucho, pero no son tan poco comunes como para considerarlas realmente raras.", "modReceptor": ["mod-rec-1", "mod-rec-2", "mod-rec-3"], "modCaño": ["mod-can-1", "mod-can-2"], "modEmpuñadura": ["mod-emp-1"], "modCulata": [], "modMira": ["mod-mir-1", "mod-mir-2", "mod-mir-3"], "modBoca": []},
+            {"id": "arpeq-2", "class": "arpeq", "name": "Pistola 10 mm", "daño": "4", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "2", "alcance": "C", "cualidades": "Corta Distancia, Confiable", "cargador": "12", "peso": "4", "coste": "50", "rareza": "1", "descripcion": "Pequeña, confiable, razonablemente potente y fácil de conseguir, la pistola 10 mm es un elemento básico del combate en el Yermo desde que cayeron las bombas. Su versatilidad y sus posibilidades de modificación hacen que una pistola 10 mm bien cuidada pueda mantener a salvo a su dueño durante mucho tiempo.", "modReceptor": ["mod-rec-4", "mod-rec-1", "mod-rec-5", "mod-rec-6", "mod-rec-2", "mod-rec-3"], "modCaño": ["mod-can-3", "mod-can-4"], "modEmpuñadura": ["mod-emp-1", "mod-emp-2"], "modCulata": [], "modMira": ["mod-mir-2", "mod-mir-3"], "modBoca": ["mod-boc-1", "mod-boc-2"]},
+            {"id": "arpeq-3", "class": "arpeq", "name": "Pistola de Bengalas", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "0", "alcance": "M", "cualidades": "Confiable", "cargador": "1", "peso": "2", "coste": "50", "rareza": "1", "descripcion": "Una pistola de bengalas es un dispositivo de un solo disparo y apertura basculante que no está realmente diseñado para infligir daño. En su lugar, dispara bengalas de señalización que muchas facciones utilizan para pedir ayuda, lanzándolas a gran altura.", "modReceptor": [], "modCaño": [], "modEmpuñadura": [], "modCulata": [], "modMira": [], "modBoca": []},
+            {"id": "arpeq-4", "class": "arpeq", "name": "Rifle de Asalto", "daño": "5", "tipo de daño": "Físico", "efecto del daño": "Ráfaga", "cadencia": "2", "alcance": "M", "cualidades": "A Dos Manos", "cargador": "30", "peso": "13", "coste": "144", "rareza": "2", "descripcion": "Este rifle accionado por gases es una imagen habitual en todo el Yermo. Es apreciado por su bajo retroceso, precisión razonable y facilidad para modificarlo. La mayoría de las versiones encontradas solo pueden disparar en modo semiautomático, pero el arma puede modificarse fácilmente para realizar fuego automático.", "modReceptor": ["mod-rec-4", "mod-rec-1", "mod-rec-5", "mod-rec-6", "mod-rec-2", "mod-rec-3"], "modCaño": ["mod-can-3", "mod-can-4", "mod-can-5"], "modEmpuñadura": [], "modCulata": ["mod-cul-1", "mod-cul-2", "mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-1", "mod-boc-2"]},
+            {"id": "arpeq-5", "class": "arpeq", "name": "Rifle de Combate", "daño": "5", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "2", "alcance": "M", "cualidades": "A Dos Manos", "cargador": "20", "peso": "11", "coste": "117", "rareza": "2", "descripcion": "Un arma de antes de la guerra que se encuentra por todo el Yermo y que es utilizada en grandes cantidades por varias facciones agresivas. Los Rifles de Combate tienen un diseño resistente y adaptable, y pueden modificarse para cumplir una gran variedad de funciones en el campo de batalla.", "modReceptor": ["mod-rec-4", "mod-rec-1", "mod-rec-5", "mod-rec-6", "mod-rec-2", "mod-rec-3", "mod-rec-7", "mod-rec-8"], "modCaño": ["mod-can-3", "mod-can-4", "mod-can-5"], "modEmpuñadura": [], "modCulata": ["mod-cul-1", "mod-cul-2", "mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-3", "mod-boc-1", "mod-boc-2"]},
+            {"id": "arpeq-6", "class": "arpeq", "name": "Rifle Gauss", "daño": "10", "tipo de daño": "Físico", "efecto del daño": "Perforante 1", "cadencia": "1", "alcance": "L", "cualidades": "A Dos Manos", "cargador": "7", "peso": "16", "coste": "228", "rareza": "4", "descripcion": "El rifle Gauss utiliza inducción magnética para propulsar un proyectil a velocidades increíbles y devastadoras. Cada disparo puede «cargarse» para obtener el máximo daño manteniendo el gatillo apretado durante un instante antes de soltarlo para disparar.", "modReceptor": [], "modCaño": ["mod-can-6"], "modEmpuñadura": [], "modCulata": ["mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-2"]},
+            {"id": "arpeq-7", "class": "arpeq", "name": "Rifle de Caza", "daño": "6", "tipo de daño": "Físico", "efecto del daño": "Perforante 1", "cadencia": "0", "alcance": "M", "cualidades": "A Dos Manos", "cargador": "5", "peso": "10", "coste": "55", "rareza": "2", "descripcion": "Un rifle de cerrojo que suele encontrarse en manos de supermutantes y asaltantes. Su diseño sencillo hizo que fuera común entre cazadores y supervivientes antes de la Gran Guerra, y ofrece una cantidad enorme de posibilidades de modificación.", "modReceptor": ["mod-rec-6", "mod-rec-4", "mod-rec-1", "mod-rec-2", "mod-rec-7", "mod-rec-9"], "modCaño": ["mod-can-3", "mod-can-4", "mod-can-5"], "modEmpuñadura": [], "modCulata": ["mod-cul-1", "mod-cul-2"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-3", "mod-boc-2"]},
+            {"id": "arpeq-8", "class": "arpeq", "name": "Subfusil", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "Ráfaga", "cadencia": "3", "alcance": "C", "cualidades": "Imprecisa, A Dos Manos", "cargador": "50", "peso": "12", "coste": "109", "rareza": "1", "descripcion": "Estos subfusiles ya eran un diseño antiguo incluso antes de la guerra. Aunque son terriblemente imprecisos, su cadencia de fuego hace que la precisión no sea tan necesaria.", "modReceptor": ["mod-rec-1", "mod-rec-6", "mod-rec-2"], "modCaño": [], "modEmpuñadura": [], "modCulata": ["mod-cul-1", "mod-cul-3"], "modMira": ["mod-mir-2"], "modBoca": ["mod-boc-1", "mod-boc-4", "mod-boc-2"]},
+            {"id": "arpeq-9", "class": "arpeq", "name": "Escopeta de Combate", "daño": "5", "tipo de daño": "Físico", "efecto del daño": "Dispersión", "cadencia": "2", "alcance": "C", "cualidades": "Imprecisa, A Dos Manos", "cargador": "8", "peso": "11", "coste": "87", "rareza": "2", "descripcion": "Las escopetas de combate son escopetas diseñadas para funciones ofensivas, normalmente utilizadas por fuerzas militares. Son ideales para combatir a corta distancia en túneles, dentro de edificios o entre las calles en ruinas de las antiguas ciudades.", "modReceptor": ["mod-rec-4", "mod-rec-1", "mod-rec-5", "mod-rec-6", "mod-rec-2", "mod-rec-3"], "modCaño": ["mod-can-3", "mod-can-4"], "modEmpuñadura": [], "modCulata": ["mod-cul-1", "mod-cul-2", "mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-3", "mod-boc-1", "mod-boc-4", "mod-boc-2"]},
+            {"id": "arpeq-10", "class": "arpeq", "name": "Escopeta de Doble Cañón", "daño": "5", "tipo de daño": "Físico", "efecto del daño": "Dispersión, Cruel", "cadencia": "0", "alcance": "C", "cualidades": "Imprecisa, A Dos Manos", "cargador": "2", "peso": "9", "coste": "39", "rareza": "1", "descripcion": "Antes de la Gran Guerra, las escopetas de doble cañón se utilizaban principalmente para cazar y para la defensa del hogar, y esto no cambió demasiado. Son armas de apertura basculante y pueden tener los cañones uno al lado del otro o superpuestos.", "modReceptor": ["mod-rec-1", "mod-rec-6", "mod-rec-2", "mod-rec-3"], "modCaño": ["mod-can-3", "mod-can-7"], "modEmpuñadura": [], "modCulata": ["mod-cul-1"], "modMira": ["mod-mir-2"], "modBoca": ["mod-boc-4"]},
+            {"id": "arpeq-11", "class": "arpeq", "name": "Rifle de Cerrojo de Tubería", "daño": "5", "tipo de daño": "Físico", "efecto del daño": "Perforante 1", "cadencia": "0", "alcance": "C", "cualidades": "Poco Confiable", "cargador": "6", "peso": "3", "coste": "30", "rareza": "0", "descripcion": "Un arma improvisada, normalmente en manos de quienes no pueden fabricar, comprar o encontrar algo mejor. Las armas de tubería son rudimentarias y algo poco confiables, pero lo bastante eficaces.", "modReceptor": ["mod-rec-4", "mod-rec-1", "mod-rec-2", "mod-rec-7", "mod-rec-9"], "modCaño": ["mod-can-3", "mod-can-4", "mod-can-8"], "modEmpuñadura": ["mod-emp-2"], "modCulata": ["mod-cul-1", "mod-cul-2", "mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-3", "mod-boc-1", "mod-boc-4", "mod-boc-2"]},
+            {"id": "arpeq-12", "class": "arpeq", "name": "Pistola de Tubería", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "2", "alcance": "C", "cualidades": "Corta Distancia, Poco Confiable", "cargador": "12", "peso": "2", "coste": "30", "rareza": "0", "descripcion": "Un arma rudimentaria y casera, normalmente en manos de quienes no pueden fabricar, comprar o encontrar algo mejor. Las armas de tubería son rudimentarias y algo poco confiables, pero lo bastante eficaces.", "modReceptor": ["mod-rec-4", "mod-rec-1", "mod-rec-5", "mod-rec-6", "mod-rec-2", "mod-rec-8"], "modCaño": ["mod-can-3", "mod-can-4", "mod-can-8"], "modEmpuñadura": ["mod-emp-2"], "modCulata": ["mod-cul-1", "mod-cul-2", "mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-3", "mod-boc-1", "mod-boc-4", "mod-boc-2"]},
+            {"id": "arpeq-13", "class": "arpeq", "name": "Revólver de Tubería", "daño": "4", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "1", "alcance": "C", "cualidades": "Corta Distancia, Poco Confiable", "cargador": "6", "peso": "4", "coste": "25", "rareza": "0", "descripcion": "Al igual que las otras variantes de armas de tubería, el revólver de tubería es un arma improvisada o casera, en este caso basada en un revólver. Logra un equilibrio entre el poder de detención del rifle de cerrojo de tubería y la cadencia de fuego de la pistola de tubería.", "modReceptor": ["mod-rec-4", "mod-rec-1", "mod-rec-2", "mod-rec-7", "mod-rec-8"], "modCaño": ["mod-can-3", "mod-can-4", "mod-can-8"], "modEmpuñadura": ["mod-emp-2"], "modCulata": ["mod-cul-1", "mod-cul-2", "mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-3", "mod-boc-1", "mod-boc-4", "mod-boc-2"]},
+            {"id": "arpeq-14", "class": "arpeq", "name": "Rifle de Ferrocarril", "daño": "10", "tipo de daño": "Físico", "efecto del daño": "Ruptura", "cadencia": "0", "alcance": "M", "cualidades": "Debilitante, A Dos Manos, Poco Confiable", "cargador": "10", "peso": "14", "coste": "290", "rareza": "4", "descripcion": "Un arma improvisada creada por ingenieros ingeniosos del Yermo. El rifle de ferrocarril utiliza vapor a alta presión para propulsar espigas de ferrocarril a velocidades suficientes para atravesar y empalar una gran variedad de objetivos.", "modReceptor": ["mod-rec-10"], "modCaño": ["mod-can-3"], "modEmpuñadura": [], "modCulata": ["mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-3"]},
+            {"id": "arpeq-15", "class": "arpeq", "name": "Fusil de jeringas", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "0", "alcance": "M", "cualidades": "A Dos Manos", "cargador": "1", "peso": "6", "coste": "132", "rareza": "2", "descripcion": "Un arma improvisada que utiliza presión de aire para propulsar jeringas modificadas hacia un objetivo. Por sí sola inflige poco daño, pero las jeringas pueden producir una amplia variedad de efectos debilitantes.", "modReceptor": [], "modCaño": ["mod-can-3"], "modEmpuñadura": [], "modCulata": ["mod-cul-2", "mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": []}
         ];
 
         <!-- DB: Mods de armas pequeñas -->
@@ -2492,14 +2496,14 @@ function renderLibros() {
             {"id": "mod-boc-4", "class": "modarpeq modBoca", "name": "Silenciador", "prefijo": "Silenciada", "efectos": "Obtiene Silenciada", "peso": "+2", "coste": "+45", "rareza": "—", "perk": "Loco de las Armas 2", "descripcion": ""}
         ];
 
-        <!-- DB: Armas de energía -->
+        // DB: Armas de energía
         const armasEnergia = [
-            {"id": "areng-1", "class": "areng", "name": "Láser del Instituto", "tipo de daño": "Energía", "efecto del daño": "Ráfaga", "cadencia": "3", "alcance": "C", "cualidades": "Corta Distancia, Imprecisa", "cargador": "30", "peso": "4", "coste": "50", "rareza": "2", "descripcion": "Disparan una sucesión rápida de haces capaces de descargar una devastadora lluvia de fuego de supresión. El perfil básico corresponde a una pistola láser del Instituto y acepta una mod de cada tipo: Capacitor, Cañón, Culata, Miras y Boca.", "modReceptor": ["mod-ene-1", "mod-ene-2", "mod-ene-3", "mod-ene-4"], "modCaño": ["mod-ene-5", "mod-ene-6", "mod-ene-10"], "modEmpuñadura": [], "modCulata": ["mod-ene-13"], "modMira": ["mod-ene-17", "mod-ene-18", "mod-ene-19", "mod-ene-20", "mod-ene-21", "mod-ene-22"], "modBoca": ["mod-ene-23", "mod-ene-24", "mod-ene-25"]},
-            {"id": "areng-2", "class": "areng", "name": "Mosquete Láser", "tipo de daño": "Energía", "efecto del daño": "Perforante 1", "cadencia": "0", "alcance": "M", "cualidades": "A Dos Manos", "cargador": "1", "peso": "13", "coste": "57", "rareza": "1", "descripcion": "Versión casera con manivela para acumular energía. Cada disparo consume dos disparos de munición. Acepta una mod de: Capacitor, Cañón, Culata, Miras y Boca.", "modReceptor": ["mod-ene-7", "mod-ene-8", "mod-ene-9"], "modCaño": ["mod-ene-5", "mod-ene-6", "mod-ene-7", "mod-ene-8", "mod-ene-9", "mod-ene-10", "mod-ene-11", "mod-ene-12"], "modEmpuñadura": [], "modCulata": ["mod-ene-13", "mod-ene-14", "mod-ene-15", "mod-ene-16"], "modMira": ["mod-ene-17", "mod-ene-18", "mod-ene-19", "mod-ene-20", "mod-ene-21", "mod-ene-22"], "modBoca": ["mod-ene-23", "mod-ene-24", "mod-ene-25"]},
-            {"id": "areng-3", "class": "areng", "name": "Pistola Láser", "tipo de daño": "Energía", "efecto del daño": "Perforante 1", "cadencia": "2", "alcance": "C", "cualidades": "Corta Distancia", "cargador": "30", "peso": "4", "coste": "69", "rareza": "2", "descripcion": "Emiten un haz concentrado de luz coherente de alta intensidad. Acepta una mod de: Capacitor, Cañón, Empuñadura, Culata, Miras y Boca.", "modReceptor": ["mod-ene-1", "mod-ene-2", "mod-ene-3", "mod-ene-4"], "modCaño": ["mod-ene-5", "mod-ene-6", "mod-ene-7", "mod-ene-8", "mod-ene-9", "mod-ene-10", "mod-ene-11", "mod-ene-12"], "modEmpuñadura": ["mod-ene-12"], "modCulata": ["mod-ene-13", "mod-ene-14", "mod-ene-15", "mod-ene-16"], "modMira": ["mod-ene-17", "mod-ene-18", "mod-ene-19", "mod-ene-20", "mod-ene-21", "mod-ene-22"], "modBoca": ["mod-ene-23", "mod-ene-24", "mod-ene-25"]},
-            {"id": "areng-4", "class": "areng", "name": "Pistola de Plasma", "tipo de daño": "Físico/Energía", "efecto del daño": "—", "cadencia": "1", "alcance": "C", "cualidades": "Corta Distancia", "cargador": "30", "peso": "4", "coste": "123", "rareza": "3", "descripcion": "Disparan gas ionizado sobrecalentado. Se reduce el total utilizando la menor de las dos Resistencias de Daño del objetivo. Acepta una mod de: Capacitor, Cañón, Culata y Miras.", "modReceptor": ["mod-ene-1", "mod-ene-2", "mod-ene-3", "mod-ene-4"], "modCaño": ["mod-ene-5", "mod-ene-6", "mod-ene-7", "mod-ene-8", "mod-ene-9", "mod-ene-10", "mod-ene-11", "mod-ene-12"], "modEmpuñadura": [], "modCulata": ["mod-ene-13", "mod-ene-14", "mod-ene-15", "mod-ene-16"], "modMira": ["mod-ene-17", "mod-ene-18", "mod-ene-19", "mod-ene-20", "mod-ene-21", "mod-ene-22"], "modBoca": []},
-            {"id": "areng-5", "class": "areng", "name": "Pistola Gamma", "tipo de daño": "Radiación", "efecto del daño": "Perforante 1, Aturdimiento", "cadencia": "1", "alcance": "M", "cualidades": "Explosión, Imprecisa", "cargador": "8", "peso": "3", "coste": "156", "rareza": "5", "descripcion": "Emiten descargas dirigidas de radiación ionizante de alta intensidad. Sus mods exclusivas requieren la habilidad &iexcl;Ciencia! 4.", "modReceptor": [], "modCaño": [], "modEmpuñadura": [], "modCulata": [], "modMira": [], "modBoca": ["mod-ene-26", "mod-ene-27"]},
-            {"id": "areng-6", "class": "areng", "name": "Rad Sprayer", "tipo de daño": "Radiación", "efecto del daño": "Persistente(Radiacion), Radiacion, Dispersion", "cadencia": "3", "alcance": "C", "cualidades": "Explosión, Debilitante, Imprecisa, Dos Manos", "cargador": "10", "peso": "3", "coste": "323", "rareza": "3", "descripcion": "Usando un rifle como estructura, fue modificado intensamente con tubos, reguladores de presión y todo tipo de componentes para convertirlo en un rociador presurizado. No hay dos exactamente iguales, como tampoco lo es su carga, pero el efecto letal es universal. Dispara ácido radiactivo altamente volátil y presurizado contra los objetivos, cubriendo a las víctimas con él, lo que rápidamente corroe todo lo que toca. El ácido se adhiere a las víctimas y continúa quemándolas mientras la radiación se filtra en ellas. El efecto Persistente inflige tanto daño de Energía como de Radiación. Tirás el daño normalmente y luego reducís el total según cuál de las dos Resistencias al Daño del objetivo, Energía o Radiación, sea menor.", "modReceptor": [], "modCaño": ["mod-ene-29"], "modEmpuñadura": [], "modCulata": [], "modMira": [], "modBoca": ["mod-ene-32", "mod-ene-33"]}
+            {"id": "areng-1", "class": "areng", "name": "Láser del Instituto", "daño": "3", "tipo de daño": "Energía", "efecto del daño": "Ráfaga", "cadencia": "3", "alcance": "C", "cualidades": "Corta Distancia, Imprecisa", "cargador": "30", "peso": "4", "coste": "50", "rareza": "2", "descripcion": "Disparan una sucesión rápida de haces capaces de descargar una devastadora lluvia de fuego de supresión. El perfil básico corresponde a una pistola láser del Instituto y acepta una mod de cada tipo: Capacitor, Cañón, Culata, Miras y Boca.", "modReceptor": ["mod-ene-1", "mod-ene-2", "mod-ene-3", "mod-ene-4"], "modCaño": ["mod-ene-5", "mod-ene-6", "mod-ene-10"], "modEmpuñadura": [], "modCulata": ["mod-ene-13"], "modMira": ["mod-ene-17", "mod-ene-18", "mod-ene-19", "mod-ene-20", "mod-ene-21", "mod-ene-22"], "modBoca": ["mod-ene-23", "mod-ene-24", "mod-ene-25"]},
+            {"id": "areng-2", "class": "areng", "name": "Mosquete Láser", "daño": "5", "tipo de daño": "Energía", "efecto del daño": "Perforante 1", "cadencia": "0", "alcance": "M", "cualidades": "A Dos Manos", "cargador": "1", "peso": "13", "coste": "57", "rareza": "1", "descripcion": "Versión casera con manivela para acumular energía. Cada disparo consume dos disparos de munición. Acepta una mod de: Capacitor, Cañón, Culata, Miras y Boca.", "modReceptor": ["mod-ene-7", "mod-ene-8", "mod-ene-9"], "modCaño": ["mod-ene-5", "mod-ene-6", "mod-ene-7", "mod-ene-8", "mod-ene-9", "mod-ene-10", "mod-ene-11", "mod-ene-12"], "modEmpuñadura": [], "modCulata": ["mod-ene-13", "mod-ene-14", "mod-ene-15", "mod-ene-16"], "modMira": ["mod-ene-17", "mod-ene-18", "mod-ene-19", "mod-ene-20", "mod-ene-21", "mod-ene-22"], "modBoca": ["mod-ene-23", "mod-ene-24", "mod-ene-25"]},
+            {"id": "areng-3", "class": "areng", "name": "Pistola Láser", "daño": "4", "tipo de daño": "Energía", "efecto del daño": "Perforante 1", "cadencia": "2", "alcance": "C", "cualidades": "Corta Distancia", "cargador": "30", "peso": "4", "coste": "69", "rareza": "2", "descripcion": "Emiten un haz concentrado de luz coherente de alta intensidad. Acepta una mod de: Capacitor, Cañón, Empuñadura, Culata, Miras y Boca.", "modReceptor": ["mod-ene-1", "mod-ene-2", "mod-ene-3", "mod-ene-4"], "modCaño": ["mod-ene-5", "mod-ene-6", "mod-ene-7", "mod-ene-8", "mod-ene-9", "mod-ene-10", "mod-ene-11", "mod-ene-12"], "modEmpuñadura": ["mod-ene-12"], "modCulata": ["mod-ene-13", "mod-ene-14", "mod-ene-15", "mod-ene-16"], "modMira": ["mod-ene-17", "mod-ene-18", "mod-ene-19", "mod-ene-20", "mod-ene-21", "mod-ene-22"], "modBoca": ["mod-ene-23", "mod-ene-24", "mod-ene-25"]},
+            {"id": "areng-4", "class": "areng", "name": "Pistola de Plasma", "daño": "6", "tipo de daño": "Físico/Energía", "efecto del daño": "—", "cadencia": "1", "alcance": "C", "cualidades": "Corta Distancia", "cargador": "30", "peso": "4", "coste": "123", "rareza": "3", "descripcion": "Disparan gas ionizado sobrecalentado. Se reduce el total utilizando la menor de las dos Resistencias de Daño del objetivo. Acepta una mod de: Capacitor, Cañón, Culata y Miras.", "modReceptor": ["mod-ene-1", "mod-ene-2", "mod-ene-3", "mod-ene-4"], "modCaño": ["mod-ene-5", "mod-ene-6", "mod-ene-7", "mod-ene-8", "mod-ene-9", "mod-ene-10", "mod-ene-11", "mod-ene-12"], "modEmpuñadura": [], "modCulata": ["mod-ene-13", "mod-ene-14", "mod-ene-15", "mod-ene-16"], "modMira": ["mod-ene-17", "mod-ene-18", "mod-ene-19", "mod-ene-20", "mod-ene-21", "mod-ene-22"], "modBoca": []},
+            {"id": "areng-5", "class": "areng", "name": "Pistola Gamma", "daño": "3", "tipo de daño": "Radiación", "efecto del daño": "Perforante 1, Aturdimiento", "cadencia": "1", "alcance": "M", "cualidades": "Explosión, Imprecisa", "cargador": "8", "peso": "3", "coste": "156", "rareza": "5", "descripcion": "Emiten descargas dirigidas de radiación ionizante de alta intensidad. Sus mods exclusivas requieren la habilidad &iexcl;Ciencia! 4.", "modReceptor": [], "modCaño": [], "modEmpuñadura": [], "modCulata": [], "modMira": [], "modBoca": ["mod-ene-26", "mod-ene-27"]},
+            {"id": "areng-6", "class": "areng", "name": "Rad Sprayer", "daño": "3", "tipo de daño": "Radiación", "efecto del daño": "Persistente(Radiacion), Radiacion, Dispersion", "cadencia": "3", "alcance": "C", "cualidades": "Explosión, Debilitante, Imprecisa, Dos Manos", "cargador": "10", "peso": "3", "coste": "323", "rareza": "3", "descripcion": "Usando un rifle como estructura, fue modificado intensamente con tubos, reguladores de presión y todo tipo de componentes para convertirlo en un rociador presurizado. No hay dos exactamente iguales, como tampoco lo es su carga, pero el efecto letal es universal. Dispara ácido radiactivo altamente volátil y presurizado contra los objetivos, cubriendo a las víctimas con él, lo que rápidamente corroe todo lo que toca. El ácido se adhiere a las víctimas y continúa quemándolas mientras la radiación se filtra en ellas. El efecto Persistente inflige tanto daño de Energía como de Radiación. Tirás el daño normalmente y luego reducís el total según cuál de las dos Resistencias al Daño del objetivo, Energía o Radiación, sea menor.", "modReceptor": [], "modCaño": ["mod-ene-29"], "modEmpuñadura": [], "modCulata": [], "modMira": [], "modBoca": ["mod-ene-32", "mod-ene-33"]}
         ];
 
         <!-- DB mods de armas de energia-->
@@ -2541,13 +2545,13 @@ function renderLibros() {
 
         <!-- DB: Armas grandes -->
         const armasGrandes = [
-            {"id": "argra-1", "class": "argra", "name": "Fat Man", "tipo de daño": "Físico", "efecto del daño": "Ruptura, Radiactivo, Cruel", "cadencia": "0", "alcance": "M", "cualidades": "Explosión, Imprecisa, A Dos Manos", "cargador": "1", "peso": "31", "coste": "512", "rareza": "4", "descripcion": "El M42 Catapulta Nuclear es un arma de apoyo de infantería disparada desde el hombro que lanza pequeñas ojivas nucleares tácticas a una distancia moderada para provocar destrucción masiva.", "modReceptor": [], "modCaño": [], "modEmpuñadura": [], "modCulata": [], "modMira": [], "modBoca": []},
-            {"id": "argra-2", "class": "argra", "name": "Lanzallamas", "tipo de daño": "Energía", "efecto del daño": "Ráfaga, Persistente, Dispersión", "cadencia": "4", "alcance": "C", "cualidades": "Debilitante, Imprecisa, A Dos Manos", "cargador": "100", "peso": "16", "coste": "137", "rareza": "3", "descripcion": "Rocía una mezcla de combustible encendida sobre una zona, creando un chorro de llamas capaz de quemar o prender fuego a objetivos a distancia.", "modReceptor": ["mod-gra-1"], "modCaño": ["mod-gra-2"], "modEmpuñadura": [], "modCulata": [], "modMira": [], "modBoca": ["mod-gra-5", "mod-gra-6"]} ,
-            {"id": "argra-3", "class": "argra", "name": "Láser Gatling", "tipo de daño": "Energía", "efecto del daño": "Ráfaga, Perforante 1", "cadencia": "6", "alcance": "M", "cualidades": "Gatling, Imprecisa, A Dos Manos", "cargador": "500", "peso": "19", "coste": "804", "rareza": "3", "descripcion": "Arma láser de alta cadencia de fuego que utiliza varios cañones giratorios para producir una devastadora ráfaga de pulsos láser.", "modReceptor": ["mod-gra-7", "mod-gra-8", "mod-gra-9", "mod-gra-10"], "modCaño": ["mod-gra-11"], "modEmpuñadura": [], "modCulata": [], "modMira": ["mod-gra-12"], "modBoca": ["mod-gra-13"]},
-            {"id": "argra-4", "class": "argra", "name": "Incinerador Pesado", "tipo de daño": "Energía", "efecto del daño": "Ráfaga, Persistente, Dispersión", "cadencia": "3", "alcance": "M", "cualidades": "Debilitante, A Dos Manos", "cargador": "60", "peso": "23", "coste": "350", "rareza": "4", "descripcion": "Propulsa mezclas de combustible encendidas lanzando una sucesión de bolas de fuego en un arco como un lanzagranadas que explotan al impactar.", "modReceptor": [], "modCaño": [], "modEmpuñadura": [], "modCulata": [], "modMira": [], "modBoca": []},
-            {"id": "argra-5", "class": "argra", "name": "Lanzador de Chatarra", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "1", "alcance": "M", "cualidades": "A Dos Manos", "cargador": "Sin límite", "peso": "30", "coste": "285", "rareza": "3", "descripcion": "Arma pesada improvisada que dispara cualquier objeto llevado encima con una fuerza letal.", "modReceptor": [], "modCaño": ["mod-gra-14"], "modEmpuñadura": [], "modCulata": ["mod-gra-15"], "modMira": ["mod-gra-16"], "modBoca": ["mod-gra-17", "mod-gra-18"]},
-            {"id": "argra-6", "class": "argra", "name": "Minigun", "tipo de daño": "Físico", "efecto del daño": "Ráfaga, Dispersión", "cadencia": "5", "alcance": "M", "cualidades": "Gatling, Imprecisa, A Dos Manos", "cargador": "500", "peso": "27", "coste": "382", "rareza": "2", "descripcion": "Arma automática de fuego rápido, con diseño tipo Gatling y accionada por motor, de resultados devastadores.", "modReceptor": [], "modCaño": ["mod-gra-19", "mod-gra-20"], "modEmpuñadura": [], "modCulata": [], "modMira": ["mod-gra-21"], "modBoca": ["mod-gra-22"]},
-            {"id": "argra-7", "class": "argra", "name": "Lanzamisiles", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "0", "alcance": "L", "cualidades": "Explosión, A Dos Manos", "cargador": "1", "peso": "21", "coste": "314", "rareza": "4", "descripcion": "Sistema multipropósito de carga por recámara, modular, más pequeño y maniobrable.", "modReceptor": [], "modCaño": ["mod-gra-23", "mod-gra-24"], "modEmpuñadura": [], "modCulata": [], "modMira": ["mod-gra-25", "mod-gra-26", "mod-gra-27"], "modBoca": ["mod-gra-28", "mod-gra-29"]}
+            {"id": "argra-1", "class": "argra", "name": "Fat Man", "daño": "21", "tipo de daño": "Físico", "efecto del daño": "Ruptura, Radiactivo, Cruel", "cadencia": "0", "alcance": "M", "cualidades": "Explosión, Imprecisa, A Dos Manos", "cargador": "1", "peso": "31", "coste": "512", "rareza": "4", "descripcion": "El M42 Catapulta Nuclear es un arma de apoyo de infantería disparada desde el hombro que lanza pequeñas ojivas nucleares tácticas a una distancia moderada para provocar destrucción masiva.", "modReceptor": [], "modCaño": [], "modEmpuñadura": [], "modCulata": [], "modMira": [], "modBoca": []},
+            {"id": "argra-2", "class": "argra", "name": "Lanzallamas", "daño": "3", "tipo de daño": "Energía", "efecto del daño": "Ráfaga, Persistente, Dispersión", "cadencia": "4", "alcance": "C", "cualidades": "Debilitante, Imprecisa, A Dos Manos", "cargador": "100", "peso": "16", "coste": "137", "rareza": "3", "descripcion": "Rocía una mezcla de combustible encendida sobre una zona, creando un chorro de llamas capaz de quemar o prender fuego a objetivos a distancia.", "modReceptor": ["mod-gra-1"], "modCaño": ["mod-gra-2"], "modEmpuñadura": [], "modCulata": [], "modMira": [], "modBoca": ["mod-gra-5", "mod-gra-6"]},
+            {"id": "argra-3", "class": "argra", "name": "Láser Gatling", "daño": "3", "tipo de daño": "Energía", "efecto del daño": "Ráfaga, Perforante 1", "cadencia": "6", "alcance": "M", "cualidades": "Gatling, Imprecisa, A Dos Manos", "cargador": "500", "peso": "19", "coste": "804", "rareza": "3", "descripcion": "Arma láser de alta cadencia de fuego que utiliza varios cañones giratorios para producir una devastadora ráfaga de pulsos láser.", "modReceptor": ["mod-gra-7", "mod-gra-8", "mod-gra-9", "mod-gra-10"], "modCaño": ["mod-gra-11"], "modEmpuñadura": [], "modCulata": [], "modMira": ["mod-gra-12"], "modBoca": ["mod-gra-13"]},
+            {"id": "argra-4", "class": "argra", "name": "Incinerador Pesado", "daño": "5", "tipo de daño": "Energía", "efecto del daño": "Ráfaga, Persistente, Dispersión", "cadencia": "3", "alcance": "M", "cualidades": "Debilitante, A Dos Manos", "cargador": "60", "peso": "20", "coste": "350", "rareza": "4", "descripcion": "Propulsa mezclas de combustible encendidas lanzando una sucesión de bolas de fuego en un arco como un lanzagranadas que explotan al impactar.", "modReceptor": [], "modCaño": [], "modEmpuñadura": [], "modCulata": [], "modMira": [], "modBoca": []},
+            {"id": "argra-5", "class": "argra", "name": "Lanzador de Chatarra", "daño": "6", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "1", "alcance": "M", "cualidades": "A Dos Manos", "cargador": "Sin límite", "peso": "30", "coste": "285", "rareza": "3", "descripcion": "Arma pesada improvisada que dispara cualquier objeto llevado encima con una fuerza letal.", "modReceptor": [], "modCaño": ["mod-gra-14"], "modEmpuñadura": [], "modCulata": ["mod-gra-15"], "modMira": ["mod-gra-16"], "modBoca": ["mod-gra-17", "mod-gra-18"]},
+            {"id": "argra-6", "class": "argra", "name": "Minigun", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "Ráfaga, Dispersión", "cadencia": "5", "alcance": "M", "cualidades": "Gatling, Imprecisa, A Dos Manos", "cargador": "500", "peso": "27", "coste": "382", "rareza": "2", "descripcion": "Arma automática de fuego rápido, con diseño tipo Gatling y accionada por motor, de resultados devastadores.", "modReceptor": [], "modCaño": ["mod-gra-19", "mod-gra-20"], "modEmpuñadura": [], "modCulata": [], "modMira": ["mod-gra-21"], "modBoca": ["mod-gra-22"]},
+            {"id": "argra-7", "class": "argra", "name": "Lanzamisiles", "daño": "11", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "0", "alcance": "L", "cualidades": "Explosión, A Dos Manos", "cargador": "1", "peso": "21", "coste": "314", "rareza": "4", "descripcion": "Sistema multipropósito de carga por recámara, modular, más pequeño y maniobrable.", "modReceptor": [], "modCaño": ["mod-gra-23", "mod-gra-24"], "modEmpuñadura": [], "modCulata": [], "modMira": ["mod-gra-25", "mod-gra-26", "mod-gra-27"], "modBoca": ["mod-gra-28", "mod-gra-29"]}
         ];
 
         <!-- DB: mods de armas grandes-->
@@ -2583,34 +2587,34 @@ function renderLibros() {
             {"id": "mod-gra-29", "class": "modargra modBoca", "name": "Estabilizador", "prefijo": "Con Freno", "efectos": "Gana Perforante 1", "peso": "+2", "coste": "+60", "rareza": "—", "perk": "Loco de las Armas 2", "descripcion": "Mod de boca para Lanzamisiles."}
         ];
 
-        <!-- DB: Armas CaC -->
+        // DB: Armas CaC
         const armasMelee = [
-            { "id": "melee-01", "class": "unarm", "name": "Golpe sin Armas", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "—", "coste": "—", "rareza": "—", "descripcion": "Las armas cuerpo a cuerpo y sin armas son la última línea de defensa o la forma más brutal de lidiar con los enemigos en el Yermo cuando la munición escasea o se prefiere el silencio." },
-            { "id": "melee-02", "class": "meleearm", "name": "Piedra Práctica", "tipo de daño": "Físico", "efecto del daño": "Cruel", "cadencia": "—", "alcance": "—", "cualidades": "Arrojadiza (C)", "cargador": "—", "peso": "1", "coste": "—", "rareza": "—", "descripcion": "Las armas cuerpo a cuerpo y sin armas son la última línea de defensa o la forma más brutal de lidiar con los enemigos en el Yermo cuando la munición escasea o se prefiere el silencio." },
-            { "id": "melee-03", "class": "meleearm", "name": "Golpe con Arma (1M)", "tipo de daño": "Físico", "efecto del daño": "Aturdimiento", "cadencia": "—", "alcance": "—", "cualidades": "Como Arma de Fuego", "cargador": "—", "peso": "—", "coste": "—", "rareza": "—", "descripcion": "Las armas cuerpo a cuerpo y sin armas son la última línea de defensa o la forma más brutal de lidiar con los enemigos en el Yermo cuando la munición escasea o se prefiere el silencio." },
-            { "id": "melee-04", "class": "meleearm", "name": "Golpe con Arma", "tipo de daño": "Físico", "efecto del daño": "Aturdimiento", "cadencia": "—", "alcance": "—", "cualidades": "Como Arma de Fuego a Dos Manos", "cargador": "—", "peso": "—", "coste": "—", "rareza": "—", "descripcion": "Las armas cuerpo a cuerpo y sin armas son la última línea de defensa o la forma más brutal de lidiar con los enemigos en el Yermo cuando la munición escasea o se prefiere el silencio." },
-            { "id": "melee-05", "class": "meleearm", "name": "Espada", "tipo de daño": "Físico", "efecto del daño": "Perforante 1", "cadencia": "—", "alcance": "—", "cualidades": "Parada", "cargador": "—", "peso": "3", "coste": "50", "rareza": "2", "descripcion": "Las espadas se utilizan desde hace casi tanto tiempo como existen las guerras y, hasta la Gran Guerra, siguieron siendo símbolos extendidos de estatus y prestigio entre los soldados —especialmente los oficiales— de todo el mundo.", mod:["mod-modReceptor-01", "mod-modReceptor-02", "mod-modReceptor-03", "mod-modReceptor-04"] },
-            { "id": "melee-06", "class": "meleearm", "name": "Cuchillo de Combate", "tipo de daño": "Físico", "efecto del daño": "Perforante 1", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "1", "coste": "25", "rareza": "1", "descripcion": "Tanto para combatir como para tareas prácticas, los soldados —y quienes buscan imitarlos— suelen llevar cuchillos." },
-            { "id": "melee-07", "class": "meleearm", "name": "Machete", "tipo de daño": "Físico", "efecto del daño": "Perforante 1", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "2", "coste": "25", "rareza": "1", "descripcion": "Un cuchillo largo y afilado diseñado para abrirse paso a través de vegetación densa o resistente." },
-            { "id": "melee-08", "class": "meleearm", "name": "Ripper", "tipo de daño": "Físico", "efecto del daño": "Cruel", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "6", "coste": "50", "rareza": "2", "descripcion": "El Ripper es una pequeña motosierra militarizada de mano que tuvo un uso extendido en los conflictos armados anteriores a la Gran Guerra.", "mod":["mod-modReceptor-05", "mod-modReceptor-06"] },
-            { "id": "melee-09", "class": "meleearm", "name": "Shishkebab", "tipo de daño": "Energía", "efecto del daño": "Perforante 1", "cadencia": "—", "alcance": "—", "cualidades": "Parada", "cargador": "—", "peso": "3", "coste": "200", "rareza": "3", "descripcion": "Una «espada en llamas» improvisada, el Shishkebab se encuentra en diversas formas por todo el Yermo.", "mod":["mod-modReceptor-07"] },
-            { "id": "melee-10", "class": "meleearm", "name": "Navaja Automática", "tipo de daño": "Físico", "efecto del daño": "Perforante 1", "cadencia": "—", "alcance": "—", "cualidades": "Oculta", "cargador": "—", "peso": "1", "coste": "20", "rareza": "0", "descripcion": "La navaja automática es un arma cuerpo a cuerpo bastante común.", "mod":["mod-modReceptor-08", "mod-modReceptor-09"] },
-            { "id": "melee-11", "class": "meleearm", "name": "Bate de Béisbol", "tipo de daño": "Físico", "efecto del daño": "CD", "cadencia": "—", "alcance": "—", "cualidades": "A Dos Manos", "cargador": "—", "peso": "3", "coste": "25", "rareza": "1", "descripcion": "Los bates de béisbol alguna vez se utilizaron en el deporte del mismo nombre, considerado el pasatiempo número uno de Estados Unidos." },
-            { "id": "melee-12", "class": "meleearm", "name": "Bate de Béisbol de Aluminio", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "A Dos Manos", "cargador": "—", "peso": "2", "coste": "32", "rareza": "2", "descripcion": "Variante de aluminio del bate de béisbol clásico, que produce un arma más liviana y resistente." },
-            { "id": "melee-13", "class": "meleearm", "name": "Tabla", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "A Dos Manos", "cargador": "—", "peso": "3", "coste": "20", "rareza": "0", "descripcion": "Poco más que un tablón largo de madera con un mango envuelto en cinta aisladora." },
-            { "id": "melee-14", "class": "meleearm", "name": "Caño de Plomo", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "3", "coste": "15", "rareza": "0", "descripcion": "Un tramo de caño de metal pesado —normalmente de plomo—, con un mango envuelto en cinta aisladora." },
-            { "id": "melee-15", "class": "meleearm", "name": "Llave Inglesa", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "2", "coste": "30", "rareza": "1", "descripcion": "Una llave ajustable de metal pesado, lo suficientemente larga como para utilizarse como un arma cuerpo a cuerpo improvisada." },
-            { "id": "melee-16", "class": "meleearm", "name": "Taco de Billar", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "A Dos Manos", "cargador": "—", "peso": "1", "coste": "10", "rareza": "0", "descripcion": "Una pieza larga y delgada de madera utilizada en juegos como el pool." },
-            { "id": "melee-17", "class": "meleearm", "name": "Palo de Amasar", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "1", "coste": "10", "rareza": "0", "descripcion": "Un cilindro resistente de madera que se encuentra en cocinas de todo el mundo." },
-            { "id": "melee-18", "class": "meleearm", "name": "Bastón", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "2", "coste": "15", "rareza": "1", "descripcion": "Un bastón plegable del tipo utilizado por los departamentos de policía y las fuerzas de seguridad privadas antes de la Gran Guerra." },
-            { "id": "melee-19", "class": "meleearm", "name": "Mazo", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "A Dos Manos", "cargador": "—", "peso": "12", "coste": "40", "rareza": "2", "descripcion": "Los mazos son armas primitivas que se utilizaban como herramientas antes de la Gran Guerra, para romper el suelo o demoler cosas." },
-            { "id": "melee-20", "class": "meleearm", "name": "Súper Mazo", "tipo de daño": "Físico", "efecto del daño": "Ruptura", "cadencia": "—", "alcance": "—", "cualidades": "A Dos Manos", "cargador": "—", "peso": "20", "coste": "180", "rareza": "3", "descripcion": "Los Súper Mazos son variantes potenciadas del mazo común que incorporan un pequeño motor cohete dentro de la cabeza." },
-            { "id": "melee-21", "class": "meleearm", "name": "Llave de Rueda", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "2", "coste": "25", "rareza": "1", "descripcion": "Una simple herramienta en forma de L que se encuentra habitualmente en autos y garajes." },
-            { "id": "melee-22", "class": "meleearm", "name": "Bastón para Caminar", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "2", "coste": "10", "rareza": "0", "descripcion": "Un simple bastón utilizado para ayudar a quienes no pueden caminar demasiado bien." },
-            { "id": "melee-23", "class": "unarm", "name": "Guante de Boxeo", "tipo de daño": "Físico", "efecto del daño": "Aturdimiento", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "1", "coste": "10", "rareza": "1", "descripcion": "Una gran manopla de cuero utilizada para proteger las manos y las muñecas al golpear." },
-            { "id": "melee-24", "class": "unarm", "name": "Guantelete de Sanguinario", "tipo de daño": "Físico", "efecto del daño": "Perforante 1", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "10", "coste": "75", "rareza": "3", "descripcion": "Fabricado a partir de los dedos y garras amputados de un sanguinario y montados sobre un brazalete." },
-            { "id": "melee-25", "class": "unarm", "name": "Nudilleras", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "Oculta", "cargador": "—", "peso": "< 1", "coste": "10", "rareza": "1", "descripcion": "Las nudilleras de latón consisten en cuatro anillos metálicos unidos entre sí formando una estructura convexa." },
-            { "id": "melee-26", "class": "unarm", "name": "Puño de Potencia", "tipo de daño": "Físico", "efecto del daño": "Aturdimiento", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "4", "coste": "100", "rareza": "2", "descripcion": "Un Puño de Potencia es un guantelete o brazal reforzado que incorpora un pistón neumático de alta resistencia." }
+            { "id": "melee-01", "class": "unarm", "name": "Golpe sin Armas", "daño": "2", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "—", "coste": "—", "rareza": "—", "descripcion": "Las armas cuerpo a cuerpo y sin armas son la última línea de defensa o la forma más brutal de lidiar con los enemigos en el Yermo cuando la munición escasea o se prefiere el silencio." },
+            { "id": "melee-02", "class": "unarm", "name": "Piedra Práctica", "daño": "2", "tipo de daño": "Físico", "efecto del daño": "Cruel", "cadencia": "—", "alcance": "—", "cualidades": "Arrojadiza (C)", "cargador": "—", "peso": "1", "coste": "—", "rareza": "—", "descripcion": "Las armas cuerpo a cuerpo y sin armas son la última línea de defensa o la forma más brutal de lidiar con los enemigos en el Yermo cuando la munición escasea o se prefiere el silencio." },
+            { "id": "melee-03", "class": "meleearm", "name": "Golpe con Arma (1M)", "daño": "2", "tipo de daño": "Físico", "efecto del daño": "Aturdimiento", "cadencia": "—", "alcance": "—", "cualidades": "Como Arma de Fuego", "cargador": "—", "peso": "—", "coste": "—", "rareza": "—", "descripcion": "Las armas cuerpo a cuerpo y sin armas son la última línea de defensa o la forma más brutal de lidiar con los enemigos en el Yermo cuando la munición escasea o se prefiere el silencio." },
+            { "id": "melee-04", "class": "meleearm", "name": "Golpe con Arma", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "Aturdimiento", "cadencia": "—", "alcance": "—", "cualidades": "Como Arma de Fuego a Dos Manos", "cargador": "—", "peso": "—", "coste": "—", "rareza": "—", "descripcion": "Las armas cuerpo a cuerpo y sin armas son la última línea de defensa o la forma más brutal de lidiar con los enemigos en el Yermo cuando la munición escasea o se prefiere el silencio." },
+            { "id": "melee-05", "class": "meleearm", "name": "Espada", "daño": "4", "tipo de daño": "Físico", "efecto del daño": "Perforante 1", "cadencia": "—", "alcance": "—", "cualidades": "Parada", "cargador": "—", "peso": "3", "coste": "50", "rareza": "2", "descripcion": "Las espadas se utilizan desde hace casi tanto tiempo como existen las guerras y, hasta la Gran Guerra, siguieron siendo símbolos extendidos de estatus y prestigio entre los soldados —especialmente los oficiales— de todo el mundo.", mod: ["mod-modReceptor-01", "mod-modReceptor-02", "mod-modReceptor-03", "mod-modReceptor-04"] },
+            { "id": "melee-06", "class": "meleearm", "name": "Cuchillo de Combate", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "Perforante 1", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "1", "coste": "25", "rareza": "1", "descripcion": "Tanto para combatir como para tareas prácticas, los soldados —y quienes buscan imitarlos— suelen llevar cuchillos." },
+            { "id": "melee-07", "class": "meleearm", "name": "Machete", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "Perforante 1", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "2", "coste": "25", "rareza": "1", "descripcion": "Un cuchillo largo y afilado diseñado para abrirse paso a través de vegetación densa o resistente." },
+            { "id": "melee-08", "class": "meleearm", "name": "Ripper", "daño": "4", "tipo de daño": "Físico", "efecto del daño": "Cruel", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "6", "coste": "50", "rareza": "2", "descripcion": "El Ripper es una pequeña motosierra militarizada de mano que tuvo un uso extendido en los conflictos armados anteriores a la Gran Guerra.", "mod": ["mod-modReceptor-05", "mod-modReceptor-06"] },
+            { "id": "melee-09", "class": "meleearm", "name": "Shishkebab", "daño": "5", "tipo de daño": "Energía", "efecto del daño": "Perforante 1", "cadencia": "—", "alcance": "—", "cualidades": "Parada", "cargador": "—", "peso": "3", "coste": "200", "rareza": "3", "descripcion": "Una «espada en llamas» improvisada, el Shishkebab se encuentra en diversas formas por todo el Yermo.", "mod": ["mod-modReceptor-07"] },
+            { "id": "melee-10", "class": "meleearm", "name": "Navaja Automática", "daño": "2", "tipo de daño": "Físico", "efecto del daño": "Perforante 1", "cadencia": "—", "alcance": "—", "cualidades": "Oculta", "cargador": "—", "peso": "1", "coste": "20", "rareza": "0", "descripcion": "La navaja automática es un arma cuerpo a cuerpo bastante común.", "mod": ["mod-modReceptor-08", "mod-modReceptor-09"] },
+            { "id": "melee-11", "class": "meleearm", "name": "Bate de Béisbol", "daño": "4", "tipo de daño": "Físico", "efecto del daño": "CD", "cadencia": "—", "alcance": "—", "cualidades": "A Dos Manos", "cargador": "—", "peso": "3", "coste": "25", "rareza": "1", "descripcion": "Los bates de béisbol alguna vez se utilizaron en el deporte del mismo nombre, considerado el pasatiempo número uno de Estados Unidos." },
+            { "id": "melee-12", "class": "meleearm", "name": "Bate de Béisbol de Aluminio", "daño": "5", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "A Dos Manos", "cargador": "—", "peso": "2", "coste": "32", "rareza": "2", "descripcion": "Variante de aluminio del bate de béisbol clásico, que produce un arma más liviana y resistente." },
+            { "id": "melee-13", "class": "meleearm", "name": "Tabla", "daño": "4", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "A Dos Manos", "cargador": "—", "peso": "3", "coste": "20", "rareza": "0", "descripcion": "Poco más que un tablón largo de madera con un mango envuelto en cinta aisladora." },
+            { "id": "melee-14", "class": "meleearm", "name": "Caño de Plomo", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "3", "coste": "15", "rareza": "0", "descripcion": "Un tramo de caño de metal pesado —normalmente de plomo—, con un mango envuelto en cinta aisladora." },
+            { "id": "melee-15", "class": "meleearm", "name": "Llave Inglesa", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "2", "coste": "30", "rareza": "1", "descripcion": "Una llave ajustable de metal pesado, lo suficientemente larga como para utilizarse como un arma cuerpo a cuerpo improvisada." },
+            { "id": "melee-16", "class": "meleearm", "name": "Taco de Billar", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "A Dos Manos", "cargador": "—", "peso": "1", "coste": "10", "rareza": "0", "descripcion": "Una pieza larga y delgada de madera utilizada en juegos como el pool." },
+            { "id": "melee-17", "class": "meleearm", "name": "Palo de Amasar", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "1", "coste": "10", "rareza": "0", "descripcion": "Un cilindro resistente de madera que se encuentra en cocinas de todo el mundo." },
+            { "id": "melee-18", "class": "meleearm", "name": "Bastón", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "2", "coste": "15", "rareza": "1", "descripcion": "Un bastón plegable del tipo utilizado por los departamentos de policía y las fuerzas de seguridad privadas antes de la Gran Guerra." },
+            { "id": "melee-19", "class": "meleearm", "name": "Mazo", "daño": "5", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "A Dos Manos", "cargador": "—", "peso": "12", "coste": "40", "rareza": "2", "descripcion": "Los mazos son armas primitivas que se utilizaban como herramientas antes de la Gran Guerra, para romper el suelo o demoler cosas." },
+            { "id": "melee-20", "class": "meleearm", "name": "Súper Mazo", "daño": "6", "tipo de daño": "Físico", "efecto del daño": "Ruptura", "cadencia": "—", "alcance": "—", "cualidades": "A Dos Manos", "cargador": "—", "peso": "20", "coste": "180", "rareza": "3", "descripcion": "Los Súper Mazos son variantes potenciadas del mazo común que incorporan un pequeño motor cohete dentro de la cabeza." },
+            { "id": "melee-21", "class": "meleearm", "name": "Llave de Rueda", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "2", "coste": "25", "rareza": "1", "descripcion": "Una simple herramienta en forma de L que se encuentra habitualmente en autos y garajes." },
+            { "id": "melee-22", "class": "meleearm", "name": "Bastón para Caminar", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "2", "coste": "10", "rareza": "0", "descripcion": "Un simple bastón utilizado para ayudar a quienes no pueden caminar demasiado bien." },
+            { "id": "melee-23", "class": "unarm", "name": "Guante de Boxeo", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "Aturdimiento", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "1", "coste": "10", "rareza": "1", "descripcion": "Una gran manopla de cuero utilizada para proteger las manos y las muñecas al golpear." },
+            { "id": "melee-24", "class": "unarm", "name": "Guantelete de Sanguinario", "daño": "5", "tipo de daño": "Físico", "efecto del daño": "Perforante 1", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "10", "coste": "75", "rareza": "3", "descripcion": "Fabricado a partir de los dedos y garras amputados de un sanguinario y montados sobre un brazalete." },
+            { "id": "melee-25", "class": "unarm", "name": "Nudilleras", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "—", "alcance": "—", "cualidades": "Oculta", "cargador": "—", "peso": "< 1", "coste": "10", "rareza": "1", "descripcion": "Las nudilleras de latón consisten en cuatro anillos metálicos unidos entre sí formando una estructura convexa." },
+            { "id": "melee-26", "class": "unarm", "name": "Puño de Potencia", "daño": "4", "tipo de daño": "Físico", "efecto del daño": "Aturdimiento", "cadencia": "—", "alcance": "—", "cualidades": "—", "cargador": "—", "peso": "4", "coste": "100", "rareza": "2", "descripcion": "Un Puño de Potencia es un guantelete o brazal reforzado que incorpora un pistón neumático de alta resistencia." }
         ];
 
         <!-- DB mods de armas Cac-->
@@ -2730,24 +2734,24 @@ function renderLibros() {
 
         <!-- DB: Armas arrojadizas -->
         const armasArrojadiza = [
-            { "id": "arroj-01", "class": "arrojadiza", "name": "Cuchillos Arrojadizos", "tipo de arma": "Arrojadiza", "daño": "3CD", "efecto del daño": "Perforante 1", "tipo de daño": "Físico", "cualidades": "Oculta, Silenciada, Arrojadiza (C)", "peso": "< 1", "coste": "10", "rareza": "1", "descripcion": "Un cuchillo pequeño y afilado, especialmente equilibrado para ser lanzado. Normalmente está hecho de un metal liviano, con la empuñadura ahuecada para reducir su peso. Por sí solos no provocan demasiado daño, pero son livianos, silenciosos y rápidos de manejar." },
-            { "id": "arroj-02", "class": "arrojadiza", "name": "Tomahawk", "tipo de arma": "Arrojadiza", "daño": "4CD", "efecto del daño": "Perforante 1", "tipo de daño": "Físico", "cualidades": "Silenciada, Arrojadiza (C)", "peso": "< 1", "coste": "15", "rareza": "2", "descripcion": "Un hacha pequeña de mango corto, similar a una pequeña hachuela. Menos sutil que un cuchillo arrojadizo, un tomahawk lanzado ciertamente puede dejar una impresión en un enemigo." },
-            { "id": "arroj-03", "class": "arrojadiza", "name": "Jabalina", "tipo de arma": "Arrojadiza", "daño": "4CD", "efecto del daño": "Perforante 1", "tipo de daño": "Físico", "cualidades": "Silenciada, Arrojadiza (M)", "peso": "4", "coste": "10", "rareza": "1", "descripcion": "Una lanza corta que normalmente no es lo suficientemente resistente como para combatir a corta distancia; una jabalina puede lanzarse a una distancia considerable." }
+            { "id": "arroj-01", "class": "arrojadiza", "name": "Cuchillos Arrojadizos", "tipo de arma": "Arrojadiza", "daño": "3", "efecto del daño": "Perforante 1", "tipo de daño": "Físico", "cualidades": "Oculta, Silenciada, Arrojadiza (C)", "peso": "< 1", "coste": "10", "rareza": "1", "descripcion": "Un cuchillo pequeño y afilado, especialmente equilibrado para ser lanzado. Normalmente está hecho de un metal liviano, con la empuñadura ahuecada para reducir su peso. Por sí solos no provocan demasiado daño, pero son livianos, silenciosos y rápidos de manejar." },
+            { "id": "arroj-02", "class": "arrojadiza", "name": "Tomahawk", "tipo de arma": "Arrojadiza", "daño": "4", "efecto del daño": "Perforante 1", "tipo de daño": "Físico", "cualidades": "Silenciada, Arrojadiza (C)", "peso": "< 1", "coste": "15", "rareza": "2", "descripcion": "Un hacha pequeña de mango corto, similar a una pequeña hachuela. Menos sutil que un cuchillo arrojadizo, un tomahawk lanzado ciertamente puede dejar una impresión en un enemigo." },
+            { "id": "arroj-03", "class": "arrojadiza", "name": "Jabalina", "tipo de arma": "Arrojadiza", "daño": "4", "efecto del daño": "Perforante 1", "tipo de daño": "Físico", "cualidades": "Silenciada, Arrojadiza (M)", "peso": "4", "coste": "10", "rareza": "1", "descripcion": "Una lanza corta que normalmente no es lo suficientemente resistente como para combatir a corta distancia; una jabalina puede lanzarse a una distancia considerable." }
         ];
 
         <!-- DB: Explosivos -->
         const explosivos = [
-            { "id": "explo-01", "class": "explosive", "name": "Granada de béisbol", "tipo de arma": "Explosivo", "daño": "5CD", "efecto del daño": "—", "tipo de daño": "Físico", "cualidades": "Explosión, Arrojadiza (M)", "peso": "1", "coste": "40", "rareza": "1", "descripcion": "Poco más que una pelota de béisbol ahuecada y rellena con una mezcla explosiva improvisada, estas granadas son rudimentarias, de baja tecnología y fáciles de fabricar. Infligen una cantidad moderada de daño a quienes se encuentren dentro de la zona de la explosión." },
-            { "id": "explo-02", "class": "explosive", "name": "Granada de fragmentación", "tipo de arma": "Explosivo", "daño": "6CD", "efecto del daño": "—", "tipo de daño": "Físico", "cualidades": "Explosión, Arrojadiza (M)", "peso": "< 1", "coste": "50", "rareza": "2", "descripcion": "Una granada de fragmentación básica, compuesta por un núcleo explosivo dentro de una carcasa metálica diseñada para hacerse añicos y producir metralla al detonar. Son simples y muy efectivas. Solo acordate de tirar la granada y no la anilla." },
-            { "id": "explo-03", "class": "explosive", "name": "Cóctel Molotov", "tipo de arma": "Explosivo", "daño": "4CD", "efecto del daño": "Persistente", "tipo de daño": "Energía", "cualidades": "Explosión, Arrojadiza (M)", "peso": "1", "coste": "20", "rareza": "1", "descripcion": "Consiste en una botella de vidrio —normalmente de una bebida alcohólica— que contiene una mezcla de combustible inflamable, un poco de aceite de motor para ayudar a que se disperse y un trapo empapado en alcohol colocado en la parte superior para utilizarlo como mecha. Al usarlo, se enciende la mecha y se arroja la botella contra el objetivo. La botella se rompe al impactar, dispersando la mezcla, que se enciende rápidamente y comienza a quemar todo lo que se encuentre cerca. Barato y efectivo." },
-            { "id": "explo-04", "class": "explosive", "name": "Granada Nuka", "tipo de arma": "Explosivo", "daño": "9CD", "efecto del daño": "Rompedora, Radiactiva, Viciosa", "tipo de daño": "Energía", "cualidades": "Explosión, Arrojadiza (M)", "peso": "1", "coste": "100", "rareza": "4", "descripcion": "Una diminuta arma nuclear táctica de mano, la granada Nuka es extremadamente peligrosa de utilizar —se recomienda no dejarla caer—, pero devastadoramente efectiva, comparable a las miniarmas nucleares utilizadas por el lanzador Fat Man." },
-            { "id": "explo-05", "class": "explosive", "name": "Granada de plasma", "tipo de arma": "Explosivo", "daño": "9CD", "efecto del daño": "—", "tipo de daño": "Energía", "cualidades": "Explosión, Arrojadiza (M)", "peso": "< 1", "coste": "135", "rareza": "3", "descripcion": "Un recipiente que contiene sustancias químicas que se transforman rápidamente en gas ionizado sobrecalentado —o plasma— al detonar. La explosión de una granada de plasma genera enormes cantidades de calor, más que suficientes para compensar la ausencia de metralla u ondas expansivas." },
-            { "id": "explo-06", "class": "explosive", "name": "Granada de pulso", "tipo de arma": "Explosivo", "daño": "6CD", "efecto del daño": "Aturdir", "tipo de daño": "Energía", "cualidades": "Explosión, Arrojadiza (M)", "peso": "< 1", "coste": "100", "rareza": "3", "descripcion": "Las granadas de pulso emiten una descarga de electromagnetismo que inflige enormes daños a las máquinas —como robots, sintéticos y armaduras de poder— que se encuentren en las inmediaciones, mientras que las criaturas vivas quedan ilesas." },
-            { "id": "explo-07", "class": "explosive", "name": "Mina de chapitas", "tipo de arma": "Explosivo", "daño": "6CD", "efecto del daño": "—", "tipo de daño": "Físico", "cualidades": "Explosión, Mina", "peso": "1", "coste": "75", "rareza": "2", "descripcion": "La mina de chapitas es rudimentaria, pero constituye un explosivo formidable. Las minas de chapitas se construyen a partir de un recipiente sencillo, como una lonchera, lleno de chapitas y una mezcla explosiva rudimentaria, equipado con un sensor y un detonador. La fuerza de la explosión lanza las chapitas en un área amplia a tal velocidad que funcionan esencialmente como metralla." },
-            { "id": "explo-08", "class": "explosive", "name": "Mina de fragmentación", "tipo de arma": "Explosivo", "daño": "6CD", "efecto del daño": "—", "tipo de daño": "Físico", "cualidades": "Explosión, Mina", "peso": "1", "coste": "50", "rareza": "2", "descripcion": "Similar en diseño y construcción a una granada de fragmentación, una mina de fragmentación se coloca en el suelo y utiliza una placa de presión o un sensor de proximidad para activar la detonación cuando alguien se acerca demasiado." },
-            { "id": "explo-09", "class": "explosive", "name": "Mina nuclear", "tipo de arma": "Explosivo", "daño": "9CD", "efecto del daño": "Rompedora, Radiactiva, Viciosa", "tipo de daño": "Energía", "cualidades": "Explosión, Mina", "peso": "1", "coste": "100", "rareza": "4", "descripcion": "Es una variante nuclear de una mina terrestre. La mina nuclear funciona en todos los aspectos como las demás minas, aunque su explosión es más parecida a la de una miniarma nuclear. Naturalmente, esto significa que inflige daño tanto por la explosión como por la radiación que esta libera." },
-            { "id": "explo-10", "class": "explosive", "name": "Mina de plasma", "tipo de arma": "Explosivo", "daño": "9CD", "efecto del daño": "—", "tipo de daño": "Energía", "cualidades": "Explosión, Mina", "peso": "< 1", "coste": "135", "rareza": "3", "descripcion": "Estas minas selladas magnéticamente liberan una descarga de plasma energizado cuando se activan, abrasando a quienes hacen saltar sus sensores." },
-            { "id": "explo-11", "class": "explosive", "name": "Mina de pulso", "tipo de arma": "Explosivo", "daño": "6CD", "efecto del daño": "Aturdir", "tipo de daño": "Energía", "cualidades": "Explosión, Mina", "peso": "< 1", "coste": "100", "rareza": "3", "descripcion": "La mina consiste en un potente dispositivo EMP conectado a un detonador de proximidad y asegurado dentro de una carcasa de metal pesada. Aunque resulta poco dañina para objetivos orgánicos, estas minas infligen graves daños a los enemigos robóticos, pudiendo aturdirlos o incluso dejarlos inutilizados de forma permanente." }
+            { "id": "explo-01", "class": "explosive", "name": "Granada de béisbol", "tipo de arma": "Explosivo", "daño": "5", "efecto del daño": "—", "tipo de daño": "Físico", "cualidades": "Explosión, Arrojadiza (M)", "peso": "1", "coste": "40", "rareza": "1", "descripcion": "Poco más que una pelota de béisbol ahuecada y rellena con una mezcla explosiva improvisada, estas granadas son rudimentarias, de baja tecnología y fáciles de fabricar. Infligen una cantidad moderada de daño a quienes se encuentren dentro de la zona de la explosión." },
+            { "id": "explo-02", "class": "explosive", "name": "Granada de fragmentación", "tipo de arma": "Explosivo", "daño": "6", "efecto del daño": "—", "tipo de daño": "Físico", "cualidades": "Explosión, Arrojadiza (M)", "peso": "< 1", "coste": "50", "rareza": "2", "descripcion": "Una granada de fragmentación básica, compuesta por un núcleo explosivo dentro de una carcasa metálica diseñada para hacerse añicos y producir metralla al detonar. Son simples y muy efectivas. Solo acordate de tirar la granada y no la anilla." },
+            { "id": "explo-03", "class": "explosive", "name": "Cóctel Molotov", "tipo de arma": "Explosivo", "daño": "4", "efecto del daño": "Persistente", "tipo de daño": "Energía", "cualidades": "Explosión, Arrojadiza (M)", "peso": "1", "coste": "20", "rareza": "1", "descripcion": "Consiste en una botella de vidrio —normalmente de una bebida alcohólica— que contiene una mezcla de combustible inflamable, un poco de aceite de motor para ayudar a que se disperse y un trapo empapado en alcohol colocado en la parte superior para utilizarlo como mecha. Al usarlo, se enciende la mecha y se arroja la botella contra el objetivo. La botella se rompe al impactar, dispersando la mezcla, que se enciende rápidamente y comienza a quemar todo lo que se encuentre cerca. Barato y efectivo." },
+            { "id": "explo-04", "class": "explosive", "name": "Granada Nuka", "tipo de arma": "Explosivo", "daño": "9", "efecto del daño": "Rompedora, Radiactiva, Viciosa", "tipo de daño": "Energía", "cualidades": "Explosión, Arrojadiza (M)", "peso": "1", "coste": "100", "rareza": "4", "descripcion": "Una diminuta arma nuclear táctica de mano, la granada Nuka es extremadamente peligrosa de utilizar —se recomienda no dejarla caer—, pero devastadoramente efectiva, comparable a las miniarmas nucleares utilizadas por el lanzador Fat Man." },
+            { "id": "explo-05", "class": "explosive", "name": "Granada de plasma", "tipo de arma": "Explosivo", "daño": "9", "efecto del daño": "—", "tipo de daño": "Energía", "cualidades": "Explosión, Arrojadiza (M)", "peso": "< 1", "coste": "135", "rareza": "3", "descripcion": "Un recipiente que contiene sustancias químicas que se transforman rápidamente en gas ionizado sobrecalentado —o plasma— al detonar. La explosión de una granada de plasma genera enormes cantidades de calor, más que suficientes para compensar la ausencia de metralla u ondas expansivas." },
+            { "id": "explo-06", "class": "explosive", "name": "Granada de pulso", "tipo de arma": "Explosivo", "daño": "6", "efecto del daño": "Aturdir", "tipo de daño": "Energía", "cualidades": "Explosión, Arrojadiza (M)", "peso": "< 1", "coste": "100", "rareza": "3", "descripcion": "Las granadas de pulso emiten una descarga de electromagnetismo que inflige enormes daños a las máquinas —como robots, sintéticos y armaduras de poder— que se encuentren en las inmediaciones, mientras que las criaturas vivas quedan ilesas." },
+            { "id": "explo-07", "class": "explosive", "name": "Mina de chapitas", "tipo de arma": "Explosivo", "daño": "6", "efecto del daño": "—", "tipo de daño": "Físico", "cualidades": "Explosión, Mina", "peso": "1", "coste": "75", "rareza": "2", "descripcion": "La mina de chapitas es rudimentaria, pero constituye un explosivo formidable. Las minas de chapitas se construyen a partir de un recipiente sencillo, como una lonchera, lleno de chapitas y una mezcla explosiva rudimentaria, equipado con un sensor y un detonador. La fuerza de la explosión lanza las chapitas en un área amplia a tal velocidad que funcionan esencialmente como metralla." },
+            { "id": "explo-08", "class": "explosive", "name": "Mina de fragmentación", "tipo de arma": "Explosivo", "daño": "6", "efecto del daño": "—", "tipo de daño": "Físico", "cualidades": "Explosión, Mina", "peso": "1", "coste": "50", "rareza": "2", "descripcion": "Similar en diseño y construcción a una granada de fragmentación, una mina de fragmentación se coloca en el suelo y utiliza una placa de presión o un sensor de proximidad para activar la detonación cuando alguien se acerca demasiado." },
+            { "id": "explo-09", "class": "explosive", "name": "Mina nuclear", "tipo de arma": "Explosivo", "daño": "9", "efecto del daño": "Rompedora, Radiactiva, Viciosa", "tipo de daño": "Energía", "cualidades": "Explosión, Mina", "peso": "1", "coste": "100", "rareza": "4", "descripcion": "Es una variante nuclear de una mina terrestre. La mina nuclear funciona en todos los aspectos como las demás minas, aunque su explosión es más parecida a la de una miniarma nuclear. Naturalmente, esto significa que inflige daño tanto por la explosión como por la radiación que esta libera." },
+            { "id": "explo-10", "class": "explosive", "name": "Mina de plasma", "tipo de arma": "Explosivo", "daño": "9", "efecto del daño": "—", "tipo de daño": "Energía", "cualidades": "Explosión, Mina", "peso": "< 1", "coste": "135", "rareza": "3", "descripcion": "Estas minas selladas magnéticamente liberan una descarga de plasma energizado cuando se activan, abrasando a quienes hacen saltar sus sensores." },
+            { "id": "explo-11", "class": "explosive", "name": "Mina de pulso", "tipo de arma": "Explosivo", "daño": "6", "efecto del daño": "Aturdir", "tipo de daño": "Energía", "cualidades": "Explosión, Mina", "peso": "< 1", "coste": "100", "rareza": "3", "descripcion": "La mina consiste en un potente dispositivo EMP conectado a un detonador de proximidad y asegurado dentro de una carcasa de metal pesada. Aunque resulta poco dañina para objetivos orgánicos, estas minas infligen graves daños a los enemigos robóticos, pudiendo aturdirlos o incluso dejarlos inutilizados de forma permanente." }
         ];
 
         <!-- DB: Apariencia y Armaduras -->
@@ -3565,8 +3569,8 @@ function renderLibros() {
                 "armasMelee": {
                     nombre: "Armas cuerpo a cuerpo",
                     items: armasMelee,
-                    mods: [],
-                    tieneMods: false
+                    mods: combinarArrays( modsArmasMelee05, modsArmasMelee06, modsArmasMelee07, modsArmasMelee08, modsArmasMelee09, armasMelee10, modsArmasMelee11, modsArmasMelee12, modsArmasMelee13, modsArmasMelee14, modsArmasMelee15, modsArmasMelee16, modsArmasMelee17, modsArmasMelee18, modsArmasMelee19, modsArmasMelee20, modsArmasMelee21, modsArmasMelee22, modsArmasMelee23, modsArmasMelee24, modsArmasMelee25, modsArmasMelee26 ),
+                    tieneMods: true
                 },
                 "aparienciaArmaduas": {
                     nombre: "Armaduras",
@@ -3587,14 +3591,14 @@ function renderLibros() {
                     tieneMods: false
                 }
             };
-
             const slotsArmas = [
                 { key: "modReceptor", nombre: "Receptor" },
                 { key: "modCaño", nombre: "Cañón" },
                 { key: "modEmpuñadura", nombre: "Empuñadura" },
                 { key: "modCulata", nombre: "Culata" },
                 { key: "modMira", nombre: "Mira" },
-                { key: "modBoca", nombre: "Boca" }
+                { key: "modBoca", nombre: "Boca" },
+                { key: "mod", nombre: "Modificaciones" }
             ];
 
             let categoriaActual = "armasPequeñas";
@@ -3684,7 +3688,6 @@ function renderLibros() {
                 });
             }
 
-            
             function mostrarInformacion() {
                 if (!itemActual) {
                     contInfo.innerHTML = "";
@@ -3693,17 +3696,8 @@ function renderLibros() {
 
                 const config = categorias[categoriaActual];
 
-                // No mostrar la ficha completa antes de las modificaciones.
-                // La ficha final se genera en mostrarResultado().
                 if (config.tieneMods) {
-                    contInfo.innerHTML = `
-                        <div class="gen-grupo">
-                            <h3>${escapar(itemActual.name)}</h3>
-                            <p>Seleccioná las modificaciones que quieras instalar.
-                            Pasá el cursor sobre una modificación para consultar
-                            sus efectos, coste, rareza y requisitos.</p>
-                        </div>
-                    `;
+                    contInfo.innerHTML = "";
                     return;
                 }
 
@@ -3724,7 +3718,8 @@ function renderLibros() {
                 contInfo.innerHTML = `
                     <div class="gen-grupo">
                         <h3>${escapar(itemActual.name)}</h3>
-                        <p>${escapar(itemActual.descripcion)}</p>
+                        <p>${escapar(itemActual.descripcion || "")}</p>
+
                         <table class="gen-tabla">
                             <tbody>
                                 ${campos.map(([clave, valor]) => `
@@ -3854,15 +3849,163 @@ function renderLibros() {
                     return mod ? { slot, mod } : null;
                 }).filter(Boolean);
 
+                // Copia de las estadísticas originales: nunca modifica los datos fuente.
+                const arma = { ...itemActual };
+
+                let bonificacionDano = 0;
+                let danoFijo = null;
+                const efectosExtra = [];
+                const cualidadesExtra = [];
+
+                elegidos.forEach(({ mod }) => {
+                    const efecto = String(mod.efectos || "");
+
+                    // Daño: admite "+2CD de daño", "-1CD de daño"
+                    // y "Cambia el daño a 7CD".
+                    const cambioDano = efecto.match(
+                        /cambia el daño a\s*(\d+)\s*CD/i
+                    );
+
+                    if (cambioDano) {
+                        danoFijo = Number(cambioDano[1]);
+                    } else {
+                        const bonos = [...efecto.matchAll(
+                            /([+-]\s*\d+)\s*CD\s+de daño/gi
+                        )];
+
+                        bonos.forEach(match => {
+                            bonificacionDano += Number(
+                                match[1].replace(/\s/g, "")
+                            );
+                        });
+                    }
+
+                    // Cadencia de fuego.
+                    const cambiosCadencia = [...efecto.matchAll(
+                        /([+-]\s*\d+)\s*Cadencia de Fuego/gi
+                    )];
+
+                    cambiosCadencia.forEach(match => {
+                        const actual = Number(arma.cadencia);
+                        const cambio = Number(match[1].replace(/\s/g, ""));
+
+                        if (Number.isFinite(actual)) {
+                            arma.cadencia = String(actual + cambio);
+                        }
+                    });
+
+                    // Peso.
+                    const cambioPeso = String(mod.peso || "").match(
+                        /^([+-]\s*\d+(?:[.,]\d+)?)$/
+                    );
+
+                    if (cambioPeso && cambioPeso[1] !== "—") {
+                        const actual = Number(
+                            String(arma.peso ?? "").replace(",", ".")
+                        );
+                        const cambio = Number(
+                            cambioPeso[1].replace(/\s/g, "").replace(",", ".")
+                        );
+
+                        if (Number.isFinite(actual)) {
+                            arma.peso = String(actual + cambio);
+                        }
+                    }
+
+                    // Cualidades y efectos nuevos.
+                    for (const match of efecto.matchAll(
+                        /obtiene\s+([^,]+)/gi
+                    )) {
+                        const cualidad = match[1].trim();
+
+                        if (/^(cruel|letal|ráfaga|imprecisa|confiable)$/i.test(cualidad)) {
+                            cualidadesExtra.push(cualidad);
+                        } else {
+                            efectosExtra.push(cualidad);
+                        }
+                    }
+
+                    // Cambios de munición.
+                    const municion = efecto.match(
+                        /la munición pasa a ser\s+([^,]+)/i
+                    );
+
+                    if (municion) {
+                        arma.municion = municion[1].trim();
+                    }
+                });
+
+                // Sumar el coste de las modificaciones al coste original.
                 const costeBase = parseCoste(itemActual.coste);
                 const costesMods = elegidos.map(({ mod }) => parseCoste(mod.coste));
 
-                const totalValido = costeBase !== null &&
-                    costesMods.every(coste => coste !== null);
-
-                const costeTotal = totalValido
+                const costeTotal = costeBase !== null &&
+                    costesMods.every(coste => coste !== null)
                     ? costeBase + costesMods.reduce((suma, coste) => suma + coste, 0)
                     : null;
+
+                if (costeTotal !== null) {
+                    arma.coste = String(costeTotal);
+                }
+
+                // Incorporar cualidades sin duplicarlas.
+                const cualidadesBase = String(arma.cualidades || "")
+                    .split(",")
+                    .map(valor => valor.trim())
+                    .filter(valor => valor && valor !== "—");
+
+                arma.cualidades = [...new Set([
+                    ...cualidadesBase,
+                    ...cualidadesExtra
+                ])].join(", ") || "—";
+
+                // Incorporar los nuevos efectos del daño.
+                const efectosBase = String(arma["efecto del daño"] || "")
+                    .split(",")
+                    .map(valor => valor.trim())
+                    .filter(valor => valor && valor !== "—");
+
+                arma["efecto del daño"] = [...new Set([
+                    ...efectosBase,
+                    ...cualidadesExtra.filter(c => /^(cruel|letal)$/i.test(c))
+                ])].join(", ") || "—";
+
+                
+                
+                // Daño base y modificaciones aplicadas.
+                const danoOriginal = String(itemActual.daño ?? "").trim();
+                const danoBase = Number(danoOriginal);
+
+                const danoBaseValido =
+                    danoOriginal !== "" &&
+                    Number.isFinite(danoBase);
+
+                let textoDano = danoBaseValido
+                    ? String(danoBase)
+                    : "Daño base no definido en los datos";
+
+                if (danoFijo !== null) {
+                    textoDano = String(danoFijo + bonificacionDano);
+                } else if (danoBaseValido) {
+                    textoDano = String(danoBase + bonificacionDano);
+                } else if (bonificacionDano !== 0) {
+                    const signo = bonificacionDano > 0 ? "+" : "";
+                    textoDano += ` (${signo}${bonificacionDano} por modificaciones)`;
+                }
+
+                const estadisticas = [
+                    ["Daño", textoDano],
+                    ["Tipo de daño", arma["tipo de daño"]],
+                    ["Efecto del daño", arma["efecto del daño"]],
+                    ["Cadencia de fuego", arma.cadencia],
+                    ["Alcance", arma.alcance],
+                    ["Cualidades", arma.cualidades],
+                    ["Cargador", arma.cargador],
+                    ["Munición", arma.municion],
+                    ["Peso", arma.peso],
+                    ["Coste", arma.coste],
+                    ["Rareza", arma.rareza]
+                ];
 
                 const requisitos = [...new Set(
                     elegidos
@@ -3871,31 +4014,55 @@ function renderLibros() {
                 )];
 
                 contResultado.innerHTML = `
-                    <div class="gen-grupo">
-                        <h3>Resultado: ${escapar(itemActual.name)}</h3>
-                        <p><strong>Coste base:</strong> ${escapar(itemActual.coste)}</p>
-                        <p><strong>Coste total:</strong>
-                            ${costeTotal === null ? "No calculable" : escapar(costeTotal)}
-                        </p>
+                    <div class="card">
+                        <h3>Estadísticas del arma modificada: ${escapar(arma.name)}</h3>
 
-                        <h4>Modificaciones elegidas</h4>
+                        <table class="gen-tabla">
+                            <thead>
+                                <tr>
+                                    <th>Estadística</th>
+                                    <th>Valor modificado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${estadisticas.map(([nombre, valor]) => `
+                                    <tr>
+                                        <th>${escapar(nombre)}</th>
+                                        <td>${escapar(valor ?? "—")}</td>
+                                    </tr>
+                                `).join("")}
+                            </tbody>
+                        </table>
+
+                        ${efectosExtra.length ? `
+                            <p><strong>Otros efectos:</strong>
+                                ${efectosExtra.map(escapar).join(", ")}
+                            </p>
+                        ` : ""}
+                    </div>
+
+                    <div class="card">
+                        <h3>Modificaciones instaladas al arma</h3>
+
                         ${elegidos.length ? `
                             <ul>
                                 ${elegidos.map(({ slot, mod }) => `
                                     <li>
                                         <strong>${escapar(slot.nombre)}:</strong>
                                         ${escapar(mod.name)}.
-                                        Coste: ${escapar(mod.coste)}.
-                                        Efectos: ${escapar(mod.efectos)}
+                                        <strong>Efectos:</strong>
+                                        ${escapar(mod.efectos || "Sin efectos indicados")}.
+                                        <strong>Coste:</strong>
+                                        ${escapar(mod.coste ?? "—")}.
                                     </li>
                                 `).join("")}
                             </ul>
-                        ` : "<p>No hay modificaciones seleccionadas.</p>"}
+                        ` : "<p>No hay modificaciones instaladas.</p>"}
 
                         <h4>Requisitos</h4>
                         ${requisitos.length
                             ? `<ul>${requisitos.map(perk => `<li>${escapar(perk)}</li>`).join("")}</ul>`
-                            : "<p>No se indican requisitos de perks para las modificaciones seleccionadas.</p>"
+                            : "<p>No se indican requisitos para las modificaciones seleccionadas.</p>"
                         }
                     </div>
                 `;
