@@ -3856,12 +3856,12 @@ function renderLibros() {
                 let danoFijo = null;
                 const efectosExtra = [];
                 const cualidadesExtra = [];
+                const efectosDanoExtra = [];
 
                 elegidos.forEach(({ mod }) => {
                     const efecto = String(mod.efectos || "");
 
-                    // Daño: admite "+2CD de daño", "-1CD de daño"
-                    // y "Cambia el daño a 7CD".
+                    // Bonificación de daño y cambios de daño fijo.
                     const cambioDano = efecto.match(
                         /cambia el daño a\s*(\d+)\s*CD/i
                     );
@@ -3870,7 +3870,7 @@ function renderLibros() {
                         danoFijo = Number(cambioDano[1]);
                     } else {
                         const bonos = [...efecto.matchAll(
-                            /([+-]\s*\d+)\s*CD\s+de daño/gi
+                            /([+-]\s*\d+)\s*CD(?=\s*(?:de daño\b|,|$))/gi
                         )];
 
                         bonos.forEach(match => {
@@ -3878,6 +3878,23 @@ function renderLibros() {
                                 match[1].replace(/\s/g, "")
                             );
                         });
+                    }
+
+                    // Cambio del tipo de daño.
+                    const tipoDano = efecto.match(
+                        /(?:el tipo de daño pasa a ser|cambia el tipo de daño a)\s*([^,]+)/i
+                    );
+
+                    if (tipoDano) {
+                        arma["tipo de daño"] = tipoDano[1].trim();
+                    }
+
+                    // Nuevos efectos de daño: Persistente, Aturdimiento,
+                    // Perforante, etc.
+                    for (const match of efecto.matchAll(
+                        /gana\s+([^,]+)/gi
+                    )) {
+                        efectosDanoExtra.push(match[1].trim());
                     }
 
                     // Cadencia de fuego.
@@ -3967,11 +3984,12 @@ function renderLibros() {
 
                 arma["efecto del daño"] = [...new Set([
                     ...efectosBase,
-                    ...cualidadesExtra.filter(c => /^(cruel|letal)$/i.test(c))
+                    ...cualidadesExtra.filter(c =>
+                        /^(cruel|letal)$/i.test(c)
+                    ),
+                    ...efectosDanoExtra
                 ])].join(", ") || "—";
 
-                
-                
                 // Daño base y modificaciones aplicadas.
                 const danoOriginal = String(itemActual.daño ?? "").trim();
                 const danoBase = Number(danoOriginal);
