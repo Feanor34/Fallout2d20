@@ -898,8 +898,6 @@
         <button class="tab-button" onclick="openTab(event, 'tab-randomizadores')">Tablas de loot</button>
     </nav>
 
-    
-
     <!-- PESTAÑA 1: TIRADAS DE DADOS -->
     <div id="tab-dados" class="tab-content active searchable-section">
         <div class="card">
@@ -1130,7 +1128,6 @@
             </ul>
         </div>
     </div>
-
 
     <!-- PESTAÑA 5: ENTORNO Y PELIGROS -->
     <div id="tab-entorno" class="tab-content searchable-section">
@@ -1521,6 +1518,15 @@
         </div>
     </div>
 
+    <!-- PESTAÑA 8: GENERADOR DE NPCs -->
+    <div id="tab-npc" class="tab-content searchable-section">
+
+    </div>
+
+    <!-- PESTAÑA 9: CREADOR DE PERSONAJES -->
+    <div id="tab-creacion" class="tab-content searchable-section">
+
+    </div>
     <!-- PESTAÑA 10: RANDOMIZADORES -->
     <div id="tab-randomizadores" class="tab-content searchable-section">
         <div class="card">
@@ -2421,67 +2427,65 @@
         }
 
         /* --- LIBROS Y REVISTAS --- */
-
-/* --- LIBROS Y REVISTAS --- */
-function renderLibros() {
-    const container = document.getElementById('tabla-libros-container');
-    if (!container) return;
-
-    const publicaciones = [
-        { titulo: 'Libros Fantoma', items: booksFantoma },
-        { titulo: 'Historias asombrosamente asombrosas', items: booksAstoundinglyAwesomeTales },
-        { titulo: 'El hombre de los bosques', items: booksBackWoodsMan },
-        { titulo: 'Tiempos de boxeo', items: booksBoxingTimes },
-        { titulo: 'Agáchate y cúbrete', items: booksDuckAndCover },
-        { titulo: 'Arreglando cosas', items: booksFixinThings },
-        { titulo: 'Armas del futuro', items: booksFutureWeaponsToday },
-        { titulo: 'Grognak el Bárbaro', items: booksGrognak },
-        { titulo: 'Armas y balas', items: booksGunsnBullets },
-        { titulo: 'Vive y ama', items: booksLiveAndLove },
-        { titulo: 'Revista quirúrgica de Massachusetts', items: booksMassachusettsSurgicalJournal },
-        { titulo: 'Conociendo gente', items: booksMeetingPeople },
-        { titulo: 'Compendio del programador', items: booksProgrammersDigest },
-        { titulo: 'El vendedor de cecina de Junktown', items: booksJunktownJerkySalesman },
-        { titulo: 'Ciencia Tesla', items: booksTeslaScience },
-        { titulo: 'Historias policiales reales', items: booksTruePoliceStories },
-        { titulo: 'Hoy, en los vasos', items: booksTumblersToday },
-        { titulo: 'Los imparables', items: booksUnstoppables },
-        { titulo: 'Manual de operaciones encubiertas', items: booksUsCovertManualOps },
-        { titulo: 'Guía de supervivencia del Yermo', items: booksWastelandGuide },
-    ];
-
-    let html = '';
-
-    publicaciones.forEach(publicacion => {
-        if (!publicacion.items || !publicacion.items.length) return;
-
-        html += `
-            <section class="grupo-publicacion" style="margin-bottom:30px;">
-                <h3>${publicacion.titulo}</h3>
-                ${crearTablaEquipamiento(publicacion.items, {
-                    columns: columnasEquipoGeneral
-                })}
-            </section>
-        `;
-    });
-
-    container.innerHTML = html ||
-        '<p style="color:var(--pipboy-disabled);">No hay publicaciones disponibles.</p>';
-}
-
-        /* --- MISCELANEOS --- */
-        function renderMiscelaneos() {
-            const container =
-                document.getElementById('tabla-miscelaneos-container');
+        function renderLibros() {
+            const container = document.getElementById('tabla-libros-container');
             if (!container) return;
-            container.innerHTML =
-                crearTablaEquipamiento(
-                    booksMiscEquipment,
-                    {
-                        columns: columnasEquipoGeneral
-                    }
-                );
+
+            const publicaciones = [
+                { titulo: 'Libros Fantoma', items: booksFantoma },
+                { titulo: 'Historias asombrosamente asombrosas', items: booksAstoundinglyAwesomeTales },
+                { titulo: 'El hombre de los bosques', items: booksBackWoodsMan },
+                { titulo: 'Tiempos de boxeo', items: booksBoxingTimes },
+                { titulo: 'Agáchate y cúbrete', items: booksDuckAndCover },
+                { titulo: 'Arreglando cosas', items: booksFixinThings },
+                { titulo: 'Armas del futuro', items: booksFutureWeaponsToday },
+                { titulo: 'Grognak el Bárbaro', items: booksGrognak },
+                { titulo: 'Armas y balas', items: booksGunsnBullets },
+                { titulo: 'Vive y ama', items: booksLiveAndLove },
+                { titulo: 'Revista quirúrgica de Massachusetts', items: booksMassachusettsSurgicalJournal },
+                { titulo: 'Conociendo gente', items: booksMeetingPeople },
+                { titulo: 'Compendio del programador', items: booksProgrammersDigest },
+                { titulo: 'El vendedor de cecina de Junktown', items: booksJunktownJerkySalesman },
+                { titulo: 'Ciencia Tesla', items: booksTeslaScience },
+                { titulo: 'Historias policiales reales', items: booksTruePoliceStories },
+                { titulo: 'Hoy, en los vasos', items: booksTumblersToday },
+                { titulo: 'Los imparables', items: booksUnstoppables },
+                { titulo: 'Manual de operaciones encubiertas', items: booksUsCovertManualOps },
+                { titulo: 'Guía de supervivencia del Yermo', items: booksWastelandGuide },
+            ];
+
+            let html = '';
+
+            publicaciones.forEach(publicacion => {
+                if (!publicacion.items || !publicacion.items.length) return;
+
+                html += `
+                    <section class="grupo-publicacion" style="margin-bottom:30px;">
+                        <h3>${publicacion.titulo}</h3>
+                        ${crearTablaEquipamiento(publicacion.items, {
+                            columns: columnasEquipoGeneral
+                        })}
+                    </section>
+                `;
+            });
+
+            container.innerHTML = html ||
+                '<p style="color:var(--pipboy-disabled);">No hay publicaciones disponibles.</p>';
         }
+
+                /* --- MISCELANEOS --- */
+                function renderMiscelaneos() {
+                    const container =
+                        document.getElementById('tabla-miscelaneos-container');
+                    if (!container) return;
+                    container.innerHTML =
+                        crearTablaEquipamiento(
+                            booksMiscEquipment,
+                            {
+                                columns: columnasEquipoGeneral
+                            }
+                        );
+                }
 
         <!-- DB: Municiones -->
         const ammo = [
@@ -3596,16 +3600,7 @@ function renderLibros() {
             inicializarTablasEquipamiento();
         }
 
-        /* =====================================================
-        GENERADOR DE ARMAS — SELECCIÓN MEDIANTE BOTONES SAMBUCA
-        Primera etapa: armas pequeñas.
-        Usa exclusivamente las compatibilidades de los datos.
-        ===================================================== */
-
-        
-        /* ==========================================================
-        GENERADOR — PRUEBA FUNCIONAL DE SELECCIÓN
-        ========================================================== */
+        /* --- GENERADOR — PRUEBA FUNCIONAL DE SELECCIÓN --- */
 
         function inicializarGeneradorArmas() {
             const contCategorias = document.getElementById("gen-categorias");
@@ -3624,48 +3619,13 @@ function renderLibros() {
 
             // Arrays existentes en el proyecto.
             const categorias = {
-                "armasPequeñas": {
-                    nombre: "Armas pequeñas",
-                    items: armasPequeñas,
-                    mods: modsArmasPequeñas,
-                    tieneMods: true
-                },
-                "armasEnergia": {
-                    nombre: "Armas de energía",
-                    items: armasEnergia,
-                    mods: modsArmasEnergia,
-                    tieneMods: true
-                },
-                "armasGrandes": {
-                    nombre: "Armas grandes",
-                    items: armasGrandes,
-                    mods: modsArmasGrandes,
-                    tieneMods: true
-                },
-                "armasMelee": {
-                    nombre: "Armas cuerpo a cuerpo",
-                    items: armasMelee,
-                    mods: combinarArrays( modsArmasMelee05, modsArmasMelee06, modsArmasMelee07, modsArmasMelee08, modsArmasMelee09, armasMelee10, modsArmasMelee11, modsArmasMelee12, modsArmasMelee13, modsArmasMelee14, modsArmasMelee15, modsArmasMelee16, modsArmasMelee17, modsArmasMelee18, modsArmasMelee19, modsArmasMelee20, modsArmasMelee21, modsArmasMelee22, modsArmasMelee23, modsArmasMelee24, modsArmasMelee25, modsArmasMelee26 ),
-                    tieneMods: true
-                },
-                "aparienciaArmaduas": {
-                    nombre: "Armaduras",
-                    items: aparienciaArmaduas,
-                    mods: [],
-                    tieneMods: false
-                },
-                "servoarmadura": {
-                    nombre: "Servoarmaduras",
-                    items: servoArmor,
-                    mods: [],
-                    tieneMods: false
-                },
-                "roboArmor": {
-                    nombre: "Armaduras para robots",
-                    items: roboArmor,
-                    mods: [],
-                    tieneMods: false
-                }
+                "armasPequeñas": { nombre: "Armas pequeñas", items: armasPequeñas, mods: modsArmasPequeñas, tieneMods: true },
+                "armasEnergia": { nombre: "Armas de energía", items: armasEnergia, mods: modsArmasEnergia, tieneMods: true },
+                "armasGrandes": { nombre: "Armas grandes", items: armasGrandes, mods: modsArmasGrandes, tieneMods: true },
+                "armasMelee": { nombre: "Armas cuerpo a cuerpo", items: armasMelee, mods: combinarArrays( modsArmasMelee05, modsArmasMelee06, modsArmasMelee07, modsArmasMelee08, modsArmasMelee09, armasMelee10, modsArmasMelee11, modsArmasMelee12, modsArmasMelee13, modsArmasMelee14, modsArmasMelee15, modsArmasMelee16, modsArmasMelee17, modsArmasMelee18, modsArmasMelee19, modsArmasMelee20, modsArmasMelee21, modsArmasMelee22, modsArmasMelee23, modsArmasMelee24, modsArmasMelee25, modsArmasMelee26 ), tieneMods: true },
+                "aparienciaArmaduas": { nombre: "Armaduras", items: aparienciaArmaduas, mods: [], tieneMods: false },
+                "servoarmadura": { nombre: "Servoarmaduras", items: servoArmor, mods: [], tieneMods: false },
+                "roboArmor": { nombre: "Armaduras para robots", items: roboArmor, mods: [], tieneMods: false }
             };
             const slotsArmas = [
                 { key: "modReceptor", nombre: "Receptor" },
@@ -4292,8 +4252,6 @@ function renderLibros() {
         }
 
         renderizarEnfermedades();
-
-        
 
         // --- ESTADO DE HOMEBREW ---
         let homebrewEnabled = false;
