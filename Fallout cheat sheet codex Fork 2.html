@@ -7062,6 +7062,7 @@ const raiderTraits = [
             });
         });
 
+        
         const botonMaquinaNukaCola = document.getElementById(
             "loot-maquina-nuka-cola"
         );
@@ -7083,10 +7084,9 @@ const raiderTraits = [
                 }
 
                 const consumibles = lootTablas.consumibles();
-
                 const resultados = [];
 
-                // La máquina genera dos tiradas independientes de 1d20.
+                // Dos tiradas independientes de 1d20 por máquina.
                 for (let i = 0; i < 2; i++) {
                     const tirada = Math.floor(Math.random() * 20) + 1;
 
@@ -7095,6 +7095,16 @@ const raiderTraits = [
                             tirada >= resultado.minimo &&
                             tirada <= resultado.maximo
                     );
+
+                    if (!entrada) {
+                        resultados.push(`
+                            <div class="loot-tirada-nuka-cola">
+                                <h5>Tirada ${i + 1}: ${tirada}</h5>
+                                <p>No se encontró un resultado para esta tirada.</p>
+                            </div>
+                        `);
+                        continue;
+                    }
 
                     const objetosHTML = entrada.objetos.map(objeto => {
                         const item = objeto.id
@@ -7111,7 +7121,9 @@ const raiderTraits = [
 
                         return `
                             <li>
-                                <strong>${lootEscaparHTML(item.name || item.nombre || "Objeto sin nombre")}</strong>
+                                <strong>${lootEscaparHTML(
+                                    item.name || item.nombre || "Objeto sin nombre"
+                                )}</strong>
                                 ${
                                     item.descripcion
                                         ? `<p>${lootEscaparHTML(item.descripcion)}</p>`
@@ -7119,7 +7131,9 @@ const raiderTraits = [
                                 }
                                 ${
                                     objeto.cantidad
-                                        ? `<p><strong>Cantidad encontrada:</strong> ${lootEscaparHTML(objeto.cantidad)}</p>`
+                                        ? `<p><strong>Cantidad encontrada:</strong> ${
+                                            lootEscaparHTML(objeto.cantidad)
+                                        }</p>`
                                         : ""
                                 }
                             </li>
@@ -7145,6 +7159,7 @@ const raiderTraits = [
                 `;
             });
         }
+
 
         // Publicaciones: "Todas" es excluyente.
         const lootPublicaciones = document.getElementById("loot-publicaciones");
@@ -7174,7 +7189,10 @@ const raiderTraits = [
                             const seleccionado = opcion === boton;
 
                             opcion.classList.toggle("seleccionado", seleccionado);
-                            opcion.setAttribute("aria-pressed", String(seleccionado));
+                            opcion.setAttribute(
+                                "aria-pressed",
+                                String(seleccionado)
+                            );
                         });
 
                         return;
@@ -7192,6 +7210,7 @@ const raiderTraits = [
             actualizarSeleccionPublicaciones();
         }
 
+
         // Generar todas las categorías elegidas.
         const botonGenerarLoot = document.getElementById("loot-generar-boton");
 
@@ -7200,7 +7219,9 @@ const raiderTraits = [
                 const salida = document.getElementById("loot-resultado-botin");
 
                 if (!salida) {
-                    console.error("No se encontró el contenedor de resultados del botín.");
+                    console.error(
+                        "No se encontró el contenedor de resultados del botín."
+                    );
                     return;
                 }
 
@@ -7211,11 +7232,21 @@ const raiderTraits = [
                     const botonSeleccionado = grupo.querySelector(
                         "[data-valor].seleccionado"
                     );
-                    const cantidad = Number(botonSeleccionado?.dataset.valor ?? 0);
+                    const cantidad = Number(
+                        botonSeleccionado?.dataset.valor ?? 0
+                    );
 
-                    if (cantidad > 0) {
-                        lootGenerarCategoria(categoria, cantidad);
+                    if (cantidad <= 0) return;
+
+                    // Las máquinas tienen una tabla y un generador propios.
+                    if (categoria === "maquina-nuka-cola") {
+                        for (let i = 0; i < cantidad; i++) {
+                            lootGenerarMaquinaNukaColaEnSalida(salida, i + 1);
+                        }
+                        return;
                     }
+
+                    lootGenerarCategoria(categoria, cantidad);
                 });
 
                 if (!salida.children.length) {
@@ -7223,6 +7254,111 @@ const raiderTraits = [
                         "<p>No seleccionaste ninguna cantidad de botín.</p>";
                 }
             });
+        }
+
+
+        // Genera una máquina de Nuka-Cola en el contenedor indicado.
+        // Se usa tanto desde el botón individual como desde el generador general.
+        function lootGenerarMaquinaNukaColaEnSalida(salida, numero) {
+            let seccion = salida.querySelector(
+                '[data-loot-resultado="maquina-nuka-cola"]'
+            );
+
+            if (!seccion) {
+                seccion = document.createElement("section");
+                seccion.dataset.lootResultado = "maquina-nuka-cola";
+                seccion.className = "loot-resultado-categoria";
+                salida.appendChild(seccion);
+            }
+
+            const consumibles = lootTablas.consumibles();
+            const objetosAgrupados = new Map();
+
+            // Cada máquina realiza dos tiradas independientes.
+            for (let i = 0; i < 2; i++) {
+                const tirada = Math.floor(Math.random() * 20) + 1;
+
+                const entrada = lootTablaMaquinaNukaCola.find(
+                    resultado =>
+                        tirada >= resultado.minimo &&
+                        tirada <= resultado.maximo
+                );
+
+                if (!entrada || !Array.isArray(entrada.objetos)) continue;
+
+                entrada.objetos.forEach(objeto => {
+                    const item = objeto.id
+                        ? consumibles.find(
+                            consumible => consumible.id === objeto.id
+                        )
+                        : objeto;
+
+                    if (!item) {
+                        const claveError = `error-${objeto.id || "desconocido"}`;
+
+                        if (!objetosAgrupados.has(claveError)) {
+                            objetosAgrupados.set(claveError, {
+                                cantidad: 0,
+                                nombre: `Objeto no encontrado en la DB: ${
+                                    lootEscaparHTML(objeto.id || "desconocido")
+                                }`,
+                                descripcion: "",
+                                error: true
+                            });
+                        }
+
+                        return;
+                    }
+
+                    const nombreOriginal =
+                        item.name || item.nombre || "Objeto sin nombre";
+
+                    const clave = objeto.id || nombreOriginal;
+
+                    const cantidad = Number(objeto.cantidad) || 1;
+
+                    if (objetosAgrupados.has(clave)) {
+                        objetosAgrupados.get(clave).cantidad += cantidad;
+                    } else {
+                        objetosAgrupados.set(clave, {
+                            cantidad,
+                            nombre: lootEscaparHTML(nombreOriginal),
+                            descripcion: item.descripcion
+                                ? lootEscaparHTML(item.descripcion)
+                                : "",
+                            error: false
+                        });
+                    }
+                });
+            }
+
+            const resultadosHTML = Array.from(objetosAgrupados.values())
+                .map(objeto => {
+                    if (objeto.error) {
+                        return `<p>${objeto.nombre}</p>`;
+                    }
+
+                    return `
+                        <p>
+                            ${objeto.cantidad} ${objeto.nombre}${
+                                objeto.descripcion
+                                    ? `, ${objeto.descripcion}`
+                                    : ""
+                            }
+                        </p>
+                    `;
+                })
+                .join("");
+
+            seccion.insertAdjacentHTML("beforeend", `
+                <div class="loot-maquina-nuka-cola">
+                    <h5>Máquina ${numero}:</h5>
+                    ${
+                        resultadosHTML ||
+                        "<p>No se obtuvo ningún objeto.</p>"
+                    }
+                </div>
+            `);
         }
 
     </script>
