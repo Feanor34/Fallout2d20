@@ -1381,198 +1381,180 @@
     <!-- PESTAÑA 10: RANDOMIZADORES -->
     <div id="tab-randomizadores" class="tab-content searchable-section">
         <div class="card">
-            <h2>Exploración y generación de espacios</h2>
-            <p>Configurá la localización y generá un espacio para explorar.</p>
+            <h3>Generar botín</h3>
+            <div id="loot-generador-categorias" class="loot-generador-categorias">
 
-            <h3>¿Qué tan explorado está el lugar?</h3>
-            <div class="loot-opciones" id="loot-opciones-exploracion">
-                <button type="button" data-valor="0" aria-pressed="false">
-                    Inexplorado
-                </button>
-                <button type="button" data-valor="1" aria-pressed="false">
-                    Parcialmente explorado
-                </button>
-                <button type="button" data-valor="2" aria-pressed="false">
-                    Mayormente explorado
-                </button>
-                <button type="button" data-valor="3" aria-pressed="false">
-                    Fuertemente explorado
-                </button>
-            </div>
-
-            <h3>Tamaño del espacio</h3>
-            <div class="loot-opciones" id="loot-opciones-tamano">
-                <button type="button" data-valor="diminuto" aria-pressed="false">
-                    Diminuto
-                    <small>Contenedor, caja fuerte o escondite</small>
-                </button>
-                <button type="button" data-valor="pequeno" aria-pressed="false">
-                    Pequeño
-                    <small>Un cuarto o habitación</small>
-                </button>
-                <button type="button" data-valor="mediano" aria-pressed="false">
-                    Mediano
-                    <small>Un negocio o una vivienda</small>
-                </button>
-                <button type="button" data-valor="grande" aria-pressed="false">
-                    Grande
-                    <small>Edificio de varios pisos o varias propiedades</small>
-                </button>
-            </div>
-
-            <h3>Tiempo de búsqueda</h3>
-            <div class="loot-opciones" id="loot-opciones-tiempo">
-                <button type="button" data-valor="1" aria-pressed="false">
-                    1 minuto
-                </button>
-                <button type="button" data-valor="10" aria-pressed="false">
-                    10 minutos
-                </button>
-                <button type="button" data-valor="30" aria-pressed="false">
-                    30 minutos
-                </button>
-                <button type="button" data-valor="120" aria-pressed="false">
-                    2 horas
-                </button>
-            </div>
-
-            <button type="button" id="loot-generar-espacio" class="loot-btn-principal">
-                Generar espacio
-            </button>
-
-            <div id="loot-resultado-espacio" class="loot-resultado" aria-live="polite"></div>
-
-            <div id="loot-herramientas" hidden>
-                <h3>Explorar la localización</h3>
-                <p>Seleccioná qué querés generar para este espacio.</p>
-
-                <div class="loot-botones">
-                    <button type="button" id="loot-generar-npcs">
-                        Generar habitantes / NPCs
-                    </button>
-                    <button type="button" id="loot-generar-obstaculo">
-                        Generar obstáculo
-                    </button>
-                    <button type="button" id="loot-generar-peligro">
-                        Generar peligro
-                    </button>
-                    <button type="button" id="loot-generar-complicacion">
-                        Generar complicación
-                    </button>
+                <div class="loot-categoria">
+                    <button type="button" class="tab-button" data-loot-categoria="municiones">Munición</button>
+                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="municiones">
+                        <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
+                        <button type="button" data-valor="1" aria-pressed="false">1</button>
+                        <button type="button" data-valor="2" aria-pressed="false">2</button>
+                        <button type="button" data-valor="3" aria-pressed="false">3</button>
+                        <button type="button" data-valor="4" aria-pressed="false">4</button>
+                        <button type="button" data-valor="5" aria-pressed="false">5</button>
+                    </div>
                 </div>
 
-                <div id="loot-resultado-npcs" class="loot-subresultado" aria-live="polite"></div>
-                <div id="loot-resultado-obstaculo" class="loot-subresultado" aria-live="polite"></div>
-                <div id="loot-resultado-peligro" class="loot-subresultado" aria-live="polite"></div>
-                <div id="loot-resultado-complicacion" class="loot-subresultado" aria-live="polite"></div>
-
-                <h3>Generar botín</h3>
-                <p> Seleccioná la cantidad de objetos que querés sortear para cada categoría. Cada sorteo es independiente.</p>
-
-                <div class="loot-generador-categorias">
-
-                    <div class="loot-categoria">
-                        <button type="button" data-loot-categoria="municiones">
-                            Municiones
-                        </button>
-                        <select aria-label="Cantidad de municiones" data-loot-cantidad="municiones">
-                            <option value="0">0</option>
-                            <option value="1" selected>1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
+                <div class="loot-categoria">
+                    <button type="button" class="tab-button" data-loot-categoria="armaduras">Armaduras</button>
+                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="armaduras">
+                        <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
+                        <button type="button" data-valor="1" aria-pressed="false">1</button>
+                        <button type="button" data-valor="2" aria-pressed="false">2</button>
+                        <button type="button" data-valor="3" aria-pressed="false">3</button>
+                        <button type="button" data-valor="4" aria-pressed="false">4</button>
+                        <button type="button" data-valor="5" aria-pressed="false">5</button>
                     </div>
-
-                    <div class="loot-categoria">
-                        <button type="button" data-loot-categoria="armas">
-                            Armas
-                        </button>
-                        <select aria-label="Cantidad de armas" data-loot-cantidad="armas">
-                            <option value="0">0</option>
-                            <option value="1" selected>1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </div>
-
-                    <div class="loot-categoria">
-                        <button type="button" data-loot-categoria="armaduras">
-                            Armaduras y apariencia
-                        </button>
-                        <select aria-label="Cantidad de armaduras y apariencia" data-loot-cantidad="armaduras">
-                            <option value="0">0</option>
-                            <option value="1" selected>1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </div>
-
-                    <div class="loot-categoria">
-                        <button type="button" data-loot-categoria="servoarmaduras">
-                            Servoarmaduras
-                        </button>
-                        <select aria-label="Cantidad de servoarmaduras" data-loot-cantidad="servoarmaduras">
-                            <option value="0">0</option>
-                            <option value="1" selected>1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </div>
-
-                    <div class="loot-categoria">
-                        <button type="button" data-loot-categoria="consumibles">
-                            Consumibles: comida, bebida y químicos
-                        </button>
-                        <select aria-label="Cantidad de consumibles" data-loot-cantidad="consumibles">
-                            <option value="0">0</option>
-                            <option value="1" selected>1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </div>
-
-                    <div class="loot-categoria">
-                        <button type="button" data-loot-categoria="libros">
-                            Libros y revistas
-                        </button>
-                        <select aria-label="Cantidad de libros y revistas" data-loot-cantidad="libros">
-                            <option value="0">0</option>
-                            <option value="1" selected>1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </div>
-
-                    <div class="loot-categoria">
-                        <button type="button" data-loot-categoria="miscelaneos">
-                            Misceláneos
-                        </button>
-                        <select aria-label="Cantidad de misceláneos" data-loot-cantidad="miscelaneos">
-                            <option value="0">0</option>
-                            <option value="1" selected>1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </div>
-
                 </div>
 
-                <div id="loot-resultado-botin" class="loot-subresultado" aria-live="polite"></div>
+                <div class="loot-categoria">
+                    <button type="button" class="tab-button" data-loot-categoria="atuendos">Atuendos</button>
+                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="atuendos">
+                        <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
+                        <button type="button" data-valor="1" aria-pressed="false">1</button>
+                        <button type="button" data-valor="2" aria-pressed="false">2</button>
+                        <button type="button" data-valor="3" aria-pressed="false">3</button>
+                        <button type="button" data-valor="4" aria-pressed="false">4</button>
+                        <button type="button" data-valor="5" aria-pressed="false">5</button>
+                    </div>
+                </div>
+
+                <div class="loot-categoria">
+                    <button type="button" class="tab-button" data-loot-categoria="comidas">Comidas</button>
+                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="comidas">
+                        <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
+                        <button type="button" data-valor="1" aria-pressed="false">1</button>
+                        <button type="button" data-valor="2" aria-pressed="false">2</button>
+                        <button type="button" data-valor="3" aria-pressed="false">3</button>
+                        <button type="button" data-valor="4" aria-pressed="false">4</button>
+                        <button type="button" data-valor="5" aria-pressed="false">5</button>
+                    </div>
+                </div>
+
+                <div class="loot-categoria">
+                    <button type="button" class="tab-button" data-loot-categoria="bebidas">Bebidas</button>
+                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="bebidas">
+                        <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
+                        <button type="button" data-valor="1" aria-pressed="false">1</button>
+                        <button type="button" data-valor="2" aria-pressed="false">2</button>
+                        <button type="button" data-valor="3" aria-pressed="false">3</button>
+                        <button type="button" data-valor="4" aria-pressed="false">4</button>
+                        <button type="button" data-valor="5" aria-pressed="false">5</button>
+                    </div>
+                </div>
+
+                <div class="loot-categoria">
+                    <button type="button" class="tab-button" data-loot-categoria="quimicos">Químicos</button>
+                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="quimicos">
+                        <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
+                        <button type="button" data-valor="1" aria-pressed="false">1</button>
+                        <button type="button" data-valor="2" aria-pressed="false">2</button>
+                        <button type="button" data-valor="3" aria-pressed="false">3</button>
+                        <button type="button" data-valor="4" aria-pressed="false">4</button>
+                        <button type="button" data-valor="5" aria-pressed="false">5</button>
+                    </div>
+                </div>
+
+                <div class="loot-categoria">
+                    <button type="button" class="tab-button" data-loot-categoria="armas-rango">Armas de rango</button>
+                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="armas-rango">
+                        <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
+                        <button type="button" data-valor="1" aria-pressed="false">1</button>
+                        <button type="button" data-valor="2" aria-pressed="false">2</button>
+                        <button type="button" data-valor="3" aria-pressed="false">3</button>
+                        <button type="button" data-valor="4" aria-pressed="false">4</button>
+                        <button type="button" data-valor="5" aria-pressed="false">5</button>
+                    </div>
+                </div>
+
+                <div class="loot-categoria">
+                    <button type="button" class="tab-button" data-loot-categoria="armas-melee">Armas cuerpo a cuerpo</button>
+                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="armas-melee">
+                        <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
+                        <button type="button" data-valor="1" aria-pressed="false">1</button>
+                        <button type="button" data-valor="2" aria-pressed="false">2</button>
+                        <button type="button" data-valor="3" aria-pressed="false">3</button>
+                        <button type="button" data-valor="4" aria-pressed="false">4</button>
+                        <button type="button" data-valor="5" aria-pressed="false">5</button>
+                    </div>
+                </div>
+
+                <div class="loot-categoria">
+                    <button type="button" class="tab-button" data-loot-categoria="arrojadizas-explosivos">Arrojadizas y explosivos</button>
+                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="arrojadizas-explosivos">
+                        <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
+                        <button type="button" data-valor="1" aria-pressed="false">1</button>
+                        <button type="button" data-valor="2" aria-pressed="false">2</button>
+                        <button type="button" data-valor="3" aria-pressed="false">3</button>
+                        <button type="button" data-valor="4" aria-pressed="false">4</button>
+                        <button type="button" data-valor="5" aria-pressed="false">5</button>
+                    </div>
+                </div>
+
+                <div class="loot-categoria loot-categoria-libros">
+                    <button type="button" class="tab-button" data-loot-categoria="libros">Libros y revistas</button>
+                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="libros">
+                        <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
+                        <button type="button" data-valor="1" aria-pressed="false">1</button>
+                        <button type="button" data-valor="2" aria-pressed="false">2</button>
+                        <button type="button" data-valor="3" aria-pressed="false">3</button>
+                        <button type="button" data-valor="4" aria-pressed="false">4</button>
+                        <button type="button" data-valor="5" aria-pressed="false">5</button>
+                    </div>
+
+                    <div id="loot-publicaciones">
+                        <button type="button" class="tab-button" data-publicacion="todas" class="seleccionado" aria-pressed="true">Todas</button>
+                        <button type="button" class="tab-button" data-publicacion="fantoma" aria-pressed="false">Fantoma</button>
+                        <button type="button" class="tab-button" data-publicacion="astoundinglyAwesomeTales" aria-pressed="false">Astoundingly Awesome Tales</button>
+                        <button type="button" class="tab-button" data-publicacion="backWoodsMan" aria-pressed="false">Backwoodsman</button>
+                        <button type="button" class="tab-button" data-publicacion="boxingTimes" aria-pressed="false">Boxing Times</button>
+                        <button type="button" class="tab-button" data-publicacion="duckAndCover" aria-pressed="false">Duck and Cover!</button>
+                        <button type="button" class="tab-button" data-publicacion="fixinThings" aria-pressed="false">Fixin' Things</button>
+                        <button type="button" class="tab-button" data-publicacion="futureWeaponsToday" aria-pressed="false">Future Weapons Today</button>
+                        <button type="button" class="tab-button" data-publicacion="grognak" aria-pressed="false">Grognak</button>
+                        <button type="button" class="tab-button" data-publicacion="gunsnBullets" aria-pressed="false">Guns and Bullets</button>
+                        <button type="button" class="tab-button" data-publicacion="liveAndLove" aria-pressed="false">Live and Love</button>
+                        <button type="button" class="tab-button" data-publicacion="massachusettsSurgicalJournal" aria-pressed="false">Massachusetts Surgical Journal</button>
+                        <button type="button" class="tab-button" data-publicacion="meetingPeople" aria-pressed="false">Meeting People</button>
+                        <button type="button" class="tab-button" data-publicacion="programmersDigest" aria-pressed="false">Programmer's Digest</button>
+                        <button type="button" class="tab-button" data-publicacion="junktownJerkySalesman" aria-pressed="false">Junktown Jerky Salesman</button>
+                        <button type="button" class="tab-button" data-publicacion="teslaScience" aria-pressed="false">Tesla Science</button>
+                        <button type="button" class="tab-button" data-publicacion="truePoliceStories" aria-pressed="false">True Police Stories</button>
+                        <button type="button" class="tab-button" data-publicacion="tumblersToday" aria-pressed="false">Tumblers Today</button>
+                        <button type="button" class="tab-button" data-publicacion="unstoppables" aria-pressed="false">The Unstoppables</button>
+                        <button type="button" class="tab-button" data-publicacion="usCovertManualOps" aria-pressed="false">U.S. Covert Operations Manual</button>
+                        <button type="button" class="tab-button" data-publicacion="wastelandGuide" aria-pressed="false">Wasteland Survival Guide</button>
+                    </div>
+                </div>
+
+                <div class="loot-categoria">
+                    <button type="button" data-loot-categoria="rarezas">Rarezas y objetos valiosos</button>
+                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="rarezas">
+                        <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
+                        <button type="button" data-valor="1" aria-pressed="false">1</button>
+                        <button type="button" data-valor="2" aria-pressed="false">2</button>
+                        <button type="button" data-valor="3" aria-pressed="false">3</button>
+                        <button type="button" data-valor="4" aria-pressed="false">4</button>
+                        <button type="button" data-valor="5" aria-pressed="false">5</button>
+                    </div>
+                </div>
+
+                <div class="loot-categoria">
+                    <button type="button" class="tab-button" data-loot-categoria="junk">Chatarra (Junk)</button>
+                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="junk">
+                        <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
+                        <button type="button" data-valor="1" aria-pressed="false">1</button>
+                        <button type="button" data-valor="2" aria-pressed="false">2</button>
+                        <button type="button" data-valor="3" aria-pressed="false">3</button>
+                        <button type="button" data-valor="4" aria-pressed="false">4</button>
+                        <button type="button" data-valor="5" aria-pressed="false">5</button>
+                    </div>
+                </div>
+
             </div>
+
+            <div id="loot-resultado-botin" class="loot-subresultado"></div>
         </div>
     </div>
 
