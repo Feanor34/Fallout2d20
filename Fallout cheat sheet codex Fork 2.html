@@ -691,6 +691,40 @@
         #gen-seccion-resultado {
             margin-top: 30px;
         }
+        
+        .loot-categoria {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .loot-categoria > [data-loot-categoria] {
+            flex: 1;
+            text-align: left;
+        }
+
+        .loot-categoria > .loot-cantidad {
+            display: flex;
+            flex: 0 0 auto;
+            justify-content: flex-end;
+            gap: 5px;
+        }
+
+        .loot-categoria > .loot-cantidad .tab-button {
+            min-width: 38px;
+            padding: 8px 10px;
+        }
+
+        .loot-categoria-libros {
+            flex-wrap: wrap;
+        }
+
+        .loot-categoria-libros > #loot-publicaciones {
+            flex-basis: 100%;
+        }
 
         /* ==========================================================================
            4: FOOTER
@@ -1383,10 +1417,9 @@
         <div class="card">
             <h3>Generar botín</h3>
             <div id="loot-generador-categorias" class="loot-generador-categorias">
-
                 <div class="loot-categoria">
-                    <button type="button" class="tab-button" data-loot-categoria="municiones">Munición</button>
-                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="municiones">
+                    <span>Municiones</span>
+                    <div class="loot-cantidad" data-loot-cantidad="municiones">
                         <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
                         <button type="button" data-valor="1" aria-pressed="false">1</button>
                         <button type="button" data-valor="2" aria-pressed="false">2</button>
@@ -1397,8 +1430,8 @@
                 </div>
 
                 <div class="loot-categoria">
-                    <button type="button" class="tab-button" data-loot-categoria="armaduras">Armaduras</button>
-                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="armaduras">
+                    <span>Armas</span>
+                    <div class="loot-cantidad" data-loot-cantidad="armas">
                         <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
                         <button type="button" data-valor="1" aria-pressed="false">1</button>
                         <button type="button" data-valor="2" aria-pressed="false">2</button>
@@ -1409,8 +1442,8 @@
                 </div>
 
                 <div class="loot-categoria">
-                    <button type="button" class="tab-button" data-loot-categoria="atuendos">Atuendos</button>
-                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="atuendos">
+                    <span>Armaduras y atuendos</span>
+                    <div class="loot-cantidad" data-loot-cantidad="armaduras">
                         <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
                         <button type="button" data-valor="1" aria-pressed="false">1</button>
                         <button type="button" data-valor="2" aria-pressed="false">2</button>
@@ -1421,8 +1454,8 @@
                 </div>
 
                 <div class="loot-categoria">
-                    <button type="button" class="tab-button" data-loot-categoria="comidas">Comidas</button>
-                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="comidas">
+                    <span>Servoarmaduras</span>
+                    <div class="loot-cantidad" data-loot-cantidad="servoarmaduras">
                         <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
                         <button type="button" data-valor="1" aria-pressed="false">1</button>
                         <button type="button" data-valor="2" aria-pressed="false">2</button>
@@ -1433,56 +1466,8 @@
                 </div>
 
                 <div class="loot-categoria">
-                    <button type="button" class="tab-button" data-loot-categoria="bebidas">Bebidas</button>
-                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="bebidas">
-                        <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
-                        <button type="button" data-valor="1" aria-pressed="false">1</button>
-                        <button type="button" data-valor="2" aria-pressed="false">2</button>
-                        <button type="button" data-valor="3" aria-pressed="false">3</button>
-                        <button type="button" data-valor="4" aria-pressed="false">4</button>
-                        <button type="button" data-valor="5" aria-pressed="false">5</button>
-                    </div>
-                </div>
-
-                <div class="loot-categoria">
-                    <button type="button" class="tab-button" data-loot-categoria="quimicos">Químicos</button>
-                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="quimicos">
-                        <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
-                        <button type="button" data-valor="1" aria-pressed="false">1</button>
-                        <button type="button" data-valor="2" aria-pressed="false">2</button>
-                        <button type="button" data-valor="3" aria-pressed="false">3</button>
-                        <button type="button" data-valor="4" aria-pressed="false">4</button>
-                        <button type="button" data-valor="5" aria-pressed="false">5</button>
-                    </div>
-                </div>
-
-                <div class="loot-categoria">
-                    <button type="button" class="tab-button" data-loot-categoria="armas-rango">Armas de rango</button>
-                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="armas-rango">
-                        <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
-                        <button type="button" data-valor="1" aria-pressed="false">1</button>
-                        <button type="button" data-valor="2" aria-pressed="false">2</button>
-                        <button type="button" data-valor="3" aria-pressed="false">3</button>
-                        <button type="button" data-valor="4" aria-pressed="false">4</button>
-                        <button type="button" data-valor="5" aria-pressed="false">5</button>
-                    </div>
-                </div>
-
-                <div class="loot-categoria">
-                    <button type="button" class="tab-button" data-loot-categoria="armas-melee">Armas cuerpo a cuerpo</button>
-                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="armas-melee">
-                        <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
-                        <button type="button" data-valor="1" aria-pressed="false">1</button>
-                        <button type="button" data-valor="2" aria-pressed="false">2</button>
-                        <button type="button" data-valor="3" aria-pressed="false">3</button>
-                        <button type="button" data-valor="4" aria-pressed="false">4</button>
-                        <button type="button" data-valor="5" aria-pressed="false">5</button>
-                    </div>
-                </div>
-
-                <div class="loot-categoria">
-                    <button type="button" class="tab-button" data-loot-categoria="arrojadizas-explosivos">Arrojadizas y explosivos</button>
-                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="arrojadizas-explosivos">
+                    <span>Consumibles</span>
+                    <div class="loot-cantidad" data-loot-cantidad="consumibles">
                         <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
                         <button type="button" data-valor="1" aria-pressed="false">1</button>
                         <button type="button" data-valor="2" aria-pressed="false">2</button>
@@ -1493,8 +1478,8 @@
                 </div>
 
                 <div class="loot-categoria loot-categoria-libros">
-                    <button type="button" class="tab-button" data-loot-categoria="libros">Libros y revistas</button>
-                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="libros">
+                    <span>Libros y revistas</span>
+                    <div class="loot-cantidad" data-loot-cantidad="libros">
                         <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
                         <button type="button" data-valor="1" aria-pressed="false">1</button>
                         <button type="button" data-valor="2" aria-pressed="false">2</button>
@@ -1504,7 +1489,7 @@
                     </div>
 
                     <div id="loot-publicaciones">
-                        <button type="button" class="tab-button" data-publicacion="todas" class="seleccionado" aria-pressed="true">Todas</button>
+                        <button type="button" class="tab-button seleccionado" data-publicacion="todas" aria-pressed="true">Todas</button>
                         <button type="button" class="tab-button" data-publicacion="fantoma" aria-pressed="false">Fantoma</button>
                         <button type="button" class="tab-button" data-publicacion="astoundinglyAwesomeTales" aria-pressed="false">Astoundingly Awesome Tales</button>
                         <button type="button" class="tab-button" data-publicacion="backWoodsMan" aria-pressed="false">Backwoodsman</button>
@@ -1529,8 +1514,8 @@
                 </div>
 
                 <div class="loot-categoria">
-                    <button type="button" data-loot-categoria="rarezas">Rarezas y objetos valiosos</button>
-                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="rarezas">
+                    <span>Misceláneos</span>
+                    <div class="loot-cantidad" data-loot-cantidad="miscelaneos">
                         <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
                         <button type="button" data-valor="1" aria-pressed="false">1</button>
                         <button type="button" data-valor="2" aria-pressed="false">2</button>
@@ -1539,25 +1524,13 @@
                         <button type="button" data-valor="5" aria-pressed="false">5</button>
                     </div>
                 </div>
-
-                <div class="loot-categoria">
-                    <button type="button" class="tab-button" data-loot-categoria="junk">Chatarra (Junk)</button>
-                    <div class="loot-cantidad" class="tab-button" data-loot-cantidad="junk">
-                        <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
-                        <button type="button" data-valor="1" aria-pressed="false">1</button>
-                        <button type="button" data-valor="2" aria-pressed="false">2</button>
-                        <button type="button" data-valor="3" aria-pressed="false">3</button>
-                        <button type="button" data-valor="4" aria-pressed="false">4</button>
-                        <button type="button" data-valor="5" aria-pressed="false">5</button>
-                    </div>
-                </div>
-
             </div>
-
+            <div style="margin-top: 20px; text-align: right;">
+                <button type="button" id="loot-generar-boton" class="tab-button"> Generar loot </button>
+            </div>
             <div id="loot-resultado-botin" class="loot-subresultado"></div>
         </div>
     </div>
-
 
      <!-- ==========================================================================
        4. SCRIPTS DE LÓGICA E INTERACCIÓN
@@ -6604,23 +6577,70 @@ const raiderTraits = [
             const elemento = document.getElementById(id);
             if (elemento) elemento.innerHTML = contenido;
         }
+        
+        /* --- SELECTORES DEL GENERADOR DE BOTÍN --- */
 
-        // Selección mediante botones.
-        function lootConfigurarBotones(contenedorId, propiedad, convertir = valor => valor) {
-            const contenedor = document.getElementById(contenedorId);
-            if (!contenedor) return;
+        // Cantidades: seleccionan visualmente un único valor por categoría.
+        document.querySelectorAll("[data-loot-cantidad]").forEach(contenedor => {
+            const botones = contenedor.querySelectorAll("button[data-valor]");
 
-            contenedor.querySelectorAll("button[data-valor]").forEach(boton => {
+            botones.forEach(boton => {
                 boton.addEventListener("click", () => {
-                    lootSeleccion[propiedad] = convertir(boton.dataset.valor);
-
-                    contenedor.querySelectorAll("button[data-valor]").forEach(opcion => {
-                        const seleccionado = opcion === boton;
-                        opcion.classList.toggle("seleccionado", seleccionado);
-                        opcion.setAttribute("aria-pressed", String(seleccionado));
+                    botones.forEach(opcion => {
+                        const activa = opcion === boton;
+                        opcion.classList.toggle("active", activa);
+                        opcion.setAttribute("aria-pressed", String(activa));
                     });
                 });
             });
+        });
+
+        // Publicaciones: permite seleccionar varias revistas.
+        const lootPublicaciones = document.getElementById("loot-publicaciones");
+
+        if (lootPublicaciones) {
+            const botones = lootPublicaciones.querySelectorAll("[data-publicacion]");
+
+            botones.forEach(boton => {
+                boton.addEventListener("click", () => {
+                    const esTodas = boton.dataset.publicacion === "todas";
+                    const botonTodas = lootPublicaciones.querySelector(
+                        '[data-publicacion="todas"]'
+                    );
+
+                    if (esTodas) {
+                        botones.forEach(opcion => {
+                            const activa = opcion === botonTodas;
+                            opcion.classList.toggle("active", activa);
+                            opcion.setAttribute("aria-pressed", String(activa));
+                        });
+                        return;
+                    }
+
+                    // Alternar la revista elegida.
+                    const activa = !boton.classList.contains("active");
+                    boton.classList.toggle("active", activa);
+                    boton.setAttribute("aria-pressed", String(activa));
+
+                    // «Todas» deja de estar seleccionada al elegir una revista.
+                    if (botonTodas) {
+                        botonTodas.classList.remove("active");
+                        botonTodas.setAttribute("aria-pressed", "false");
+                    }
+
+                    // Si no queda ninguna revista individual seleccionada,
+                    // volver a seleccionar «Todas».
+                    const haySeleccionadas = [...botones].some(opcion =>
+                        opcion.dataset.publicacion !== "todas" &&
+                        opcion.classList.contains("active")
+                    );
+
+                    if (!haySeleccionadas && botonTodas) {
+                        botonTodas.classList.add("active");
+                        botonTodas.setAttribute("aria-pressed", "true");
+                    }
+                });
+            }
         }
 
         lootConfigurarBotones("loot-opciones-exploracion", "exploracion", Number);
@@ -6840,15 +6860,7 @@ const raiderTraits = [
             return resultados;
         }
 
-        function lootGenerarCategoria(categoria) {
-            if (!lootEspacioActual) {
-                lootMostrar(
-                    "loot-resultado-botin",
-                    "<p class='loot-aviso'>Primero generá un espacio para explorar.</p>"
-                );
-                return;
-            }
-
+        function lootGenerarCategoria(categoria, cantidad) {
             const obtenerTabla = lootTablas[categoria];
 
             if (!obtenerTabla) {
@@ -6856,42 +6868,47 @@ const raiderTraits = [
                 return;
             }
 
-            const selector = document.querySelector(
-                `[data-loot-cantidad="${categoria}"]`
-            );
+            if (cantidad <= 0) {
+                return;
+            }
 
-            const cantidad = Number(selector?.value ?? 1);
-            const tabla = obtenerTabla();
+            let tabla = obtenerTabla();
+
+            // Filtrar los libros y revistas por la publicación seleccionada.
+            if (categoria === "libros") {
+                const seleccionadas = Array.from(
+                    document.querySelectorAll(
+                        '#loot-publicaciones [data-publicacion].seleccionado'
+                    )
+                ).map(boton => boton.dataset.publicacion);
+
+                if (!seleccionadas.includes("todas")) {
+                    const aliases = {
+                        wastelandGuide: ["wastelandGuide", "wastleandGuide"],
+                        usCovertManualOps: ["usCovertManualOps", "usCobertManualOps"]
+                    };
+
+                    tabla = tabla.filter(item => {
+                        const clases = String(item.class || "")
+                            .toLowerCase()
+                            .split(/\s+/);
+
+                        return seleccionadas.some(publicacion => {
+                            const variantes = aliases[publicacion] || [publicacion];
+
+                            return variantes.some(nombre =>
+                                clases.includes(nombre.toLowerCase())
+                            );
+                        });
+                    });
+                }
+            }
+
             const resultados = lootSortearItems(tabla, cantidad);
 
-            const htmlResultados = resultados.length
-                ? `
-                    <ol>
-                        ${resultados.map(item => `
-                            <li>
-                                <strong>${lootEscaparHTML(item.name || item.id)}</strong>
-                                <small>ID: ${lootEscaparHTML(item.id)}</small>
-                            </li>
-                        `).join("")}
-                    </ol>
-                `
-                : "<p>No se generaron objetos para esta categoría.</p>";
-
-            const titulo = {
-                municiones: "Municiones",
-                armas: "Armas",
-                armaduras: "Armaduras y apariencia",
-                servoarmaduras: "Servoarmaduras",
-                consumibles: "Consumibles",
-                libros: "Libros y revistas",
-                miscelaneos: "Misceláneos"
-            }[categoria];
-
             const salida = document.getElementById("loot-resultado-botin");
-
             if (!salida) return;
 
-            // Cada categoría conserva su propio resultado.
             let seccion = salida.querySelector(
                 `[data-loot-resultado="${categoria}"]`
             );
@@ -6903,18 +6920,119 @@ const raiderTraits = [
                 salida.appendChild(seccion);
             }
 
+            const titulos = {
+                municiones: "Municiones",
+                armas: "Armas",
+                armaduras: "Armaduras y atuendos",
+                servoarmaduras: "Servoarmaduras",
+                consumibles: "Consumibles",
+                libros: "Libros y revistas",
+                miscelaneos: "Misceláneos"
+            };
+
             seccion.innerHTML = `
-                <h4>${lootEscaparHTML(titulo)}</h4>
-                ${htmlResultados}
+                <h4>${lootEscaparHTML(titulos[categoria] || categoria)}</h4>
+                ${
+                    resultados.length
+                        ? `<ol>${resultados.map(item => `
+                            <li>
+                                <strong>${lootEscaparHTML(item.name || item.id)}</strong>
+                                <small>ID: ${lootEscaparHTML(item.id)}</small>
+                            </li>
+                        `).join("")}</ol>`
+                        : "<p>No hay objetos disponibles para esta selección.</p>"
+                }
             `;
         }
 
-        // Conectar los siete botones.
-        document.querySelectorAll("[data-loot-categoria]").forEach(boton => {
-            boton.addEventListener("click", () => {
-                lootGenerarCategoria(boton.dataset.lootCategoria);
+        // Selección visual y cantidad de cada categoría.
+        document.querySelectorAll("[data-loot-cantidad]").forEach(grupo => {
+            grupo.querySelectorAll("[data-valor]").forEach(boton => {
+                boton.addEventListener("click", () => {
+                    grupo.querySelectorAll("[data-valor]").forEach(opcion => {
+                        const seleccionado = opcion === boton;
+                        opcion.classList.toggle("seleccionado", seleccionado);
+                        opcion.setAttribute("aria-pressed", String(seleccionado));
+                    });
+                });
             });
         });
+
+        // Selección de publicaciones: "Todas" es excluyente.
+        document.querySelectorAll("#loot-publicaciones [data-publicacion]")
+            .forEach(boton => {
+                boton.addEventListener("click", () => {
+                    const todas = document.querySelector(
+                        '#loot-publicaciones [data-publicacion="todas"]'
+                    );
+
+                    if (boton.dataset.publicacion === "todas") {
+                        document.querySelectorAll(
+                            "#loot-publicaciones [data-publicacion]"
+                        ).forEach(opcion => {
+                            const seleccionado = opcion === boton;
+                            opcion.classList.toggle("seleccionado", seleccionado);
+                            opcion.setAttribute("aria-pressed", String(seleccionado));
+                        });
+                        return;
+                    }
+
+                    todas.classList.remove("seleccionado");
+                    todas.setAttribute("aria-pressed", "false");
+
+                    boton.classList.toggle("seleccionado");
+                    boton.setAttribute(
+                        "aria-pressed",
+                        String(boton.classList.contains("seleccionado"))
+                    );
+
+                    const haySeleccionadas = Array.from(
+                        document.querySelectorAll(
+                            "#loot-publicaciones [data-publicacion]"
+                        )
+                    ).some(opcion =>
+                        opcion.dataset.publicacion !== "todas" &&
+                        opcion.classList.contains("seleccionado")
+                    );
+
+                    if (!haySeleccionadas) {
+                        todas.classList.add("seleccionado");
+                        todas.setAttribute("aria-pressed", "true");
+                    }
+                });
+            });
+
+        // Un único botón genera todas las categorías seleccionadas.
+        document.getElementById("loot-generar-boton")
+            .addEventListener("click", () => {
+                const salida = document.getElementById("loot-resultado-botin");
+
+                if (!lootEspacioActual) {
+                    lootMostrar(
+                        "loot-resultado-botin",
+                        "<p class='loot-aviso'>Primero generá un espacio para explorar.</p>"
+                    );
+                    return;
+                }
+
+                salida.innerHTML = "";
+
+                document.querySelectorAll("[data-loot-cantidad]").forEach(grupo => {
+                    const categoria = grupo.dataset.lootCantidad;
+                    const seleccionado = grupo.querySelector(
+                        '[data-valor].seleccionado'
+                    );
+                    const cantidad = Number(seleccionado?.dataset.valor ?? 0);
+
+                    if (cantidad > 0) {
+                        lootGenerarCategoria(categoria, cantidad);
+                    }
+                });
+
+                if (!salida.children.length) {
+                    salida.innerHTML = "<p>No seleccionaste ninguna cantidad de botín.</p>";
+                }
+            });
 
     </script>
 
