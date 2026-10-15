@@ -1596,6 +1596,18 @@
                         <button type="button" data-valor="4" aria-pressed="false">4</button>
                         <button type="button" data-valor="5" aria-pressed="false">5</button>
                     </div>
+                    
+                    <div class="loot-categoria">
+                        <span>Máquina de Nuka-Cola</span>
+                        <div class="loot-cantidad" data-loot-cantidad="maquina-nuka-cola">
+                            <button type="button" data-valor="0" class="seleccionado" aria-pressed="true">0</button>
+                            <button type="button" data-valor="1" aria-pressed="false">1</button>
+                            <button type="button" data-valor="2" aria-pressed="false">2</button>
+                            <button type="button" data-valor="3" aria-pressed="false">3</button>
+                            <button type="button" data-valor="4" aria-pressed="false">4</button>
+                            <button type="button" data-valor="5" aria-pressed="false">5</button>
+                        </div>
+                    </div>
 
                     <div id="loot-publicaciones">
                         <button type="button" class="tab-button seleccionado" data-publicacion="todas" aria-pressed="true">Todas</button>
@@ -6687,10 +6699,6 @@ const raiderTraits = [
             if (elemento) elemento.innerHTML = contenido;
         }
 
-        lootConfigurarBotones("loot-opciones-exploracion", "exploracion", Number);
-        lootConfigurarBotones("loot-opciones-tamano", "tamano");
-        lootConfigurarBotones("loot-opciones-tiempo", "tiempo", Number);
-
         // Generación del espacio.
         function lootGenerarEspacio() {
             const { exploracion, tamano: claveTamano, tiempo } = lootSeleccion;
@@ -6904,6 +6912,16 @@ const raiderTraits = [
             return resultados;
         }
 
+        const lootTablaMaquinaNukaCola = [
+            { minimo: 1, maximo: 8, resultado: "Vacío", objetos: [] },
+            { minimo: 9, maximo: 12, resultado: "Botellas de vidrio vacías", objetos: [ { nombre: "Botellas de vidrio vacías", cantidad: "1 + 2CD", descripcion: "Chatarra. Cada botella permite recuperar 2 materiales comunes." } ] },
+            { minimo: 13, maximo: 15, resultado: "1 Nuka-Cola", objetos: [ { id: "bebida_nuka_cola", cantidad: "1" } ] },
+            { minimo: 16, maximo: 17, resultado: "2 Nuka-Cola", objetos: [ { id: "bebida_nuka_cola", cantidad: "2" } ] },
+            { minimo: 18, maximo: 18, resultado: "1 Nuka-Cola y 1 Nuka-Cherry", objetos: [ { id: "bebida_nuka_cola", cantidad: "1" }, { id: "bebida_nuka_cherry", cantidad: "1" } ] },
+            { minimo: 19, maximo: 19, resultado: "2 Nuka-Cola y 1 Nuka-Cherry", objetos: [ { id: "bebida_nuka_cola", cantidad: "2" }, { id: "bebida_nuka_cherry", cantidad: "1" } ] },
+            { minimo: 20, maximo: 20, resultado: "1 Nuka-Cola Quantum", objetos: [ { id: "bebida_nuka_cola_quantum", cantidad: "1" } ] }
+        ];
+
         function lootGenerarCategoria(categoria, cantidad) {
             const obtenerTabla = lootTablas[categoria];
 
@@ -6980,8 +6998,17 @@ const raiderTraits = [
                     resultados.length
                         ? `<ol>${resultados.map(item => `
                             <li>
-                                <strong>${lootEscaparHTML(item.name || item.id)}</strong>
-                                <small>ID: ${lootEscaparHTML(item.id)}</small>
+                                <strong>${lootEscaparHTML(item.name || "Objeto sin nombre")}</strong>
+                                ${
+                                    item.descripcion
+                                        ? `<p>${lootEscaparHTML(item.descripcion)}</p>`
+                                        : ""
+                                }
+                                ${
+                                    item.cantidad !== undefined && item.cantidad !== null && item.cantidad !== ""
+                                        ? `<p><strong>Cantidad encontrada:</strong> ${lootEscaparHTML(item.cantidad)}</p>`
+                                        : ""
+                                }
                             </li>
                         `).join("")}</ol>`
                         : "<p>No hay objetos disponibles para esta selección.</p>"
@@ -6997,148 +7024,200 @@ const raiderTraits = [
         document.querySelectorAll("[data-loot-cantidad]").forEach(grupo => {
             const botones = grupo.querySelectorAll("[data-valor]");
 
+            // Normalizar la selección inicial.
+            let seleccionadoInicial = false;
+
+            botones.forEach(boton => {
+                const seleccionado =
+                    boton.classList.contains("seleccionado") &&
+                    !seleccionadoInicial;
+
+                boton.classList.toggle("seleccionado", seleccionado);
+                boton.setAttribute("aria-pressed", String(seleccionado));
+
+                if (seleccionado) {
+                    seleccionadoInicial = true;
+                }
+            });
+
+            // Si no hay selección inicial, elegir el valor cero.
+            if (!seleccionadoInicial) {
+                const botonCero = grupo.querySelector('[data-valor="0"]');
+
+                if (botonCero) {
+                    botonCero.classList.add("seleccionado");
+                    botonCero.setAttribute("aria-pressed", "true");
+                }
+            }
+
             botones.forEach(boton => {
                 boton.addEventListener("click", () => {
                     botones.forEach(opcion => {
                         const seleccionado = opcion === boton;
 
-                        opcion.classList.toggle(
-                            "seleccionado",
-                            seleccionado
-                        );
-
-                        opcion.setAttribute(
-                            "aria-pressed",
-                            String(seleccionado)
-                        );
+                        opcion.classList.toggle("seleccionado", seleccionado);
+                        opcion.setAttribute("aria-pressed", String(seleccionado));
                     });
                 });
             });
         });
 
-        // Publicaciones: "Todas" es excluyente.
-        const lootPublicaciones = document.getElementById(
-            "loot-publicaciones"
+        const botonMaquinaNukaCola = document.getElementById(
+            "loot-maquina-nuka-cola"
         );
 
-        if (lootPublicaciones) {
-            const botones = lootPublicaciones.querySelectorAll(
-                "[data-publicacion]"
-            );
+        if (botonMaquinaNukaCola) {
+            botonMaquinaNukaCola.addEventListener("click", () => {
+                const salida = document.getElementById("loot-resultado-botin");
+                if (!salida) return;
 
+                let seccion = salida.querySelector(
+                    '[data-loot-resultado="maquina-nuka-cola"]'
+                );
+
+                if (!seccion) {
+                    seccion = document.createElement("section");
+                    seccion.dataset.lootResultado = "maquina-nuka-cola";
+                    seccion.className = "loot-resultado-categoria";
+                    salida.appendChild(seccion);
+                }
+
+                const consumibles = lootTablas.consumibles();
+
+                const resultados = [];
+
+                // La máquina genera dos tiradas independientes de 1d20.
+                for (let i = 0; i < 2; i++) {
+                    const tirada = Math.floor(Math.random() * 20) + 1;
+
+                    const entrada = lootTablaMaquinaNukaCola.find(
+                        resultado =>
+                            tirada >= resultado.minimo &&
+                            tirada <= resultado.maximo
+                    );
+
+                    const objetosHTML = entrada.objetos.map(objeto => {
+                        const item = objeto.id
+                            ? consumibles.find(
+                                consumible => consumible.id === objeto.id
+                            )
+                            : objeto;
+
+                        if (!item) {
+                            return `<li>Objeto no encontrado en la DB: ${
+                                lootEscaparHTML(objeto.id)
+                            }</li>`;
+                        }
+
+                        return `
+                            <li>
+                                <strong>${lootEscaparHTML(item.name || item.nombre || "Objeto sin nombre")}</strong>
+                                ${
+                                    item.descripcion
+                                        ? `<p>${lootEscaparHTML(item.descripcion)}</p>`
+                                        : ""
+                                }
+                                ${
+                                    objeto.cantidad
+                                        ? `<p><strong>Cantidad encontrada:</strong> ${lootEscaparHTML(objeto.cantidad)}</p>`
+                                        : ""
+                                }
+                            </li>
+                        `;
+                    }).join("");
+
+                    resultados.push(`
+                        <div class="loot-tirada-nuka-cola">
+                            <h5>Tirada ${i + 1}: ${tirada}</h5>
+                            <p>${lootEscaparHTML(entrada.resultado)}</p>
+                            ${
+                                objetosHTML
+                                    ? `<ul>${objetosHTML}</ul>`
+                                    : "<p>La máquina no entrega ningún objeto.</p>"
+                            }
+                        </div>
+                    `);
+                }
+
+                seccion.innerHTML = `
+                    <h4>Máquina de Nuka-Cola</h4>
+                    ${resultados.join("")}
+                `;
+            });
+        }
+
+        // Publicaciones: "Todas" es excluyente.
+        const lootPublicaciones = document.getElementById("loot-publicaciones");
+
+        if (lootPublicaciones) {
+            const botones = lootPublicaciones.querySelectorAll("[data-publicacion]");
             const botonTodas = lootPublicaciones.querySelector(
                 '[data-publicacion="todas"]'
             );
 
+            function actualizarSeleccionPublicaciones() {
+                const hayIndividuales = Array.from(botones).some(boton =>
+                    boton.dataset.publicacion !== "todas" &&
+                    boton.classList.contains("seleccionado")
+                );
+
+                if (botonTodas) {
+                    botonTodas.classList.toggle("seleccionado", !hayIndividuales);
+                    botonTodas.setAttribute("aria-pressed", String(!hayIndividuales));
+                }
+            }
+
             botones.forEach(boton => {
                 boton.addEventListener("click", () => {
-                    const esTodas =
-                        boton.dataset.publicacion === "todas";
-
-                    if (esTodas) {
+                    if (boton.dataset.publicacion === "todas") {
                         botones.forEach(opcion => {
                             const seleccionado = opcion === boton;
 
-                            opcion.classList.toggle(
-                                "seleccionado",
-                                seleccionado
-                            );
-
-                            opcion.setAttribute(
-                                "aria-pressed",
-                                String(seleccionado)
-                            );
+                            opcion.classList.toggle("seleccionado", seleccionado);
+                            opcion.setAttribute("aria-pressed", String(seleccionado));
                         });
 
                         return;
                     }
 
-                    // Alternar la publicación elegida.
-                    const seleccionado =
-                        !boton.classList.contains("seleccionado");
+                    const seleccionado = !boton.classList.contains("seleccionado");
 
-                    boton.classList.toggle(
-                        "seleccionado",
-                        seleccionado
-                    );
+                    boton.classList.toggle("seleccionado", seleccionado);
+                    boton.setAttribute("aria-pressed", String(seleccionado));
 
-                    boton.setAttribute(
-                        "aria-pressed",
-                        String(seleccionado)
-                    );
-
-                    // Al elegir una publicación, desactivar "Todas".
-                    if (botonTodas) {
-                        botonTodas.classList.remove("seleccionado");
-                        botonTodas.setAttribute("aria-pressed", "false");
-                    }
-
-                    // Si no queda ninguna publicación individual
-                    // seleccionada, volver a activar "Todas".
-                    const haySeleccionadas = Array.from(botones).some(
-                        opcion =>
-                            opcion.dataset.publicacion !== "todas" &&
-                            opcion.classList.contains("seleccionado")
-                    );
-
-                    if (!haySeleccionadas && botonTodas) {
-                        botonTodas.classList.add("seleccionado");
-                        botonTodas.setAttribute("aria-pressed", "true");
-                    }
+                    actualizarSeleccionPublicaciones();
                 });
             });
+
+            actualizarSeleccionPublicaciones();
         }
 
-        // Un único botón genera todas las categorías seleccionadas.
-        const botonGenerarLoot = document.getElementById(
-            "loot-generar-boton"
-        );
+        // Generar todas las categorías elegidas.
+        const botonGenerarLoot = document.getElementById("loot-generar-boton");
 
         if (botonGenerarLoot) {
             botonGenerarLoot.addEventListener("click", () => {
-                const salida = document.getElementById(
-                    "loot-resultado-botin"
-                );
+                const salida = document.getElementById("loot-resultado-botin");
 
                 if (!salida) {
-                    console.error(
-                        "No se encontró el contenedor de resultados del botín."
-                    );
+                    console.error("No se encontró el contenedor de resultados del botín.");
                     return;
                 }
 
-                // Es necesario generar primero un espacio de exploración.
-                if (!lootEspacioActual) {
-                    lootMostrar(
-                        "loot-resultado-botin",
-                        "<p class='loot-aviso'>Primero generá un espacio para explorar.</p>"
-                    );
-                    return;
-                }
-
-                // Limpiar los resultados anteriores.
                 salida.innerHTML = "";
 
-                // Generar cada categoría según su cantidad seleccionada.
-                document.querySelectorAll("[data-loot-cantidad]").forEach(
-                    grupo => {
-                        const categoria = grupo.dataset.lootCantidad;
+                document.querySelectorAll("[data-loot-cantidad]").forEach(grupo => {
+                    const categoria = grupo.dataset.lootCantidad;
+                    const botonSeleccionado = grupo.querySelector(
+                        "[data-valor].seleccionado"
+                    );
+                    const cantidad = Number(botonSeleccionado?.dataset.valor ?? 0);
 
-                        const botonSeleccionado = grupo.querySelector(
-                            "[data-valor].seleccionado"
-                        );
-
-                        const cantidad = Number(
-                            botonSeleccionado?.dataset.valor ?? 0
-                        );
-
-                        if (cantidad > 0) {
-                            lootGenerarCategoria(categoria, cantidad);
-                        }
+                    if (cantidad > 0) {
+                        lootGenerarCategoria(categoria, cantidad);
                     }
-                );
+                });
 
-                // Informar si todas las categorías están en cero.
                 if (!salida.children.length) {
                     salida.innerHTML =
                         "<p>No seleccionaste ninguna cantidad de botín.</p>";
