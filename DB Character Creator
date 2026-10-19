@@ -117,40 +117,115 @@ const tribalOrigin = {
     source: "Wanderers Guide",
     description: "Los **tribales del Yermo** viven en comunidades extensas, compuestas por familias que no poseen una identidad cultural distintiva. Habitan el Yermo fuera de algunos de los «estados» más formalizados, como la RNC. Aunque el territorio que ocupan es más amplio que el de otros asentamientos, tienen un sentido de comunidad más fuerte. Los tribales pueden compartir una filosofía más espiritual con el resto de los habitantes del Yermo, incluida una explicación mitificada del mundo tal como existe en la actualidad, a diferencia de la visión más cínica de sus vecinos. Además, veneran las tecnologías antiguas con una mezcla de respeto y superstición.",
     traitName: "Razgos",
-    traitDescription: "Podés elegir dos de los siguientes rasgos, dos rasgos de la lista del origen Superviviente, o bien un rasgo de esta lista o de las listas de Superviviente o de la República de Nueva California, y una ventaja adicional. Cada rasgo ofrece un beneficio y puede incluir una penalización asociada."
-    | **RASGO** | **BENEFICIO** | **PENALIZACIÓN** |
-|---|---|---|
-| **Madre del Yermo** (*Mother Wasteland*) | Gastá 1 Punto de Suerte para obtener información sobre una misión, situación o escena, como si hubieras gastado 3 PA para usar *Obtener Información* tres veces. Esta información suele ser críptica y de naturaleza mística. | Las complicaciones dificultan la comprensión de las escenas relacionadas con artefactos anteriores a la Guerra, lo que limita tu capacidad para utilizarlos. |
-| **Nómada** (*Nomad*) | Podés repetir 1d20 en las pruebas de Supervivencia relacionadas con viajar, establecer un campamento y recolectar comida y agua. Además, ignorás la primera complicación obtenida en estas pruebas. | La dificultad y el rango de complicación de las pruebas de Comercio y Oratoria aumentan en 1 cuando tratás con habitantes de asentamientos permanentes. Ciencia no puede ser una habilidad de Etiqueta. |
-| **Rito de Iniciación** (*Rite of Passage*) | La primera vez que gastás Suerte durante una escena, tirá 1 CD. Si obtenés un Efecto, no gastás ese Punto de Suerte. | Considerás inferiores a todas las personas que no hayan completado tu rito de iniciación. No podés ayudar a otro personaje jugador sin gastar primero 1 PA. |
-| **Herramientas del Viejo Mundo** (*Tools of the Old World*) | Podés usar Supervivencia en lugar de Reparación o Ciencia para reparar o utilizar tecnología anterior a la Guerra. | El rango de complicación de las pruebas relacionadas con tecnología anterior a la Guerra —excepto las armas— aumenta en 2. |
-| **El Elegido** (*The Chosen One*) | El primer d20 que comprás es gratis en las pruebas relacionadas con la misión de tu tribu, y siempre podés tener éxito pagando un costo. | El DJ agrega 2 PA a su reserva cuando tu misión entra en juego. |
+    traitDescription: "Podés elegir dos de los siguientes rasgos, dos rasgos de la lista del origen Superviviente, o bien un rasgo de esta lista o de las listas de Superviviente o de la República de Nueva California, y una ventaja adicional. Cada rasgo ofrece un beneficio y puede incluir una penalización asociada.",
+    trait: "tribalTraitsCanon"
+
 };
 
-const Origin = {
-    name: "",
-    source: "Canon",
-    description: "",
-    traitName: "",
-    traitDescription: ""
+const commonwealthMinutemanOrigin = {
+    name: "Minuteman",
+    source: "Settlers Guide",
+    description: "“Protect the people at a minute’s notice.” A promise to live by, you belong to a unique brand of survivors in the Commonwealth who put others before themselves. With the threat of raiders, radioactive mutants, and morally corrupt factions that travel the wastes, another settlement always needs your help. You could be a long-standing veteran of the Minutemen, rising to prominence in your defense of Diamond City against super mutant attackers. You could have signed on later, as the group’s founders tried to organize a government and unite settlements around the Commonwealth (only to be thwarted by the assassination of all the representatives in attendance), taking up residence in the old Fort Independence. “The Castle ‘’ could have been your home shortly before it was lost to a sea monster emerging from the Boston shoreline. Whatever your participation, the Quincy Massacre was a pivotal moment in your personal history, with Clint’s defection to the Gunners, Colonel Hollis’s capture and subsequent execution, and the Gunners slaughtering all but a few survivors in Quincy. Preston Garvey believed himself the only Minutemen survivor of the Quincy Massacre, but what if he was mistaken? What if you also survived, split off from your fellow militiamen, or went along with Clint’s plans just to live, but never losing the spirit of the Minutemen’s pledge to protect the citizens of the Commonwealth? Maybe you left the group before the events of Quincy, disenfranchised by the politics and infighting after the death of General Becker, but ready to dust off the hat and coat once more for someone who can reunite the militia and bring it back to its former glory", 
+    traitName: "United We Stand",
+    traitDescription: "Trade caravan posts in your settlements attract traders every 5 days rather than 7. Settlements you establish, by any means, have a base Defense resource of 4. You gain either Energy Weapons or Small Guns as a bonus tag skill (your choice). Your Damage Resistance is increased by +1 while in cover, and you deal +1CD damage while you and your companions are outnumbered."
 };
 
-const Origin = {
-    name: "",
-    source: "Canon",
-    description: "",
-    traitName: "",
-    traitDescription: ""
+const newCaliforniaRepublicOrigin = {
+    name: "Nueva Republica de California",
+    source: "Settlers Guide",
+    description: "As a citizen of New California, you are the progeny of West Coast survivors of the nuclear apocalypse, a legacy of civilization rebuilding and expanding from the humble beginnings of Shady Sands. Formed from the political differences and exodus of Vault 15 in California, its founding members left the vault with a G.E.C.K., allowing them to grow food, build their first amenities, and establish Shady Sands. Soon, a thriving, self-sustaining community became the foundation stone of the New California Republic, or NCR. From its humble beginnings, the NCR expanded, promoting many old-world values: democracy, with its presidents and a Congress; liberty, by exalting personal freedoms; and the rule of law, by protecting its citizens and holding them accountable for immoral actions. Whether you live these values yourself is up to you, but if you come from New California, your life is marked by it in some way. Many citizens of the republic are just like survivors you’d find anywhere in the wastes: farmers, herders, mechanics, merchants, caravaneers, even mercenaries and soldiers. What sets you apart are the cultural touchstones other wastelanders don’t have in their everyday lives. The NCR Dollar, established at the turn of the 22nd century, dominates the New California economy and eclipses Nuka-Cola bottle caps as the default tender within NCR territory. You’ll likely have seen much more built-up urban areas, like the Hub, Junktown, Vault City, and New Reno. These sprawling urban centers make the rest of the wasteland seem backward, deserted, and otherwise dangerous. The trade pouring in and out of these settlements provides food, medicine, and even civil liberties like the right to vote and to pursue justice for crimes committed. That being said, a strain on the agricultural and industrial output of the republic has driven an expansion east, into the Mojave Wasteland in particular, to find and develop more farmland. The ensuing annexations, wars, and expansion to the NCR’s territory brought arguments of imperialism against its government, and its thinly-stretched military and prospecting frontiersmen lost the benefits of civilization for the benefit of everyone else.",
+    traitName: "New Californian",
+    traitDescription: "You may choose two of the following traits, two traits from the Survivor origin, or one trait from either list and one additional perk. Each trait has a benefit and may have an accompanying penalty."
 };
 
-const Origin = {
-    name: "",
-    source: "Canon",
-    description: "",
-    traitName: "",
-    traitDescription: ""
+const protectronOrigin = {
+    name: "Protectron",
+    source: "Settlers Guide",
+    description: "Manufactured by RobCo Industries as an inexpensive work drone, your model was one of the company’s most popular robots that put many Americans out of work before the Great War. Protectrons were built for various construction, security, and administrative tasks. Factory models were used for manual labor. Office models were programmed with integrated administrative software. Firefighter models used internal cryojets to suppress dangerous flames. Medic models featured built-in defibrillators. Police models contained stronger armor and enhanced tasers for crowd control. You might have come from one of these manufacturing lines or another entirely. Your body is humanoid in shape and covered in light armor plating. Not initially designed for combat, the wasteland is full of resources you can use to protect yourself and others. Unless you have received software or hardware upgrades, you speak in a robotic monotone like other Protectrons. Most Protectrons do almost anything to defend those their programming determines to be allies. A long time has passed since your creation. You may have been a worker drone, but now you are much more. Your original programming still drives your behavior and actions, though it might have decayed or become twisted. You could be one of the few Protectrons to achieve true self-awareness and resist your programming. In the wild wasteland, it is up to you to decide whether your ancient programming will define you—or whether you define who you are by your own directives.",
+    traitName: "Protect or Destroy",
+    traitDescription: "You were built to survive in harsh environments. Once per scene, you may reroll a test to overcome an environmental hazard and use the new result. You are also immune to disease, and Radiation and Poison damage, but you cannot use chems, nor can you benefit from food, drink, or rest. You cannot recover from your injuries or heal health points without receiving repairs. Protectrons are designed for a specific purpose and contain additional mechanisms to support their programmed tasks. You cannot have more than two robot mods installed simultaneously. You may be a Fire Brigadier, Law Enforcer, Construction Worker, Medical Responder, or a model of your own invention. When making a test directly related to your model’s purpose, the first d20 you buy using Action Points costs 0. Additionally, your carry weight is 225 lbs. and cannot be increased by your Strength or perks, but it can be increased by modified armor."
 };
 
+const robobrainOrigin = {
+    name: "Robobrain",
+    source: "Settlers Guide",
+    description: "Born from the cybernetic amalgamation of the human brain and robotic body, robobrains were the result of secretive research that produced a short run of prototype automatrons across the pre-War United States. While most units lacked the personality of their life before being extracted from their human bodies, some robobrains exhibit strange personality traits, and even worse, some turn inexplicably violent. Without any memory of your former life but having developed a sense of self, you are a robot built of the most elegant and advanced central processor ever known—the human brain. Is your brain another component, and you are the robot? Or are you still in there somewhere, trying to break out of the memory-repression inflicted on your consciousness through the CODE Conditioning Protocol? The wasteland may never know, but you can still travel the wastes and survive, defend yourself, and even form relationships with human survivors whose bodies might give you an eerie feeling of familiarity. Either way, you traverse the wastes on a pair of tracks, capable of getting through most terrains, and interact with the world using a pair of claws on the end of flexible extenders. These claws allow you to manipulate objects and equipment like a person would, but can equally be replaced by guns, emitters, weapons, or other accessories provided they can be mechanically incorporated. Your robust construction gives you incredible durability, and the biomedical gel inside the dome containing your brain can sustain its tissue potentially for centuries—who you will be by that point is unknown as you stray a little further from your programming every single day. Regardless of your origins at a General Atomics or military laboratory, you can travel as far as your tracks and internal power plant can carry you. So robobrains can be found in all corners of the wasteland and many different circumstances. Who you call your friends, and what you consider your purpose, is up to you.",
+    traitName: "Robobrain Robot",
+    traitDescription: "You are a robot with a human brain as a central processor. You have visual sensors that can detect the visual spectrum and infrared, ignoring any difficulty increase to Perception tests in darkness. You are also immune to radiation and poison damage, but you cannot use chems, nor can you benefit from food, drink, or rest. You cannot recover your own injuries or heal health points without receiving repairs (see Fallout: The Roleplaying Game Core Rulebook, p.34). You move on two continuous tracks, and have two tube-like manipulators as arms with opposable claws you can use to control tools and objects designed for humans with precision and make unarmed melee attacks. Your head has a built-in mesmetron, which you can use to make ranged attacks. Your carry weight is 150 lbs., and it cannot be increased by your Strength or perks, but it can be increased by modified armor."
+};
+
+const securitronOrigin = {
+    name: "Securitron",
+    source: "Settlers Guide",
+    description: "Created by RobCo Industries and manufactured by H&H Tools in pre-War Nevada to protect the Strip in New Vegas, the PDQ-88b securitron is a top-of-theline private security robot capable of varied combat operations given the appropriate upgrades. Unique to New Vegas, some units have been given personalities outside the police and military defaults, ranging from human personas to cartoon creations—every single one loyal to Mr. House in some way. You are designed to keep the peace in and around the Strip, built of a large, strong unicycle chassis, thickplated main body, with extender-style arms that house concealed weapons and claws to manipulate your environment. By default, you know how to use the laser and submachine guns housed inside your arms, and the claws to attack and restrain people. Your singular wheel propels you across most terrain, designed for the urban and desert environments you patrol. The screen at the center of your torso can display still images, typically of a stylized face reflecting your personality. You can communicate verbally using a speaker within your body casing, and even print out memos or leaflets from a printer housed in your body should the need arise. The only way to gain access to your upgraded operating system, increase your combat effectiveness, and gain access to your grenade and rocket launcher hardware is by chip—a platinum casino chip that contains the data for the Mk II systems for all securitrons. The only two locations on earth where the chip can be inserted into a computer are in the Lucky 38 Casino (Mr. House’s personal casino and residence) and a weather monitoring station occupied by Caesar’s Legion. Once inserted and its data transmitted, all Securitrons on the network are upgraded and uploaded with the right drivers to use what are actually their primary weapons. The chip’s existence may be unknown to you or something you’re looking for as part of Mr. House’s many plans to orchestrate the delivery of the data contained within, giving him tighter control over New Vegas and his rivals. Whatever your plans, Mr. House’s aren’t far behind.",
+    traitName: "Mark I Securitron",
+    traitDescription: "You are a robot, with the Mk I operating system designed by RobCo Industries. You have forward-facing visual sensors that can detect the visual spectrum. You are also immune to radiation and poison damage, but you cannot use chems, nor can you benefit from food, drink, or rest. You cannot recover your own injuries or heal health points without receiving repairs (see Fallout: The Roleplaying Game Core Rulebook, p.34). You move on a single tire, increasing the difficulty of skill tests to balance or remain upright by 1. Your arms are fitted with opposable claws, with which you can manipulate your environment rudimentarily and make unarmed melee attacks. The palms of your claws are outfitted with integrated weapons, as outlined in Choose Equipment, p.95. Your shoulders house missile launchers and a grenade launcher is integrated into the left arm, but they are both inoperable unless you are fitted with the Mk II operating system mod. Your carry weight is 150 lbs. It cannot be increased by your Strength or perks, but by modified armor" 
+};
+
+const gen3SynthOrigin = {
+    name: "Generation 3 Synth",
+    source: "Settlers Guide",
+    description: "You are a bio-synthetic humanoid, almost entirely indistinguishable from humans, created by a secret scientific organization known as the Institute. You were designed to integrate into human society, infiltrate communities, and explore the surface undetected. Your lab-grown body is made up of real human flesh, bones, and organs—your only distinguishing feature, an undetectable cybernetic implant in your brain that contains your programming. Your bio-engineered upgrades make you hardier than humans, and you do not age or suffer tiredness or malnutrition. Your capacity to keep going for extended periods without needing rest is a great advantage in the harsh wasteland. Additionally, your body can survive synthetic implants and cybernetic modifications without complications. If you are an escaped synth, you may have decided to have your memories wiped by the Railroad to better assume a new life on the surface, implanted with the life and personality of an original creation or maybe even based on someone living or dead from the wasteland above the Institute. Alternatively, you may have struck out on your own, retaining your programmed personality and are fully aware of the dangers of the Synth Retention Bureau. If you work for the Institute, you may be trying to infiltrate a group or settlement in the Commonwealth, taking the place of a real wastelander and living their life in their place while all the time reporting back to Institute handlers, providing intelligence for the secretive organization. Due to the fear gripping the Commonwealth, your discovery could prove incredibly dangerous to your survival and the mission you have been placed on the surface to complete. What lengths do you go to to complete your creators’ goals, or do you begin to question your programming, your awareness, your very existence?.",
+    traitName: "More Than Human",
+    traitDescription: "Though you appear mentally and physically human, your bioengineering makes you something entirely new and, in many ways, improved. You gain one additional tag skill. You cannot suffer from starvation or dehydration and do not need sleep, but you do not gain a benefit from consuming food or beverage items. When you rest, instead of sleeping, you may engage in minor activities such as crafting, reading, or light scouting. Additionally, you are immune to Poison and Radiation damage and disease. You do not age, nor do you gain or lose weight. When interacting with NPCs who know you are a synth—unless they are sympathetic towards synths—the difficulty of CHA tests made by you or your allies increases by 2. When a complication is rolled, they either become hostile, or your Faction Reputation or Settlement Reputation decreases by 1 per complication generated due to their fear of the Institute. The Institute has given you a unique recall code—an unalterable verbal command that resets your personality and memories. When you hear the code spoken, you become incapacitated until you are retrieved and restored by the Institute."
+};
+
+//TRAITS BY ORIGIN CANON
+const misterHandyTraitsCanon = [
+    { name: "Pistola automática 10mm", desc: "Puedes hacer ataque a distancia usando una pistola automática de 10mm." },
+    { name: "Sierra circular", desc: "Ataques cuerpo a cuerpo (Daño físico, 3 CD, perforante 1)." },
+    { name: "Lanzallamas", desc: "Ataques con lanzallamas de corta distancia." },
+    { name: "Emisor láser", desc: "Ataques a distancia con láser." },
+    { name: "Pinzas", desc: "Manipular objetos de hasta 40 lbs o ataques desarmado (Daño físico, 2 CD)." }
+];
+
+const survivorTraitsCanon = [
+    { id: "educated", name: "Educated", benefit: "Tienes 1 habilidad etiquetada (Tag) adicional.", penalty: "Cuando falles una prueba de habilidad no etiquetada, el DJ gana +1 PA." },
+    { id: "fast_shot", name: "Fast Shot", benefit: "Si realizas una segunda acción mayor en combate para atacar a distancia, cuesta 1 PA en vez de 2.", penalty: "No puedes beneficiarte de la acción menor Apuntar." },
+    { id: "gifted", name: "Gifted", benefit: "Aumenta dos atributos S.P.E.C.I.A.L. en +1 cada uno y otorga 7 puntos a gastar en SPECIAL en lugar de 5.", penalty: "Tu máximo de Puntos de Suerte es 1 menos que tu atributo S.U.E.R.T.E." },
+    { id: "heavy_handed", name: "Heavy Handed", benefit: "Tu bono de daño cuerpo a cuerpo aumenta en +1CD.", penalty: "Tus ataques cuerpo a cuerpo y desarmados sufren complicación con 19 o 20 (en lugar de solo 20)." },
+    { id: "small_frame", name: "Small Frame", benefit: "Puedes repetir 1d20 en todas las pruebas de AGI basadas en equilibrio o contorsión.", penalty: "Tu capacidad de carga es 150 + (5 x FUE) lbs en lugar de 150 + (10 x FUE) lbs." }
+];
+
+const tribalTraitsCanon = [
+    { id: "motherWasteland", name: "Madre Yermo", benefit: "Gastá 1 Punto de Suerte para obtener información sobre una misión, situación o escena, como si hubieras gastado 3 PA para usar *Obtener Información* tres veces. Esta información suele ser críptica y de naturaleza mística.", penalty: "Las complicaciones dificultan la comprensión de las escenas relacionadas con artefactos anteriores a la Guerra, lo que limita tu capacidad para utilizarlos." },
+    { id: "nomad", name: "Nómada", benefit: "Podés repetir 1d20 en las pruebas de Supervivencia relacionadas con viajar, establecer un campamento y recolectar comida y agua. Además, ignorás la primera complicación obtenida en estas pruebas.", penalty: "La dificultad y el rango de complicación de las pruebas de Comercio y Oratoria aumentan en 1 cuando tratás con habitantes de asentamientos permanentes. Ciencia no puede ser una habilidad de Etiqueta." },
+    { id: "riteOfPassage", name: "Rito de Iniciación", benefit: "La primera vez que gastás Suerte durante una escena, tirá 1 CD. Si obtenés un Efecto, no gastás ese Punto de Suerte.", penalty: "Considerás inferiores a todas las personas que no hayan completado tu rito de iniciación. No podés ayudar a otro personaje jugador sin gastar primero 1 PA." },
+    { id: "toolsOfTheOldWorld", name: "Herramientas del Viejo Mundo", benefit: "Podés usar Supervivencia en lugar de Reparación o Ciencia para reparar o utilizar tecnología anterior a la Guerra.", penalty: "El rango de complicación de las pruebas relacionadas con tecnología anterior a la Guerra —excepto las armas— aumenta en 2." },
+    { id: "theChosenOne", name: "El Elegido", benefit: "El primer d20 que comprás es gratis en las pruebas relacionadas con la misión de tu tribu, y siempre podés tener éxito pagando un costo.", penalty: "El DJ agrega 2 PA a su reserva cuando tu misión entra en juego." },
+    { id: "educated", name: "Educated", benefit: "Tienes 1 habilidad etiquetada (Tag) adicional.", penalty: "Cuando falles una prueba de habilidad no etiquetada, el DJ gana +1 PA." },
+    { id: "fast_shot", name: "Fast Shot", benefit: "Si realizas una segunda acción mayor en combate para atacar a distancia, cuesta 1 PA en vez de 2.", penalty: "No puedes beneficiarte de la acción menor Apuntar." },
+    { id: "gifted", name: "Gifted", benefit: "Aumenta dos atributos S.P.E.C.I.A.L. en +1 cada uno y otorga 7 puntos a gastar en SPECIAL en lugar de 5.", penalty: "Tu máximo de Puntos de Suerte es 1 menos que tu atributo S.U.E.R.T.E." },
+    { id: "heavy_handed", name: "Heavy Handed", benefit: "Tu bono de daño cuerpo a cuerpo aumenta en +1CD.", penalty: "Tus ataques cuerpo a cuerpo y desarmados sufren complicación con 19 o 20 (en lugar de solo 20)." },
+    { id: "small_frame", name: "Small Frame", benefit: "Puedes repetir 1d20 en todas las pruebas de AGI basadas en equilibrio o contorsión.", penalty: "Tu capacidad de carga es 150 + (5 x FUE) lbs en lugar de 150 + (10 x FUE) lbs." },
+    { id: "goodNatured", name: "Buenazo", benefit: "Elegís dos habilidades entre Hablar, Medicina, Reparación, Ciencia y Comercio para tagear.", penalty: "El rango máximo de las demás habilidades de la lista se reduce de 6 a 4." },
+    { id: "grunt", name: "Soldado raso", benefit: "Infligís +1 CD de daño con subfusiles, fusiles de combate, fusiles de asalto, granadas de fragmentación y cuchillos de combate.", penalty: "El rango de complicación de las pruebas al atacar con armas pesadas o armas de energía aumenta en 2." },
+    { id: "homeOnTheRange", name: "Hogar en la naturaleza", benefit: "Siempre que duermas junto a una fogata durante al menos 6 horas, la dificultad para recuperarte de las heridas mediante el descanso se reduce en 1.", penalty: "No podés obtener el bonificador de bien descansado." },
+    { id: "triggerDiscipline", name: "Disciplina de gatillo", benefit: "Cuando realizás ataques a distancia con armas pequeñas o armas de energía, podés repetir 1d20.", penalty: "Mientras empuñás armas pequeñas o armas de energía, su cadencia de fuego se reduce en 1." },
+    { id: "brahminBaron", name: "Barón de brahmins", benefit: "Cada comedero para brahmanes proporciona el sustento necesario para 3 brahmanes en cada uno de tus asentamientos. Cuando realizás la acción de asentamiento Cultivar, obtenés +1 CD adicional de leche de brahmán por cada comedero.", penalty: "Tirá +1d20 al determinar el riesgo de ataque contra tu asentamiento si su recurso de Comida supera el de Población (ver pág. 39)." },
+    { id: "extraPerk", name: "Perk adicional", benefit: "Obtienes un perk adicional", penalty: "" }
+];
+
+const newCaliforniaRepublicTraitsCanon = [
+    { id: "educated", name: "Educated", benefit: "Tienes 1 habilidad etiquetada (Tag) adicional.", penalty: "Cuando falles una prueba de habilidad no etiquetada, el DJ gana +1 PA." },
+    { id: "fast_shot", name: "Fast Shot", benefit: "Si realizas una segunda acción mayor en combate para atacar a distancia, cuesta 1 PA en vez de 2.", penalty: "No puedes beneficiarte de la acción menor Apuntar." },
+    { id: "gifted", name: "Gifted", benefit: "Aumenta dos atributos S.P.E.C.I.A.L. en +1 cada uno y otorga 7 puntos a gastar en SPECIAL en lugar de 5.", penalty: "Tu máximo de Puntos de Suerte es 1 menos que tu atributo S.U.E.R.T.E." },
+    { id: "heavy_handed", name: "Heavy Handed", benefit: "Tu bono de daño cuerpo a cuerpo aumenta en +1CD.", penalty: "Tus ataques cuerpo a cuerpo y desarmados sufren complicación con 19 o 20 (en lugar de solo 20)." },
+    { id: "small_frame", name: "Small Frame", benefit: "Puedes repetir 1d20 en todas las pruebas de AGI basadas en equilibrio o contorsión.", penalty: "Tu capacidad de carga es 150 + (5 x FUE) lbs en lugar de 150 + (10 x FUE) lbs." },
+    { id: "goodNatured", name: "Buenazo", benefit: "Elegís dos habilidades entre Hablar, Medicina, Reparación, Ciencia y Comercio para tagear.", penalty: "El rango máximo de las demás habilidades de la lista se reduce de 6 a 4." },
+    { id: "grunt", name: "Soldado raso", benefit: "Infligís +1 CD de daño con subfusiles, fusiles de combate, fusiles de asalto, granadas de fragmentación y cuchillos de combate.", penalty: "El rango de complicación de las pruebas al atacar con armas pesadas o armas de energía aumenta en 2." },
+    { id: "homeOnTheRange", name: "Hogar en la naturaleza", benefit: "Siempre que duermas junto a una fogata durante al menos 6 horas, la dificultad para recuperarte de las heridas mediante el descanso se reduce en 1.", penalty: "No podés obtener el bonificador de bien descansado." },
+    { id: "triggerDiscipline", name: "Disciplina de gatillo", benefit: "Cuando realizás ataques a distancia con armas pequeñas o armas de energía, podés repetir 1d20.", penalty: "Mientras empuñás armas pequeñas o armas de energía, su cadencia de fuego se reduce en 1." },
+    { id: "brahminBaron", name: "Barón de brahmins", benefit: "Cada comedero para brahmanes proporciona el sustento necesario para 3 brahmanes en cada uno de tus asentamientos. Cuando realizás la acción de asentamiento Cultivar, obtenés +1 CD adicional de leche de brahmán por cada comedero.", penalty: "Tirá +1d20 al determinar el riesgo de ataque contra tu asentamiento si su recurso de Comida supera el de Población (ver pág. 39)." },
+    { id: "extraPerk", name: "Perk adicional", benefit: "Obtienes un perk adicional", penalty: "" }
+];
+
+const protectronTraitsCanon = [
+    { id: "claws", name: "Garras", benefit: "Realizás ataques sin armas con un par de garras oponibles. Las garras infligen 3 CD de daño físico y pueden beneficiarse de tu atributo derivado de daño cuerpo a cuerpo y de las ventajas para ataques sin armas.", penalty: "" },
+    { id: "cryojet", name: "Criopulverizador", benefit: "Podés disparar un chorro de aerosol criogénico que enfría rápidamente a los objetivos. El criopulverizador utiliza células criogénicas como munición, realiza ataques con PER + Armas de Energía e inflige 3 CD de daño de energía, con los efectos de daño Ráfaga y Congelación. Encontrás más información sobre el criopulverizador en la pág. 93.", penalty: "" },
+    { id: "selfDestruct", name: "Autodestrucción", benefit: "Explotás y quedás destruido en el proceso, y no podés ser reparado. Al realizar este ataque, efectuás un ataque a distancia usando END + Explosivos, que inflige 6 CD de daño de energía con el efecto de daño Explosión a alcance Corto.", penalty: "" },
+    { id: "shockHand", name: "Manos de descarga", benefit: "Realizás ataques sin armas con un par de desfibriladores cargados de electricidad estática. Estas manos infligen 4 CD de daño de energía y pueden beneficiarse de tu atributo derivado de daño cuerpo a cuerpo y de las ventajas para ataques sin armas.", penalty: "No podés manipular objetos que requieran una destreza manual precisa debido a la ausencia de garras." }
+];
 
 // --- ORIGENES HOMEBREW ---
 const raiderOrigin = {
@@ -158,7 +233,8 @@ const raiderOrigin = {
     source: "Homebrew",
     description: "Has visto los beneficios de la civilización y la comunidad... y les diste la espalda. El principio fundamental de tu mundo es la violencia. Para vos, nada existe salvo aquello que podés tomar, y para los demás nada existe salvo aquello que no podés destruir. Sos una amenaza, formado en el derramamiento de sangre y en busca de la ruina. Este es un reemplazo opcional del trasfondo Superviviente para los Raiders...",
     traitName: "Podés elegir dos de los siguientes Rasgos, o un Rasgo y un Perk adicional.",
-    traitDescription: ""
+    traitDescription: "",
+    trait: raiderTraitsHomebrew
 };
 
 
@@ -169,22 +245,6 @@ const raiderTraits = [
     { id: "built_to_destroy", name: "Built To Destroy", benefit: "Necesitás 1 punto menos de daño para causar un Golpe Crítico.", penalty: "Las Complicaciones obtenidas en un ataque siempre dañan tu arma." },
     { id: "paranoia", name: "Paranoia", benefit: "Podés repetir 1d20 en cualquier prueba para ocultar tu naturaleza, identidad o la importancia de tus acciones, pero no tu presencia.", penalty: "Necesitás 1 Punto de Suerte adicional para usar la capacidad Mazo Marcado." },
     { id: "reckless", name: "Reckless", benefit: "Podés darle al DJ 3 PA para realizar una acción mayor adicional.", penalty: "Esta es la única forma en la que podés realizar acciones mayores adicionales." }
-];
-
-const Mister_HandyOptions = [
-    { name: "Pistola automática 10mm", desc: "Puedes hacer ataque a distancia usando una pistola automática de 10mm." },
-    { name: "Sierra circular", desc: "Ataques cuerpo a cuerpo (Daño físico, 3 CD, perforante 1)." },
-    { name: "Lanzallamas", desc: "Ataques con lanzallamas de corta distancia." },
-    { name: "Emisor láser", desc: "Ataques a distancia con láser." },
-    { name: "Pinzas", desc: "Manipular objetos de hasta 40 lbs o ataques desarmado (Daño físico, 2 CD)." }
-];
-
-const SupervivienteTraits = [
-    { id: "educated", name: "Educated", benefit: "Tienes 1 habilidad etiquetada (Tag) adicional.", penalty: "Cuando falles una prueba de habilidad no etiquetada, el DJ gana +1 PA." },
-    { id: "fast_shot", name: "Fast Shot", benefit: "Si realizas una segunda acción mayor en combate para atacar a distancia, cuesta 1 PA en vez de 2.", penalty: "No puedes beneficiarte de la acción menor Apuntar." },
-    { id: "gifted", name: "Gifted", benefit: "Aumenta dos atributos S.P.E.C.I.A.L. en +1 cada uno y otorga 7 puntos a gastar en SPECIAL en lugar de 5.", penalty: "Tu máximo de Puntos de Suerte es 1 menos que tu atributo S.U.E.R.T.E." },
-    { id: "heavy_handed", name: "Heavy Handed", benefit: "Tu bono de daño cuerpo a cuerpo aumenta en +1CD.", penalty: "Tus ataques cuerpo a cuerpo y desarmados sufren complicación con 19 o 20 (en lugar de solo 20)." },
-    { id: "small_frame", name: "Small Frame", benefit: "Puedes repetir 1d20 en todas las pruebas de AGI basadas en equilibrio o contorsión.", penalty: "Tu capacidad de carga es 150 + (5 x FUE) lbs en lugar de 150 + (10 x FUE) lbs." }
 ];
 
 const Sobreviviente_HomebrewTraits = [
@@ -195,15 +255,6 @@ const Sobreviviente_HomebrewTraits = [
     { id: "trigger_discipline", name: "Trigger Discipline", benefit: "Cuando uses la habilidad de Apuntar, puedes relanzar 1d20 adicional.", penalty: "La cadencia de disparo de todas tus armas a distancia se reduce en 1." },
     { id: "overprepared", name: "Overprepared", benefit: "Obtienes +25 lb a tu peso maximo.", penalty: "Si no estas transportando como minimo 100 lb de items, no podes gastar Puntos de Accion para obtener Acciones Menores." },
     { id: "extra_perk", name: "Perk adicional", benefit: "Obtienes un perk adicional.", penalty: "-." }
-];
-
-const raiderTraits = [
-    { id: "chem_reliant", name: "Chem Reliant", benefit: "Solo podés estar adicto a un químico a la vez. Cuando te volvés adicto a un nuevo químico, tu adicción anterior se cura.", penalty: "Tirás 1 dado adicional para la adicción a químicos. La única forma de curar tu adicción a un químico es reemplazándola por otra." },
-    { id: "jittery", name: "Jittery", benefit: "Cada ronda, sumás +2 CD a tu Iniciativa durante esa ronda.", penalty: "Si no obtenés ningún éxito, tu Iniciativa es -3 durante esa ronda." },
-    { id: "jinxed", name: "Jinxed", benefit: "Cualquiera que realice una acción hostil contra vos sufre Complicaciones con un 19-20.", penalty: "Vos también sufrís Complicaciones con un 19-20." },
-    { id: "built_to_destroy", name: "Built To Destroy", benefit: "Necesitás 1 punto menos de daño para causar un Golpe Crítico.", penalty: "Las Complicaciones obtenidas en un ataque siempre dañan tu arma." },
-    { id: "paranoia", name: "Paranoia", benefit: "Podés repetir 1d20 en cualquier prueba para ocultar tu naturaleza, identidad o la importancia de tus acciones, pero no tu presencia.", penalty: "Necesitás 1 Punto de Suerte adicional para usar la capacidad Mazo Marcado." },
-    { id: "reckless", name: "Reckless", benefit: "Podés darle al DJ 3 PA para realizar una acción mayor adicional.", penalty: "Esta es la única forma en la que podés realizar acciones mayores adicionales." }
 ];
 
 const EyebotOptions = [
@@ -217,16 +268,6 @@ const Followers_of_the_Fourfathers_HomebrewOptions = [
     { id: "thomas_jefferson", name: "El Segundo Padre, Thomas Jefferson", benefit: "Ganás Conversar como Tag. El Declarador era un maestro de la palabra escrita, y todos aquellos que estudian sus enseñanzas se encuentran preparados para comprender los misterios del pasado. Todas las pruebas relacionadas con la fe, incluyendo las pruebas realizadas para comprender la historia previa a la guerra, la cultura popular, etc., se reducen en 1 (mínimo de 0). Tené en cuenta que cualquier conocimiento obtenido mediante esta habilidad probablemente estará distorsionado por la comprensión mitificada del Patriota. Las pruebas de Historia y conocimientos academicos estan comprendidas en la habilidad Ciencia", equipment: [ "Ropa formal", "Una de las siguientes armas cuerpo a cuerpo: Navaja automática, palo de amasar, llave inglesa", "Pistola casera con 6 + 3CD proyectiles de munición .38", "Una copia muy manoseada de Una Historia de los Cuatro Padres: Compañero del Patriota", "Una peluca empolvada", "50 chapas" ] },
     { id: "abraham_lincoln", name: "El Tercer Padre, Abraham Lincoln", benefit: "Ganás Armas Pequeñas o Armas Cuerpo a Cuerpo como Tag. Jamás caminó sobre la Tierra un guerrero más poderoso que el Padre Abraham, y aquellos valientes Patriotas que empuñan armas en su nombre pueden recibir todavía una pequeña parte de su poder imparable. Ignorás el primer Golpe Crítico que sufrís en cada sesión.", equipment: [ "Ropa resistente", "Una pieza de armadura de cuero para el torso", "Una espada", "Un rifle casero con 10 + 5CD proyectiles de munición .38", "Un maltrecho sombrero de copa", "15 chapas" ] },
     { id: "theodore_roosevelt", name: "El Cuarto Padre, Theodore Roosevelt", benefit: "Ganás Supervivencia como Tag. El dominio del Padre Roosevelt sobre los lugares salvajes no tenía igual, y muchos de sus Patriotas se han convertido en maestros del Yermo por derecho propio. Cuando buscás comida y agua mediante recolección, tu puntuación de Supervivencia cuenta como 2 puntos más alta a efectos de determinar cuánta comida encontrás.", equipment: [ "Abrigo pesado", "Una de las siguientes armas cuerpo a cuerpo: Guante de boxeo, nudillos, bastón", "Una pistola casera con 6 + 3CD proyectiles de munición .38", "Dos tiradas en la tabla de Recolección, calculando normalmente la cantidad de alimentos obtenidos", "40 chapas" ] }
-];
-
-const survivorExpandedTraits = [
-    { id: "good_natured", name: "Good Natured", benefit: "Elije tres habilidades que no sean de combate. Obtiene +1 en cada una de estas.", penalty: "Tu maximo en habilidades de combate se reduce a 5." },
-    { id: "educated", name: "Educated", benefit: "Tienes 1 habilidad etiquetada (Tag) adicional.", penalty: "Cuando falles una prueba de habilidad no etiquetada, el DJ gana +1 PA." },
-    { id: "healthy", name: "Healthy", benefit: "Cuando no estes Fatigado, tiene +3 Puntos de Vida.", penalty: "Cuando ganes un punto de Fatiga por primera vez, gana uno adicional." },
-    { id: "high_spirits", name: "High Spirits", benefit: "Relanza 1d20 en cualquier prueba de Preparar accion, o cualquier otro intento para levantar el espiritu y la moral.", penalty: "Cuando un aliado caiga y comience a morir, Debes pasar una prueba de Carisma a dificultad 1, o perder 1 Punto de Accion." },
-    { id: "trigger_discipline", name: "Trigger Discipline", benefit: "Cuando uses la habilidad de Apuntar, puedes relanzar 1d20 adicional.", penalty: "La cadencia de disparo de todas tus armas a distancia se reduce en 1." },
-    { id: "overprepared", name: "Overprepared", benefit: "Obtienes +25 lb a tu peso maximo.", penalty: "Si no estas transportando como minimo 100 lb de items, no podes gastar Puntos de Accion para obtener Acciones Menores." },
-    { id: "extra_perk", name: "Perk adicional", benefit: "Obtienes un perk adicional.", penalty: "-." }
 ];
 
 // --- HABILIDADES DESCIPCION Y ATRIBUTOS ---
