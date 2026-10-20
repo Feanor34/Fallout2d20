@@ -1,5 +1,6 @@
 // --- LIMITES DE SPECIAL POR ORIGEN ---
 const originLimits = {
+    // --- CORE SETTLERS Y WANDERERS ---
     "Brotherhood_Initiate": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
     "Ghoul": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
     "Supermutante": { max: { FUE: 12, PER: 10, END: 12, CAR: 6, INT: 6, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 7, PER: 5, END: 7, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
@@ -11,10 +12,17 @@ const originLimits = {
     "Children_of_Atom": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
     "Nightkin": { max: { FUE: 12, PER: 10, END: 12, CAR: 8, INT: 8, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 7, PER: 5, END: 7, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
     "Tribal": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
+    "commonwealthMinutemanOrigin": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
+    "newCaliforniaRepublicOrigin": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
+    "protectronOrigin": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
+    "robobrainOrigin": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
+    "securitronOrigin": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
+    "gen3SynthOrigin": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
 
+    // --- HOMEBREW ---
     "Raider_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
     "Sobreviviente_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
-    "Miembro_Tribal_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
+    "Tribal_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
     "Brotherhood_Initiate_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
     "Eyebot_Homebrew": { max: { FUE: 6, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
     "Nightkin_Homebrew": { max: { FUE: 12, PER: 10, END: 12, CAR: 8, INT: 8, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
@@ -38,7 +46,7 @@ const brotherhoodInitiateOrigin = {
     source: "Core Rulebook",
     description: "Nacida de las terribles revelaciones de la Rebelión de Mariposa, la Hermandad del Acero fue fundada por Roger Maxson para que su gente —y, con el tiempo, el resto de los sobrevivientes de este nuevo mundo— tuviera algo en lo que creer. Con su propia mitología, credo y jerarquía, el principal objetivo de la Hermandad del Acero es recuperar y preservar la tecnología del mundo de antes de la guerra. Tras la Gran Guerra, que interrumpió el acceso de la humanidad a la tecnología, los caballeros y escribas de la Hermandad hacen todo lo posible por asegurar la tecnología del pasado para las generaciones futuras. Podés ser descendiente de un caballero o paladín, haber nacido dentro de la Hermandad y creer firmemente en su doctrina; o quizás seas un recluta nuevo que acaba de jurar lealtad a su causa y aspira a ascender en sus filas. Aunque todos sus miembros comparten un objetivo común, los distintos capítulos de la Hermandad repartidos por el Yermo pueden tener creencias y protocolos diferentes. Después de todo, no están tan unidos como parecen desde afuera. Mientras que la Hermandad del Acero de la Costa Oeste entró en guerra con la República de Nueva California por la recuperación de tecnología y los esfuerzos expansionistas de la RNC, el capítulo de la Costa Este quedó prácticamente aislado al priorizar la ayuda humanitaria por encima del intercambio tecnológico y la preservación de los equipos de antes de la guerra. La misión del Anciano Lyons adquirió un carácter humanitario y, aunque eso los condenó inicialmente al aislamiento, Arthur Maxson lideró después la expansión de su influencia desde Washington D. C. hasta toda la costa este de Estados Unidos, reorientando sus esfuerzos hacia la recuperación y el desarrollo tecnológico.",
     traitName: "La cadena que une",
-    traitDescription: "Obtenés un tag adicional , que debe ser una de las siguientes: Armas de Energía, Ciencia o Reparación. Como miembro de la Hermandad del Acero, estás sujeto a la cadena de mando: La Cadena que Nos Une. Debés cumplir las órdenes de tus superiores directos y sos responsable de tus hermanos y hermanas subordinados. Si no cumplís con tu deber, serás expulsado de la Hermandad y te confiscarán tu tecnología, por cualquier medio que sea necesario."
+    traitDescription: "Obtenés un tag adicional, que debe ser una de las siguientes: Armas de Energía, Ciencia o Reparación. Como miembro de la Hermandad del Acero, estás sujeto a la cadena de mando: La Cadena que Nos Une. Debés cumplir las órdenes de tus superiores directos y sos responsable de tus hermanos y hermanas subordinados. Si no cumplís con tu deber, serás expulsado de la Hermandad y te confiscarán tu tecnología, por cualquier medio que sea necesario."
 };
 
 const ghoulOrigin = {
@@ -119,7 +127,6 @@ const tribalOrigin = {
     traitName: "Razgos",
     traitDescription: "Podés elegir dos de los siguientes rasgos, dos rasgos de la lista del origen Superviviente, o bien un rasgo de esta lista o de las listas de Superviviente o de la República de Nueva California, y una ventaja adicional. Cada rasgo ofrece un beneficio y puede incluir una penalización asociada.",
     trait: "tribalTraitsCanon"
-
 };
 
 const commonwealthMinutemanOrigin = {
@@ -166,30 +173,184 @@ const gen3SynthOrigin = {
     name: "Generation 3 Synth",
     source: "Settlers Guide",
     description: "You are a bio-synthetic humanoid, almost entirely indistinguishable from humans, created by a secret scientific organization known as the Institute. You were designed to integrate into human society, infiltrate communities, and explore the surface undetected. Your lab-grown body is made up of real human flesh, bones, and organs—your only distinguishing feature, an undetectable cybernetic implant in your brain that contains your programming. Your bio-engineered upgrades make you hardier than humans, and you do not age or suffer tiredness or malnutrition. Your capacity to keep going for extended periods without needing rest is a great advantage in the harsh wasteland. Additionally, your body can survive synthetic implants and cybernetic modifications without complications. If you are an escaped synth, you may have decided to have your memories wiped by the Railroad to better assume a new life on the surface, implanted with the life and personality of an original creation or maybe even based on someone living or dead from the wasteland above the Institute. Alternatively, you may have struck out on your own, retaining your programmed personality and are fully aware of the dangers of the Synth Retention Bureau. If you work for the Institute, you may be trying to infiltrate a group or settlement in the Commonwealth, taking the place of a real wastelander and living their life in their place while all the time reporting back to Institute handlers, providing intelligence for the secretive organization. Due to the fear gripping the Commonwealth, your discovery could prove incredibly dangerous to your survival and the mission you have been placed on the surface to complete. What lengths do you go to to complete your creators’ goals, or do you begin to question your programming, your awareness, your very existence?.",
-    traitName: "More Than Human",
+    traitName: "Mas que humano",
     traitDescription: "Though you appear mentally and physically human, your bioengineering makes you something entirely new and, in many ways, improved. You gain one additional tag skill. You cannot suffer from starvation or dehydration and do not need sleep, but you do not gain a benefit from consuming food or beverage items. When you rest, instead of sleeping, you may engage in minor activities such as crafting, reading, or light scouting. Additionally, you are immune to Poison and Radiation damage and disease. You do not age, nor do you gain or lose weight. When interacting with NPCs who know you are a synth—unless they are sympathetic towards synths—the difficulty of CHA tests made by you or your allies increases by 2. When a complication is rolled, they either become hostile, or your Faction Reputation or Settlement Reputation decreases by 1 per complication generated due to their fear of the Institute. The Institute has given you a unique recall code—an unalterable verbal command that resets your personality and memories. When you hear the code spoken, you become incapacitated until you are retrieved and restored by the Institute."
 };
 
 // --- ORIGENES HOMEBREW ---
-const raiderOrigin = {
+const Raider_Homebrew = {
     name: "Raider",
     source: "Homebrew",
     description: "Has visto los beneficios de la civilización y la comunidad... y les diste la espalda. El principio fundamental de tu mundo es la violencia. Para vos, nada existe salvo aquello que podés tomar, y para los demás nada existe salvo aquello que no podés destruir. Sos una amenaza, formado en el derramamiento de sangre y en busca de la ruina. Este es un reemplazo opcional del trasfondo Superviviente para los Raiders...",
-    traitName: "Podés elegir dos de los siguientes Rasgos, o un Rasgo y un Perk adicional.",
-    traitDescription: "",
+    traitName: "Lecciones con sangre",
+    traitDescription: "Podés elegir dos de los siguientes Rasgos, o un Rasgo y un Perk adicional.",
     trait: raiderTraitsHomebrew
 };
 
-const raiderTraits = [
+const Sobreviviente_Homebrew = {
+    name: "Sobreviviente",
+    source: "Homebrew",
+    description: "",
+    traitName: "",
+    traitDescription: "",
+    trait: sobrevivienteTraitsHomebrew
+};
+
+const Tribal_Homebrew = {
+    name: "",
+    source: "Homebrew",
+    description: "",
+    traitName: "",
+    traitDescription: "",
+    trait: 
+};
+
+const Brotherhood_Initiate_Homebrew = {
+    name: "",
+    source: "Homebrew",
+    description: "",
+    traitName: "",
+    traitDescription: "",
+    trait: 
+};
+
+const Eyebot_Homebrew = {
+    name: "",
+    source: "Homebrew",
+    description: "",
+    traitName: "",
+    traitDescription: "",
+    trait: 
+};
+
+const Nightkin_Homebrew = {
+    name: "",
+    source: "Homebrew",
+    description: "",
+    traitName: "",
+    traitDescription: "",
+    trait: 
+};
+
+const Followers_of_the_Fourfathers_Homebrew = {
+    name: "",
+    source: "Homebrew",
+    description: "",
+    traitName: "",
+    traitDescription: "",
+    trait: 
+};
+
+const Intelligent_Deathclaw_Brawns_Homebrew = {
+    name: "",
+    source: "Homebrew",
+    description: "",
+    traitName: "",
+    traitDescription: "",
+    trait: 
+};
+
+const Intelligent_Deathclaw_Brains_Homebrew = {
+    name: "",
+    source: "Homebrew",
+    description: "",
+    traitName: "",
+    traitDescription: "",
+    trait: 
+};
+
+const NCR_Soldier_Homebrew = {
+    name: "",
+    source: "Homebrew",
+    description: "",
+    traitName: "",
+    traitDescription: "",
+    trait: 
+};
+
+const New_Canaanite_Homebrew = {
+    name: "",
+    source: "Homebrew",
+    description: "",
+    traitName: "",
+    traitDescription: "",
+    trait: 
+};
+
+const Children_of_Atom_Homebrew = {
+    name: "",
+    source: "Homebrew",
+    description: "",
+    traitName: "",
+    traitDescription: "",
+    trait: 
+};
+
+const Hairy_Deathclaw_Shadowclaw_Homebrew = {
+    name: "",
+    source: "Homebrew",
+    description: "",
+    traitName: "",
+    traitDescription: "",
+    trait: 
+};
+
+const Protectron_Homebrew_Homebrew = {
+    name: "",
+    source: "Homebrew",
+    description: "",
+    traitName: "",
+    traitDescription: "",
+    trait: 
+};
+
+const Numen_Homebrew = {
+    name: "",
+    source: "Homebrew",
+    description: "",
+    traitName: "",
+    traitDescription: "",
+    trait: 
+};
+
+const Enclave_Homebrew = {
+    name: "",
+    source: "Homebrew",
+    description: "",
+    traitName: "",
+    traitDescription: "",
+    trait: 
+};
+
+const Asaultron_Homebrew = {
+    name: "",
+    source: "Homebrew",
+    description: "",
+    traitName: "",
+    traitDescription: "",
+    trait: 
+};
+
+const Synth_Homebrew = {
+    name: "",
+    source: "Homebrew",
+    description: "",
+    traitName: "",
+    traitDescription: "",
+    trait: 
+};
+
+const raiderTraitsHomebrew = [
     { id: "chem_reliant", name: "Chem Reliant", benefit: "Solo podés estar adicto a un químico a la vez. Cuando te volvés adicto a un nuevo químico, tu adicción anterior se cura.", penalty: "Tirás 1 dado adicional para la adicción a químicos. La única forma de curar tu adicción a un químico es reemplazándola por otra." },
     { id: "jittery", name: "Jittery", benefit: "Cada ronda, sumás +2 CD a tu Iniciativa durante esa ronda.", penalty: "Si no obtenés ningún éxito, tu Iniciativa es -3 durante esa ronda." },
     { id: "jinxed", name: "Jinxed", benefit: "Cualquiera que realice una acción hostil contra vos sufre Complicaciones con un 19-20.", penalty: "Vos también sufrís Complicaciones con un 19-20." },
     { id: "built_to_destroy", name: "Built To Destroy", benefit: "Necesitás 1 punto menos de daño para causar un Golpe Crítico.", penalty: "Las Complicaciones obtenidas en un ataque siempre dañan tu arma." },
     { id: "paranoia", name: "Paranoia", benefit: "Podés repetir 1d20 en cualquier prueba para ocultar tu naturaleza, identidad o la importancia de tus acciones, pero no tu presencia.", penalty: "Necesitás 1 Punto de Suerte adicional para usar la capacidad Mazo Marcado." },
-    { id: "reckless", name: "Reckless", benefit: "Podés darle al DJ 3 PA para realizar una acción mayor adicional.", penalty: "Esta es la única forma en la que podés realizar acciones mayores adicionales." }
+    { id: "reckless", name: "Reckless", benefit: "Podés darle al DJ 3 PA para realizar una acción mayor adicional.", penalty: "Esta es la única forma en la que podés realizar acciones mayores adicionales." },
+    { id: "extra_perk", name: "Perk adicional", benefit: "Obtienes un perk adicional.", penalty: "-." }
 ];
 
-const Sobreviviente_HomebrewTraits = [
+const sobrevivienteTraitsHomebrew = [
     { id: "good_natured", name: "Good Natured", benefit: "Elije tres habilidades que no sean de combate. Obtiene +1 en cada una de estas.", penalty: "Tu maximo en habilidades de combate se reduce a 5." },
     { id: "educated", name: "Educated", benefit: "Tienes 1 habilidad etiquetada (Tag) adicional.", penalty: "Cuando falles una prueba de habilidad no etiquetada, el DJ gana +1 PA." },
     { id: "healthy", name: "Healthy", benefit: "Cuando no estes Fatigado, tiene +3 Puntos de Vida.", penalty: "Cuando ganes un punto de Fatiga por primera vez, gana uno adicional." },
