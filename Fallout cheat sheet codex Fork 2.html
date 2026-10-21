@@ -1574,7 +1574,23 @@
             50% { opacity: 0; }
         }
 
-    </style>
+    
+/* CATÁLOGO DE ORÍGENES DEL CREADOR */
+.fc2-manuales{display:flex;flex-direction:row;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap}
+.fc2-manuales .fc2-homebrew{display:flex;flex-direction:column;align-items:center;gap:4px;width:auto;margin:0}
+.fc2-manuales .fc2-homebrew span{font-size:.75rem;text-align:center}
+.fc2-origin-catalog{display:flex;flex-direction:column;gap:20px;margin-top:24px}
+.fc2-origin-group{min-width:0;padding:16px;border:1px solid var(--pipboy-highlight);background:rgba(0,20,0,.18)}
+.fc2-origin-group[hidden],#fc2-selected-origin-details[hidden]{display:none!important}
+.fc2-origin-group h3{margin-top:0;padding-bottom:8px;border-bottom:1px solid var(--pipboy-highlight)}
+.fc2-origin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:14px}
+.fc2-origin-button{min-height:54px;padding:12px;border:1px solid var(--pipboy-highlight);background:transparent;color:var(--pipboy-highlight);font:inherit;text-align:center;cursor:pointer;transition:background .15s ease,color .15s ease,box-shadow .15s ease}
+.fc2-origin-button:hover{background:rgba(100,255,100,.12);box-shadow:0 0 8px rgba(100,255,100,.3)}
+.fc2-origin-button.selected{background:var(--pipboy-highlight);color:#071007;border-color:#d0ffd0;box-shadow:0 0 8px var(--pipboy-highlight),0 0 18px rgba(100,255,100,.5);font-weight:bold}
+.fc2-selected-origin-details{margin-top:18px;padding:16px;border:1px solid var(--pipboy-highlight)}
+.fc2-selected-origin-details h3{margin-top:0}
+
+</style>
 </head>
 <body>
 
@@ -2239,11 +2255,10 @@
                     <p>CREADOR DE PERSONAJES</p>
                 </div>
 
-                <div class="fc2-homebrew">
-                    <span>HOMEBREW: DESACTIVADO</span>
-                    <button type="button" disabled title="Se implementará con JavaScript">
-                        HOMEBREW
-                    </button>
+                <div class="fc2-manuales">
+                    <div class="fc2-homebrew"><span id="fc2-homebrew-status">HOMEBREW: DESACTIVADO</span><button type="button" id="fc2-homebrew-toggle" onclick="toggleHomebrewContent()">HOMEBREW</button></div>
+                    <div class="fc2-homebrew"><span id="fc2-settlers-status">SETTLERS GUIDE: OCULTO</span><button type="button" id="fc2-settlers-toggle" onclick="toggleSettlersContent()">SETTLERS GUIDE</button></div>
+                    <div class="fc2-homebrew"><span id="fc2-wanderers-status">WANDERERS GUIDE: OCULTO</span><button type="button" id="fc2-wanderers-toggle" onclick="toggleWanderersContent()">WANDERERS GUIDE</button></div>
                 </div>
             </header>
 
@@ -2278,72 +2293,22 @@
                     <!-- PASO 1 -->
                     <section class="fc2-panel fc2-panel-1">
                         <h2>01 / IDENTIDAD Y ORIGEN</h2>
-                        <p class="fc2-description">
-                            Datos personales y selección del origen del personaje.
-                        </p>
-
+                        <p class="fc2-description">Datos personales y selección del origen del personaje.</p>
                         <div class="fc2-form-grid">
-                            <label>
-                                Nombre del personaje
-                                <input type="text" placeholder="Nombre del personaje">
-                            </label>
-
-                            <label>
-                                Jugador
-                                <input type="text" placeholder="Nombre del jugador">
-                            </label>
-
-                            <label>
-                                Concepto
-                                <input type="text" placeholder="Concepto del personaje">
-                            </label>
-
-                            <label>
-                                Origen
-                                <select>
-                                    <option value="">Seleccionar origen...</option>
-                                    <option>Origen oficial — pendiente de cargar</option>
-                                    <option>Origen Homebrew — pendiente de cargar</option>
-                                </select>
-                            </label>
-
-                            <label class="fc2-full">
-                                Historia y notas
-                                <textarea placeholder="Historia, objetivos, vínculos..."></textarea>
-                            </label>
+                            <label>Nombre del personaje<input type="text" id="fc2-character-name" placeholder="Nombre del personaje" autocomplete="off"></label>
+                            <label>Jugador<input type="text" id="fc2-player-name" placeholder="Nombre del jugador" autocomplete="off"></label>
                         </div>
-
-                        <h3>ORÍGENES DISPONIBLES</h3>
-
-                        <div class="fc2-cards">
-                            <article class="fc2-card">
-                                <span class="fc2-tag">OFICIAL</span>
-                                <h4>Origen oficial</h4>
-                                <p>Espacio para descripción, requisitos y reglas del origen.</p>
-                                <small>Datos pendientes de integrar</small>
-                            </article>
-
-                            <article class="fc2-card">
-                                <span class="fc2-tag">OFICIAL</span>
-                                <h4>Origen oficial</h4>
-                                <p>Espacio para otra opción del catálogo oficial.</p>
-                                <small>Datos pendientes de integrar</small>
-                            </article>
-
-                            <article class="fc2-card">
-                                <span class="fc2-tag fc2-home-tag">HOMEBREW</span>
-                                <h4>Origen personalizado</h4>
-                                <p>Las opciones caseras se cargarán por separado.</p>
-                                <small>Homebrew desactivado</small>
-                            </article>
+                        <div class="fc2-origin-catalog">
+                            <section class="fc2-origin-group" id="fc2-origins-core"><h3>CORE RULEBOOK</h3><p class="fc2-description">Orígenes del manual básico.</p><div class="fc2-origin-grid" id="fc2-origin-grid-core"></div></section>
+                            <section class="fc2-origin-group" id="fc2-origins-settlers" hidden><h3>SETTLERS GUIDE</h3><p class="fc2-description">Orígenes de Settlers Guide.</p><div class="fc2-origin-grid" id="fc2-origin-grid-settlers"></div></section>
+                            <section class="fc2-origin-group" id="fc2-origins-wanderers" hidden><h3>WANDERERS GUIDE</h3><p class="fc2-description">Orígenes de Wanderers Guide.</p><div class="fc2-origin-grid" id="fc2-origin-grid-wanderers"></div></section>
+                            <section class="fc2-origin-group" id="fc2-origins-homebrew" hidden><h3>HOMEBREW</h3><p class="fc2-description">Orígenes personalizados.</p><div class="fc2-origin-grid" id="fc2-origin-grid-homebrew"></div></section>
                         </div>
-
-                        <div class="fc2-actions">
-                            <span></span>
-                            <label class="fc2-button fc2-primary" for="fc2-step-2">
-                                SIGUIENTE →
-                            </label>
-                        </div>
+                        <section id="fc2-selected-origin-details" class="fc2-selected-origin-details" hidden>
+                            <h3 id="fc2-selected-origin-title"></h3><p id="fc2-selected-origin-source" class="fc2-muted"></p>
+                            <p id="fc2-selected-origin-description"></p><p id="fc2-selected-origin-trait"></p>
+                        </section>
+                        <div class="fc2-actions"><span></span><button type="button" class="fc2-button fc2-primary" onclick="validateCreatorStep1()">SIGUIENTE →</button></div>
                     </section>
 
                     <!-- PASO 2 -->
@@ -9137,5 +9102,56 @@ const raiderTraits = [
             </div>
         </footer>
 
-    </body>
+    
+<script>
+/* CARGA DE ORÍGENES Y VALIDACIÓN DEL PRIMER PASO */
+(function(){
+ let hb=false, settlers=false, wanderers=false;
+ const catalog={
+  core:[["Brotherhood_Initiate",brotherhoodInitiateOrigin],["Ghoul",ghoulOrigin],["Supermutante",supermutantOrigin],["Mister_Handy",misterHandyOrigin],["Superviviente",survivorOrigin],["Vault_Dweller",vaultDwellerOrigin]],
+  settlers:[["commonwealthMinutemanOrigin",commonwealthMinutemanOrigin],["newCaliforniaRepublicOrigin",newCaliforniaRepublicOrigin],["protectronOrigin",protectronOrigin],["robobrainOrigin",robobrainOrigin],["securitronOrigin",securitronOrigin],["gen3SynthOrigin",gen3SynthOrigin]],
+  wanderers:[["Assaultron",assaultronOrigin],["Brotherhood_Outcast",brotherhoodOutcastOrigin],["Children_of_Atom",childOfTheAtomOrigin],["Nightkin",nightkinOrigin],["Tribal",tribalOrigin]],
+  homebrew:[["Raider_Homebrew",Raider_Homebrew],["Sobreviviente_Homebrew",Sobreviviente_Homebrew],["Tribal_Homebrew",Tribal_Homebrew],["Brotherhood_Initiate_Homebrew",Brotherhood_Initiate_Homebrew],["Eyebot_Homebrew",Eyebot_Homebrew],["Nightkin_Homebrew",Nightkin_Homebrew],["Followers_of_the_Fourfathers_Homebrew",Followers_of_the_Fourfathers_Homebrew],["Intelligent_Deathclaw_Brawns_Homebrew",Intelligent_Deathclaw_Brawns_Homebrew],["Intelligent_Deathclaw_Brains_Homebrew",Intelligent_Deathclaw_Brains_Homebrew],["NCR_Soldier_Homebrew",NCR_Soldier_Homebrew],["New_Canaanite_Homebrew",New_Canaanite_Homebrew],["Children_of_Atom_Homebrew",Children_of_Atom_Homebrew],["Hairy_Deathclaw_Shadowclaw_Homebrew",Hairy_Deathclaw_Shadowclaw_Homebrew],["Protectron_Homebrew_Homebrew",Protectron_Homebrew_Homebrew],["Numen_Homebrew",Numen_Homebrew],["Enclave_Homebrew",Enclave_Homebrew],["Asaultron_Homebrew",Asaultron_Homebrew],["Synth_Homebrew",Synth_Homebrew]]
+ };
+ function render(group,id){
+  const box=document.getElementById(id); if(!box)return; box.innerHTML="";
+  catalog[group].forEach(([key,data])=>{
+   if(!data||!originLimits[key]){console.warn("Origen sin objeto o sin originLimits:",key);return;}
+   const b=document.createElement("button"); b.type="button"; b.className="fc2-origin-button"; b.textContent=data.name||key;
+   b.addEventListener("click",()=>select(key,data,b)); box.appendChild(b);
+  });
+ }
+ function select(key,data,button){
+  if(key.endsWith("_Homebrew")&&!hb){alert("Primero tenés que activar Homebrew.");return;}
+  if(!originLimits[key]){alert("Este origen no tiene límites definidos en originLimits.");return;}
+  selectedOrigin=key;
+  document.querySelectorAll(".fc2-origin-button").forEach(b=>b.classList.remove("selected")); button.classList.add("selected");
+  document.getElementById("fc2-selected-origin-details").hidden=false;
+  document.getElementById("fc2-selected-origin-title").textContent=data.name||key;
+  document.getElementById("fc2-selected-origin-source").textContent="FUENTE: "+(data.source||"Sin fuente indicada");
+  document.getElementById("fc2-selected-origin-description").textContent=data.description||"Este origen no tiene descripción cargada.";
+  document.getElementById("fc2-selected-origin-trait").textContent=(data.traitName||"Rasgos")+": "+(data.traitDescription||data.trait||"No hay descripción de rasgos cargada.");
+ }
+ window.toggleHomebrewContent=function(){
+  hb=!hb; document.getElementById("fc2-origins-homebrew").hidden=!hb;
+  document.getElementById("fc2-homebrew-status").textContent="HOMEBREW: "+(hb?"ACTIVADO":"DESACTIVADO");
+  document.getElementById("fc2-homebrew-toggle").classList.toggle("selected",hb);
+  if(!hb&&selectedOrigin&&selectedOrigin.endsWith("_Homebrew")){selectedOrigin="";document.querySelectorAll(".fc2-origin-button").forEach(b=>b.classList.remove("selected"));document.getElementById("fc2-selected-origin-details").hidden=true;}
+ };
+ window.toggleSettlersContent=function(){settlers=!settlers;document.getElementById("fc2-origins-settlers").hidden=!settlers;document.getElementById("fc2-settlers-status").textContent="SETTLERS GUIDE: "+(settlers?"VISIBLE":"OCULTO");document.getElementById("fc2-settlers-toggle").classList.toggle("selected",settlers);};
+ window.toggleWanderersContent=function(){wanderers=!wanderers;document.getElementById("fc2-origins-wanderers").hidden=!wanderers;document.getElementById("fc2-wanderers-status").textContent="WANDERERS GUIDE: "+(wanderers?"VISIBLE":"OCULTO");document.getElementById("fc2-wanderers-toggle").classList.toggle("selected",wanderers);};
+ window.validateCreatorStep1=function(){
+  const name=document.getElementById("fc2-character-name");
+  if(!name||!name.value.trim()){alert("Ingresá el nombre del personaje antes de continuar.");if(name)name.focus();return false;}
+  if(!selectedOrigin){alert("Seleccioná un origen antes de continuar.");return false;}
+  if(!originLimits[selectedOrigin]){alert("El origen seleccionado no tiene límites de SPECIAL definidos. No se puede continuar.");return false;}
+  if(selectedOrigin.endsWith("_Homebrew")&&!hb){alert("Homebrew está desactivado. Activá Homebrew o elegí otro origen.");return false;}
+  const next=document.getElementById("fc2-step-2");if(!next){alert("No se encontró la navegación al paso 2.");return false;}next.checked=true;return true;
+ };
+ function init(){render("core","fc2-origin-grid-core");render("settlers","fc2-origin-grid-settlers");render("wanderers","fc2-origin-grid-wanderers");render("homebrew","fc2-origin-grid-homebrew");}
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
+})();
+</script>
+
+</body>
 </html>
