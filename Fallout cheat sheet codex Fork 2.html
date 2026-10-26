@@ -382,6 +382,72 @@
     font-size: 20px;
     font-weight: bold;
 }
+#fallout-character-creator .fc2-skill-tag {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    color: var(--fc2-green);
+    font-size: 10px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+#fallout-character-creator .fc2-skill-tag input {
+    margin: 0;
+    cursor: pointer;
+}
+
+
+#fallout-character-creator .fc2-tag-selector {
+    margin: 16px 0 22px;
+    padding: 14px;
+    border: 1px solid var(--fc2-line);
+    background: #0b130b;
+}
+
+#fallout-character-creator .fc2-tag-selector > p:first-child {
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+#fallout-character-creator .fc2-tag-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+#fallout-character-creator .fc2-tag-button {
+    padding: 9px 12px;
+    border: 1px solid var(--fc2-line);
+    background: transparent;
+    color: var(--fc2-green);
+    cursor: pointer;
+    font: inherit;
+}
+
+#fallout-character-creator .fc2-tag-button:hover {
+    background: #142514;
+}
+
+#fallout-character-creator .fc2-tag-button.selected {
+    color: #071007;
+    background: var(--fc2-green);
+    font-weight: bold;
+}
+
+#fallout-character-creator .fc2-tag-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+#fallout-character-creator .fc2-tag-button:focus-visible {
+    outline: 2px solid var(--fc2-green);
+    outline-offset: 2px;
+}
+
+
         /* ==========================================================================
            3. ESTILOS PASO A PASO CREACIÓN DE PERSONAJE
            ========================================================================== 
@@ -2767,46 +2833,51 @@
                     <!-- PASO 3 -->
                     <section class="fc2-panel fc2-panel-3">
                         <h2>03 / HABILIDADES Y ETIQUETAS</h2>
+                        <div class="fc2-tag-selector">
+                            <p>SELECCIONÁ TUS 3 TAG</p>
+                            <div id="fc2-tag-buttons" class="fc2-tag-buttons"></div>
+                            <p id="fc2-tag-counter" aria-live="polite">TAG seleccionadas: 0/3</p>
+                        </div>
+                        <p class="fc2-description">
+                            Distribuí tus puntos de habilidad y elegí tus habilidades etiquetadas.
+                        </p>
 
-                        <!-- Resumen actualizado automáticamente por JavaScript -->
+                        <!-- Resumen de puntos y etiquetas -->
                         <div class="fc2-table-wrap">
+                            <p id="fc2-skill-points-status" aria-live="polite">
+                                Esperando la selección del origen y los atributos SPECIAL...
+                            </p>
+
                             <p id="fc2-skill-tags-status" aria-live="polite"></p>
+
                             <p id="fc2-skill-validation" role="status" aria-live="polite"></p>
                         </div>
 
-                        <!-- Aquí se generan las 17 habilidades desde skillListOrdered -->
-                        <div class="fc2-table-wrap">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Habilidad</th>
-                                        <th>Atributo</th>
-                                        <th>Puntos gastados</th>
-                                        <th>Rangos efectivos</th>
-                                        <th>Etiqueta</th>
-                                    </tr>
-                                </thead>
+                        <!-- Las tarjetas se generan desde skillListOrdered -->
+                        <div id="fc2-skills-grid" class="fc2-skills-grid"></div>
 
-                                <tbody id="fc2-skills-table-body">
-                                    <!-- JavaScript genera las filas -->
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- Mensajes específicos: etiquetas automáticas y adicionales -->
+                        <!-- Etiquetas adicionales y automáticas -->
                         <div class="fc2-table-wrap">
                             <h3>Etiquetas otorgadas por el origen y los rasgos</h3>
+
                             <ul id="fc2-skill-special-tags">
                                 <li>Seleccioná un origen para ver sus reglas.</li>
                             </ul>
                         </div>
 
+                        <div class="fc2-table-wrap">
+                            <h3>Equipo otorgado por habilidades</h3>
+                            <ul id="fc2-skill-equipment">
+                                <li>Seleccioná tus habilidades TAG para ver el equipo correspondiente.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Navegación -->
                         <div class="fc2-actions">
                             <label class="fc2-button" for="fc2-step-2">
                                 ← ANTERIOR
                             </label>
 
-                            <!-- El botón real cambia al paso 4 solamente si la validación pasa -->
                             <button
                                 type="button"
                                 id="fc2-step-3-next"
@@ -6104,7 +6175,9 @@
         description: "Nacida de las terribles revelaciones de la Rebelión de Mariposa, la Hermandad del Acero fue fundada por Roger Maxson para que su gente —y, con el tiempo, el resto de los sobrevivientes de este nuevo mundo— tuviera algo en lo que creer. Con su propia mitología, credo y jerarquía, el principal objetivo de la Hermandad del Acero es recuperar y preservar la tecnología del mundo de antes de la guerra. Tras la Gran Guerra, que interrumpió el acceso de la humanidad a la tecnología, los caballeros y escribas de la Hermandad hacen todo lo posible por asegurar la tecnología del pasado para las generaciones futuras. Podés ser descendiente de un caballero o paladín, haber nacido dentro de la Hermandad y creer firmemente en su doctrina; o quizás seas un recluta nuevo que acaba de jurar lealtad a su causa y aspira a ascender en sus filas. Aunque todos sus miembros comparten un objetivo común, los distintos capítulos de la Hermandad repartidos por el Yermo pueden tener creencias y protocolos diferentes. Después de todo, no están tan unidos como parecen desde afuera. Mientras que la Hermandad del Acero de la Costa Oeste entró en guerra con la República de Nueva California por la recuperación de tecnología y los esfuerzos expansionistas de la RNC, el capítulo de la Costa Este quedó prácticamente aislado al priorizar la ayuda humanitaria por encima del intercambio tecnológico y la preservación de los equipos de antes de la guerra. La misión del Anciano Lyons adquirió un carácter humanitario y, aunque eso los condenó inicialmente al aislamiento, Arthur Maxson lideró después la expansión de su influencia desde Washington D. C. hasta toda la costa este de Estados Unidos, reorientando sus esfuerzos hacia la recuperación y el desarrollo tecnológico.",
         traitName: "La cadena que une",
         traitDescription: "Obtenés un tag adicional, que debe ser una de las siguientes: Armas de Energía, Ciencia o Reparación. Como miembro de la Hermandad del Acero, estás sujeto a la cadena de mando: La Cadena que Nos Une. Debés cumplir las órdenes de tus superiores directos y sos responsable de tus hermanos y hermanas subordinados. Si no cumplís con tu deber, serás expulsado de la Hermandad y te confiscarán tu tecnología, por cualquier medio que sea necesario.",
-        trait: null
+        trait: null,
+        skillTrait: [ "Armas de Energia", "Ciencia", "Reparacion" ],
+        skillTraitChoices: 1
     };
 
     const ghoulOrigin = {
@@ -6113,9 +6186,11 @@
         source: "Core Rulebook",
         description: "La exposición prolongada a los efectos de la radiación gamma ambiental, una de las consecuencias de la Gran Guerra, puede provocar mutaciones espontáneas en los seres humanos. Vos sos uno de esos mutantes. Ya sea de forma gradual o por algún extraño cambio repentino, tu cuerpo se transformó en el de un cadáver viviente en descomposición. Ya no envejecés de la misma manera y la radiación parece no afectarte. La piel se te desprende de la carne, pero tu metabolismo mutado parece mantenerte con vida. Sos un **necrófago**, un ser poshumano de naturaleza necrótica. Sos uno de los tantos sobrevivientes que tuvieron la mala suerte de no conseguir refugio en una instalación de Vault-Tec. Quizás naciste después de la guerra y, con el paso del tiempo, desarrollaste la mutación necrótica. O tal vez provenís del Refugio 12, en Bakersfield, California, cuya puerta nunca llegó a cerrarse y dejó a sus habitantes expuestos a la radiación del exterior. También es posible que hayas encontrado refugio en un asentamiento de necrófagos, como el Inframundo de la Capital del Yermo, y que recién ahora te hayas aventurado a salir para explorar, buscar recursos y sobrevivir. Sin embargo, los necrófagos civilizados como vos también temen una posible degeneración hacia un estado salvaje y frenético. Los necrófagos salvajes son mutantes necróticos como vos que han perdido las funciones cerebrales superiores y retrocedido a un estado primitivo y violento. Atacan indiscriminadamente a quienes no son necrófagos, ya sea para defender su territorio o para alimentarse. No sabés si esta pérdida de la razón se debe a niveles extremos de radiación o si es el desenlace inevitable de la mutación. Y esa incertidumbre hace que la posibilidad sea todavía más aterradora.",
         traitName: "Poshumano necrótico",
-        traitDescription: "Sos inmune al daño por radiación. De hecho, la radiación te cura: recuperás 1 PG por cada 3 puntos de daño por radiación que recibas. Además, si descansás en una zona irradiada, podés volver a tirar los dados de tu reserva al comprobar si tus heridas sanan. Por otro lado, Supervivencia se convierte en una habilidad de Etiqueta y aumenta en 2 rangos. Envejecés a un ritmo mucho más lento, por lo que probablemente seas mayor que tus compañeros sin mutaciones. Incluso podrías haber sobrevivido a la Gran Guerra de 2077. Sin embargo, sos estéril: como dice el refrán, «la primera generación de necrófagos será la última». También podés sufrir discriminación por parte de los llamados «pieles tersas» (*smoothskins*), es decir, los humanos que no son necrófagos. Según las creencias y los prejuicios de tu interlocutor, esto puede aumentar la dificultad de las pruebas de Carisma o ampliar su rango de complicación.",
+        traitDescription: "Sos inmune al daño por radiación. De hecho, la radiación te cura: recuperás 1 PG por cada 3 puntos de daño por radiación que recibas. Además, si descansás en una zona irradiada, podés volver a tirar los dados de tu reserva al comprobar si tus heridas sanan. Por otro lado, Supervivencia se convierte en una habilidad tageada. Envejecés a un ritmo mucho más lento, por lo que probablemente seas mayor que tus compañeros sin mutaciones. Incluso podrías haber sobrevivido a la Gran Guerra de 2077. Sin embargo, sos estéril: como dice el refrán, «la primera generación de necrófagos será la última». También podés sufrir discriminación por parte de los llamados «pieles tersas» (*smoothskins*), es decir, los humanos que no son necrófagos. Según las creencias y los prejuicios de tu interlocutor, esto puede aumentar la dificultad de las pruebas de Carisma o ampliar su rango de complicación.",
         trait: null,
-        traitChoices: null
+        traitChoices: null,
+        skillTrait: [ "Supervivencia" ],
+        skillTraitChoices: 1
     };
 
     const supermutantOrigin = {
@@ -6126,7 +6201,9 @@
         traitName: "Evolucion forzada",
         traitDescription: "Tus atributos iniciales de Fuerza y Resistencia aumentan en +2 cada uno, y sus valores máximos se incrementan a 12. Sin embargo, tus valores máximos de Inteligencia y Carisma se reducen a 6. No podés tener más de 4 rangos en ninguna habilidad. Sos completamente inmune al daño por radiación y veneno. Medís más de 2,10 metros de altura y tenés un cuerpo corpulento y musculoso. Tu piel es verde, amarilla o gris, independientemente del color que tuviera cuando eras humano. Aparentemente, no envejecés, pero sos estéril. Solo podés usar armaduras confeccionadas específicamente para un supermutante.",
         trait: null,
-        traitChoices: null
+        traitChoices: null,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const misterHandyOrigin = {
@@ -6137,7 +6214,9 @@
         traitName: "Robot Mister Handy",
         traitDescription: "Tenés visión de 360° y sistemas sensoriales mejorados capaces de detectar olores, sustancias químicas y radiación. Esto reduce en 1 la dificultad de las pruebas de Percepción que dependan de la vista o el olfato. También sos inmune al daño por radiación y veneno, pero no podés usar químicos (*chems*) ni beneficiarte de la comida, la bebida o el descanso. Te desplazás mediante propulsión a chorro, flotando por encima del suelo, por lo que el terreno difícil y los obstáculos no afectan tu movimiento. Tu capacidad de carga es de 150 lb (aproximadamente 68 kg) y no puede aumentar mediante Fuerza ni ventajas, aunque sí puede incrementarse mediante modificaciones de armadura. No podés recuperarte de tus propias heridas ni restaurar puntos de salud sin recibir reparaciones. No podés manipular el mundo físico de la misma manera que los humanos. En su lugar, disponés de tres de los accesorios de brazo incluidos en la tabla **Accesorios de brazo**, determinados por el paquete de equipo que elijas. Si seleccionás un brazo que incluya un arma, también recibís 20 disparos de munición para esa arma.",
         trait: "misterHandyTraitsCanon",
-        traitChoices: 3
+        traitChoices: 3,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const survivorOrigin = {
@@ -6148,7 +6227,9 @@
         traitName: "Rasgos",
         traitDescription: "Podés elegir dos de los siguientes rasgos, o bien un rasgo y una ventaja adicional. Cada rasgo otorga un beneficio y puede conllevar una penalización.",
         trait: "survivorTraitsCanon",
-        traitChoices: 2
+        traitChoices: 2,
+        skillTrait: null,
+        skillTraitChoices: null
     };
     const vaultDwellerOrigin = {
         id: "Vault_Dweller",
@@ -6158,7 +6239,9 @@
         traitName: "Chico de la boveda",
         traitDescription: "Gracias a que recibiste una atención médica superior desde el comienzo de tu vida, a cargo de médicos capacitados y sofisticados autodocs, reducís en 1 la dificultad de todas las pruebas de Resistencia (RES) para resistir los efectos de las enfermedades. Además, la educación cuidadosamente planificada que recibiste te otorga una habilidad de Etiqueta adicional, a tu elección. También podés trabajar junto con el Director de Juego para determinar qué tipo de experimento se llevó a cabo en tu Refugio. Una vez por misión, el DJ puede introducir una complicación que refleje la naturaleza del experimento en el que participaste sin saberlo, o que esté relacionada con tu infancia marcada por el aislamiento y el confinamiento dentro del Refugio. Si el DJ hace esto, recuperás inmediatamente 1 Punto de Suerte." ,
         trait: vaultDuellerTraits,
-        traitChoices: 1
+        traitChoices: 1,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const assaultronOrigin = {
@@ -6169,7 +6252,9 @@
         traitName: "Diseñado para el frente",
         traitDescription: "Sos un robot inmune a las enfermedades, al daño por radiación y al daño por veneno, pero no podés usar químicos (chems) ni beneficiarte de la comida, la bebida o el descanso. No podés recuperarte de tus heridas ni recuperar puntos de salud sin recibir reparaciones. Tu capacidad de carga es de 150 lb (aproximadamente 68 kg) y no puede aumentar mediante Fuerza ni ventajas, aunque sí puede incrementarse mediante modificaciones de armadura. Te desplazás sobre dos piernas y podés manipular tu entorno gracias a tus manos articuladas, similares a garras de tres dedos. Tus extremidades, accionadas por cadenas, están diseñadas para ofrecer velocidad y una eficiencia letal en el combate cuerpo a cuerpo. Esto te otorga +1 CD a tus ataques sin armas, además de cualquier bonificación a los CD de tus ataques cuerpo a cuerpo que recibas por tu atributo de Fuerza. Tu cabeza blindada lleva integrado un potente láser que te permite atacar enemigos a distancia con un arma de energía devastadora. Además, podés sobrecargar críticamente tu núcleo de fusión para provocar una explosión autodestructiva devastadora (ver Armas de Assaultron). Armas de Assaultron Garras Realizás ataques sin armas con un par de garras opuestas accionadas por cadenas. Las garras infligen 4 CD de daño físico y se benefician de tu estadística derivada de daño cuerpo a cuerpo y de las ventajas aplicables a los ataques sin armas. La bonificación al daño otorgada por tu rasgo ya está incluida en este valor. Láser craneal de Assaultron Cargás el emisor láser de alto rendimiento integrado en tu cabeza e infligís 5 CD de daño de energía con Perforante 1, consumiendo 2 disparos de munición para celdas de fusión. Podés reducir la cantidad de disparos consumidos; por cada disparo menos del costo normal, el daño disminuye en −1 CD, hasta un mínimo de 4 CD de daño consumiendo 1 disparo. Las modificaciones del condensador pueden aumentar tanto el daño como la cantidad de disparos consumidos. Autodestrucción Explotás y quedás destruido en el proceso. No podés ser reparado. Al realizar este ataque, hacés un ataque a distancia usando RES + Explosivos, que inflige 6 CD de daño de energía con el efecto Explosión, a alcance Corto." ,
         trait: null,
-        traitChoices: null
+        traitChoices: null,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const brotherhoodOutcastOrigin = {
@@ -6178,9 +6263,11 @@
         source: "Wanderers Guide",
         description: "Por más que se rodee de imágenes heroicas, pompa y solemnidad, la Hermandad del Acero no es la buena de la historia. Aparecen desde el cielo a bordo de vertibirds, enfundados en relucientes servoarmaduras y armados con armas que lanzan haces de luz fulgurantes por todo el campo de batalla para purgar el mal del Yermo… o, al menos, eso es lo que quieren hacerte creer. En algunas regiones del Yermo se los considera humanitarios; en otras, se los ve como brutos acaparadores de tecnología, más preocupados por apropiarse de los avances del mundo antiguo y exterminar a la población local de supermutantes que por ayudar a quienes lo necesitan. Muchos aspirantes se comprometieron con la misión de descubrir y recuperar tecnología perdida de antes de la guerra, pero terminaron viendo cómo los líderes locales se desviaban de ese objetivo por un motivo u otro. Estos individuos se llevan consigo todos los conocimientos que adquirieron, dispuestos a aplicarlos como mejor les parezca. Algunos incluso continúan la misión de la Hermandad por su cuenta. Muchos se convierten en una especie de ingenieros itinerantes que aprovechan su profundo conocimiento de la tecnología del mundo antiguo para reparar sistemas obsoletos o ayudar donde sea necesario. Otros adoptan un papel más activo y utilizan sus nuevos conocimientos militares para defender a los demás, haciendo valer toda la potencia de un rifle láser contra las tecnologías fuera de control y quienes pretenden explotarlas. Aunque la mayoría perdió su servoarmadura, muchos marginados de la Hermandad del Acero viajan de un lugar a otro, ofreciendo ayuda a quienes la necesitan, haciendo justicia cuando corresponde y compartiendo conocimientos con los que la mayoría de los habitantes del Yermo ni siquiera se atrevería a soñar. Sin embargo, la Hermandad del Acero es una familia muy unida y rara vez aprueba las decisiones de quienes desertan. Por eso, los marginados pueden terminar trayendo consigo más desgracias de las que pretendían. No es raro que uno de ellos finalmente se establezca en algún lugar, solo para escuchar el ruido de los vertibirds que se acercan por encima de su cabeza.",
         traitName: "La cadena que se rompe",
-        traitDescription: "Creés que tus superiores en la Hermandad carecen de una visión que vaya más allá de recuperar tecnología de antes de la guerra. Considerás que tu fortaleza como miembro de esta fraternidad de descendientes de militares te impone el deber de ayudar a los demás y perseguir objetivos distintos de los que dicta el dogma de los líderes de la Hermandad. Obtenés una habilidad de Etiqueta adicional, que debe ser una de las siguientes: Armas de Energía, Ciencia o Reparación. Además, obtenés 1d20 adicional de chatarra (ver Fallout: The Roleplaying Game — Manual básico, pág. 200) y podés gastar 1 PA hasta 3 veces para obtener 1 material poco común por cada PA gastado. También podés realizar una tirada adicional en la tabla de botín sin tener que gastar PA.",
+        traitDescription: "Creés que tus superiores en la Hermandad carecen de una visión que vaya más allá de recuperar tecnología de antes de la guerra. Considerás que tu fortaleza como miembro de esta fraternidad de descendientes de militares te impone el deber de ayudar a los demás y perseguir objetivos distintos de los que dicta el dogma de los líderes de la Hermandad. Obtenés una habilidad de Etiqueta adicional, que debe ser una de las siguientes: Armas de Energía, Ciencia o Reparación. Además, obtenés 1d20 adicional de chatarra, y podés gastar 1 PA hasta 3 veces para obtener 1 material poco común por cada PA gastado. También podés realizar una tirada adicional en la tabla de botín sin tener que gastar PA.",
         trait: null,
-        traitChoices: null
+        traitChoices: null,
+        skillTrait: [ "Armas de energia", "Ciencias", "Reparacion"],
+        skillTraitChoices: 1
     };
 
     const childOfTheAtomOrigin = {
@@ -6189,9 +6276,11 @@
         source: "Wanderers Guide",
         description: "La radiación es un regalo de Átomo, tu dios atómico, y compartís gustosamente ese don con la Commonwealth. Como miembro de la Iglesia de Átomo, tu cuerpo y tu mente están bendecidos por la radiación. Muchos de los que te cruzás desconfían de vos y consideran que tu bendición es una maldición, pero vos sabés que fuiste elegido. Cuanto más te acercás al abrazo de Átomo, más capaz te volvés de sobreponerte a las penurias del Yermo. Entendés que la radiación es peligrosa para quienes todavía no han aceptado su verdad divina, y no los despreciás por recurrir al RadAway y otros tratamientos. Simplemente buscás ayudarlos a alcanzar la iluminación. Los Hijos de Átomo creen que en cada masa atómica de la creación existe un universo entero. Cuando una masa se divide, el universo que contiene también se divide y da origen a dos universos. Átomo es venerado como un dios benevolente que utiliza la División para crear nuevos mundos. Por eso, los Hijos consideran que la Gran Guerra fue un acontecimiento sagrado y maravilloso. Adoran a Átomo mediante el culto a la radiación —su Resplandor— y a los nuevos universos que esta representa. Los Hijos establecen sus hogares en regiones irradiadas, donde construyen centros de culto y asentamientos. Aunque la Iglesia no suele recurrir a la violencia, considera una blasfemia cualquier intento de impedir la propagación de la radiación. Se opone a esos esfuerzos, aunque las tácticas que emplean sus miembros y sectas varían. Los Hijos no sienten un apego especial por sus cuerpos ni por sus posesiones, y pueden mostrarse muy generosos con quienes necesitan ayuda. Siguen una jerarquía flexible, propia de cada secta, encabezada por líderes espirituales conocidos como Madres o Confesores. Quizás hayas nacido dentro de la Iglesia, o tal vez llevaras una vida completamente distinta antes de descubrir la verdad atómica. Puede que hayas llegado desde una secta lejana en peregrinación sagrada, o que provengas del Cráter de Átomo, en el Mar Resplandeciente. Si mantenés tu fe, compartís el Resplandor con quienes te cruzás y demostrás tu devoción a Átomo, quizás logres demostrar tu valía y ascender a un rango superior dentro de tu secta.",
         traitName: "Esponja de rads",
-        traitDescription: "Tu inusual experiencia de vida te otorga una ventaja adicional en el nivel 1. Además, Átomo te concedió un don único, incluso entre los demás miembros de la Iglesia. Podés resistir, almacenar e incluso canalizar la radiación a través de tu cuerpo. Aunque Átomo te ha bendecido con su Resplandor, debés tener cuidado: los incrédulos quizás no comprendan tu don y se asusten al presenciarlo. Tu resistencia básica al daño por radiación es de 1 y puede aumentar mediante armaduras y ventajas. Una vez por escena, cuando alguien que se encuentre a alcance Corto de vos fuera a sufrir daño por radiación, podés elegir recibir ese daño en su lugar.  Cada vez que sufrís daño por radiación, obtenés 1 Punto de Radiación, hasta un máximo de 5. Para determinar cuántos puntos obtenés, tené en cuenta que el daño recibido no puede ser inferior a 0. Cuando impactás con un ataque cuerpo a cuerpo, podés gastar los Puntos de Radiación que hayas almacenado. Por cada punto gastado, infligís 2 CD adicionales de daño por radiación, que se aplican por separado después de resolver el daño normal del ataque. Cuando dormís, perdés 1 Punto de Radiación.",
+        traitDescription: "Tu inusual experiencia de vida te otorga una ventaja adicional en el nivel 1. Además, Átomo te concedió un don único, incluso entre los demás miembros de la Iglesia. Podés resistir, almacenar e incluso canalizar la radiación a través de tu cuerpo. Aunque Átomo te ha bendecido con su Resplandor, debés tener cuidado: los incrédulos quizás no comprendan tu don y se asusten al presenciarlo. Tu resistencia básica al daño por radiación es de 1 y puede aumentar mediante armaduras y ventajas. Una vez por escena, cuando alguien que se encuentre a alcance Corto de vos fuera a sufrir daño por radiación, podés elegir recibir ese daño en su lugar. Cada vez que sufrís daño por radiación, obtenés 1 Punto de Radiación, hasta un máximo de 5. Para determinar cuántos puntos obtenés, tené en cuenta que el daño recibido no puede ser inferior a 0. Cuando impactás con un ataque cuerpo a cuerpo, podés gastar los Puntos de Radiación que hayas almacenado. Por cada punto gastado, infligís 2 CD adicionales de daño por radiación, que se aplican por separado después de resolver el daño normal del ataque. Cuando dormís, perdés 1 Punto de Radiación.",
         trait: null,
-        traitChoices: null
+        traitChoices: null,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const nightkinOrigin = {
@@ -6202,7 +6291,9 @@
         traitName: "Adiccion a los Stealth Boy",
         traitDescription: "No podés tener más de 4 rangos en ninguna habilidad. Sos completamente inmune al daño por radiación y al daño por veneno. Medís más de dos metros de altura; tu cuerpo es voluminoso y musculoso, y tu piel es azul. No parecés envejecer, pero sos estéril. Solo podés usar armaduras confeccionadas para adaptarse al cuerpo de un supermutante. Podés desarrollar una adicción a los Stealth Boys con facilidad, y su uso prolongado ha tenido un impacto enorme en tu psicología y salud mental. Cada vez que usás un Stealth Boy, tirás 1 CD por cada dosis que hayas usado durante esta sesión. Si obtenés algún **Efecto**, sufrís los siguientes síntomas: - **Adicción a los Stealth Boys:** Si fallás la prueba de adicción, te volvés adicto a los Stealth Boys. La dificultad de tus pruebas de **Percepción** e **Inteligencia** aumenta en +2, y la de tus pruebas de **Carisma**, en +1, hasta que te cures.",
         trait: null,
-        traitChoices: null
+        traitChoices: null,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const tribalOrigin = {
@@ -6213,7 +6304,9 @@
         traitName: "Razgos",
         traitDescription: "Podés elegir dos de los siguientes rasgos, dos rasgos de la lista del origen Superviviente, o bien un rasgo de esta lista o de las listas de Superviviente o de la República de Nueva California, y una ventaja adicional. Cada rasgo ofrece un beneficio y puede incluir una penalización asociada.",
         trait: "tribalTraitsCanon",
-        traitChoices: 2
+        traitChoices: 2,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const commonwealthMinutemanOrigin = {
@@ -6224,7 +6317,9 @@
         traitName: "United We Stand",
         traitDescription: "Trade caravan posts in your settlements attract traders every 5 days rather than 7. Settlements you establish, by any means, have a base Defense resource of 4. You gain either Energy Weapons or Small Guns as a bonus tag skill (your choice). Your Damage Resistance is increased by +1 while in cover, and you deal +1CD damage while you and your companions are outnumbered.",
         trait: null,
-        traitChoices: null
+        traitChoices: null,
+        skillTrait: [ "Smaill guns", "Energy guns" ],
+        skillTraitChoices: 1
     };
 
     const newCaliforniaRepublicOrigin = {
@@ -6235,7 +6330,9 @@
         traitName: "New Californian",
         traitDescription: "You may choose two of the following traits, two traits from the Survivor origin, or one trait from either list and one additional perk. Each trait has a benefit and may have an accompanying penalty.",
         trait: "newCaliforniaRepublicTraitsCanon",
-        traitChoices: 2
+        traitChoices: 2,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const protectronOrigin = {
@@ -6246,7 +6343,9 @@
         traitName: "Protect or Destroy",
         traitDescription: "You were built to survive in harsh environments. Once per scene, you may reroll a test to overcome an environmental hazard and use the new result. You are also immune to disease, and Radiation and Poison damage, but you cannot use chems, nor can you benefit from food, drink, or rest. You cannot recover from your injuries or heal health points without receiving repairs. Protectrons are designed for a specific purpose and contain additional mechanisms to support their programmed tasks. You cannot have more than two robot mods installed simultaneously. You may be a Fire Brigadier, Law Enforcer, Construction Worker, Medical Responder, or a model of your own invention. When making a test directly related to your model’s purpose, the first d20 you buy using Action Points costs 0. Additionally, your carry weight is 225 lbs. and cannot be increased by your Strength or perks, but it can be increased by modified armor.",
         trait: "protectronTraitsCanon",
-        traitChoices: 2
+        traitChoices: 2,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const robobrainOrigin = {
@@ -6257,7 +6356,9 @@
         traitName: "Robobrain Robot",
         traitDescription: "You are a robot with a human brain as a central processor. You have visual sensors that can detect the visual spectrum and infrared, ignoring any difficulty increase to Perception tests in darkness. You are also immune to radiation and poison damage, but you cannot use chems, nor can you benefit from food, drink, or rest. You cannot recover your own injuries or heal health points without receiving repairs (see Fallout: The Roleplaying Game Core Rulebook, p.34). You move on two continuous tracks, and have two tube-like manipulators as arms with opposable claws you can use to control tools and objects designed for humans with precision and make unarmed melee attacks. Your head has a built-in mesmetron, which you can use to make ranged attacks. Your carry weight is 150 lbs., and it cannot be increased by your Strength or perks, but it can be increased by modified armor.",
         trait: null,
-        traitChoices: null
+        traitChoices: null,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const securitronOrigin = {
@@ -6268,7 +6369,9 @@
         traitName: "Mark I Securitron",
         traitDescription: "You are a robot, with the Mk I operating system designed by RobCo Industries. You have forward-facing visual sensors that can detect the visual spectrum. You are also immune to radiation and poison damage, but you cannot use chems, nor can you benefit from food, drink, or rest. You cannot recover your own injuries or heal health points without receiving repairs (see Fallout: The Roleplaying Game Core Rulebook, p.34). You move on a single tire, increasing the difficulty of skill tests to balance or remain upright by 1. Your arms are fitted with opposable claws, with which you can manipulate your environment rudimentarily and make unarmed melee attacks. The palms of your claws are outfitted with integrated weapons, as outlined in Choose Equipment, p.95. Your shoulders house missile launchers and a grenade launcher is integrated into the left arm, but they are both inoperable unless you are fitted with the Mk II operating system mod. Your carry weight is 150 lbs. It cannot be increased by your Strength or perks, but by modified armor" ,
         trait: null,
-        traitChoices: null
+        traitChoices: null,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const gen3SynthOrigin = {
@@ -6300,7 +6403,7 @@
         { id: "high_spirits", name: "High Spirits", benefit: "Relanza 1d20 en cualquier prueba de Preparar accion, o cualquier otro intento para levantar el espiritu y la moral.", penalty: "Cuando un aliado caiga y comience a morir, Debes pasar una prueba de Carisma a dificultad 1, o perder 1 Punto de Accion." },
         { id: "trigger_discipline", name: "Trigger Discipline", benefit: "Cuando uses la habilidad de Apuntar, puedes relanzar 1d20 adicional.", penalty: "La cadencia de disparo de todas tus armas a distancia se reduce en 1." },
         { id: "overprepared", name: "Overprepared", benefit: "Obtienes +25 lb a tu peso maximo.", penalty: "Si no estas transportando como minimo 100 lb de items, no podes gastar Puntos de Accion para obtener Acciones Menores." },
-        { id: "extra_perk", name: "Perk adicional", benefit: "Obtienes un perk adicional.", penalty: "-." }
+        { id: "extra_SPECIAL", name: "Extra S.P.E.C.I.A.L.", benefit: "Obtenes un punto adicional para gastar en tus S.P.E.C.I.A.L.", penalty: "-." }
     ];
 
     const serviceBranches = [
@@ -6422,7 +6525,9 @@
         traitName: "Lecciones con sangre",
         traitDescription: "Podés elegir dos de los siguientes Rasgos, o un Rasgo y un Perk adicional.",
         trait: raiderTraitsHomebrew,
-        traitChoices: 2
+        traitChoices: 2,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const Sobreviviente_Homebrew = {
@@ -6433,7 +6538,9 @@
         traitName: "Trait",
         traitDescription: "Podés elegir dos de los siguientes Rasgos, o un Rasgo y +1 punto de SPECIAL.",
         trait: sobrevivienteTraitsHomebrew,
-        traitChoices: 2
+        traitChoices: 2,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const Tribal_Homebrew = {
@@ -6444,7 +6551,9 @@
         traitName: "",
         traitDescription: "Antecedentes Tradicionales: Elegí un entorno del que provenga tu tribu. Puede ser un tipo general de bioma natural (bosque, desierto, costea, montañas/cuevas, etc.) o un tipo muy específico de construcción hecha por el hombre (hospital, estación de subte, biblioteca, etc.). Conocés íntimamente ese tipo de entorno y los canales espirituales que lo atraviesan; reducís en 1 la dificultad de las pruebas de Supervivencia realizadas en ese entorno, excepto aquellas destinadas a resistir la muerte o una enfermedad, hasta un mínimo de 0. Trabajá con el DJ para elegir una tradición que te complique la vida: un comportamiento o creencia que sea perfectamente normal entre los miembros de tu tribu, pero que pueda resultar extraña para los forasteros y causarte problemas. Puede ser algo como «el hueso de mi nariz está embrujado por el fantasma de mi abuelo», «debo hablar y moverme como el Rey Presley», «las municiones explosivas son una prueba para determinar quién es digno de ser humano», «los edificios anteriores a la guerra son profanos y solo pueden ser atravesados después de una limpieza espiritual», «debo plantar semillas de mutfruta en todos los lugares a los que voy»... algo que ocasionalmente te cause obstáculos y te haga perder oportunidades, que genere problemas para vos, pero que no sea incapacitante. Cuando tu tradición realmente se interponga en tu camino, haciendo que te metas en problemas que de otro modo podrías haber evitado o haciendo que tengas que desviarte para honrar la costeumbre, los espíritus sonríen ante tu fe y perseverancia y te conceden 1 Punto de Suerte, una vez por escena. Finalmente, elegí otra tradición que te complique la vida o aumentá en +1 tu PER, END o AGI.",
         trait: null,
-        traitChoices: null
+        traitChoices: null,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const Brotherhood_Initiate_Homebrew = {
@@ -6455,7 +6564,9 @@
         traitName: "La cadena que nos une",
         traitDescription: "La Cadena que Une: Sos miembro de la Hermandad del Acero y estás sujeto a su cadena de mando: la Cadena que Une. Debés obedecer las órdenes de tus superiores y velar por el bienestar de tus subordinados. Elegí una rama de servicio. Obtenés una habilidad etiquetada (Tag) gratuita de entre las tres habilidades ofrecidas por esa rama. Una vez por aventura, podés gastar 2 PA para solicitar refuerzos a tu rama y asignarles una tarea. No harán nada demasiado peligroso o importante —nada que resuelva la trama— y no obtendrás experiencia ni botín por ello, pero pueden encargarse de tareas que requieran mucho tiempo, que te obliguen a dividir tu atención o que sea conveniente delegar y que ocurran «fuera de cámara». No comandás directamente a este grupo como si fueran tus subordinados; simplemente informás a tus superiores sobre una oportunidad para tomar una decisión tácticamente ventajosa. Podés tener que realizar una prueba de CAR + Hablar de dificultad 1 para convencer a tus superiores de que la tarea merece que le dediquen personal y recursos, si no resulta inmediatamente evidente. La dificultad puede aumentar a 2 o incluso 3 si tu solicitud es claramente alguna estupidez en la que te metiste por tu cuenta.",
         trait: serviceBranches,
-        traitChoices: 1
+        traitChoices: 1,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const Eyebot_Homebrew = {
@@ -6466,7 +6577,9 @@
         traitName: "Trait",
         traitDescription: "You have advanced sensor modules and access to facial recognition technology giving you a natural +2 to perception, but your máximum strength is 6. You are also immune to radiation and poison damage, but you cannot use chems, nor can you benefit from food, drink, or rest. You move by jet propulsion, hovering above the ground, unaffected by difficult terrain or obstacles. Your carry weight is 100 lbs., and it cannot be increased by your Strength or perks, but it can be increased by modified armor. You cannot recover from your own injuries or heal health points without receiving repairs. As an eyebot you have access to three separate arm modules, a laser emitter, a medical tool or a repair tool. You cannot manipulate the world due to your lack of arms or pincers. You are also smaller tan most wasteland creatures, making your normal HP ½ Endurance + ½ Luck (Rounded up) but your Defense is increased by 1. You are also able to receive and send radio transmissions, as well as playing these aloud. This sound can be heard aloud from long range.",
         trait: eyebotOptions,
-        traitChoices: 1
+        traitChoices: 1,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const Nightkin_Homebrew = {
@@ -6477,7 +6590,9 @@
         traitName: "The Master’s Chosen",
         traitDescription: "You were among the cream of the crop of the Unity’s Super Mutants, handpicked by the Master to serve as his personal assassins and bodyguards. You share many traits with your Super Mutant brethren, such as your resilience to disease and radiation. Like normal Super Mutants, your Endurance and Strength cap is raised to 12, and you are immune to Radiation and Poison damage. However, unlike your lesser brethren, your brain was not significantly altered by the mutation process. Your Intelligence and Charisma are capped at 8 instead of the normal 6. However, prolonged use of Stealth Boys has worn away at your mind, limiting you to two tag skills instead of three. Your natural affinity for stealth and honed training of the art of staying unseen means one of these skills must be Sneak. Many years of prolonged use of Stealth Boys have taken their toll on your mind, causing you to develop mental illnesses such as schizophrenia. You may have multiple personalities, hear voices and sounds that aren’t there, venerate an inanimate object as a deity, or suffer from any multitude of mental delusions. Upon suffering a complication in combat, you lose a minor action on your next turn due to schizophrenic confusion. In addition, you will periodically suffer from complications relating to your mental instability. The frequency and nature of such complications is reliant on your Overseer. You may pick from any Super Mutant equipment pack in the Core Rulebook or otherwise. Additionally, you will start with a singular Stealth Boy. Be sure to use it wisely, for they are not common in the Wasteland.",
         trait: null,
-        traitChoices: null
+        traitChoices: null,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const Followers_of_the_Fourfathers_Homebrew = {
@@ -6488,7 +6603,9 @@
         traitName: "The Fathers’ Will",
         traitDescription: "As a humble Patriot, you are duty-bound to follow the tenets of the faith. Accept the divergent faiths of others, and teach them of the Fathers’ will if they are so inclined. Follow the edicts of your superiors and act always in good conduct. Finally, seek out the fragments of the lost truth and collect all that which may serve the church to better understand the will of the Fourfathers. For your service, you can expect shelter, food, and spiritual aid from your Secretary and your fellow Patriots. If you do not carry out your duty, you will be banished from the Followers and branded as a heretic. The church shall never come to your aid again. Subtrait: Spiritual Attunement During their service in the church, many Patriots find themselves drawn to the works of one of the Fourfathers above all others. Such attunement is encouraged by some Congresses, as it helps to determine the path that the Patriot will find themselves upon during their tenure with the church. Please select one trait and accompanying equipment list from the following:",
         trait: followers_of_the_Fourfathers_HomebrewOptions,
-        traitChoices: 1
+        traitChoices: 1,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const Intelligent_Deathclaw_Brawns_Homebrew = {
@@ -6499,7 +6616,9 @@
         traitName: "Inteligencia letal",
         traitDescription: "Beneficios: Comenzás con la habilidad Desarmado etiquetada (Tag). Esto no cuenta para tus tres etiquetas iniciales. Sos completamente inmune a la Radiación. Recibís +1 Punto de Salud por Nivel. Podés levantar y arrojar objetos tan grandes como un auto estándar. Gracias a tus sentidos agudos, reducís en 1 la dificultad de todas las pruebas de PER, hasta un mínimo de 0. También podés detectar criaturas u objetos que normalmente serían indetectables para otros personajes. Tu Daño Adicional Cuerpo a Cuerpo se considera una categoría superior. Por ejemplo, si tenés Fuerza 7-8, tu bonificador es +2 en lugar de +1. Tu gruesa piel te otorga 3 de Resistencia al Daño natural (Todo). Penalizadores: Debido a tu enorme tamaño, tu Defensa queda fijada en 1. Además, solo podés usar armaduras fabricadas para adaptarse a un Deathclaw. No podés tener más de 4 rangos en ninguna habilidad, salvo que se indique lo contrario. No podés etiquetar las habilidades Armas Pesadas, Armas de Energía ni Armas Pequeñas. Aun así, podés asignar rangos a ellas. Si no estás adecuadamente disfrazado (por ejemplo, usando una túnica holgada), lo más probable es que los humanos te disparen apenas te vean o salgan corriendo, mientras gritan, en dirección contraria. Tu torso se considera un punto débil. Si un atacante elige específicamente apuntar a tu torso (es decir, no como resultado de una localización aleatoria), su daño ignora tu Resistencia al Daño natural.",
         trait: null,
-        traitChoices: null
+        traitChoices: null,
+        skillTrait: "Desarmado",
+        skillTraitChoices: null
     };
 
     const Intelligent_Deathclaw_Brains_Homebrew = {
@@ -6509,7 +6628,7 @@
         description: "Sos una criatura temida en todo el Yermo, hecha todavía más letal después de que el Enclave expusiera a tus ancestros al Virus de Evolución Forzada (F.E.V.). Con garras y cuernos feroces, una estatura que supera ampliamente a la mayoría de los humanos, una velocidad aterradora y una inteligencia comparable a la humana, sos verdaderamente un depredador supremo. Es probable que puedas rastrear tus orígenes hasta Goris o Xarn, los únicos dos sobrevivientes de la masacre de Vault 13. Cómo llegaste a la Mancomunidad (o a cualquier otra localización de la ambientación) es algo que deberías definir junto con tu Director de Juego.",
         traitName: "Inteligencia letal",
         traitDescription: "Beneficios: Comenzás con la habilidad Desarmado etiquetada (Tag). Esto no cuenta para tus tres etiquetas iniciales. Sos completamente inmune a la Radiación. Recibís +1 Punto de Salud por Nivel. Podés levantar y arrojar objetos tan grandes como un auto estándar. Gracias a tus sentidos agudos, reducís en 1 la dificultad de todas las pruebas de PER, hasta un mínimo de 0. También podés detectar criaturas u objetos que normalmente serían indetectables para otros personajes. Gracias a la práctica con tus garras, podés adquirir rangos en Cerrajería, Medicina, Pilotear, Reparación y Ciencia (hasta el límite de 4). Sin embargo, el rango de complicación para estas habilidades aumenta en 2 (18-20). Esto puede anularse adquiriendo la ventaja Garras Ágiles. Comenzás con una de las siguientes habilidades etiquetada (Tag): Cerrajería, Medicina, Pilotear, Reparación o Ciencia. La habilidad elegida puede aumentarse hasta un máximo de 6, en lugar del límite base de 4. Esto no cuenta para tus tres etiquetas iniciales. Tu gruesa piel te otorga 1 de Resistencia al Daño natural (Todo). Penalizadores: Debido a tu enorme tamaño, tu Defensa queda fijada en 1. Además, solo podés usar armaduras fabricadas para adaptarse a un Deathclaw. No podés tener más de 4 rangos en ninguna habilidad, salvo que se indique lo contrario. No podés etiquetar las habilidades Armas Pesadas, Armas de Energía ni Armas Pequeñas. Aun así, podés asignar rangos a ellas. Si no estás adecuadamente disfrazado (por ejemplo, usando una túnica holgada), lo más probable es que los humanos te disparen apenas te vean o salgan corriendo, mientras gritan, en dirección contraria. Tu torso se considera un punto débil. Si un atacante elige específicamente apuntar a tu torso (es decir, no como resultado de una localización aleatoria), su daño ignora tu Resistencia al Daño natural.",
-        trait: null,
+        trait: "Desarmado", [ "Cerrajería", "Medicina", "Pilotear", "Reparación", "Ciencia" ],
         traitChoices: null
     };
 
@@ -6521,7 +6640,9 @@
         traitName: "La Fuerza del Oso",
         traitDescription: "Una vez por aventura, cuando forrajees por Municion/Quimicos/Basura, podes usar CAR + Conversar en lugar de PER + Supervivencia; para requisar suministros. El resultado indicara que conseguis. A discrecion del Director, puede sustituir armas o equipo, ya sea por dificultad para llevar el equipo, o por falta de suministros. Si un personaje califica para Ranger(a discrecion del Director), puede hacer 8 semanas de entrenamiento, o recibir una serie de encargos que le daran las habilidades. Si finaliza estos, otiene el perk Disciplina de Ranger 1, asi como el equipo de Ranger. Un personaje que lleve un año y medio como Ranger, y haya hecho algo que beneficie sustancialmente a la NRC, puede ser contactado por su oficial comandante para recibir un avance. Se lo eleva a Ranger Veterano, obtiene el equipo de Ranger Veterano, y el perk Disciplina de Ranger 2.",
         trait: ncr_Soldier_HomebrewOptions,
-        traitChoices: 1
+        traitChoices: 1,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const New_Canaanite_Homebrew = {
@@ -6531,7 +6652,9 @@
         description: "Nacido en las tradiciones Mormonas de New Canaan, fuiste criado en una sociedad de pacifistas armados y comerciantes educados. Tu gente tiene una historia antigua, remontandose incluso antes que las bombas cayeran. Originalmente repartidos en los territorios de Nevada y Utah, las dificultades de las comunidades no han tenido fin. La destruccion del primer New Jerusalem en Salt Lake City y luego la destruccion de New Canaan en Ogden ha dejado a tu gente casi como refugiados permanentes. Cada comunidad llevando la antorcha de tu cultura y religion en las largas noches que tienes frente a ti. Puedes ser descendiente de alguno de los muchos que llegaron a Colorado y se asentaron ahi. O ser parte de una comunidad refugiada todavia buscando un lugar en Utahm evitando la mirada vigilante de la legion. Estan tambien aquellos que llegaron a nevada y viven entre las comunidades de ahi, formando grupos unidos. Otros simplemente vagan, tomando trabajos como guardias de caravanas y comerciantes exitosos. Usando las habilidades que aprendieron para hacerse de una vida. Ya sea que busques restaurar la gloria de tu gente, mantener la llama de la tradicion viva o solamente dejar tu pasado atrás, no hay manera de negar tu herencia. Aunque la vida en el yermo es dura y no perdona, siempre hay una voz en tu cabeza que te recuerda las enseñanzas de tu gente. Cuando eras joven te enseñaron a recitar las escrituras, como usar una ,45 automatica y aprendiste sobre justicia al tratar con otros. Una de estas lecciones, con la que mas resuenes, tuvo un gran impacto en tu vida.",
         traitName: "Tradicion",
         traitDescription: "Elige una de las tradiciones.",
-        trait: newCaananiteOptions
+        trait: newCaananiteOptions,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const Children_of_Atom_Homebrew = {
@@ -6542,7 +6665,9 @@
         originOption: childrenOfAtomSectOptions,
         traitName: "El Resplandor de Atom",
         traitDescription: "Como adherente de Atom, debés seguir los mandamientos dados por las madres/confesores y, si sos un zelote, también debés seguir al gran zelote/subdelegado, o de lo contrario enfrentar el castigo. Te oponés vehementemente a la eliminación de la radiación y a cualquiera que quiera hacerlo, y normalmente también sentís desdén por los ghouls. Ya sea una mutación retorcida, una prueba de la existencia de Atom o algo completamente distinto, vos y tu pueblo son resistentes a la radiación y ocasionalmente reciben visiones del propio Atom. Recibís +2 de Resistencia a la Radiación para todas las localizaciones. Además, podés elegir una enseñanza de la siguiente tabla o elegir una ventaja adicional.",
-        trait: childrenOfAtomTeachingsOptions
+        trait: childrenOfAtomTeachingsOptions,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const Hairy_Deathclaw_Shadowclaw_Homebrew = {
@@ -6552,7 +6677,9 @@
         description: "Sos una criatura temida y respetada en todo el Medio Oeste, una máquina de matar diseñada para ser el soldado perfecto del gobierno estadounidense de antes de la guerra. Estrechamente relacionados con los Deathclaws más grandes y sin pelo encontrados en las regiones costeras, tus ancestros fueron creados a partir del plano genético del progenitor común de los Deathclaws para cumplir con los requisitos militares de un supersoldado animal. Mientras que tus primos (tarrasquis horribilis) fueron diseñados para ser monstruos enormes e implacables, tu especie (tarrasquis fidelis) fue diseñada para ser lo bastante inteligente como para entender órdenes, pero no lo suficiente como para cuestionarlas. En el Medio Oeste, \"Deathclaw\" se utiliza para referirse a la variedad peluda, mientras que la gran variedad costera es un \"Terrorclaw\". Hasta donde se sabe de los Deathclaws peludos fuera del Medio Oeste, son conocidos como \"Shadowclaws\".\n\nLos Deathclaws son fauna peligrosa en el Medio Oeste, pero también pueden formar parte de su sociedad. Después de que un nido fuera notablemente obligado a ayudar a los Beastlords en 2197, la Hermandad del Acero liberó a la madre del nido y prometió protección a cambio del servicio de ella y sus hijos. Con el tiempo, los Deathclaws serían adoptados como el \"Cuerpo de Navegación\" de la Hermandad (suena mucho mejor que \"Cuerpo de Arrancar Extremidades\"), y el conocimiento de su capacidad para cooperar llevó a otros asentamientos humanos a intentar establecer contacto diplomático con los nidos de Deathclaws, ¡y algunos incluso dieron lugar a asociaciones fructíferas!\n\nLos Deathclaws pueden integrarse en la civilización, pero no cómodamente. Pueden desempeñar muchas de las mismas funciones que otros animales de trabajo, como perros o brahmin: guardias, cazadores, bestias de carga y, ocasionalmente, amigos. Pero siguen estando más cerca de los animales y, más aún, son criaturas diseñadas para reaccionar muy rápidamente ante posibles amenazas con fuerza letal y que interpretan de manera amplia el concepto de \"posible amenaza\". Fueron creados para la guerra, no para la paz. Los Deathclaws más inteligentes pueden verlo y, conscientes del dominio de la humanidad sobre el Yermo, buscan cómo integrarse de manera más activa y plena en la sociedad humana, antes de que sean declarados demasiado peligrosos para ella.\n\nEs probable que la gente se ponga nerviosa cerca tuyo, pero si parecés bien entrenado o estás acompañado por un amo, tu presencia genera cautela, pero no una alarma total. De lo contrario, incluso con un chaleco de seguridad, debés estar visiblemente sujeto cuando estés cerca de desconocidos.\n\nIncluso cuando la presencia de Ghouls de la Hermandad y Supermutantes ha llevado a la población a aceptar más la vida no humana, nadie está realmente seguro de qué pensar de vos como persona. ¿Sos un animal cuya existencia depende de ser seguro y útil, o tu autoconciencia significa que sos un ser con derechos innatos? ¿Estás siendo oprimido y aplastado bajo el talón de la Hermandad, o te están asistiendo y ayudando a adaptarte a una situación que no podrías manejar por tu cuenta? Probablemente ni vos mismo lo sepas. Estás atrapado en un limbo: mucho más que un animal, mucho menos que un humano. ¿Aceptás tu papel como sirviente o buscás algo más grande? Tu destino y tu camino serán difíciles de descubrir y aún más difíciles de ganarte.\n\nLos personajes Deathclaw comienzan con un chaleco de seguridad de alta visibilidad, un objeto pequeño y poco más.",
         traitName: "Soldado canino",
         traitDescription: "Beneficios: Tus atributos iniciales de FUE, PER, RES y AGI aumentan todos en +1; su valor máximo es 12. Tu INT inicial y máxima es 4. Tenés 2 puntos de Habilidad menos durante la creación. Tenés 1 de DR innata (Todo) contra todos los tipos de daño, excepto el daño de fuego. Tus ataques Desarmado infligen +1d de daño y tienen Perforante 1. Penalizaciones: Cuando realizás una prueba con una habilidad que no sea una de tus habilidades etiquetadas (Tag), generás Complicaciones con un resultado de 19-20. Sos un animal bípedo, a mitad de camino entre mamífero y reptil, con una gruesa piel correosa cubierta de pelaje tupido en la espalda, las piernas y los brazos. Tenés enormes garras desgarradoras y una disposición distintiva de cinco cuernos sobre tu cabeza con hocico. Tu piel puede ser de cualquier tono de marrón, hasta llegar a un verde claro o amarillo, y tu pelaje puede ser del color que quieras. Podés hablar un inglés rudimentario, pero sos analfabeto. No podés usar armas ni armaduras que no sean armas arrojadizas (Arrojadizas o Explosivos), armas Desarmado, armaduras de cuero y equipamiento diseñado o modificado para un Deathclaw. Tampoco podés usar el Guantelete Deathclaw. Eso sería como ponerle un sombrero a tu sombrero.",
-        trait: null
+        trait: null,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const Protectron_Homebrew_Homebrew = {
@@ -6562,7 +6689,9 @@
         description: "Uno de los modelos más extendidos y populares del catálogo de RobCo Industries. El Protectron fue diseñado como un dron de trabajo económico, capaz de realizar una amplia variedad de tareas, desde construcción y seguridad hasta labores de oficina.\n\nComo Protectron, generalmente se te considera menos inteligente y carismático que tus hermanos robóticos producidos por General Atomics, los Mister Handies. Los Protectrons generalmente carecen de una voz similar a la humana y, combinada con sus movimientos lentos y torpes, mucha gente puede asumir que no sos más que una terminal con piernas. Sin embargo, los Protectrons son fuertes, resistentes y adaptables por diseño. Algunos permanecen sentados, durmiendo eternamente en cápsulas de recarga, o vagan por lugares de trabajo con sus inhibidores de combate degradados hace mucho tiempo, atacando todo lo que ven. Vos no sos ninguno de estos; por voluntad propia o por la de otra persona, recorrés el Yermo.\n\nExisten varios modelos de Protectron además del modelo estándar, adaptados para una variedad de usos que serían peligrosos para los humanos. Podés ser un modelo de Policía, un modelo de Servicios Públicos, un modelo de Bombero o incluso un modelo Médico. Funcionás con un Núcleo nuclear, cuya carga completa puede mantenerte en funcionamiento durante más de 200 años, por lo que no tenés que preocuparte por recargarlo con frecuencia. Podés repararte a vos mismo o a otras unidades Protectron. Tenés una estructura corporal mayormente humanoide, con dos piernas para caminar y dos brazos, sobre los cuales se pueden montar una variedad de accesorios, como herramientas, armas o, más comúnmente, manos.\n\nA discreción del Director de Juego, aquellos competentes con máquinas pueden ser capaces de instalar otros equipamientos.",
         traitName: "Robot Protectron",
         traitDescription: "Tenés visión de 360° y sistemas sensoriales mejorados capaces de detectar olores, sustancias químicas y radiación, reduciendo en 1 la dificultad de las pruebas de Percepción que dependan de la vista y el olfato. También sos inmune al daño por radiación y veneno, pero no podés usar químicos ni beneficiarte de comida, bebida o descanso. No podés recuperarte de tus propias heridas ni recuperar Puntos de Salud sin recibir reparaciones (ver Curación de Robots, pág. 34).\n\nNo podés manipular el mundo físico como lo hacen los humanos; en su lugar, tenés dos de los accesorios de brazo de la tabla Accesorios de Brazo de Protectron, determinados por tu elección de paquete de equipamiento. Si elegís un brazo que incluya un arma, también obtenés 20 disparos de munición para esa arma.",
-        trait: protectronOptions
+        trait: protectronOptions,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const Numen_Homebrew = {
@@ -6572,7 +6701,9 @@
         description: "Hermoso, ¿no? Bueno, ahora sos vos. O al menos te parecés. Generalmente se discute cómo alguien se convierte en Numen, pero se cree que son habitantes normales del Yermo que fueron contaminados solo parcialmente por el VEF, ya sea porque un objeto contaminado quedó atrapado dentro tuyo, porque solo fuiste sumergido parcialmente o por alguna otra razón. Los Numen son prácticamente desconocidos, aunque muchos podrían contarte historias sobre uno llamado Harold, que recorrió América contando historias y que finalmente se convirtió en un árbol, venerado por los Treeminders.",
         traitName: "Casi Super(Mutante)",
         traitDescription: "Seguís teniendo el mismo tamaño que un humano, pero tu cuerpo adopta una forma repugnantemente mutada, y la piel que te queda será verde, amarilla o gris, independientemente de cómo fueras cuando eras humano. Sos prácticamente inmortal, aunque estéril.\n\nA menudo te confunden con un ghoul o algo peor, y normalmente la gente y los supermutantes te reciben con hostilidad. No sos exactamente un supermutante, pero estás cerca. Sos inmune al daño por radiación y veneno. Debido a tu transformación incompleta, la forma en que mutás varía enormemente, lo que te permite elegir una mutación de la lista siguiente o elegir una ventaja adicional. Además, tenés una habilidad etiquetada (Tag) en Supervivencia. Podés haber tenido cualquier tipo de pasado antes de convertirte en Numen, por lo que, con el permiso de tu DJ, podés tomar el kit inicial de cualquier origen humano.",
-        trait: numenMutationOptions //esto debe estar debajo, como una tabla informativa numenMutationCombinations
+        trait: numenMutationOptions //esto debe estar debajo, como una tabla informativa numenMutationCombinations,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const Enclave_Homebrew = {
@@ -6582,7 +6713,9 @@
         description: "",
         traitName: "La Democracia no es Negociable",
         traitDescription: "Cuando el GM lo considere oportuno, recibirás órdenes del Enclave. Deben ser obedecidas o resultarán en tu eliminación por otro operativo del Enclave. La orden puede ser tan simple como recuperar un objeto o tan compleja como asesinar a un NPC importante. La recompensa debe ser buena, pero el evento debe ser suficientemente infrecuente para evitar llamar la atención. Beneficio: Debido al entrenamiento militar, iniciás con 2 puntos de SPECIAL adicionales. Por esta misma razón, obtenés una habilidad etiquetada (Tag) adicional para una de las siguientes habilidades: Armas Pequeñas, Armas Grandes, Armas de Energía, Supervivencia, Explosivos o Pilotear. Penalizacion: Ahora... y para siempre: Tenés una visión de una América idealizada y una visión negativa de todos aquellos que sean adversarios, incluso los considerados no humanos.",
-        trait: enclaveBackgroundOptions
+        trait: enclaveBackgroundOptions,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const Asaultron_Homebrew = {
@@ -6592,7 +6725,9 @@
         description: "Designed by RobCo Industries in a collaboration with General Atomics, the Sallytron Personal Domestic Automaton  (often simply referred to as the Sallytron) brings the sleek and deadly Assaultron to the homefront! In the time before the Great War, the Sallytron was designed to serve as a companion piece and competitor to the popular Mister Handy line of personal domestic automatons. Most of the Sallytron models found on the market hail from damaged Assaultrons, which were salvaged and repurposed for Project: Girl Next Door, the initiative behind the Sallytron’s introduction to the domestic robot market. While seeing limited success in testing markets across the United States, many complained of faulty programming and bugs as a result of the Sallytron’s hasty push to market, resulting in several reports of injury and death. You are one of these semi-domestic automatons, hovering somewhere between a household servant and a personal security system. Despite a handful of rumored programming errors attributing to increased aggression, your state-of-the-art programming grants you initiative and the ability to adapt your own coding to learn from your surroundings. This capacity for self-determination– as well as your ability to hold your own in a fight due to your militant robotic origins –has enabled you to survive the Great War; where other robots may have broken down, you have managed to shake loose from the shackles of your programming and find a life for yourself.",
         traitName: "Sallytron Robot",
         traitDescription: "You possess advanced sensory systems when detecting movement or tracking targets, reducing the difficulty of Perception checks relying on sight and hearing by 1. You are also immune to radiation and poison damage, but you cannot use chems, nor can you benefit from food, drink, and rest. You cannot recover from your own injuries or heal health points without receiving repairs. You cannot manipulate the physical world like humans do, instead you have two of the arm attachments in the Arm Attachments section, determined by your choice of equipment pack. If you select an arm that features a weapon, you also gain 20 shots of ammo for that weapon. In addition, you also possess a head-mounted laser as a relic of your military-grade predecessors. You may make ranged attacks with your head-mounted laser, inflicting 4CD Piercing 1 Energy damage with a Range of M and a Fire Rate of 0. You may attack with your head-mounted laser once per scene.",
-        trait: assaultronArmsOptions
+        trait: assaultronArmsOptions,
+        skillTrait: null,
+        skillTraitChoices: null
     };
 
     const Synth_Homebrew = {
@@ -6602,7 +6737,11 @@
         description: "Synth (short for synthetic humanoids, also called androids or artificial humans)[1] is a common term used to refer to the robotic and biomechanical beings manufactured by the Institute. While Generation (Gen) 1 and 2 synths are entirely mechanical designs using simplistic artificial intelligence, Generation 3 synths produced from the late 2220s onward are biological constructs near-indistinguishable from humans,[2] and are frequently sent to abduct and replace residents of the Commonwealth for espionage purposes. Generation 3 synths display a level of consciousness resembling sentience, evidenced by their attempts to escape the Institute, with the Synth Retention Bureau hunting down any that succeed. Whether these synths are truly sentient beings with self-determination, or merely advanced machines experiencing errors, is a subject of debate both within the Institute and beyond it. While viewed with suspicion and paranoia by most wastelanders (particularly the Brotherhood of Steel, who consider them an existential threat to humanity), some view them with sympathy, such as the Railroad, who compare their servitude under the Institute to slavery.",
         traitName: "A system of cells interlinked",
         traitDescription: "Sos un humano robotico. Variando desde las variantes mas roboticasde la primera y segunda generacion, a los identicamente humanos de la tercera.Todos los Synths tienen +1 a Fuerza, Percepcion e Inteigencia, asi como un componente Synth, insertado en el cerebro. Si el componente es extirpado, el personaje morira sin ningun tipo de salvacion.",
-        trait: synthGenerationOptions
+        trait: synthGenerationOptions,
+        skillTrait: null,
+        skillTraitChoices: null,
+        specialTrait: ["Fuerza", "Percepcion", "Inteligencia"],
+        specialTraitChoices: 1
     };
 
     // --- HABILIDADES DESCIPCION Y ATRIBUTOS ---
@@ -8299,43 +8438,104 @@
 
     // --- PASO 3: ASIGNACION DE TAGS Y RANGOS DE HABILIDADES ---
 
-    console.log("[Paso 3] El código de habilidades se está ejecutando.");
+    // GRILLA DE HABILIDADES
+    const grillaHabilidades = document.getElementById("fc2-skills-grid");
+    const listaEquipoHabilidades = document.getElementById("fc2-skill-equipment");
 
-console.log("[Paso 3] Tabla encontrada:",
-    document.getElementById("fc2-skills-table-body"));
+    if (grillaHabilidades) {
+        grillaHabilidades.replaceChildren();
 
-console.log("[Paso 3] skillListOrdered existe:",
-    typeof skillListOrdered);
+        skillListOrdered.forEach(h => {
+            const tarjeta = document.createElement("div");
+            tarjeta.className = "fc2-skill-card";
 
-console.log("[Paso 3] Cantidad de habilidades:",
-    typeof skillListOrdered !== "undefined"
-        ? skillListOrdered.length
-        : "NO DISPONIBLE"
-);
+            const encabezado = document.createElement("div");
+            encabezado.className = "fc2-skill-header";
 
-// GRILLA DE HABILIDADES
-const tablaHabilidades = document.getElementById("fc2-skills-table-body");
+            const nombre = document.createElement("span");
+            nombre.textContent = h.name;
 
-skillListOrdered.forEach(h => {
-    const fila = document.createElement("tr");
+            const bloqueTag = document.createElement("label");
+            bloqueTag.className = "fc2-skill-tag";
 
-    fila.innerHTML = `
-        <td>${h.name}</td>
-        <td>${h.attr}</td>
-        <td>
-            <button type="button" class="fc2-button"
-                onclick="this.nextElementSibling.stepDown()">−</button>
-            <input type="number" min="0" max="6" value="0" style="width:45px">
-            <button type="button" class="fc2-button"
-                onclick="this.previousElementSibling.stepUp()">+</button>
-        </td>
-        <td>0</td>
-        <td><input type="checkbox" aria-label="Etiquetar ${h.name}"></td>
-    `;
+            const textoTag = document.createElement("span");
+            textoTag.textContent = "TAG";
 
-    tablaHabilidades.appendChild(fila);
-});
+            const etiqueta = document.createElement("input");
+            etiqueta.type = "checkbox";
+            etiqueta.setAttribute("aria-label", "Etiquetar " + h.name);
 
+            bloqueTag.append(textoTag, etiqueta);
+            encabezado.append(nombre, bloqueTag);
+
+            const atributo = document.createElement("div");
+            atributo.className = "fc2-skill-attr";
+            atributo.textContent = h.attr;
+
+            const contador = document.createElement("div");
+            contador.className = "fc2-skill-points";
+
+            const sumar = document.createElement("button");
+            sumar.type = "button";
+            sumar.textContent = "+";
+            sumar.setAttribute("aria-label", "Sumar punto a " + h.name);
+
+            const valor = document.createElement("span");
+            valor.className = "fc2-skill-value";
+            valor.textContent = "0";
+
+            const restar = document.createElement("button");
+            restar.type = "button";
+            restar.textContent = "−";
+            restar.setAttribute("aria-label", "Restar punto a " + h.name);
+
+            sumar.addEventListener("click", () => {
+                const puntos = Number(valor.textContent);
+                if (puntos < 6) valor.textContent = puntos + 1;
+            });
+
+            restar.addEventListener("click", () => {
+                const puntos = Number(valor.textContent);
+                if (puntos > 0) valor.textContent = puntos - 1;
+            });
+
+            tarjeta.append(encabezado, atributo, contador);
+            contador.append(sumar, valor, restar);
+
+            etiqueta.addEventListener("change", actualizarEquipoHabilidades);
+
+            grillaHabilidades.appendChild(tarjeta);
+        });
+    }
+
+    function actualizarEquipoHabilidades() {
+        if (!listaEquipoHabilidades || typeof tagSkillItems === "undefined") return;
+
+        listaEquipoHabilidades.replaceChildren();
+
+        const etiquetasElegidas = grillaHabilidades.querySelectorAll(
+            ".fc2-skill-tag input:checked"
+        );
+
+        if (etiquetasElegidas.length === 0) {
+            const li = document.createElement("li");
+            li.textContent = "Seleccioná tus habilidades TAG para ver el equipo correspondiente.";
+            listaEquipoHabilidades.appendChild(li);
+            return;
+        }
+
+        etiquetasElegidas.forEach(checkbox => {
+            const tarjeta = checkbox.closest(".fc2-skill-card");
+            const nombreHabilidad = tarjeta.querySelector(".fc2-skill-header > span").textContent;
+            const equipo = tagSkillItems[nombreHabilidad];
+
+            if (!equipo) return;
+
+            const li = document.createElement("li");
+            li.textContent = nombreHabilidad + ": " + equipo;
+            listaEquipoHabilidades.appendChild(li);
+        });
+    }
 
     // --- PASO 4: SELECCION DE PERKS ---
 
