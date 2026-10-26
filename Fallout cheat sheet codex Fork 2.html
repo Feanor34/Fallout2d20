@@ -7569,6 +7569,7 @@
 
                     actualizarSelector();
                     actualizarContador();
+                    window.fc2ActualizarSPECIALDesdeRasgos(origen);
                 });
 
                 actualizarSelector();
@@ -7600,6 +7601,7 @@
             window.fc2OrigenSeleccionado = origen;
 
             mostrarDetallesOrigen(origen);
+            window.fc2InicializarSPECIAL(origen);
         }
 
         // --- 5. GENERAR LAS GRILLAS ---
