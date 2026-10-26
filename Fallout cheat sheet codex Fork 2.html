@@ -315,6 +315,73 @@
     font-weight: bold;
 }
 
+/* --- SKILLS GRID --- */
+
+#fallout-character-creator .fc2-skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 18px;
+}
+
+#fallout-character-creator .fc2-skill-card {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 42px;
+    grid-template-rows: auto auto;
+    align-items: center;
+    gap: 4px 12px;
+    padding: 12px;
+    border: 1px solid var(--fc2-line);
+    background: #0b130b;
+}
+
+#fallout-character-creator .fc2-skill-header {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    text-align: left;
+    color: var(--fc2-green);
+    font-weight: bold;
+}
+
+#fallout-character-creator .fc2-skill-attr {
+    grid-column: 1;
+    grid-row: 2;
+    margin: 0;
+    text-align: left;
+    color: var(--fc2-dim);
+    font-size: 12px;
+}
+
+#fallout-character-creator .fc2-skill-points {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    margin: 0;
+}
+
+#fallout-character-creator .fc2-skill-points button {
+    width: 30px;
+    height: 24px;
+    padding: 0;
+    cursor: pointer;
+    color: var(--fc2-green);
+    background: #142514;
+    border: 1px solid var(--fc2-line);
+    font-size: 16px;
+}
+
+#fallout-character-creator .fc2-skill-value {
+    color: var(--fc2-green);
+    font-size: 20px;
+    font-weight: bold;
+}
         /* ==========================================================================
            3. ESTILOS PASO A PASO CREACIÓN DE PERSONAJE
            ========================================================================== 
@@ -2565,10 +2632,6 @@
                 </div>
             </header>
 
-            <div class="fc2-notice">
-                MAQUETA VISUAL — Los campos todavía no aplican las reglas del juego.
-            </div>
-
             <!-- NAVEGACIÓN -->
             <input type="radio" name="fc2-step" id="fc2-step-1" checked>
             <input type="radio" name="fc2-step" id="fc2-step-2">
@@ -2596,9 +2659,6 @@
                     <!-- PASO 1 -->
                     <section class="fc2-panel fc2-panel-1">
                         <h2>01 / IDENTIDAD Y ORIGEN</h2>
-                        <p class="fc2-description">
-                            Datos personales y selección del origen del personaje.
-                        </p>
 
                         <!-- IDENTIDAD -->
                         <div class="fc2-form-grid">
@@ -2627,63 +2687,26 @@
                             <!-- CORE: SIEMPRE VISIBLE -->
                             <section class="fc2-origin-group" id="fc2-origins-core">
                                 <h3>CORE RULEBOOK</h3>
-                                <p class="fc2-description">
-                                    Orígenes del manual básico.
-                                </p>
-
-                                <div class="fc2-origin-grid" id="fc2-origin-grid-core">
-                                    <!-- Los botones de los orígenes Core se cargarán aquí -->
-                                </div>
+                                <div class="fc2-origin-grid" id="fc2-origin-grid-core"> <!-- Los botones de los orígenes Core se cargarán aquí --> </div>
                             </section>
 
                             <!-- SETTLERS GUIDE: OCULTO POR DEFECTO -->
-                            <section
-                                class="fc2-origin-group"
-                                id="fc2-origins-settlers"
-                                hidden
-                            >
+                            <section class="fc2-origin-group" id="fc2-origins-settlers" hidden >
                                 <h3>SETTLERS GUIDE</h3>
-                                <p class="fc2-description">
-                                    Orígenes de Settlers Guide.
-                                </p>
-
-                                <div class="fc2-origin-grid" id="fc2-origin-grid-settlers">
-                                    <!-- Los botones de Settlers Guide se cargarán aquí -->
-                                </div>
+                                <div class="fc2-origin-grid" id="fc2-origin-grid-settlers"> <!-- Los botones de Settlers Guide se cargarán aquí --> </div>
                             </section>
 
                             <!-- WANDERERS GUIDE: OCULTO POR DEFECTO -->
-                            <section
-                                class="fc2-origin-group"
-                                id="fc2-origins-wanderers"
-                                hidden
-                            >
+                            <section class="fc2-origin-group" id="fc2-origins-wanderers" hidden >
                                 <h3>WANDERERS GUIDE</h3>
-                                <p class="fc2-description">
-                                    Orígenes de Wanderers Guide.
-                                </p>
-
-                                <div class="fc2-origin-grid" id="fc2-origin-grid-wanderers">
-                                    <!-- Los botones de Wanderers Guide se cargarán aquí -->
-                                </div>
+                                <div class="fc2-origin-grid" id="fc2-origin-grid-wanderers"> <!-- Los botones de Wanderers Guide se cargarán aquí --> </div>
                             </section>
 
                             <!-- HOMEBREW: OCULTO POR DEFECTO -->
-                            <section
-                                class="fc2-origin-group"
-                                id="fc2-origins-homebrew"
-                                hidden
-                            >
+                            <section class="fc2-origin-group" id="fc2-origins-homebrew" hidden >
                                 <h3>HOMEBREW</h3>
-                                <p class="fc2-description">
-                                    Orígenes personalizados.
-                                </p>
-
-                                <div class="fc2-origin-grid" id="fc2-origin-grid-homebrew">
-                                    <!-- Los botones de los orígenes Homebrew se cargarán aquí -->
-                                </div>
+                                <div class="fc2-origin-grid" id="fc2-origin-grid-homebrew"> <!-- Los botones de los orígenes Homebrew se cargarán aquí --> </div>
                             </section>
-
                         </div>
 
                         <!-- ACCIONES -->
@@ -2696,109 +2719,102 @@
                     <!-- PASO 2 -->
                     <section class="fc2-panel fc2-panel-2">
                         <h2>02 / ATRIBUTOS SPECIAL</h2>
-                        <p class="fc2-description">
-                            Distribución de atributos según el origen seleccionado.
-                        </p>
 
-                        <div class="fc2-placeholder">
-                            PUNTOS DISPONIBLES: PENDIENTE DE CONECTAR A originLimits
+                        <div id="fc2-special-points" class="fc2-placeholder" aria-live="polite">
+                            Seleccioná un origen para distribuir SPECIAL.
                         </div>
+                        <p id="fc2-special-message" class="fc2-muted" aria-live="polite">
+                            Los valores se habilitarán al seleccionar un origen.
+                        </p>
 
                         <div class="fc2-special-grid">
                             <label class="fc2-special">
                                 <strong>S</strong><span>Fuerza</span>
-                                <input type="number" min="0" placeholder="—">
+                                <input id="fc2-special-FUE" type="number" min="0" step="1" value="0">
                             </label>
                             <label class="fc2-special">
                                 <strong>P</strong><span>Percepción</span>
-                                <input type="number" min="0" placeholder="—">
+                                <input id="fc2-special-PER" type="number" min="0" step="1" value="0">
                             </label>
                             <label class="fc2-special">
                                 <strong>E</strong><span>Resistencia</span>
-                                <input type="number" min="0" placeholder="—">
+                                <input id="fc2-special-END" type="number" min="0" step="1" value="0">
                             </label>
                             <label class="fc2-special">
                                 <strong>C</strong><span>Carisma</span>
-                                <input type="number" min="0" placeholder="—">
+                                <input id="fc2-special-CAR" type="number" min="0" step="1" value="0">
                             </label>
                             <label class="fc2-special">
                                 <strong>I</strong><span>Inteligencia</span>
-                                <input type="number" min="0" placeholder="—">
+                                <input id="fc2-special-INT" type="number" min="0" step="1" value="0">
                             </label>
                             <label class="fc2-special">
                                 <strong>A</strong><span>Agilidad</span>
-                                <input type="number" min="0" placeholder="—">
+                                <input id="fc2-special-AGI" type="number" min="0" step="1" value="0">
                             </label>
                             <label class="fc2-special">
                                 <strong>L</strong><span>Suerte</span>
-                                <input type="number" min="0" placeholder="—">
+                                <input id="fc2-special-SUE" type="number" min="0" step="1" value="0">
                             </label>
                         </div>
 
-                        <p class="fc2-muted">
-                            Los límites, los modificadores y el presupuesto todavía no se validan.
-                        </p>
-
                         <div class="fc2-actions">
                             <label class="fc2-button" for="fc2-step-1">← ANTERIOR</label>
-                            <label class="fc2-button fc2-primary" for="fc2-step-3">SIGUIENTE →</label>
+                            <label id="fc2-next-step-2" class="fc2-button fc2-primary" for="fc2-step-3">SIGUIENTE →</label>
                         </div>
                     </section>
 
                     <!-- PASO 3 -->
                     <section class="fc2-panel fc2-panel-3">
                         <h2>03 / HABILIDADES Y ETIQUETAS</h2>
-                        <p class="fc2-description">
-                            Asignación de puntos y selección de habilidades etiquetadas.
-                        </p>
 
-                        <div class="fc2-placeholder">
-                            HABILIDADES DE EJEMPLO · LISTA INCOMPLETA
+                        <!-- Resumen actualizado automáticamente por JavaScript -->
+                        <div class="fc2-table-wrap">
+                            <p id="fc2-skill-tags-status" aria-live="polite"></p>
+                            <p id="fc2-skill-validation" role="status" aria-live="polite"></p>
                         </div>
 
+                        <!-- Aquí se generan las 17 habilidades desde skillListOrdered -->
                         <div class="fc2-table-wrap">
                             <table>
                                 <thead>
                                     <tr>
                                         <th>Habilidad</th>
-                                        <th>Valor base</th>
-                                        <th>Puntos</th>
+                                        <th>Atributo</th>
+                                        <th>Puntos gastados</th>
+                                        <th>Rangos efectivos</th>
                                         <th>Etiqueta</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Atletismo</td><td>—</td>
-                                        <td><input type="number" min="0" placeholder="0"></td>
-                                        <td><input type="checkbox"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Armas pequeñas</td><td>—</td>
-                                        <td><input type="number" min="0" placeholder="0"></td>
-                                        <td><input type="checkbox"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Conversación</td><td>—</td>
-                                        <td><input type="number" min="0" placeholder="0"></td>
-                                        <td><input type="checkbox"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Medicina</td><td>—</td>
-                                        <td><input type="number" min="0" placeholder="0"></td>
-                                        <td><input type="checkbox"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Supervivencia</td><td>—</td>
-                                        <td><input type="number" min="0" placeholder="0"></td>
-                                        <td><input type="checkbox"></td>
-                                    </tr>
+
+                                <tbody id="fc2-skills-table-body">
+                                    <!-- JavaScript genera las filas -->
                                 </tbody>
                             </table>
                         </div>
 
+                        <!-- Mensajes específicos: etiquetas automáticas y adicionales -->
+                        <div class="fc2-table-wrap">
+                            <h3>Etiquetas otorgadas por el origen y los rasgos</h3>
+                            <ul id="fc2-skill-special-tags">
+                                <li>Seleccioná un origen para ver sus reglas.</li>
+                            </ul>
+                        </div>
+
                         <div class="fc2-actions">
-                            <label class="fc2-button" for="fc2-step-2">← ANTERIOR</label>
-                            <label class="fc2-button fc2-primary" for="fc2-step-4">SIGUIENTE →</label>
+                            <label class="fc2-button" for="fc2-step-2">
+                                ← ANTERIOR
+                            </label>
+
+                            <!-- El botón real cambia al paso 4 solamente si la validación pasa -->
+                            <button
+                                type="button"
+                                id="fc2-step-3-next"
+                                class="fc2-button fc2-primary"
+                                disabled
+                            >
+                                SIGUIENTE →
+                            </button>
                         </div>
                     </section>
 
@@ -5816,6 +5832,208 @@
         "Synth_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
     };
 
+    (() => {
+        const fc2SpecialKeys = ["FUE", "PER", "END", "CAR", "INT", "AGI", "SUE"];
+
+        function fc2SpecialObtenerValores() {
+            const valores = {};
+
+            fc2SpecialKeys.forEach(key => {
+                const input = document.getElementById("fc2-special-" + key);
+                valores[key] = input ? Number(input.value) : 0;
+            });
+
+            return valores;
+        }
+
+        function fc2SpecialObtenerPresupuesto(origen) {
+            const elecciones = window.fc2EleccionesRasgos?.[origen.id] || [];
+            return elecciones.includes("gifted") ? 7 : 5;
+        }
+
+        function fc2SpecialActualizarContador(origen) {
+            const contador = document.getElementById("fc2-special-points");
+            const mensaje = document.getElementById("fc2-special-message");
+
+            if (!origen || !originLimits[origen.id]) return;
+
+            const limites = originLimits[origen.id];
+            const valores = fc2SpecialObtenerValores();
+            const presupuesto = window.fc2SPECIALPresupuesto ?? 5;
+
+            const gastados = fc2SpecialKeys.reduce((total, key) => {
+                return total + Math.max(0, valores[key] - limites.base[key]);
+            }, 0);
+
+            if (contador) {
+                contador.textContent =
+                    "PUNTOS SPECIAL: " + gastados + " / " + presupuesto;
+            }
+
+            window.fc2SPECIALValido = gastados === presupuesto;
+
+            if (mensaje) {
+                if (gastados === presupuesto) {
+                    mensaje.textContent = "Distribución completa. Podés continuar.";
+                } else if (gastados < presupuesto) {
+                    mensaje.textContent =
+                        "Te quedan " + (presupuesto - gastados) +
+                        " punto(s) por distribuir.";
+                } else {
+                    mensaje.textContent =
+                        "Excediste el presupuesto. Corregí los valores.";
+                }
+            }
+
+            window.fc2Personaje = {
+                ...(window.fc2Personaje || {}),
+                origenId: origen.id,
+                special: valores,
+                gifted: presupuesto === 7,
+                puntosSPECIALDisponibles: presupuesto - gastados
+            };
+        }
+
+        function fc2SpecialRestablecerBase(origen) {
+            const limites = originLimits[origen.id];
+
+            fc2SpecialKeys.forEach(key => {
+                const input = document.getElementById("fc2-special-" + key);
+                if (!input) return;
+
+                input.min = Math.min(limites.min, limites.base[key]);
+                input.max = limites.max[key];
+                input.step = "1";
+                input.value = limites.base[key];
+                input.dataset.lastValid = String(limites.base[key]);
+            });
+        }
+
+        window.fc2InicializarSPECIAL = function (origen) {
+            const mensaje = document.getElementById("fc2-special-message");
+
+            if (!origen || !originLimits[origen.id]) {
+                if (mensaje) {
+                    mensaje.textContent =
+                        "No se encontraron los límites SPECIAL de este origen.";
+                }
+                window.fc2SPECIALValido = false;
+                return;
+            }
+
+            window.fc2SPECIALOrigenId = origen.id;
+            window.fc2SPECIALPresupuesto = fc2SpecialObtenerPresupuesto(origen);
+
+            fc2SpecialRestablecerBase(origen);
+            fc2SpecialActualizarContador(origen);
+        };
+
+        window.fc2ActualizarSPECIALDesdeRasgos = function (origen) {
+            if (!origen || !originLimits[origen.id]) return;
+            if (window.fc2SPECIALOrigenId !== origen.id) return;
+
+            const nuevoPresupuesto = fc2SpecialObtenerPresupuesto(origen);
+            const cambioPresupuesto =
+                nuevoPresupuesto !== window.fc2SPECIALPresupuesto;
+
+            window.fc2SPECIALPresupuesto = nuevoPresupuesto;
+
+            if (cambioPresupuesto) {
+                fc2SpecialRestablecerBase(origen);
+
+                const mensaje = document.getElementById("fc2-special-message");
+                if (mensaje) {
+                    mensaje.textContent =
+                        "Cambió el presupuesto de SPECIAL. La distribución volvió a los valores base.";
+                }
+            }
+
+            fc2SpecialActualizarContador(origen);
+        };
+
+        // Registrar los eventos una sola vez.
+        fc2SpecialKeys.forEach(key => {
+            const input = document.getElementById("fc2-special-" + key);
+            if (!input || input.dataset.specialListener === "true") return;
+
+            input.dataset.specialListener = "true";
+
+            input.addEventListener("change", () => {
+                const origen = window.fc2OrigenSeleccionado;
+
+                if (!origen || !originLimits[origen.id]) return;
+
+                const limites = originLimits[origen.id];
+                const minimo = Number(input.min);
+                const maximo = Number(input.max);
+                let valor = Number(input.value);
+
+                if (!Number.isFinite(valor)) {
+                    valor = limites.base[key];
+                }
+
+                valor = Math.trunc(valor);
+                valor = Math.max(minimo, Math.min(maximo, valor));
+
+                const valorAnterior = Number(input.dataset.lastValid);
+                input.value = valor;
+
+                const valores = fc2SpecialObtenerValores();
+                const presupuesto = window.fc2SPECIALPresupuesto ?? 5;
+
+                const gastados = fc2SpecialKeys.reduce((total, atributo) => {
+                    return total +
+                        Math.max(0, valores[atributo] - limites.base[atributo]);
+                }, 0);
+
+                if (gastados > presupuesto) {
+                    input.value = Number.isFinite(valorAnterior)
+                        ? valorAnterior
+                        : limites.base[key];
+
+                    const mensaje =
+                        document.getElementById("fc2-special-message");
+
+                    if (mensaje) {
+                        mensaje.textContent =
+                            "No podés gastar más de " + presupuesto +
+                            " puntos. Se restauró el último valor válido.";
+                    }
+
+                    fc2SpecialActualizarContador(origen);
+                    return;
+                }
+
+                input.dataset.lastValid = input.value;
+                fc2SpecialActualizarContador(origen);
+            });
+        });
+
+        // Impedir avanzar si el presupuesto no está distribuido exactamente.
+        const botonSiguiente = document.getElementById("fc2-next-step-2");
+
+        if (botonSiguiente && botonSiguiente.dataset.specialValidation !== "true") {
+            botonSiguiente.dataset.specialValidation = "true";
+
+            botonSiguiente.addEventListener("click", event => {
+                if (window.fc2SPECIALValido !== true) {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    const mensaje =
+                        document.getElementById("fc2-special-message");
+
+                    if (mensaje) {
+                        mensaje.textContent =
+                            "Antes de continuar, distribuí exactamente " +
+                            (window.fc2SPECIALPresupuesto ?? 5) +
+                            " puntos de SPECIAL.";
+                    }
+                }
+            });
+        }
+    })();
+
     // --- TRAITS BY ORIGIN CANON ---
     const misterHandyTraitsCanon = [
         { name: "Pistola automática 10mm", desc: "Puedes hacer ataque a distancia usando una pistola automática de 10mm." },
@@ -7877,7 +8095,247 @@
 
     // --- PASO 2: ASIGNACION DE S.P.E.C.I.A.L. ---
 
+    (() => {
+        const fc2SpecialKeys = ["FUE", "PER", "END", "CAR", "INT", "AGI", "SUE"];
+
+        function fc2SpecialObtenerValores() {
+            const valores = {};
+
+            fc2SpecialKeys.forEach(key => {
+                const input = document.getElementById("fc2-special-" + key);
+                valores[key] = input ? Number(input.value) : 0;
+            });
+
+            return valores;
+        }
+
+        function fc2SpecialObtenerPresupuesto(origen) {
+            const elecciones = window.fc2EleccionesRasgos?.[origen.id] || [];
+            return elecciones.includes("gifted") ? 7 : 5;
+        }
+
+        function fc2SpecialActualizarContador(origen) {
+            const contador = document.getElementById("fc2-special-points");
+            const mensaje = document.getElementById("fc2-special-message");
+
+            if (!origen || !originLimits[origen.id]) return;
+
+            const limites = originLimits[origen.id];
+            const valores = fc2SpecialObtenerValores();
+            const presupuesto = window.fc2SPECIALPresupuesto ?? 5;
+
+            const gastados = fc2SpecialKeys.reduce((total, key) => {
+                return total + Math.max(0, valores[key] - limites.base[key]);
+            }, 0);
+
+            if (contador) {
+                contador.textContent =
+                    "PUNTOS SPECIAL: " + gastados + " / " + presupuesto;
+            }
+
+            window.fc2SPECIALValido = gastados === presupuesto;
+
+            if (mensaje) {
+                if (gastados === presupuesto) {
+                    mensaje.textContent = "Distribución completa. Podés continuar.";
+                } else if (gastados < presupuesto) {
+                    mensaje.textContent =
+                        "Te quedan " + (presupuesto - gastados) +
+                        " punto(s) por distribuir.";
+                } else {
+                    mensaje.textContent =
+                        "Excediste el presupuesto. Corregí los valores.";
+                }
+            }
+
+            window.fc2Personaje = {
+                ...(window.fc2Personaje || {}),
+                origenId: origen.id,
+                special: valores,
+                gifted: presupuesto === 7,
+                puntosSPECIALDisponibles: presupuesto - gastados
+            };
+        }
+
+        function fc2SpecialRestablecerBase(origen) {
+            const limites = originLimits[origen.id];
+
+            fc2SpecialKeys.forEach(key => {
+                const input = document.getElementById("fc2-special-" + key);
+                if (!input) return;
+
+                input.min = Math.min(limites.min, limites.base[key]);
+                input.max = limites.max[key];
+                input.step = "1";
+                input.value = limites.base[key];
+                input.dataset.lastValid = String(limites.base[key]);
+            });
+        }
+
+        window.fc2InicializarSPECIAL = function (origen) {
+            const mensaje = document.getElementById("fc2-special-message");
+
+            if (!origen || !originLimits[origen.id]) {
+                if (mensaje) {
+                    mensaje.textContent =
+                        "No se encontraron los límites SPECIAL de este origen.";
+                }
+                window.fc2SPECIALValido = false;
+                return;
+            }
+
+            window.fc2SPECIALOrigenId = origen.id;
+            window.fc2SPECIALPresupuesto = fc2SpecialObtenerPresupuesto(origen);
+
+            fc2SpecialRestablecerBase(origen);
+            fc2SpecialActualizarContador(origen);
+        };
+
+        window.fc2ActualizarSPECIALDesdeRasgos = function (origen) {
+            if (!origen || !originLimits[origen.id]) return;
+            if (window.fc2SPECIALOrigenId !== origen.id) return;
+
+            const nuevoPresupuesto = fc2SpecialObtenerPresupuesto(origen);
+            const cambioPresupuesto =
+                nuevoPresupuesto !== window.fc2SPECIALPresupuesto;
+
+            window.fc2SPECIALPresupuesto = nuevoPresupuesto;
+
+            if (cambioPresupuesto) {
+                fc2SpecialRestablecerBase(origen);
+
+                const mensaje = document.getElementById("fc2-special-message");
+                if (mensaje) {
+                    mensaje.textContent =
+                        "Cambió el presupuesto de SPECIAL. La distribución volvió a los valores base.";
+                }
+            }
+
+            fc2SpecialActualizarContador(origen);
+        };
+
+        // Registrar los eventos una sola vez.
+        fc2SpecialKeys.forEach(key => {
+            const input = document.getElementById("fc2-special-" + key);
+            if (!input || input.dataset.specialListener === "true") return;
+
+            input.dataset.specialListener = "true";
+
+            input.addEventListener("change", () => {
+                const origen = window.fc2OrigenSeleccionado;
+
+                if (!origen || !originLimits[origen.id]) return;
+
+                const limites = originLimits[origen.id];
+                const minimo = Number(input.min);
+                const maximo = Number(input.max);
+                let valor = Number(input.value);
+
+                if (!Number.isFinite(valor)) {
+                    valor = limites.base[key];
+                }
+
+                valor = Math.trunc(valor);
+                valor = Math.max(minimo, Math.min(maximo, valor));
+
+                const valorAnterior = Number(input.dataset.lastValid);
+                input.value = valor;
+
+                const valores = fc2SpecialObtenerValores();
+                const presupuesto = window.fc2SPECIALPresupuesto ?? 5;
+
+                const gastados = fc2SpecialKeys.reduce((total, atributo) => {
+                    return total +
+                        Math.max(0, valores[atributo] - limites.base[atributo]);
+                }, 0);
+
+                if (gastados > presupuesto) {
+                    input.value = Number.isFinite(valorAnterior)
+                        ? valorAnterior
+                        : limites.base[key];
+
+                    const mensaje =
+                        document.getElementById("fc2-special-message");
+
+                    if (mensaje) {
+                        mensaje.textContent =
+                            "No podés gastar más de " + presupuesto +
+                            " puntos. Se restauró el último valor válido.";
+                    }
+
+                    fc2SpecialActualizarContador(origen);
+                    return;
+                }
+
+                input.dataset.lastValid = input.value;
+                fc2SpecialActualizarContador(origen);
+            });
+        });
+
+        // Impedir avanzar si el presupuesto no está distribuido exactamente.
+        const botonSiguiente = document.getElementById("fc2-next-step-2");
+
+        if (botonSiguiente && botonSiguiente.dataset.specialValidation !== "true") {
+            botonSiguiente.dataset.specialValidation = "true";
+
+            botonSiguiente.addEventListener("click", event => {
+                if (window.fc2SPECIALValido !== true) {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    const mensaje =
+                        document.getElementById("fc2-special-message");
+
+                    if (mensaje) {
+                        mensaje.textContent =
+                            "Antes de continuar, distribuí exactamente " +
+                            (window.fc2SPECIALPresupuesto ?? 5) +
+                            " puntos de SPECIAL.";
+                    }
+                }
+            });
+        }
+    })();
+
     // --- PASO 3: ASIGNACION DE TAGS Y RANGOS DE HABILIDADES ---
+
+    console.log("[Paso 3] El código de habilidades se está ejecutando.");
+
+console.log("[Paso 3] Tabla encontrada:",
+    document.getElementById("fc2-skills-table-body"));
+
+console.log("[Paso 3] skillListOrdered existe:",
+    typeof skillListOrdered);
+
+console.log("[Paso 3] Cantidad de habilidades:",
+    typeof skillListOrdered !== "undefined"
+        ? skillListOrdered.length
+        : "NO DISPONIBLE"
+);
+
+// GRILLA DE HABILIDADES
+const tablaHabilidades = document.getElementById("fc2-skills-table-body");
+
+skillListOrdered.forEach(h => {
+    const fila = document.createElement("tr");
+
+    fila.innerHTML = `
+        <td>${h.name}</td>
+        <td>${h.attr}</td>
+        <td>
+            <button type="button" class="fc2-button"
+                onclick="this.nextElementSibling.stepDown()">−</button>
+            <input type="number" min="0" max="6" value="0" style="width:45px">
+            <button type="button" class="fc2-button"
+                onclick="this.previousElementSibling.stepUp()">+</button>
+        </td>
+        <td>0</td>
+        <td><input type="checkbox" aria-label="Etiquetar ${h.name}"></td>
+    `;
+
+    tablaHabilidades.appendChild(fila);
+});
+
 
     // --- PASO 4: SELECCION DE PERKS ---
 
