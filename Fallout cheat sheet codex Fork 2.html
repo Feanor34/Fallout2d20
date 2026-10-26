@@ -1771,6 +1771,119 @@
             50% { opacity: 0; }
         }
 
+        /* RESUMEN COMPACTO DEL PERSONAJE */
+        #fallout-character-creator .fc2-summary {
+            padding: 10px;
+            position: sticky;
+            top: 12px;
+            min-width: 0;
+        }
+
+        #fallout-character-creator .fc2-summary h3 {
+            font-size: 12px;
+            margin: 0 0 8px;
+            padding-bottom: 7px;
+        }
+
+        #fallout-character-creator .fc2-sum-section {
+            padding: 7px 0;
+            border-bottom: 1px solid var(--fc2-line);
+        }
+
+        #fallout-character-creator .fc2-sum-section:last-child {
+            border-bottom: 0;
+        }
+
+        #fallout-character-creator .fc2-summary-name {
+            font-size: 15px;
+            line-height: 1.25;
+            overflow-wrap: anywhere;
+        }
+
+        #fallout-character-creator .fc2-sum-player,
+        #fallout-character-creator .fc2-sum-origin {
+            margin-top: 3px;
+            font-size: 11px;
+            line-height: 1.3;
+            overflow-wrap: anywhere;
+        }
+
+        #fallout-character-creator .fc2-sum-player {
+            color: var(--fc2-dim);
+        }
+
+        #fallout-character-creator .fc2-sum-player span,
+        #fallout-character-creator .fc2-sum-origin strong {
+            color: var(--fc2-green);
+        }
+
+        #fallout-character-creator .fc2-sum-section h4 {
+            font-size: 11px;
+            margin: 0 0 6px;
+            color: var(--fc2-green);
+        }
+
+        #fallout-character-creator .fc2-sum-special {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 4px;
+        }
+
+        #fallout-character-creator .fc2-sum-special div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 3px;
+            padding: 4px 5px;
+            border: 1px solid var(--fc2-line);
+            font-size: 10px;
+        }
+
+        #fallout-character-creator .fc2-sum-special span {
+            color: var(--fc2-dim);
+        }
+
+        #fallout-character-creator .fc2-sum-special strong {
+            font-size: 12px;
+            color: var(--fc2-green);
+        }
+
+        #fallout-character-creator .fc2-sum-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #fallout-character-creator .fc2-sum-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 6px;
+            padding: 3px 0;
+            margin: 0;
+            font-size: 11px;
+            line-height: 1.3;
+            overflow-wrap: anywhere;
+        }
+
+        #fallout-character-creator .fc2-sum-list strong {
+            color: var(--fc2-green);
+            white-space: nowrap;
+        }
+
+        #fallout-character-creator .fc2-sum-empty {
+            color: var(--fc2-dim);
+            font-size: 10px;
+        }
+
+        /* En pantallas angostas, el resumen deja de ocupar espacio fijo. */
+        @media (max-width: 768px) {
+            #fallout-character-creator .fc2-summary {
+                position: static;
+                grid-row: 1;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -2861,35 +2974,48 @@
 
                 </main>
 
-                <!-- PANEL LATERAL -->
-                <aside class="fc2-summary">
+                <!-- PANEL LATERAL: RESUMEN COMPACTO -->
+                <aside class="fc2-summary" id="fc2-summary">
                     <h3>▣ RESUMEN DEL PERSONAJE</h3>
 
-                    <div class="fc2-summary-name">NUEVO SUPERVIVIENTE</div>
-                    <p>El resumen se conectará a los campos del personaje.</p>
+                    <section class="fc2-sum-section">
+                        <div class="fc2-summary-name" id="fc2-sum-name">
+                            NUEVO SUPERVIVIENTE
+                        </div>
+                        <div class="fc2-sum-player">
+                            JUGADOR: <span id="fc2-sum-player">—</span>
+                        </div>
+                        <div class="fc2-sum-origin">
+                            ORIGEN: <strong id="fc2-sum-origin">Pendiente</strong>
+                        </div>
+                    </section>
 
-                    <div class="fc2-summary-row">
-                        <span>Progreso</span><strong>0 / 7</strong>
-                    </div>
-                    <div class="fc2-progress"><span></span></div>
+                    <section class="fc2-sum-section">
+                        <h4>SPECIAL</h4>
+                        <div class="fc2-sum-special" id="fc2-sum-special">
+                            <div><span>FUE</span><strong>—</strong></div>
+                            <div><span>PER</span><strong>—</strong></div>
+                            <div><span>RES</span><strong>—</strong></div>
+                            <div><span>CAR</span><strong>—</strong></div>
+                            <div><span>INT</span><strong>—</strong></div>
+                            <div><span>AGI</span><strong>—</strong></div>
+                            <div><span>SUE</span><strong>—</strong></div>
+                        </div>
+                    </section>
 
-                    <div class="fc2-summary-stats">
-                        <div><strong>—</strong><small>NIVEL</small></div>
-                        <div><strong>—</strong><small>SALUD</small></div>
-                        <div><strong>—</strong><small>DEFENSA</small></div>
-                    </div>
+                    <section class="fc2-sum-section">
+                        <h4>HABILIDADES Y TAGS</h4>
+                        <ul class="fc2-sum-list" id="fc2-sum-skills">
+                            <li class="fc2-sum-empty">Todavía sin asignar</li>
+                        </ul>
+                    </section>
 
-                    <ul>
-                        <li><span>Origen</span><strong>Pendiente</strong></li>
-                        <li><span>Etiquetas</span><strong>0</strong></li>
-                        <li><span>Ventajas</span><strong>0</strong></li>
-                        <li><span>Equipo</span><strong>Pendiente</strong></li>
-                        <li><span>Homebrew</span><strong>Desactivado</strong></li>
-                    </ul>
-
-                    <div class="fc2-summary-note">
-                        Panel ilustrativo: todavía no refleja los cambios de los formularios.
-                    </div>
+                    <section class="fc2-sum-section">
+                        <h4>PERKS</h4>
+                        <ul class="fc2-sum-list" id="fc2-sum-perks">
+                            <li class="fc2-sum-empty">Todavía sin elegir</li>
+                        </ul>
+                    </section>
                 </aside>
 
             </div>
@@ -5786,7 +5912,7 @@
     };
 
     const misterHandyOrigin = {
-        id: "Superviviente",
+        id: "Mister_Handy",
         name: "Mister Handy",
         source: "Core Rulebook",
         description: "El robot «Mister Handy», desarrollado por General Atomics International, irrumpió en el mercado de la robótica como un robot de construcción confiable, conocido por su durabilidad y facilidad de mantenimiento. Sin embargo, su verdadero salto tecnológico llegó gracias a una colaboración con RobCo para desarrollar un modelo doméstico. Sos uno de estos autómatas domésticos, fabricado en algún momento entre 2037 y 2077 con el propósito de ofrecer a todos los hogares de Estados Unidos un servicio de mayordomo. Equipado con programación de última generación, tenés iniciativa propia y podés adaptar tu código para aprender más de tu entorno. Esta capacidad de autodeterminación es lo que te permitió sobrevivir a la Gran Guerra: mientras otros robots quedaron fuera de servicio, vos lograste liberarte de las cadenas de tu programación y encontrar tu propio camino. Existen muchos modelos, así que podrías pertenecer a cualquiera de las series Mister Handy, Mister Gutsy, Miss Nanny o Mister Orderly. Funcionás con un núcleo nuclear, podés reponer tu propio combustible y reparar tanto tus propios sistemas como los de otras unidades Mister Handy. Tu modelo cuenta con tres brazos mecánicos y tres ojos mecánicos montados sobre soportes articulados. Además, tu sistema de propulsión a chorro te permite mantenerte suspendido sobre el suelo, siempre que dispongas del combustible necesario. Gracias a este diseño robusto, lograste sobrevivir hasta el presente.",
@@ -5797,7 +5923,7 @@
     };
 
     const survivorOrigin = {
-        id: "Mister_Handy",
+        id: "Superviviente",
         name: "Sobreviviente",
         source: "Core Rulebook",
         description: "Sos el legado viviente de quienes se prepararon por su cuenta para el Armagedón. Si seguís con vida en este mundo postapocalíptico y arrasado por las armas nucleares, es gracias a tus antepasados, que se atrincheraron, sobrevivieron y lograron formar una comunidad lo bastante sólida como para garantizar la continuidad de la humanidad. Podrías provenir de cualquiera de los numerosos asentamientos, refugios aislados o grupos itinerantes que pueblan, de forma dispersa, el Yermo, desde la Costa Oeste hasta la Costa Este. Quizás seas oriundo de la República de Nueva California y mantengas vivo el legado del Refugio 15 y Shady Sands. Tal vez luches para proteger a los demás y consideres tu hogar a un grupo de sobrevivientes como los Minutemen o los Reguladores. También podrías ser un saqueador despiadado, o haber nacido en uno de esos grupos y escapado para intentar reformarte y enmendar tus errores. Sea cual sea tu origen o el lugar al que te lleven tus viajes, establecer vínculos y echar raíces puede ser difícil. Los sobrevivientes desconfían por naturaleza de los desconocidos y siempre están atentos a la posible aparición de un estafador, una banda de saqueadores o un ladrón dispuesto a llevarse los recursos que tanto les costó conseguir. Recorrer grandes distancias también es complicado. Muchos sobrevivientes itinerantes —en especial, las caravanas de comerciantes— se desplazan entre los principales asentamientos de su región del Yermo, en lugar de viajar de una costa a la otra.",
@@ -7068,6 +7194,8 @@
     
     // --- INICIO DE SCRIPT DE CREACION DE PERSONAJE ---
 
+    // --- PASO 1: NOMBRE, JUGADOR Y ORIGEN ---
+
     (() => {
         "use strict";
 
@@ -7177,13 +7305,27 @@
 
             return panel;
         }
-
+        
         function mostrarDetallesOrigen(origen) {
             const panel = obtenerPanelDetalles();
+            if (!panel) return;
 
-            if (!panel) {
-                return;
-            }
+            // Guardar las elecciones por origen.
+            window.fc2EleccionesRasgos =
+                window.fc2EleccionesRasgos || {};
+            window.fc2EleccionesRasgosRequeridas =
+                window.fc2EleccionesRasgosRequeridas || {};
+
+            // Registro de las listas cuyos nombres están guardados como texto.
+            const listasRasgos = {
+                misterHandyTraitsCanon: misterHandyTraitsCanon,
+                survivorTraitsCanon: survivorTraitsCanon,
+                vaultDuellerTraits: vaultDuellerTraits,
+                tribalTraitsCanon: tribalTraitsCanon,
+                newCaliforniaRepublicTraitsCanon:
+                    newCaliforniaRepublicTraitsCanon,
+                protectronTraitsCanon: protectronTraitsCanon
+            };
 
             panel.replaceChildren();
 
@@ -7204,10 +7346,241 @@
             panel.appendChild(nombreRasgo);
 
             const descripcionRasgo = document.createElement("p");
-            descripcionRasgo.textContent =
-                origen.traitDescription || "";
+            descripcionRasgo.textContent = origen.traitDescription || "";
             panel.appendChild(descripcionRasgo);
 
+            // Si el origen no tiene opciones, no crear la tabla.
+            if (origen.trait == null) {
+                panel.hidden = false;
+                window.fc2EleccionesRasgosRequeridas[origen.id] = 0;
+                return;
+            }
+
+            // trait puede ser una lista directa o el nombre de una lista.
+            let opciones = null;
+
+            if (Array.isArray(origen.trait)) {
+                opciones = origen.trait;
+            } else if (typeof origen.trait === "string") {
+                opciones = listasRasgos[origen.trait] || null;
+            }
+
+            if (!Array.isArray(opciones)) {
+                console.error(
+                    "[Creador] No se encontró la lista de rasgos:",
+                    origen.id,
+                    origen.trait
+                );
+
+                const aviso = document.createElement("p");
+                aviso.textContent =
+                    "No se pudieron cargar los rasgos de este origen.";
+                panel.appendChild(aviso);
+                panel.hidden = false;
+
+                window.fc2EleccionesRasgosRequeridas[origen.id] = 0;
+                return;
+            }
+
+            // Si traitChoices todavía no está definido, permitir una elección.
+            const cantidadConfigurada = Number(origen.traitChoices);
+            const cantidadElegible =
+                Number.isInteger(cantidadConfigurada) &&
+                cantidadConfigurada > 0
+                    ? cantidadConfigurada
+                    : 1;
+
+            const cantidadMaxima = Math.min(
+                cantidadElegible,
+                opciones.length
+            );
+
+            window.fc2EleccionesRasgosRequeridas[origen.id] =
+                cantidadMaxima;
+
+            if (!window.fc2EleccionesRasgos[origen.id]) {
+                window.fc2EleccionesRasgos[origen.id] = [];
+            }
+
+            let elegidos = window.fc2EleccionesRasgos[origen.id];
+
+            // Eliminar elecciones que ya no existan en la lista.
+            const idsDisponibles = opciones.map((opcion, indice) =>
+                String(opcion.id ?? opcion.name ?? indice)
+            );
+
+            elegidos = elegidos.filter(id =>
+                idsDisponibles.includes(id)
+            );
+
+            window.fc2EleccionesRasgos[origen.id] = elegidos;
+
+            const encabezado = document.createElement("h4");
+            encabezado.textContent = "Elegí tus rasgos";
+            panel.appendChild(encabezado);
+
+            const contador = document.createElement("p");
+            contador.setAttribute("aria-live", "polite");
+            panel.appendChild(contador);
+
+            const tabla = document.createElement("table");
+            tabla.style.width = "100%";
+            tabla.style.borderCollapse = "collapse";
+            tabla.style.marginTop = "0.5rem";
+
+            const cuerpo = document.createElement("tbody");
+            tabla.appendChild(cuerpo);
+
+            function actualizarContador() {
+                contador.textContent =
+                    elegidos.length + "/" + cantidadMaxima +
+                    " rasgos seleccionados";
+            }
+
+            function crearCelda(contenido, ancho) {
+                const celda = document.createElement("td");
+                celda.style.border = "1px solid currentColor";
+                celda.style.padding = "0.6rem";
+                celda.style.verticalAlign = "top";
+
+                if (ancho) celda.style.width = ancho;
+
+                if (contenido instanceof Node) {
+                    celda.appendChild(contenido);
+                } else {
+                    celda.textContent = contenido ?? "";
+                }
+
+                return celda;
+            }
+
+            opciones.forEach((opcion, indice) => {
+                const idOpcion = String(
+                    opcion.id ?? opcion.name ?? indice
+                );
+
+                const fila = document.createElement("tr");
+                const celdaSelector = crearCelda("", "42px");
+
+                const selector = document.createElement("button");
+                selector.type = "button";
+                selector.style.width = "28px";
+                selector.style.height = "28px";
+                selector.style.borderRadius = "50%";
+                selector.style.cursor = "pointer";
+                selector.style.fontSize = "18px";
+                selector.style.padding = "0";
+                selector.style.lineHeight = "1";
+
+                const celdaDatos = crearCelda("");
+                const contenido = celdaDatos;
+
+                function agregarCampo(etiqueta, valor) {
+                    if (
+                        valor == null ||
+                        valor === "" ||
+                        typeof valor === "boolean"
+                    ) {
+                        return;
+                    }
+
+                    const parrafo = document.createElement("p");
+                    parrafo.style.margin = "0.25rem 0";
+                    parrafo.style.whiteSpace = "pre-wrap";
+
+                    if (etiqueta) {
+                        const negrita = document.createElement("strong");
+                        negrita.textContent = etiqueta + ": ";
+                        parrafo.appendChild(negrita);
+                    }
+
+                    parrafo.appendChild(
+                        document.createTextNode(
+                            Array.isArray(valor)
+                                ? valor.join(", ")
+                                : String(valor)
+                        )
+                    );
+
+                    contenido.appendChild(parrafo);
+                }
+
+                const nombreOpcion = document.createElement("strong");
+                nombreOpcion.textContent =
+                    opcion.name || opcion.title || "Opción " + (indice + 1);
+                contenido.appendChild(nombreOpcion);
+
+                agregarCampo(
+                    "Beneficio",
+                    opcion.benefit ?? opcion.benefits
+                );
+                agregarCampo(
+                    "Descripción",
+                    opcion.description ?? opcion.desc
+                );
+                agregarCampo(
+                    "Efecto",
+                    opcion.effect ?? opcion.effects
+                );
+                agregarCampo("Penalización", opcion.penalty);
+                agregarCampo("Habilidades", opcion.tagSkill);
+                agregarCampo("Asignación", opcion.assignment);
+                agregarCampo("Bonificación", opcion.bonus);
+                agregarCampo("Equipo", opcion.equipment);
+                agregarCampo("Reemplazos", opcion.replaces);
+
+                function actualizarSelector() {
+                    const seleccionado = elegidos.includes(idOpcion);
+
+                    selector.textContent = seleccionado ? "●" : "○";
+                    selector.setAttribute(
+                        "aria-pressed",
+                        String(seleccionado)
+                    );
+                    selector.setAttribute(
+                        "aria-label",
+                        (seleccionado ? "Quitar " : "Elegir ") +
+                        (opcion.name || "opción " + (indice + 1))
+                    );
+
+                    fila.style.backgroundColor = seleccionado
+                        ? "rgba(80, 180, 80, 0.16)"
+                        : "transparent";
+                }
+
+                selector.addEventListener("click", () => {
+                    const posicion = elegidos.indexOf(idOpcion);
+
+                    if (posicion !== -1) {
+                        elegidos.splice(posicion, 1);
+                    } else {
+                        if (elegidos.length >= cantidadMaxima) {
+                            alert(
+                                "Podés elegir como máximo " +
+                                cantidadMaxima + " opción(es)."
+                            );
+                            return;
+                        }
+
+                        elegidos.push(idOpcion);
+                    }
+
+                    window.fc2EleccionesRasgos[origen.id] = elegidos;
+
+                    actualizarSelector();
+                    actualizarContador();
+                });
+
+                actualizarSelector();
+
+                celdaSelector.appendChild(selector);
+                fila.appendChild(celdaSelector);
+                fila.appendChild(celdaDatos);
+                cuerpo.appendChild(fila);
+            });
+
+            actualizarContador();
+            panel.appendChild(tabla);
             panel.hidden = false;
         }
 
@@ -7383,13 +7756,36 @@
                 return false;
             }
 
+            
+            // Validar las elecciones de rasgos del origen.
+            const cantidadRequerida =
+                (window.fc2EleccionesRasgosRequeridas || {})[
+                    origen.id
+                ] || 0;
+
+            const rasgosElegidos =
+                (window.fc2EleccionesRasgos || {})[
+                    origen.id
+                ] || [];
+
+            if (rasgosElegidos.length !== cantidadRequerida) {
+                alert(
+                    "Elegí " + cantidadRequerida +
+                    " opción(es) de rasgo antes de continuar."
+                );
+                return false;
+            }
+
             // Guardar los datos para las siguientes etapas.
             window.fc2Personaje = {
                 ...(window.fc2Personaje || {}),
                 nombre: nombrePersonaje,
                 jugador: nombreJugador,
                 origenId: origen.id,
-                origen: origen
+                origen: origen,
+                rasgosElegidos: [
+                    ...(window.fc2EleccionesRasgos?.[origen.id] || [])
+                ],
             };
 
             console.info(
@@ -7477,7 +7873,162 @@
         }
     })();
 
-    //FIN DE SCRIPT DE CREACION DE PERSONAJE
+    // --- PASO 2: ASIGNACION DE S.P.E.C.I.A.L. ---
+
+    // --- PASO 3: ASIGNACION DE TAGS Y RANGOS DE HABILIDADES ---
+
+    // --- PASO 4: SELECCION DE PERKS ---
+
+    // --- PASO 5: CALCULOS DERIVADOS DE ORIGENES, SPECIAL Y PERKS ---
+
+    // --- PASO 6: SELECCION DE EQUIPO, TRINKETS Y NOTAS ---
+
+    // --- PASO 7: FICHA FINAL ---
+
+    // --- PASO 8: SUBIR DE NIVEL ---
+
+    //FIN DE SCRIPT DE CREACION DE PERSONAJE ---
+
+    // --- INICIO DEL RESUMEN LATERAL ---
+
+    (function () {
+        "use strict";
+
+        const creador = document.getElementById("fallout-character-creator");
+        if (!creador) return;
+
+        const obtener = id => document.getElementById(id);
+
+        function actualizarResumen() {
+            const nombre = obtener("fc2-character-name");
+            const jugador = obtener("fc2-player-name");
+
+            obtener("fc2-sum-name").textContent =
+                nombre?.value.trim() || "NUEVO SUPERVIVIENTE";
+
+            obtener("fc2-sum-player").textContent =
+                jugador?.value.trim() || "—";
+
+            const origen =
+                window.fc2OrigenSeleccionado ||
+                window.fc2Personaje?.origen;
+
+            obtener("fc2-sum-origin").textContent =
+                origen?.name || "Pendiente";
+
+            // SPECIAL: toma los siete campos en el orden del formulario.
+            const atributos = Array.from(
+                creador.querySelectorAll(".fc2-panel-2 .fc2-special input")
+            );
+
+            const celdas = obtener("fc2-sum-special").children;
+
+            atributos.slice(0, 7).forEach((campo, indice) => {
+                const valor = campo.value.trim() || "—";
+                const salida = celdas[indice]?.querySelector("strong");
+
+                if (salida) salida.textContent = valor;
+            });
+
+            // Habilidades: solo muestra las que tienen puntos o están etiquetadas.
+            const listaHabilidades = obtener("fc2-sum-skills");
+            listaHabilidades.replaceChildren();
+
+            const filas = creador.querySelectorAll(
+                ".fc2-panel-3 .fc2-table-wrap tbody tr"
+            );
+
+            filas.forEach(fila => {
+                const celdasFila = fila.querySelectorAll("td");
+                if (celdasFila.length < 4) return;
+
+                const nombreHabilidad =
+                    celdasFila[0].textContent.trim();
+
+                const campoPuntos =
+                    celdasFila[2].querySelector("input");
+
+                const campoTag =
+                    celdasFila[3].querySelector('input[type="checkbox"]');
+
+                const puntos = Number(campoPuntos?.value || 0);
+                const tieneTag = Boolean(campoTag?.checked);
+
+                if (puntos <= 0 && !tieneTag) return;
+
+                const item = document.createElement("li");
+                const texto = document.createElement("span");
+                const detalle = document.createElement("strong");
+
+                texto.textContent = nombreHabilidad;
+
+                const partes = [];
+                if (puntos > 0) partes.push("Rango " + puntos);
+                if (tieneTag) partes.push("TAG");
+
+                detalle.textContent = partes.join(" · ");
+
+                item.append(texto, detalle);
+                listaHabilidades.appendChild(item);
+            });
+
+            if (!listaHabilidades.children.length) {
+                mostrarVacio(listaHabilidades, "Todavía sin asignar");
+            }
+
+            // Los perks se actualizarán cuando el catálogo permita seleccionarlos.
+            // Se conservan los nombres que la lógica de perks registre en fc2Personaje.
+            const listaPerks = obtener("fc2-sum-perks");
+            const perks = window.fc2Personaje?.perksElegidos || [];
+
+            listaPerks.replaceChildren();
+
+            perks.forEach(perk => {
+                const nombrePerk =
+                    typeof perk === "string" ? perk : perk?.name;
+
+                if (!nombrePerk) return;
+
+                const item = document.createElement("li");
+                item.textContent = nombrePerk;
+                listaPerks.appendChild(item);
+            });
+
+            if (!listaPerks.children.length) {
+                mostrarVacio(listaPerks, "Todavía sin elegir");
+            }
+        }
+
+        function mostrarVacio(lista, mensaje) {
+            const item = document.createElement("li");
+            item.className = "fc2-sum-empty";
+            item.textContent = mensaje;
+            lista.appendChild(item);
+        }
+
+        // Actualización inmediata al escribir o cambiar opciones.
+        creador.addEventListener("input", actualizarResumen);
+        creador.addEventListener("change", actualizarResumen);
+
+        // El origen se selecciona mediante botones, por eso también
+        // escuchamos sus clics.
+        creador.addEventListener("click", evento => {
+            if (evento.target.closest(".fc2-origin-button")) {
+                requestAnimationFrame(actualizarResumen);
+            }
+        });
+
+        // Actualización inicial y una segunda pasada para respetar
+        // la inicialización de otros scripts del creador.
+        actualizarResumen();
+        requestAnimationFrame(actualizarResumen);
+
+        // Permite que otras partes del creador refresquen el resumen
+        // cuando guarden datos calculados.
+        window.actualizarResumenPersonaje = actualizarResumen;
+    })();
+
+    // --- FIN DEL RESUMEN LATERAL ---
 
         
     /* --- LOOT TABLE --- */
