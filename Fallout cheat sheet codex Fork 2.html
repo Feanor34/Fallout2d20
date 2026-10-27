@@ -6107,13 +6107,12 @@
 
     // --- TRAITS BY ORIGIN CANON ---
     const misterHandyTraitsCanon = [
-        { id: "pistolaAutomatica10mm", name: "Pistola automática 10mm", desc: "Puedes hacer ataque a distancia usando una pistola automática de 10mm.", benefit: "Puedes hacer ataque a distancia usando una pistola automática de 10mm.", penalty: "" },
-        { id: "sierraCircular", name: "Sierra circular", desc: "Ataques cuerpo a cuerpo (Daño físico, 3 CD, perforante 1).", benefit: "Ataques cuerpo a cuerpo (Daño físico, 3 CD, perforante 1).", penalty: "" },
-        { id: "lanzallamas", name: "Lanzallamas", desc: "Ataques con lanzallamas de corta distancia.", benefit: "Ataques con lanzallamas de corta distancia.", penalty: "" },
-        { id: "emisorLaser", name: "Emisor láser", desc: "Ataques a distancia con láser.", benefit: "Ataques a distancia con láser.", penalty: "" },
-        { id: "pinzas", name: "Pinzas", desc: "Manipular objetos de hasta 40 lbs o ataques desarmado (Daño físico, 2 CD).", benefit: "Manipular objetos de hasta 40 lbs o ataques desarmado (Daño físico, 2 CD).", penalty: "" }
+        { id: "10mm_auto_pistol", name: "Pistola automática 10mm", benefit: "Puedes hacer ataque a distancia usando una pistola automática de 10mm.", penalty: "" },
+        { id: "circular_saw", name: "Sierra circular", benefit: "Ataques cuerpo a cuerpo (Daño físico, 3 CD, perforante 1).", penalty: "" },
+        { id: "flamer", name: "Lanzallamas", benefit: "Ataques con lanzallamas de corta distancia.", penalty: "" },
+        { id: "laser_emitter", name: "Emisor láser", benefit: "Ataques a distancia con láser.", penalty: "" },
+        { id: "pincers", name: "Pinzas", benefit: "Manipular objetos de hasta 40 lbs o ataques desarmado (Daño físico, 2 CD).", penalty: "" }
     ];
-
     const survivorTraitsCanon = [
         { id: "educated", name: "Educated", benefit: "Tienes 1 habilidad etiquetada (Tag) adicional.", penalty: "Cuando falles una prueba de habilidad no etiquetada, el DJ gana +1 PA." },
         { id: "fast_shot", name: "Fast Shot", benefit: "Si realizas una segunda acción mayor en combate para atacar a distancia, cuesta 1 PA en vez de 2.", penalty: "No puedes beneficiarte de la acción menor Apuntar." },
@@ -6121,12 +6120,10 @@
         { id: "heavy_handed", name: "Heavy Handed", benefit: "Tu bono de daño cuerpo a cuerpo aumenta en +1CD.", penalty: "Tus ataques cuerpo a cuerpo y desarmados sufren complicación con 19 o 20 (en lugar de solo 20)." },
         { id: "small_frame", name: "Small Frame", benefit: "Puedes repetir 1d20 en todas las pruebas de AGI basadas en equilibrio o contorsión.", penalty: "Tu capacidad de carga es 150 + (5 x FUE) lbs en lugar de 150 + (10 x FUE) lbs." }
     ];
-
     const vaultDwellerTraits = [
         { id: "ghoul", name: "Humano Post Necrotico", benefit: "Sos inmune al daño por radiación. De hecho, la radiación te cura: recuperás 1 PG por cada 3 puntos de daño por radiación que recibas. Además, si descansás en una zona irradiada, podés volver a tirar los dados de tu reserva al comprobar si tus heridas sanan. Por otro lado, Supervivencia se convierte en una habilidad de Etiqueta y aumenta en 2 rangos. Envejecés a un ritmo mucho más lento, por lo que probablemente seas mayor que tus compañeros sin mutaciones. Incluso podrías haber sobrevivido a la Gran Guerra de 2077. Sin embargo, sos estéril: como dice el refrán, «la primera generación de necrófagos será la última». También podés sufrir discriminación por parte de los llamados «pieles tersas» (*smoothskins*), es decir, los humanos que no son necrófagos. Según las creencias y los prejuicios de tu interlocutor, esto puede aumentar la dificultad de las pruebas de Carisma o ampliar su rango de complicación.", penalty: "" },
-        { id: "vaultKid", name: "Vault Kid", benefit: "Gracias a que recibiste una atención médica superior desde el comienzo de tu vida, a cargo de médicos capacitados y sofisticados autodocs, reducís en 1 la dificultad de todas las pruebas de Resistencia (RES) para resistir los efectos de las enfermedades. Además, la educación cuidadosamente planificada que recibiste te otorga una habilidad de Etiqueta adicional, a tu elección. También podés trabajar junto con el Director de Juego para determinar qué tipo de experimento se llevó a cabo en tu Refugio. Una vez por misión, el DJ puede introducir una complicación que refleje la naturaleza del experimento en el que participaste sin saberlo, o que esté relacionada con tu infancia marcada por el aislamiento y el confinamiento dentro del Refugio. Si el DJ hace esto, recuperás inmediatamente 1 Punto de Suerte.", penalty: "" }
+        { id: "vaultKid", name: "Chico de la bóveda", benefit: "Gracias a que recibiste una atención médica superior desde el comienzo de tu vida, a cargo de médicos capacitados y sofisticados autodocs, reducís en 1 la dificultad de todas las pruebas de Resistencia (RES) para resistir los efectos de las enfermedades. Además, la educación cuidadosamente planificada que recibiste te otorga una habilidad de Etiqueta adicional, a tu elección. También podés trabajar junto con el Director de Juego para determinar qué tipo de experimento se llevó a cabo en tu Refugio. Una vez por misión, el DJ puede introducir una complicación que refleje la naturaleza del experimento en el que participaste sin saberlo, o que esté relacionada con tu infancia marcada por el aislamiento y el confinamiento dentro del Refugio. Si el DJ hace esto, recuperás inmediatamente 1 Punto de Suerte.", penalty: "" }
     ];
-
     const tribalTraitsCanon = [
         { id: "motherWasteland", name: "Madre Yermo", benefit: "Gastá 1 Punto de Suerte para obtener información sobre una misión, situación o escena, como si hubieras gastado 3 PA para usar *Obtener Información* tres veces. Esta información suele ser críptica y de naturaleza mística.", penalty: "Las complicaciones dificultan la comprensión de las escenas relacionadas con artefactos anteriores a la Guerra, lo que limita tu capacidad para utilizarlos." },
         { id: "nomad", name: "Nómada", benefit: "Podés repetir 1d20 en las pruebas de Supervivencia relacionadas con viajar, establecer un campamento y recolectar comida y agua. Además, ignorás la primera complicación obtenida en estas pruebas.", penalty: "La dificultad y el rango de complicación de las pruebas de Comercio y Oratoria aumentan en 1 cuando tratás con habitantes de asentamientos permanentes. Ciencia no puede ser una habilidad de Etiqueta." },
@@ -6145,7 +6142,6 @@
         { id: "brahminBaron", name: "Barón de brahmins", benefit: "Cada comedero para brahmanes proporciona el sustento necesario para 3 brahmanes en cada uno de tus asentamientos. Cuando realizás la acción de asentamiento Cultivar, obtenés +1 CD adicional de leche de brahmán por cada comedero.", penalty: "Tirá +1d20 al determinar el riesgo de ataque contra tu asentamiento si su recurso de Comida supera el de Población (ver pág. 39)." },
         { id: "extraPerk", name: "Perk adicional", benefit: "Obtienes un perk adicional", penalty: "" }
     ];
-
     const newCaliforniaRepublicTraitsCanon = [
         { id: "educated", name: "Educated", benefit: "Tienes 1 habilidad etiquetada (Tag) adicional.", penalty: "Cuando falles una prueba de habilidad no etiquetada, el DJ gana +1 PA." },
         { id: "fast_shot", name: "Fast Shot", benefit: "Si realizas una segunda acción mayor en combate para atacar a distancia, cuesta 1 PA en vez de 2.", penalty: "No puedes beneficiarte de la acción menor Apuntar." },
@@ -6159,7 +6155,6 @@
         { id: "brahminBaron", name: "Barón de brahmins", benefit: "Cada comedero para brahmanes proporciona el sustento necesario para 3 brahmanes en cada uno de tus asentamientos. Cuando realizás la acción de asentamiento Cultivar, obtenés +1 CD adicional de leche de brahmán por cada comedero.", penalty: "Tirá +1d20 al determinar el riesgo de ataque contra tu asentamiento si su recurso de Comida supera el de Población (ver pág. 39)." },
         { id: "extraPerk", name: "Perk adicional", benefit: "Obtienes un perk adicional", penalty: "" }
     ];
-
     const protectronTraitsCanon = [
         { id: "claws", name: "Garras", benefit: "Realizás ataques sin armas con un par de garras oponibles. Las garras infligen 3 CD de daño físico y pueden beneficiarse de tu atributo derivado de daño cuerpo a cuerpo y de las ventajas para ataques sin armas.", penalty: "" },
         { id: "cryojet", name: "Criopulverizador", benefit: "Podés disparar un chorro de aerosol criogénico que enfría rápidamente a los objetivos. El criopulverizador utiliza células criogénicas como munición, realiza ataques con PER + Armas de Energía e inflige 3 CD de daño de energía, con los efectos de daño Ráfaga y Congelación. Encontrás más información sobre el criopulverizador en la pág. 93.", penalty: "" },
@@ -6168,145 +6163,260 @@
     ];
 
     // --- ORIGENES CANON ---
+    const brotherhoodInitiateOrigin = {
+        id: "Brotherhood_Initiate",
+        name: "Iniciado en la Hermandad de Acero",
+        source: "Core Rulebook",
+        description: "Nacida de las terribles revelaciones de la Rebelión de Mariposa, la Hermandad del Acero fue fundada por Roger Maxson para que su gente —y, con el tiempo, el resto de los sobrevivientes de este nuevo mundo— tuviera algo en lo que creer. Con su propia mitología, credo y jerarquía, el principal objetivo de la Hermandad del Acero es recuperar y preservar la tecnología del mundo de antes de la guerra. Tras la Gran Guerra, que interrumpió el acceso de la humanidad a la tecnología, los caballeros y escribas de la Hermandad hacen todo lo posible por asegurar la tecnología del pasado para las generaciones futuras. Podés ser descendiente de un caballero o paladín, haber nacido dentro de la Hermandad y creer firmemente en su doctrina; o quizás seas un recluta nuevo que acaba de jurar lealtad a su causa y aspira a ascender en sus filas. Aunque todos sus miembros comparten un objetivo común, los distintos capítulos de la Hermandad repartidos por el Yermo pueden tener creencias y protocolos diferentes. Después de todo, no están tan unidos como parecen desde afuera. Mientras que la Hermandad del Acero de la Costa Oeste entró en guerra con la República de Nueva California por la recuperación de tecnología y los esfuerzos expansionistas de la RNC, el capítulo de la Costa Este quedó prácticamente aislado al priorizar la ayuda humanitaria por encima del intercambio tecnológico y la preservación de los equipos de antes de la guerra. La misión del Anciano Lyons adquirió un carácter humanitario y, aunque eso los condenó inicialmente al aislamiento, Arthur Maxson lideró después la expansión de su influencia desde Washington D. C. hasta toda la costa este de Estados Unidos, reorientando sus esfuerzos hacia la recuperación y el desarrollo tecnológico.",
+        traitName: "La cadena que une",
+        traitDescription: "Como miembro de la Hermandad del Acero, estás sujeto a la cadena de mando: La Cadena que Nos Une. Debés cumplir las órdenes de tus superiores directos y sos responsable de tus hermanos y hermanas subordinados. Si no cumplís con tu deber, serás expulsado de la Hermandad y te confiscarán tu tecnología, por cualquier medio que sea necesario.",
+        traitOptions: null,
+        traitChoices: 0,
+        skillTrait: [],
+        skillTraitChoices: 0,
+        additionalSkillTraitOptions: ["Armas de Energía", "Ciencia", "Reparación"],
+        additionalSkillTraitChoices: 1,
+        originOptions: null
+    };
+
+    const ghoulOrigin = {
+        id: "Ghoul",
+        name: "Ghoul",
+        source: "Core Rulebook",
+        description: "La exposición prolongada a los efectos de la radiación gamma ambiental, una de las consecuencias de la Gran Guerra, puede provocar mutaciones espontáneas en los seres humanos. Vos sos uno de esos mutantes. Ya sea de forma gradual o por algún extraño cambio repentino, tu cuerpo se transformó en el de un cadáver viviente en descomposición. Ya no envejecés de la misma manera y la radiación parece no afectarte. La piel se te desprende de la carne, pero tu metabolismo mutado parece mantenerte con vida. Sos un necrófago, un ser poshumano de naturaleza necrótica. Sos uno de los tantos sobrevivientes que tuvieron la mala suerte de no conseguir refugio en una instalación de Vault-Tec. Quizás naciste después de la guerra y, con el paso del tiempo, desarrollaste la mutación necrótica. O tal vez provenís del Refugio 12, en Bakersfield, California, cuya puerta nunca llegó a cerrarse y dejó a sus habitantes expuestos a la radiación del exterior. También es posible que hayas encontrado refugio en un asentamiento de necrófagos, como el Inframundo de la Capital del Yermo, y que recién ahora te hayas aventurado a salir para explorar, buscar recursos y sobrevivir. Sin embargo, los necrófagos civilizados como vos también temen una posible degeneración hacia un estado salvaje y frenético. Los necrófagos salvajes son mutantes necróticos como vos que han perdido las funciones cerebrales superiores y retrocedido a un estado primitivo y violento. Atacan indiscriminadamente a quienes no son necrófagos, ya sea para defender su territorio o para alimentarse. No sabés si esta pérdida de la razón se debe a niveles extremos de radiación o si es el desenlace inevitable de la mutación. Y esa incertidumbre hace que la posibilidad sea todavía más aterradora.",
+        traitName: "Poshumano necrótico",
+        traitDescription: "Sos inmune al daño por radiación. De hecho, la radiación te cura: recuperás 1 PG por cada 3 puntos de daño por radiación que recibas. Además, si descansás en una zona irradiada, podés volver a tirar los dados de tu reserva al comprobar si tus heridas sanan. Por otro lado, Supervivencia se convierte en una habilidad tageada. Envejecés a un ritmo mucho más lento, por lo que probablemente seas mayor que tus compañeros sin mutaciones. Incluso podrías haber sobrevivido a la Gran Guerra de 2077. Sin embargo, sos estéril: como dice el refrán, «la primera generación de necrófagos será la última». También podés sufrir discriminación por parte de los llamados «pieles tersas» (smoothskins), es decir, los humanos que no son necrófagos. Según las creencias y los prejuicios de tu interlocutor, esto puede aumentar la dificultad de las pruebas de Carisma o ampliar su rango de complicación.",
+        traitOptions: null,
+        traitChoices: 0,
+        skillTrait: ["Supervivencia"],
+        skillTraitChoices: 1,
+        additionalSkillTraitOptions: [],
+        additionalSkillTraitChoices: 0,
+        originOptions: null
+    };
+
+    const supermutantOrigin = {
+        id: "Supermutante",
+        name: "Supermutante",
+        source: "Core Rulebook",
+        description: "Sos un humano mutado y brutal, obligado a evolucionar por los experimentos despiadados de la ciencia retorcida del mundo anterior y posterior a la guerra. Infectado con el Virus de Evolución Forzada (VEF), tu cuerpo se transformó en una máquina de matar alta y musculosa, consumida por la furia. Quizás provengas del ejército del Maestro, en la base militar de Mariposa, California, donde fuiste creado durante sus experimentos con víctimas humanas involuntarias. Tras la muerte del Maestro, podrías haberte unido a una de las facciones en las que se dividieron sus fuerzas, para atacar el Yermo o reconstruirlo junto con los sobrevivientes. Tus orígenes también podrían remontarse al Programa de Experimentación Evolutiva del Refugio 87, cuyos grupos de supermutantes aterrorizan la Capital del Yermo. Tal vez te secuestraron en la Commonwealth y el Instituto te expuso al VEF, para después abandonarte en el Yermo, donde tuviste que arreglártelas por tu cuenta junto a pequeñas bandas de saqueadores. O quizás eras habitante de Huntersville, en Appalachia, donde el suministro de agua se contaminó con el virus y las mutaciones se propagaron sin control. Aunque estos supermutantes comparten las mismas características, los grupos surgidos de las tres cepas del virus no se han mezclado, y existen pocas pruebas de que hayan llegado a encontrarse. Si bien algunos grupos migraron o se desplazaron a lo largo de los años, ninguno viajó lo suficiente como para cruzarse con los demás. Por eso, el lugar donde transcurran tus aventuras probablemente determine cuál es tu origen.",
+        traitName: "Evolución forzada",
+        traitDescription: "Tus atributos iniciales de Fuerza y Resistencia aumentan en +2 cada uno, y sus valores máximos se incrementan a 12. Sin embargo, tus valores máximos de Inteligencia y Carisma se reducen a 6. No podés tener más de 4 rangos en ninguna habilidad. Sos completamente inmune al daño por radiación y veneno. Medís más de 2,10 metros de altura y tenés un cuerpo corpulento y musculoso. Tu piel es verde, amarilla o gris, independientemente del color que tuviera cuando eras humano. Aparentemente, no envejecés, pero sos estéril. Solo podés usar armaduras confeccionadas específicamente para un supermutante.",
+        traitOptions: null,
+        traitChoices: 0,
+        skillTrait: [],
+        skillTraitChoices: 0,
+        additionalSkillTraitOptions: [],
+        additionalSkillTraitChoices: 0,
+        originOptions: null
+    };
+
+    const misterHandyOrigin = {
+        id: "Mister_Handy",
+        name: "Mister Handy",
+        source: "Core Rulebook",
+        description: "El robot «Mister Handy», desarrollado por General Atomics International, irrumpió en el mercado de la robótica como un robot de construcción confiable, conocido por su durabilidad y facilidad de mantenimiento. Sin embargo, su verdadero salto tecnológico llegó gracias a una colaboración con RobCo para desarrollar un modelo doméstico. Sos uno de estos autómatas domésticos, fabricado en algún momento entre 2037 y 2077 con el propósito de ofrecer a todos los hogares de Estados Unidos un servicio de mayordomo. Equipado con programación de última generación, tenés iniciativa propia y podés adaptar tu código para aprender más de tu entorno. Esta capacidad de autodeterminación es lo que te permitió sobrevivir a la Gran Guerra: mientras otros robots quedaron fuera de servicio, vos lograste liberarte de las cadenas de tu programación y encontrar tu propio camino. Existen muchos modelos, así que podrías pertenecer a cualquiera de las series Mister Handy, Mister Gutsy, Miss Nanny o Mister Orderly. Funcionás con un núcleo nuclear, podés reponer tu propio combustible y reparar tanto tus propios sistemas como los de otras unidades Mister Handy. Tu modelo cuenta con tres brazos mecánicos y tres ojos mecánicos montados sobre soportes articulados. Además, tu sistema de propulsión a chorro te permite mantenerte suspendido sobre el suelo, siempre que dispongas del combustible necesario. Gracias a este diseño robusto, lograste sobrevivir hasta el presente.",
+        traitName: "Robot Mister Handy",
+        traitDescription: "Tenés visión de 360° y sistemas sensoriales mejorados capaces de detectar olores, sustancias químicas y radiación. Esto reduce en 1 la dificultad de las pruebas de Percepción que dependan de la vista o el olfato. También sos inmune al daño por radiación y veneno, pero no podés usar químicos (chems) ni beneficiarte de la comida, la bebida o el descanso. Te desplazás mediante propulsión a chorro, flotando por encima del suelo, por lo que el terreno difícil y los obstáculos no afectan tu movimiento. Tu capacidad de carga es de 150 lb (aproximadamente 68 kg) y no puede aumentar mediante Fuerza ni ventajas, aunque sí puede incrementarse mediante modificaciones de armadura. No podés recuperarte de tus propias heridas ni restaurar puntos de salud sin recibir reparaciones. No podés manipular el mundo físico de la misma manera que los humanos. En su lugar, disponés de tres de los accesorios de brazo incluidos en la tabla Accesorios de brazo, determinados por el paquete de equipo que elijas. Si seleccionás un brazo que incluya un arma, también recibís 20 disparos de munición para esa arma.",
+        traitOptions: misterHandyTraitsCanon,
+        traitChoices: 3,
+        skillTrait: [],
+        skillTraitChoices: 0,
+        additionalSkillTraitOptions: [],
+        additionalSkillTraitChoices: 0,
+        originOptions: null
+    };
+
+    const survivorOrigin = {
+        id: "Superviviente",
+        name: "Sobreviviente",
+        source: "Core Rulebook",
+        description: "Sos el legado viviente de quienes se prepararon por su cuenta para el Armagedón. Si seguís con vida en este mundo postapocalíptico y arrasado por las armas nucleares, es gracias a tus antepasados, que se atrincheraron, sobrevivieron y lograron formar una comunidad lo bastante sólida como para garantizar la continuidad de la humanidad. Podrías provenir de cualquiera de los numerosos asentamientos, refugios aislados o grupos itinerantes que pueblan, de forma dispersa, el Yermo, desde la Costa Oeste hasta la Costa Este. Quizás seas oriundo de la República de Nueva California y mantengas vivo el legado del Refugio 15 y Shady Sands. Tal vez luches para proteger a los demás y consideres tu hogar a un grupo de sobrevivientes como los Minutemen o los Reguladores. También podrías ser un saqueador despiadado, o haber nacido en uno de esos grupos y escapado para intentar reformarte y enmendar tus errores. Sea cual sea tu origen o el lugar al que te lleven tus viajes, establecer vínculos y echar raíces puede ser difícil. Los sobrevivientes desconfían por naturaleza de los desconocidos y siempre están atentos a la posible aparición de un estafador, una banda de saqueadores o un ladrón dispuesto a llevarse los recursos que tanto les costó conseguir. Recorrer grandes distancias también es complicado. Muchos sobrevivientes itinerantes —en especial, las caravanas de comerciantes— se desplazan entre los principales asentamientos de su región del Yermo, en lugar de viajar de una costa a la otra.",
+        traitName: "Rasgos",
+        traitDescription: "Podés elegir dos de los siguientes rasgos, o bien un rasgo y una ventaja adicional. Cada rasgo otorga un beneficio y puede conllevar una penalización.",
+        traitOptions: survivorTraitsCanon,
+        traitChoices: 2,
+        skillTrait: [],
+        skillTraitChoices: 0,
+        additionalSkillTraitOptions: [],
+        additionalSkillTraitChoices: 0,
+        originOptions: null
+    };
+
+    const vaultDwellerOrigin = {
+        id: "Vault_Dweller",
+        name: "Morador de la bóveda",
+        source: "Core Rulebook",
+        description: "Cuando cayeron las bombas, vos o tus antepasados tuvieron la suerte de estar a salvo en una de las 122 instalaciones de Vault-Tec, enterradas bajo tierra y protegidas por gruesas compuertas blindadas y capas de roca y hormigón. Tu familia tenía suficiente dinero para pagar un lugar en el refugio o fue seleccionada al azar para escapar de la devastación nuclear de la superficie. Aunque, quizás, esa salvación solo haya servido para condenarlos a participar, sin saberlo, en los experimentos inmorales de Vault-Tec. Estás libre de mutaciones y enfermedades. El programa de Vault-Tec te proporcionó un hogar seguro durante cierto tiempo, pero no sin consecuencias. El refugio del que provenís te utilizó como sujeto de experimentación: manipuló tu percepción del mundo y tu comportamiento con el propósito de estudiarte. Como resultado, sufriste profundos cambios psicológicos que te distinguen de los sobrevivientes de la superficie que ahora conocés, y que influyen en tu manera de desenvolverte en el Yermo. Ya sea por una decisión deliberada o por una planificación deficiente, muchos refugios no contaban con suficientes provisiones ni estaban preparados para esperar el tiempo necesario hasta que los niveles de radiación exterior volvieran a ser seguros. Muchos terminaron deteriorándose o quedándose sin suministros. Ante estas deficiencias, numerosos moradores de los refugios tuvieron que buscar ayuda en la superficie, y muchos refugios abrieron sus puertas para permitir la entrada de provisiones. Al abrirse, estas sociedades aisladas comenzaron a mezclarse con los sobrevivientes del exterior y establecieron un vínculo permanente con la superficie. El ejemplo más destacado es el de los habitantes del Refugio 15, que se dispersaron y fundaron el asentamiento de Shady Sands, mientras que otros terminaron formando las bandas de saqueadores conocidas como los Chacales, las Víboras y los Khanes tras la apertura de su refugio.",
+        traitName: "Rasgo de origen",
+        traitDescription: "Elegí uno de los dos rasgos disponibles para este origen.",
+        traitOptions: vaultDwellerTraits,
+        traitChoices: 1,
+        skillTrait: [],
+        skillTraitChoices: 0,
+        additionalSkillTraitOptions: [],
+        additionalSkillTraitChoices: 0,
+        originOptions: null
+    };
+
     const assaultronOrigin = {
         id: "Assaultron",
-        name: "Assaultron",
+        name: "Asaultrón",
         source: "Wanderers Guide",
-        description: "",
+        description: "Desarrollado por RobCo Industries, el Assaultron es una pieza de tecnología militar de primera categoría. Diseñado para soportar brutales combates cuerpo a cuerpo durante el apogeo de la guerra sinoestadounidense, el Assaultron es rápido, resistente y, por encima de todo, letal. Sus extremidades articuladas, recubiertas de blindaje, terminan en garras despiadadas que pueden reemplazarse o mejorarse con toda clase de herramientas destinadas a sembrar la muerte y la destrucción. En su unidad craneal alberga un láser de una potencia devastadora. El sonido de su carga queda grabado durante años en las pesadillas de quienes tienen la suerte de sobrevivir a un encuentro con él. En pocas palabras, pocas creaciones humanas han demostrado tanta eficacia a la hora de matar como el Assaultron. Desde el «fin» de la guerra y el comienzo de la vida en el Yermo, los Assaultrons que sobrevivieron al paso del tiempo demostraron estar especialmente preparados para prosperar en medio del caos. Por todo el Yermo pueden encontrarse Assaultrons errantes que siguen ejecutando órdenes programadas hace siglos, eliminando sin piedad a cualquiera que los amenace o interfiera con las tareas que repiten eternamente. Las unidades desactivadas o dañadas son consideradas piezas de desguace de gran valor por quienes tienen los conocimientos necesarios para reprogramarlas y convertirlas en guardaespaldas, patovicas o cualquier otra cosa que se les ocurra. Sea cual sea su función, la mayoría de la gente se lo piensa dos veces, o incluso tres, antes de buscar pelea con alguien respaldado por un Assaultron. Sin embargo, hasta las máquinas de matar más eficientes pueden cambiar. Debido a errores de programación, código defectuoso que se degradó a lo largo de las décadas e incluso matrices de personalidad experimentales, algunos Assaultrons excepcionales desarrollaron algo parecido a la consciencia. Llegaron a adquirir una imitación de personalidad, e incluso un ego, transformándose de máquinas de guerra en seres complejos capaces de pensar por sí mismos. Algunos de estos Assaultrons llegaron a enorgullecerse de sus orígenes; otros, en cambio, los resienten o incluso se rebelan contra aquello para lo que fueron creados.",
         traitName: "Diseñado para el frente",
-        traitDescription: "" ,
+        traitDescription: "Sos un robot inmune a las enfermedades, al daño por radiación y al daño por veneno, pero no podés usar químicos (chems) ni beneficiarte de la comida, la bebida o el descanso. No podés recuperarte de tus heridas ni recuperar puntos de salud sin recibir reparaciones. Tu capacidad de carga es de 150 lb (aproximadamente 68 kg) y no puede aumentar mediante Fuerza ni ventajas, aunque sí puede incrementarse mediante modificaciones de armadura. Te desplazás sobre dos piernas y podés manipular tu entorno gracias a tus manos articuladas, similares a garras de tres dedos. Tus extremidades, accionadas por cadenas, están diseñadas para ofrecer velocidad y una eficiencia letal en el combate cuerpo a cuerpo. Esto te otorga +1 CD a tus ataques sin armas, además de cualquier bonificación a los CD de tus ataques cuerpo a cuerpo que recibas por tu atributo de Fuerza. Tu cabeza blindada lleva integrado un potente láser que te permite atacar enemigos a distancia con un arma de energía devastadora. Además, podés sobrecargar críticamente tu núcleo de fusión para provocar una explosión autodestructiva devastadora (ver Armas de Assaultron). Armas de Assaultron Garras Realizás ataques sin armas con un par de garras opuestas accionadas por cadenas. Las garras infligen 4 CD de daño físico y se benefician de tu estadística derivada de daño cuerpo a cuerpo y de las ventajas aplicables a los ataques sin armas. La bonificación al daño otorgada por tu rasgo ya está incluida en este valor. Láser craneal de Assaultron Cargás el emisor láser de alto rendimiento integrado en tu cabeza e infligís 5 CD de daño de energía con Perforante 1, consumiendo 2 disparos de munición para celdas de fusión. Podés reducir la cantidad de disparos consumidos; por cada disparo menos del costo normal, el daño disminuye en −1 CD, hasta un mínimo de 4 CD de daño consumiendo 1 disparo. Las modificaciones del condensador pueden aumentar tanto el daño como la cantidad de disparos consumidos. Autodestrucción Explotás y quedás destruido en el proceso. No podés ser reparado. Al realizar este ataque, hacés un ataque a distancia usando RES + Explosivos, que inflige 6 CD de daño de energía con el efecto Explosión, a alcance Corto.",
         trait: null,
         traitChoices: null,
         skillTrait: null,
-        skillTraitChoices: null
-    };
-
-    const brotherhoodOutcastOrigin = {
-        id: "Brotherhood_Outcast",
-        name: "Renegado de la hermandad",
-        source: "Wanderers Guide",
-        description: "Por más que se rodee de imágenes heroicas, pompa y solemnidad, la Hermandad del Acero no es la buena de la historia. Aparecen desde el cielo a bordo de vertibirds, enfundados en relucientes servoarmaduras y armados con armas que lanzan haces de luz fulgurantes por todo el campo de batalla para purgar el mal del Yermo… o, al menos, eso es lo que quieren hacerte creer. En algunas regiones del Yermo se los considera humanitarios; en otras, se los ve como brutos acaparadores de tecnología, más preocupados por apropiarse de los avances del mundo antiguo y exterminar a la población local de supermutantes que por ayudar a quienes lo necesitan. Muchos aspirantes se comprometieron con la misión de descubrir y recuperar tecnología perdida de antes de la guerra, pero terminaron viendo cómo los líderes locales se desviaban de ese objetivo por un motivo u otro. Estos individuos se llevan consigo todos los conocimientos que adquirieron, dispuestos a aplicarlos como mejor les parezca. Algunos incluso continúan la misión de la Hermandad por su cuenta. Muchos se convierten en una especie de ingenieros itinerantes que aprovechan su profundo conocimiento de la tecnología del mundo antiguo para reparar sistemas obsoletos o ayudar donde sea necesario. Otros adoptan un papel más activo y utilizan sus nuevos conocimientos militares para defender a los demás, haciendo valer toda la potencia de un rifle láser contra las tecnologías fuera de control y quienes pretenden explotarlas. Aunque la mayoría perdió su servoarmadura, muchos marginados de la Hermandad del Acero viajan de un lugar a otro, ofreciendo ayuda a quienes la necesitan, haciendo justicia cuando corresponde y compartiendo conocimientos con los que la mayoría de los habitantes del Yermo ni siquiera se atrevería a soñar. Sin embargo, la Hermandad del Acero es una familia muy unida y rara vez aprueba las decisiones de quienes desertan. Por eso, los marginados pueden terminar trayendo consigo más desgracias de las que pretendían. No es raro que uno de ellos finalmente se establezca en algún lugar, solo para escuchar el ruido de los vertibirds que se acercan por encima de su cabeza.",
-        traitName: "La cadena que se rompe",
-        traitDescription: "Creés que tus superiores en la Hermandad carecen de una visión que vaya más allá de recuperar tecnología de antes de la guerra. Considerás que tu fortaleza como miembro de esta fraternidad de descendientes de militares te impone el deber de ayudar a los demás y perseguir objetivos distintos de los que dicta el dogma de los líderes de la Hermandad. Obtenés una habilidad de Etiqueta adicional, que debe ser una de las siguientes: Armas de Energía, Ciencia o Reparación. Además, obtenés 1d20 adicional de chatarra, y podés gastar 1 PA hasta 3 veces para obtener 1 material poco común por cada PA gastado. También podés realizar una tirada adicional en la tabla de botín sin tener que gastar PA.",
-        trait: null,
-        traitChoices: null,
-        skillTrait: [ "Armas de energia", "Ciencia", "Reparar"],
-        skillTraitChoices: 1
+        skillTraitChoices: null,
+        additionalSkillTraitOptions: null,
+        additionalSkillTraitChoices: null,
+        originOptions: null
     };
 
     const childOfTheAtomOrigin = {
         id: "Children_of_Atom",
-        name: "Niños del Atomo",
+        name: "Niños del Átomo",
         source: "Wanderers Guide",
-        description: "La radiación es un regalo de Átomo, tu dios atómico, y compartís gustosamente ese don con la Commonwealth. Como miembro de la Iglesia de Átomo, tu cuerpo y tu mente están bendecidos por la radiación. Muchos de los que te cruzás desconfían de vos y consideran que tu bendición es una maldición, pero vos sabés que fuiste elegido. Cuanto más te acercás al abrazo de Átomo, más capaz te volvés de sobreponerte a las penurias del Yermo. Entendés que la radiación es peligrosa para quienes todavía no han aceptado su verdad divina, y no los despreciás por recurrir al RadAway y otros tratamientos. Simplemente buscás ayudarlos a alcanzar la iluminación. Los Hijos de Átomo creen que en cada masa atómica de la creación existe un universo entero. Cuando una masa se divide, el universo que contiene también se divide y da origen a dos universos. Átomo es venerado como un dios benevolente que utiliza la División para crear nuevos mundos. Por eso, los Hijos consideran que la Gran Guerra fue un acontecimiento sagrado y maravilloso. Adoran a Átomo mediante el culto a la radiación —su Resplandor— y a los nuevos universos que esta representa. Los Hijos establecen sus hogares en regiones irradiadas, donde construyen centros de culto y asentamientos. Aunque la Iglesia no suele recurrir a la violencia, considera una blasfemia cualquier intento de impedir la propagación de la radiación. Se opone a esos esfuerzos, aunque las tácticas que emplean sus miembros y sectas varían. Los Hijos no sienten un apego especial por sus cuerpos ni por sus posesiones, y pueden mostrarse muy generosos con quienes necesitan ayuda. Siguen una jerarquía flexible, propia de cada secta, encabezada por líderes espirituales conocidos como Madres o Confesores. Quizás hayas nacido dentro de la Iglesia, o tal vez llevaras una vida completamente distinta antes de descubrir la verdad atómica. Puede que hayas llegado desde una secta lejana en peregrinación sagrada, o que provengas del Cráter de Átomo, en el Mar Resplandeciente. Si mantenés tu fe, compartís el Resplandor con quienes te cruzás y demostrás tu devoción a Átomo, quizás logres demostrar tu valía y ascender a un rango superior dentro de tu secta.",
+        description: "La radiación es un regalo de Átomo, tu dios atómico, y compartís gustosamente ese don con la Commonwealth. Como miembro de la Iglesia de Átomo, tu cuerpo y tu mente están bendecidos por la radiación.",
         traitName: "Esponja de rads",
-        traitDescription: "Tu inusual experiencia de vida te otorga una ventaja adicional en el nivel 1. Además, Átomo te concedió un don único, incluso entre los demás miembros de la Iglesia. Podés resistir, almacenar e incluso canalizar la radiación a través de tu cuerpo. Aunque Átomo te ha bendecido con su Resplandor, debés tener cuidado: los incrédulos quizás no comprendan tu don y se asusten al presenciarlo. Tu resistencia básica al daño por radiación es de 1 y puede aumentar mediante armaduras y ventajas. Una vez por escena, cuando alguien que se encuentre a alcance Corto de vos fuera a sufrir daño por radiación, podés elegir recibir ese daño en su lugar. Cada vez que sufrís daño por radiación, obtenés 1 Punto de Radiación, hasta un máximo de 5. Para determinar cuántos puntos obtenés, tené en cuenta que el daño recibido no puede ser inferior a 0. Cuando impactás con un ataque cuerpo a cuerpo, podés gastar los Puntos de Radiación que hayas almacenado. Por cada punto gastado, infligís 2 CD adicionales de daño por radiación, que se aplican por separado después de resolver el daño normal del ataque. Cuando dormís, perdés 1 Punto de Radiación.",
+        traitDescription: "Tu resistencia básica al daño por radiación es de 1 y puede aumentar mediante armaduras y ventajas. Una vez por escena, cuando alguien que se encuentre a alcance Corto de vos fuera a sufrir daño por radiación, podés elegir recibir ese daño en su lugar. Cada vez que sufrís daño por radiación, obtenés 1 Punto de Radiación, hasta un máximo de 5. Cuando impactás con un ataque cuerpo a cuerpo, podés gastar los Puntos de Radiación almacenados para infligir 2 CD adicionales de daño por radiación por cada punto gastado. Cuando dormís, perdés 1 Punto de Radiación.",
         trait: null,
         traitChoices: null,
         skillTrait: null,
-        skillTraitChoices: null
+        skillTraitChoices: null,
+        additionalSkillTraitOptions: null,
+        additionalSkillTraitChoices: null,
+        originOptions: null
     };
 
     const nightkinOrigin = {
         id: "Nightkin",
         name: "Nightkin",
         source: "Wanderers Guide",
-        description: "Hace cien años, los Nightkin representaban la cúspide de la especie supermutante: la obra maestra del Maestro en sus experimentos con el Virus de Evolución Forzada (VEF) y sus soldados predilectos, que solo respondían ante su creador. Lo que los distinguía de sus congéneres era su mente. Los Nightkin conservaron su inteligencia después de su «evolución», mantuvieron su individualidad, sus experiencias pasadas y la capacidad de establecer y sostener relaciones complejas, todo ello sin perder la fuerza y la resistencia características de los supermutantes. Además, eran excepcionalmente receptivos a la influencia psíquica de su creador, lo que les permitía recibir sus órdenes sin importar la distancia y alimentaba una lealtad feroz hacia el Maestro. Sin embargo, aquello no duraría. Después de que un Morador del Refugio matara al Maestro y destruyera gran parte de su obra, los Nightkin también quedaron desestabilizados: fueron dispersados, quedaron desperdigados o terminaron siendo perseguidos hasta la extinción. Pese a los intentos de reorganizarse tras la derrota del Maestro, les resultó difícil encontrar un lugar propio en el Yermo. Con el paso del tiempo, comenzó a manifestarse un problema aún mayor. Una de las herramientas más importantes de los Nightkin, el Stealth Boy, empezó a perjudicarlos. Tras décadas de uso, la radiación particular que emitían estos dispositivos los alteró a nivel molecular: su piel adquirió un tono azulado y la química de sus cerebros sufrió profundas modificaciones. Hoy, los Nightkin son una sombra trágica de lo que alguna vez fueron. La esquizofrenia, la escopofobia —el miedo a ser observado—, los trastornos de personalidad múltiple y otros padecimientos se han vuelto habituales entre ellos. La mayoría se ha vuelto tan dependiente del camuflaje de los Stealth Boys que la mera idea de estar siendo observados les provoca un terror insoportable. Esto los lleva a buscar desesperadamente nuevas reservas de estos dispositivos para después desaparecer, una vez más, dentro de un campo de seguridad resplandeciente. Los Nightkin buscan formar parte de una comunidad y, ya sea por el deseo de encontrar un sustituto para el liderazgo del Maestro perdido o por su empatía psíquica innata, tienden a congregarse alrededor de personalidades fuertes. En la estructura y la organización encuentran una sensación de familiaridad que les permite recuperar, al menos en parte, algo de lo que perdieron.",
-        traitName: "Adiccion a los Stealth Boy",
-        traitDescription: "No podés tener más de 4 rangos en ninguna habilidad. Sos completamente inmune al daño por radiación y al daño por veneno. Medís más de dos metros de altura; tu cuerpo es voluminoso y musculoso, y tu piel es azul. No parecés envejecer, pero sos estéril. Solo podés usar armaduras confeccionadas para adaptarse al cuerpo de un supermutante. Podés desarrollar una adicción a los Stealth Boys con facilidad, y su uso prolongado ha tenido un impacto enorme en tu psicología y salud mental. Cada vez que usás un Stealth Boy, tirás 1 CD por cada dosis que hayas usado durante esta sesión. Si obtenés algún **Efecto**, sufrís los siguientes síntomas: - **Adicción a los Stealth Boys:** Si fallás la prueba de adicción, te volvés adicto a los Stealth Boys. La dificultad de tus pruebas de **Percepción** e **Inteligencia** aumenta en +2, y la de tus pruebas de **Carisma**, en +1, hasta que te cures.",
+        description: "Los Nightkin fueron la cúspide de la especie supermutante: conservaron su inteligencia, individualidad y capacidad para establecer relaciones complejas. El uso prolongado de Stealth Boys alteró su cuerpo y su mente, provocando cambios físicos y trastornos psicológicos. Muchos dependen de estos dispositivos y buscan desesperadamente nuevas reservas.",
+        traitName: "Adicción a los Stealth Boy",
+        traitDescription: "No podés tener más de 4 rangos en ninguna habilidad. Sos completamente inmune al daño por radiación y al daño por veneno. Medís más de dos metros, tu cuerpo es voluminoso y musculoso, y tu piel es azul. Solo podés usar armaduras adaptadas al cuerpo de un supermutante. El uso de Stealth Boys puede provocar adicción y síntomas psicológicos.",
         trait: null,
         traitChoices: null,
         skillTrait: null,
-        skillTraitChoices: null
+        skillTraitChoices: null,
+        additionalSkillTraitOptions: null,
+        additionalSkillTraitChoices: null,
+        originOptions: null
     };
 
     const tribalOrigin = {
         id: "Tribal",
         name: "Tribal",
         source: "Wanderers Guide",
-        description: "Los **tribales del Yermo** viven en comunidades extensas, compuestas por familias que no poseen una identidad cultural distintiva. Habitan el Yermo fuera de algunos de los «estados» más formalizados, como la RNC. Aunque el territorio que ocupan es más amplio que el de otros asentamientos, tienen un sentido de comunidad más fuerte. Los tribales pueden compartir una filosofía más espiritual con el resto de los habitantes del Yermo, incluida una explicación mitificada del mundo tal como existe en la actualidad, a diferencia de la visión más cínica de sus vecinos. Además, veneran las tecnologías antiguas con una mezcla de respeto y superstición.",
-        traitName: "Razgos",
-        traitDescription: "Podés elegir dos de los siguientes rasgos, dos rasgos de la lista del origen Superviviente, o bien un rasgo de esta lista o de las listas de Superviviente o de la República de Nueva California, y una ventaja adicional. Cada rasgo ofrece un beneficio y puede incluir una penalización asociada.",
+        description: "Los tribales del Yermo viven en comunidades extensas y poseen un fuerte sentido de comunidad. Pueden compartir una filosofía espiritual y una visión mitificada del mundo, y veneran las tecnologías antiguas con una mezcla de respeto y superstición.",
+        traitName: "Rasgos",
+        traitDescription: "Podés elegir dos rasgos de la lista Tribal, dos rasgos de la lista Superviviente, o un rasgo de las listas Tribal, Superviviente o República de Nueva California y una ventaja adicional.",
         trait: "tribalTraitsCanon",
         traitChoices: 2,
         skillTrait: null,
-        skillTraitChoices: null
+        skillTraitChoices: null,
+        additionalSkillTraitOptions: null,
+        additionalSkillTraitChoices: null,
+        originOptions: null
     };
 
     const commonwealthMinutemanOrigin = {
         id: "commonwealthMinutemanOrigin",
         name: "Minuteman",
         source: "Settlers Guide",
-        description: "“Protect the people at a minute’s notice.” A promise to live by, you belong to a unique brand of survivors in the Commonwealth who put others before themselves. With the threat of raiders, radioactive mutants, and morally corrupt factions that travel the wastes, another settlement always needs your help. You could be a long-standing veteran of the Minutemen, rising to prominence in your defense of Diamond City against super mutant attackers. You could have signed on later, as the group’s founders tried to organize a government and unite settlements around the Commonwealth (only to be thwarted by the assassination of all the representatives in attendance), taking up residence in the old Fort Independence. “The Castle ‘’ could have been your home shortly before it was lost to a sea monster emerging from the Boston shoreline. Whatever your participation, the Quincy Massacre was a pivotal moment in your personal history, with Clint’s defection to the Gunners, Colonel Hollis’s capture and subsequent execution, and the Gunners slaughtering all but a few survivors in Quincy. Preston Garvey believed himself the only Minutemen survivor of the Quincy Massacre, but what if he was mistaken? What if you also survived, split off from your fellow militiamen, or went along with Clint’s plans just to live, but never losing the spirit of the Minutemen’s pledge to protect the citizens of the Commonwealth? Maybe you left the group before the events of Quincy, disenfranchised by the politics and infighting after the death of General Becker, but ready to dust off the hat and coat once more for someone who can reunite the militia and bring it back to its former glory", 
+        description: "Pertenecés a una milicia de supervivientes de la Commonwealth que pone a los demás por delante de sí misma. Protegés los asentamientos frente a saqueadores, mutantes y facciones hostiles, y quizás hayas sobrevivido a la masacre de Quincy.",
         traitName: "United We Stand",
-        traitDescription: "Trade caravan posts in your settlements attract traders every 5 days rather than 7. Settlements you establish, by any means, have a base Defense resource of 4. You gain either Energy Weapons or Small Guns as a bonus tag skill (your choice). Your Damage Resistance is increased by +1 while in cover, and you deal +1CD damage while you and your companions are outnumbered.",
+        traitDescription: "Los puestos de caravanas de tus asentamientos atraen comerciantes cada 5 días en lugar de cada 7. Los asentamientos que establecés tienen una Defensa base de 4. Obtenés Armas de Energía o Armas Pequeñas como habilidad TAG adicional, a tu elección. Tu Resistencia al Daño aumenta en 1 mientras estás a cubierto, e infligís +1 CD de daño cuando vos y tus compañeros están en inferioridad numérica.",
         trait: null,
         traitChoices: null,
-        skillTrait: [ "Armas pequeñas", "Armas de energia" ],
-        skillTraitChoices: 1
+        skillTrait: ["Armas pequeñas", "Armas de energía"],
+        skillTraitChoices: 1,
+        additionalSkillTraitOptions: null,
+        additionalSkillTraitChoices: null,
+        originOptions: null
     };
 
     const newCaliforniaRepublicOrigin = {
         id: "newCaliforniaRepublicOrigin",
-        name: "Nueva Republica de California",
+        name: "República de Nueva California",
         source: "Settlers Guide",
-        description: "As a citizen of New California, you are the progeny of West Coast survivors of the nuclear apocalypse, a legacy of civilization rebuilding and expanding from the humble beginnings of Shady Sands. Formed from the political differences and exodus of Vault 15 in California, its founding members left the vault with a G.E.C.K., allowing them to grow food, build their first amenities, and establish Shady Sands. Soon, a thriving, self-sustaining community became the foundation stone of the New California Republic, or NCR. From its humble beginnings, the NCR expanded, promoting many old-world values: democracy, with its presidents and a Congress; liberty, by exalting personal freedoms; and the rule of law, by protecting its citizens and holding them accountable for immoral actions. Whether you live these values yourself is up to you, but if you come from New California, your life is marked by it in some way. Many citizens of the republic are just like survivors you’d find anywhere in the wastes: farmers, herders, mechanics, merchants, caravaneers, even mercenaries and soldiers. What sets you apart are the cultural touchstones other wastelanders don’t have in their everyday lives. The NCR Dollar, established at the turn of the 22nd century, dominates the New California economy and eclipses Nuka-Cola bottle caps as the default tender within NCR territory. You’ll likely have seen much more built-up urban areas, like the Hub, Junktown, Vault City, and New Reno. These sprawling urban centers make the rest of the wasteland seem backward, deserted, and otherwise dangerous. The trade pouring in and out of these settlements provides food, medicine, and even civil liberties like the right to vote and to pursue justice for crimes committed. That being said, a strain on the agricultural and industrial output of the republic has driven an expansion east, into the Mojave Wasteland in particular, to find and develop more farmland. The ensuing annexations, wars, and expansion to the NCR’s territory brought arguments of imperialism against its government, and its thinly-stretched military and prospecting frontiersmen lost the benefits of civilization for the benefit of everyone else.",
+        description: "Sos ciudadano de la República de Nueva California, una nación surgida de los supervivientes del apocalipsis nuclear. Su sociedad promueve la democracia, las libertades individuales y el estado de derecho, aunque su expansión territorial y sus conflictos también han generado acusaciones de imperialismo.",
         traitName: "New Californian",
-        traitDescription: "You may choose two of the following traits, two traits from the Survivor origin, or one trait from either list and one additional perk. Each trait has a benefit and may have an accompanying penalty.",
+        traitDescription: "Podés elegir dos rasgos de la lista de la República de Nueva California, dos rasgos de la lista Superviviente, o un rasgo de cualquiera de esas listas y una ventaja adicional.",
         trait: "newCaliforniaRepublicTraitsCanon",
         traitChoices: 2,
         skillTrait: null,
-        skillTraitChoices: null
+        skillTraitChoices: null,
+        additionalSkillTraitOptions: null,
+        additionalSkillTraitChoices: null,
+        originOptions: null
     };
 
     const protectronOrigin = {
         id: "protectronOrigin",
         name: "Protectron",
         source: "Settlers Guide",
-        description: "Manufactured by RobCo Industries as an inexpensive work drone, your model was one of the company’s most popular robots that put many Americans out of work before the Great War. Protectrons were built for various construction, security, and administrative tasks. Factory models were used for manual labor. Office models were programmed with integrated administrative software. Firefighter models used internal cryojets to suppress dangerous flames. Medic models featured built-in defibrillators. Police models contained stronger armor and enhanced tasers for crowd control. You might have come from one of these manufacturing lines or another entirely. Your body is humanoid in shape and covered in light armor plating. Not initially designed for combat, the wasteland is full of resources you can use to protect yourself and others. Unless you have received software or hardware upgrades, you speak in a robotic monotone like other Protectrons. Most Protectrons do almost anything to defend those their programming determines to be allies. A long time has passed since your creation. You may have been a worker drone, but now you are much more. Your original programming still drives your behavior and actions, though it might have decayed or become twisted. You could be one of the few Protectrons to achieve true self-awareness and resist your programming. In the wild wasteland, it is up to you to decide whether your ancient programming will define you—or whether you define who you are by your own directives.",
+        description: "Fuiste fabricado por RobCo Industries como un robot de trabajo económico. Los Protectrons se diseñaron para tareas de construcción, seguridad, administración, extinción de incendios y asistencia médica. Tu programación original todavía puede influir en tus decisiones.",
         traitName: "Protect or Destroy",
-        traitDescription: "You were built to survive in harsh environments. Once per scene, you may reroll a test to overcome an environmental hazard and use the new result. You are also immune to disease, and Radiation and Poison damage, but you cannot use chems, nor can you benefit from food, drink, or rest. You cannot recover from your injuries or heal health points without receiving repairs. Protectrons are designed for a specific purpose and contain additional mechanisms to support their programmed tasks. You cannot have more than two robot mods installed simultaneously. You may be a Fire Brigadier, Law Enforcer, Construction Worker, Medical Responder, or a model of your own invention. When making a test directly related to your model’s purpose, the first d20 you buy using Action Points costs 0. Additionally, your carry weight is 225 lbs. and cannot be increased by your Strength or perks, but it can be increased by modified armor.",
+        traitDescription: "Una vez por escena, podés repetir una prueba para superar un peligro ambiental. Sos inmune a las enfermedades y al daño por radiación y veneno, pero no podés usar químicos ni beneficiarte de comida, bebida o descanso. Para recuperarte de heridas necesitás reparaciones. No podés tener más de dos modificaciones robóticas instaladas. Cuando hacés una prueba directamente relacionada con el propósito de tu modelo, el primer d20 que comprás con Puntos de Acción cuesta 0. Tu capacidad de carga es de 225 lb y no puede aumentar mediante Fuerza o ventajas, aunque sí mediante armadura modificada.",
         trait: "protectronTraitsCanon",
         traitChoices: 2,
         skillTrait: null,
-        skillTraitChoices: null
+        skillTraitChoices: null,
+        additionalSkillTraitOptions: null,
+        additionalSkillTraitChoices: null,
+        originOptions: null
     };
 
     const robobrainOrigin = {
         id: "robobrainOrigin",
         name: "Robobrain",
         source: "Settlers Guide",
-        description: "Born from the cybernetic amalgamation of the human brain and robotic body, robobrains were the result of secretive research that produced a short run of prototype automatrons across the pre-War United States. While most units lacked the personality of their life before being extracted from their human bodies, some robobrains exhibit strange personality traits, and even worse, some turn inexplicably violent. Without any memory of your former life but having developed a sense of self, you are a robot built of the most elegant and advanced central processor ever known—the human brain. Is your brain another component, and you are the robot? Or are you still in there somewhere, trying to break out of the memory-repression inflicted on your consciousness through the CODE Conditioning Protocol? The wasteland may never know, but you can still travel the wastes and survive, defend yourself, and even form relationships with human survivors whose bodies might give you an eerie feeling of familiarity. Either way, you traverse the wastes on a pair of tracks, capable of getting through most terrains, and interact with the world using a pair of claws on the end of flexible extenders. These claws allow you to manipulate objects and equipment like a person would, but can equally be replaced by guns, emitters, weapons, or other accessories provided they can be mechanically incorporated. Your robust construction gives you incredible durability, and the biomedical gel inside the dome containing your brain can sustain its tissue potentially for centuries—who you will be by that point is unknown as you stray a little further from your programming every single day. Regardless of your origins at a General Atomics or military laboratory, you can travel as far as your tracks and internal power plant can carry you. So robobrains can be found in all corners of the wasteland and many different circumstances. Who you call your friends, and what you consider your purpose, is up to you.",
+        description: "Sos un robot cuyo procesador central es un cerebro humano. Tu cuerpo mecánico y tus sistemas avanzados te permiten atravesar el Yermo, interactuar con objetos y sobrevivir durante siglos, aunque tus recuerdos y tu identidad pueden estar incompletos.",
         traitName: "Robobrain Robot",
-        traitDescription: "You are a robot with a human brain as a central processor. You have visual sensors that can detect the visual spectrum and infrared, ignoring any difficulty increase to Perception tests in darkness. You are also immune to radiation and poison damage, but you cannot use chems, nor can you benefit from food, drink, or rest. You cannot recover your own injuries or heal health points without receiving repairs (see Fallout: The Roleplaying Game Core Rulebook, p.34). You move on two continuous tracks, and have two tube-like manipulators as arms with opposable claws you can use to control tools and objects designed for humans with precision and make unarmed melee attacks. Your head has a built-in mesmetron, which you can use to make ranged attacks. Your carry weight is 150 lbs., and it cannot be increased by your Strength or perks, but it can be increased by modified armor.",
+        traitDescription: "Tus sensores visuales detectan el espectro visible y el infrarrojo, por lo que ignorás los aumentos de dificultad de Percepción causados por la oscuridad. Sos inmune al daño por radiación y veneno, pero no podés usar químicos ni beneficiarte de comida, bebida o descanso. Necesitás reparaciones para recuperarte de heridas. Te desplazás mediante orugas y tenés manipuladores con garras. Tu cabeza incorpora un mesmetron. Tu capacidad de carga es de 150 lb y no puede aumentar mediante Fuerza o ventajas, aunque sí mediante armadura modificada.",
         trait: null,
         traitChoices: null,
         skillTrait: null,
-        skillTraitChoices: null
+        skillTraitChoices: null,
+        additionalSkillTraitOptions: null,
+        additionalSkillTraitChoices: null,
+        originOptions: null
     };
 
     const securitronOrigin = {
         id: "securitronOrigin",
         name: "Securitron",
         source: "Settlers Guide",
-        description: "Created by RobCo Industries and manufactured by H&H Tools in pre-War Nevada to protect the Strip in New Vegas, the PDQ-88b securitron is a top-of-theline private security robot capable of varied combat operations given the appropriate upgrades. Unique to New Vegas, some units have been given personalities outside the police and military defaults, ranging from human personas to cartoon creations—every single one loyal to Mr. House in some way. You are designed to keep the peace in and around the Strip, built of a large, strong unicycle chassis, thickplated main body, with extender-style arms that house concealed weapons and claws to manipulate your environment. By default, you know how to use the laser and submachine guns housed inside your arms, and the claws to attack and restrain people. Your singular wheel propels you across most terrain, designed for the urban and desert environments you patrol. The screen at the center of your torso can display still images, typically of a stylized face reflecting your personality. You can communicate verbally using a speaker within your body casing, and even print out memos or leaflets from a printer housed in your body should the need arise. The only way to gain access to your upgraded operating system, increase your combat effectiveness, and gain access to your grenade and rocket launcher hardware is by chip—a platinum casino chip that contains the data for the Mk II systems for all securitrons. The only two locations on earth where the chip can be inserted into a computer are in the Lucky 38 Casino (Mr. House’s personal casino and residence) and a weather monitoring station occupied by Caesar’s Legion. Once inserted and its data transmitted, all Securitrons on the network are upgraded and uploaded with the right drivers to use what are actually their primary weapons. The chip’s existence may be unknown to you or something you’re looking for as part of Mr. House’s many plans to orchestrate the delivery of the data contained within, giving him tighter control over New Vegas and his rivals. Whatever your plans, Mr. House’s aren’t far behind.",
+        description: "Fuiste creado por RobCo Industries para proteger el Strip de New Vegas. Tu chasis de una sola rueda, tus brazos extensibles y tus sistemas de armas integrados te convierten en una plataforma de seguridad y combate.",
         traitName: "Mark I Securitron",
-        traitDescription: "You are a robot, with the Mk I operating system designed by RobCo Industries. You have forward-facing visual sensors that can detect the visual spectrum. You are also immune to radiation and poison damage, but you cannot use chems, nor can you benefit from food, drink, or rest. You cannot recover your own injuries or heal health points without receiving repairs (see Fallout: The Roleplaying Game Core Rulebook, p.34). You move on a single tire, increasing the difficulty of skill tests to balance or remain upright by 1. Your arms are fitted with opposable claws, with which you can manipulate your environment rudimentarily and make unarmed melee attacks. The palms of your claws are outfitted with integrated weapons, as outlined in Choose Equipment, p.95. Your shoulders house missile launchers and a grenade launcher is integrated into the left arm, but they are both inoperable unless you are fitted with the Mk II operating system mod. Your carry weight is 150 lbs. It cannot be increased by your Strength or perks, but by modified armor" ,
+        traitDescription: "Sos un robot con el sistema operativo Mark I. Tus sensores detectan el espectro visible. Sos inmune al daño por radiación y veneno, pero no podés usar químicos ni beneficiarte de comida, bebida o descanso. Necesitás reparaciones para recuperarte de heridas. Te desplazás sobre una sola rueda, lo que aumenta en 1 la dificultad de las pruebas para mantener el equilibrio. Tus garras permiten manipular objetos y realizar ataques cuerpo a cuerpo. Tus lanzamisiles y lanzagranadas no funcionan hasta que instalás el sistema operativo Mark II. Tu capacidad de carga es de 150 lb y no puede aumentar mediante Fuerza o ventajas, aunque sí mediante armadura modificada.",
         trait: null,
         traitChoices: null,
         skillTrait: null,
-        skillTraitChoices: null
+        skillTraitChoices: null,
+        additionalSkillTraitOptions: null,
+        additionalSkillTraitChoices: null,
+        originOptions: null
     };
 
     const gen3SynthOrigin = {
         id: "gen3SynthOrigin",
-        name: "Generation 3 Synth",
+        name: "Sintético de tercera generación",
         source: "Settlers Guide",
-        description: "You are a bio-synthetic humanoid, almost entirely indistinguishable from humans, created by a secret scientific organization known as the Institute. You were designed to integrate into human society, infiltrate communities, and explore the surface undetected. Your lab-grown body is made up of real human flesh, bones, and organs—your only distinguishing feature, an undetectable cybernetic implant in your brain that contains your programming. Your bio-engineered upgrades make you hardier than humans, and you do not age or suffer tiredness or malnutrition. Your capacity to keep going for extended periods without needing rest is a great advantage in the harsh wasteland. Additionally, your body can survive synthetic implants and cybernetic modifications without complications. If you are an escaped synth, you may have decided to have your memories wiped by the Railroad to better assume a new life on the surface, implanted with the life and personality of an original creation or maybe even based on someone living or dead from the wasteland above the Institute. Alternatively, you may have struck out on your own, retaining your programmed personality and are fully aware of the dangers of the Synth Retention Bureau. If you work for the Institute, you may be trying to infiltrate a group or settlement in the Commonwealth, taking the place of a real wastelander and living their life in their place while all the time reporting back to Institute handlers, providing intelligence for the secretive organization. Due to the fear gripping the Commonwealth, your discovery could prove incredibly dangerous to your survival and the mission you have been placed on the surface to complete. What lengths do you go to to complete your creators’ goals, or do you begin to question your programming, your awareness, your very existence?.",
-        traitName: "Mas que humano",
-        traitDescription: "Though you appear mentally and physically human, your bioengineering makes you something entirely new and, in many ways, improved. You gain one additional tag skill. You cannot suffer from starvation or dehydration and do not need sleep, but you do not gain a benefit from consuming food or beverage items. When you rest, instead of sleeping, you may engage in minor activities such as crafting, reading, or light scouting. Additionally, you are immune to Poison and Radiation damage and disease. You do not age, nor do you gain or lose weight. When interacting with NPCs who know you are a synth—unless they are sympathetic towards synths—the difficulty of CHA tests made by you or your allies increases by 2. When a complication is rolled, they either become hostile, or your Faction Reputation or Settlement Reputation decreases by 1 per complication generated due to their fear of the Institute. The Institute has given you a unique recall code—an unalterable verbal command that resets your personality and memories. When you hear the code spoken, you become incapacitated until you are retrieved and restored by the Institute.",
+        description: "Sos un humanoide biosintético creado por el Instituto, prácticamente indistinguible de una persona real. Tu cuerpo está compuesto de tejidos humanos cultivados en laboratorio y contiene un implante cibernético que almacena tu programación.",
+        traitName: "Más que humano",
+        traitDescription: "Obtenés una habilidad TAG adicional. No sufrís hambre ni deshidratación y no necesitás dormir, aunque tampoco obtenés beneficios por consumir comida o bebida. Durante el descanso podés realizar actividades menores. Sos inmune al daño por veneno y radiación y a las enfermedades. No envejecés ni ganás o perdés peso. Si los PNJ descubren que sos un sintético y no simpatizan con ellos, la dificultad de las pruebas de CAR realizadas por vos o tus aliados aumenta en 2. Las complicaciones pueden volverlos hostiles o reducir tu reputación. El Instituto te asignó un código de recuperación que puede incapacitarte y restablecer tu personalidad y recuerdos.",
         trait: null,
-        traitChoices: null
+        traitChoices: null,
+        skillTrait: null,
+        skillTraitChoices: null,
+        additionalSkillTraitOptions: null,
+        additionalSkillTraitChoices: 1,
+        originOptions: null
     };
 
     // --- TRAITS BY ORIGIN HOMEBREW ---
@@ -6552,7 +6662,7 @@
         description: "Sos una criatura temida en todo el Yermo, hecha todavía más letal después de que el Enclave expusiera a tus ancestros al Virus de Evolución Forzada (F.E.V.). Con garras y cuernos feroces, una estatura que supera ampliamente a la mayoría de los humanos, una velocidad aterradora y una inteligencia comparable a la humana, sos verdaderamente un depredador supremo. Es probable que puedas rastrear tus orígenes hasta Goris o Xarn, los únicos dos sobrevivientes de la masacre de Vault 13. Cómo llegaste a la Mancomunidad (o a cualquier otra localización de la ambientación) es algo que deberías definir junto con tu Director de Juego.",
         traitName: "Inteligencia letal",
         traitDescription: "Beneficios: Comenzás con la habilidad Pelea etiquetada (Tag). Esto no cuenta para tus tres etiquetas iniciales. Sos completamente inmune a la Radiación. Recibís +1 Punto de Salud por Nivel. Podés levantar y arrojar objetos tan grandes como un auto estándar. Gracias a tus sentidos agudos, reducís en 1 la dificultad de todas las pruebas de PER, hasta un mínimo de 0. También podés detectar criaturas u objetos que normalmente serían indetectables para otros personajes. Gracias a la práctica con tus garras, podés adquirir rangos en Cerrajería, Medicina, Pilotear, Reparación y Ciencia (hasta el límite de 4). Sin embargo, el rango de complicación para estas habilidades aumenta en 2 (18-20). Esto puede anularse adquiriendo la ventaja Garras Ágiles. Comenzás con una de las siguientes habilidades etiquetada (Tag): Cerrajería, Medicina, Pilotear, Reparación o Ciencia. La habilidad elegida puede aumentarse hasta un máximo de 6, en lugar del límite base de 4. Esto no cuenta para tus tres etiquetas iniciales. Tu gruesa piel te otorga 1 de Resistencia al Daño natural (Todo). Penalizadores: Debido a tu enorme tamaño, tu Defensa queda fijada en 1. Además, solo podés usar armaduras fabricadas para adaptarse a un Deathclaw. No podés tener más de 4 rangos en ninguna habilidad, salvo que se indique lo contrario. No podés etiquetar las habilidades Armas Pesadas, Armas de Energía ni Armas Pequeñas. Aun así, podés asignar rangos a ellas. Si no estás adecuadamente disfrazado (por ejemplo, usando una túnica holgada), lo más probable es que los humanos te disparen apenas te vean o salgan corriendo, mientras gritan, en dirección contraria. Tu torso se considera un punto débil. Si un atacante elige específicamente apuntar a tu torso (es decir, no como resultado de una localización aleatoria), su daño ignora tu Resistencia al Daño natural.",
-        trait: "Pelea", [ "Cerrajería", "Medicina", "Pilotear", "Reparación", "Ciencia" ],
+        trait: "Pelea", //[ "Cerrajería", "Medicina", "Pilotear", "Reparación", "Ciencia" ],
         traitChoices: null
     };
 
@@ -6625,7 +6735,7 @@
         description: "Hermoso, ¿no? Bueno, ahora sos vos. O al menos te parecés. Generalmente se discute cómo alguien se convierte en Numen, pero se cree que son habitantes normales del Yermo que fueron contaminados solo parcialmente por el VEF, ya sea porque un objeto contaminado quedó atrapado dentro tuyo, porque solo fuiste sumergido parcialmente o por alguna otra razón. Los Numen son prácticamente desconocidos, aunque muchos podrían contarte historias sobre uno llamado Harold, que recorrió América contando historias y que finalmente se convirtió en un árbol, venerado por los Treeminders.",
         traitName: "Casi Super(Mutante)",
         traitDescription: "Seguís teniendo el mismo tamaño que un humano, pero tu cuerpo adopta una forma repugnantemente mutada, y la piel que te queda será verde, amarilla o gris, independientemente de cómo fueras cuando eras humano. Sos prácticamente inmortal, aunque estéril.\n\nA menudo te confunden con un ghoul o algo peor, y normalmente la gente y los supermutantes te reciben con hostilidad. No sos exactamente un supermutante, pero estás cerca. Sos inmune al daño por radiación y veneno. Debido a tu transformación incompleta, la forma en que mutás varía enormemente, lo que te permite elegir una mutación de la lista siguiente o elegir una ventaja adicional. Además, tenés una habilidad etiquetada (Tag) en Supervivencia. Podés haber tenido cualquier tipo de pasado antes de convertirte en Numen, por lo que, con el permiso de tu DJ, podés tomar el kit inicial de cualquier origen humano.",
-        trait: numenMutationOptions, //esto debe estar debajo, como una tabla informativa numenMutationCombinations
+        trait: numenMutationOptions, //esto debe estar debajo, como una tabla informativa numenMutationCombinations,
         skillTrait: null,
         skillTraitChoices: null
     };
