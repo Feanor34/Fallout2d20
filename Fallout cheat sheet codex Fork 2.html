@@ -2833,19 +2833,22 @@
                     <!-- PASO 3 -->
                     <section class="fc2-panel fc2-panel-3">
                         <h2>03 / HABILIDADES Y ETIQUETAS</h2>
-                        <div class="fc2-tag-selector">
-                            <p>SELECCIONÁ TUS 3 TAG</p>
-                            <div id="fc2-tag-buttons" class="fc2-tag-buttons"></div>
-                            <p id="fc2-tag-counter" aria-live="polite">TAG seleccionadas: 0/3</p>
-                        </div>
-                        <p class="fc2-description">
-                            Distribuí tus puntos de habilidad y elegí tus habilidades etiquetadas.
-                        </p>
+                        <!-- ELECCIONES DE HABILIDADES TAG POR ORIGEN -->
+                        <div id="fc2-tag-origin-choices" hidden>
+                            <div class="fc2-section-divider"></div>
 
+                            <h3 id="fc2-tag-origin-title">
+                                Elecciones de habilidades por origen
+                            </h3>
+
+                            <p id="fc2-tag-origin-counter"></p>
+
+                            <div id="fc2-tag-origin-options"></div>
+                        </div>
                         <!-- Resumen de puntos y etiquetas -->
                         <div class="fc2-table-wrap">
                             <p id="fc2-skill-points-status" aria-live="polite">
-                                Esperando la selección del origen y los atributos SPECIAL...
+                            <p id="fc2-tag-counter" aria-live="polite">TAG seleccionadas: 0/3</p>
                             </p>
 
                             <p id="fc2-skill-tags-status" aria-live="polite"></p>
@@ -5903,208 +5906,6 @@
         "Synth_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
     };
 
-    (() => {
-        const fc2SpecialKeys = ["FUE", "PER", "END", "CAR", "INT", "AGI", "SUE"];
-
-        function fc2SpecialObtenerValores() {
-            const valores = {};
-
-            fc2SpecialKeys.forEach(key => {
-                const input = document.getElementById("fc2-special-" + key);
-                valores[key] = input ? Number(input.value) : 0;
-            });
-
-            return valores;
-        }
-
-        function fc2SpecialObtenerPresupuesto(origen) {
-            const elecciones = window.fc2EleccionesRasgos?.[origen.id] || [];
-            return elecciones.includes("gifted") ? 7 : 5;
-        }
-
-        function fc2SpecialActualizarContador(origen) {
-            const contador = document.getElementById("fc2-special-points");
-            const mensaje = document.getElementById("fc2-special-message");
-
-            if (!origen || !originLimits[origen.id]) return;
-
-            const limites = originLimits[origen.id];
-            const valores = fc2SpecialObtenerValores();
-            const presupuesto = window.fc2SPECIALPresupuesto ?? 5;
-
-            const gastados = fc2SpecialKeys.reduce((total, key) => {
-                return total + Math.max(0, valores[key] - limites.base[key]);
-            }, 0);
-
-            if (contador) {
-                contador.textContent =
-                    "PUNTOS SPECIAL: " + gastados + " / " + presupuesto;
-            }
-
-            window.fc2SPECIALValido = gastados === presupuesto;
-
-            if (mensaje) {
-                if (gastados === presupuesto) {
-                    mensaje.textContent = "Distribución completa. Podés continuar.";
-                } else if (gastados < presupuesto) {
-                    mensaje.textContent =
-                        "Te quedan " + (presupuesto - gastados) +
-                        " punto(s) por distribuir.";
-                } else {
-                    mensaje.textContent =
-                        "Excediste el presupuesto. Corregí los valores.";
-                }
-            }
-
-            window.fc2Personaje = {
-                ...(window.fc2Personaje || {}),
-                origenId: origen.id,
-                special: valores,
-                gifted: presupuesto === 7,
-                puntosSPECIALDisponibles: presupuesto - gastados
-            };
-        }
-
-        function fc2SpecialRestablecerBase(origen) {
-            const limites = originLimits[origen.id];
-
-            fc2SpecialKeys.forEach(key => {
-                const input = document.getElementById("fc2-special-" + key);
-                if (!input) return;
-
-                input.min = Math.min(limites.min, limites.base[key]);
-                input.max = limites.max[key];
-                input.step = "1";
-                input.value = limites.base[key];
-                input.dataset.lastValid = String(limites.base[key]);
-            });
-        }
-
-        window.fc2InicializarSPECIAL = function (origen) {
-            const mensaje = document.getElementById("fc2-special-message");
-
-            if (!origen || !originLimits[origen.id]) {
-                if (mensaje) {
-                    mensaje.textContent =
-                        "No se encontraron los límites SPECIAL de este origen.";
-                }
-                window.fc2SPECIALValido = false;
-                return;
-            }
-
-            window.fc2SPECIALOrigenId = origen.id;
-            window.fc2SPECIALPresupuesto = fc2SpecialObtenerPresupuesto(origen);
-
-            fc2SpecialRestablecerBase(origen);
-            fc2SpecialActualizarContador(origen);
-        };
-
-        window.fc2ActualizarSPECIALDesdeRasgos = function (origen) {
-            if (!origen || !originLimits[origen.id]) return;
-            if (window.fc2SPECIALOrigenId !== origen.id) return;
-
-            const nuevoPresupuesto = fc2SpecialObtenerPresupuesto(origen);
-            const cambioPresupuesto =
-                nuevoPresupuesto !== window.fc2SPECIALPresupuesto;
-
-            window.fc2SPECIALPresupuesto = nuevoPresupuesto;
-
-            if (cambioPresupuesto) {
-                fc2SpecialRestablecerBase(origen);
-
-                const mensaje = document.getElementById("fc2-special-message");
-                if (mensaje) {
-                    mensaje.textContent =
-                        "Cambió el presupuesto de SPECIAL. La distribución volvió a los valores base.";
-                }
-            }
-
-            fc2SpecialActualizarContador(origen);
-        };
-
-        // Registrar los eventos una sola vez.
-        fc2SpecialKeys.forEach(key => {
-            const input = document.getElementById("fc2-special-" + key);
-            if (!input || input.dataset.specialListener === "true") return;
-
-            input.dataset.specialListener = "true";
-
-            input.addEventListener("change", () => {
-                const origen = window.fc2OrigenSeleccionado;
-
-                if (!origen || !originLimits[origen.id]) return;
-
-                const limites = originLimits[origen.id];
-                const minimo = Number(input.min);
-                const maximo = Number(input.max);
-                let valor = Number(input.value);
-
-                if (!Number.isFinite(valor)) {
-                    valor = limites.base[key];
-                }
-
-                valor = Math.trunc(valor);
-                valor = Math.max(minimo, Math.min(maximo, valor));
-
-                const valorAnterior = Number(input.dataset.lastValid);
-                input.value = valor;
-
-                const valores = fc2SpecialObtenerValores();
-                const presupuesto = window.fc2SPECIALPresupuesto ?? 5;
-
-                const gastados = fc2SpecialKeys.reduce((total, atributo) => {
-                    return total +
-                        Math.max(0, valores[atributo] - limites.base[atributo]);
-                }, 0);
-
-                if (gastados > presupuesto) {
-                    input.value = Number.isFinite(valorAnterior)
-                        ? valorAnterior
-                        : limites.base[key];
-
-                    const mensaje =
-                        document.getElementById("fc2-special-message");
-
-                    if (mensaje) {
-                        mensaje.textContent =
-                            "No podés gastar más de " + presupuesto +
-                            " puntos. Se restauró el último valor válido.";
-                    }
-
-                    fc2SpecialActualizarContador(origen);
-                    return;
-                }
-
-                input.dataset.lastValid = input.value;
-                fc2SpecialActualizarContador(origen);
-            });
-        });
-
-        // Impedir avanzar si el presupuesto no está distribuido exactamente.
-        const botonSiguiente = document.getElementById("fc2-next-step-2");
-
-        if (botonSiguiente && botonSiguiente.dataset.specialValidation !== "true") {
-            botonSiguiente.dataset.specialValidation = "true";
-
-            botonSiguiente.addEventListener("click", event => {
-                if (window.fc2SPECIALValido !== true) {
-                    event.preventDefault();
-                    event.stopPropagation();
-
-                    const mensaje =
-                        document.getElementById("fc2-special-message");
-
-                    if (mensaje) {
-                        mensaje.textContent =
-                            "Antes de continuar, distribuí exactamente " +
-                            (window.fc2SPECIALPresupuesto ?? 5) +
-                            " puntos de SPECIAL.";
-                    }
-                }
-            });
-        }
-    })();
-
     // --- TRAITS BY ORIGIN CANON ---
     const misterHandyTraitsCanon = [
         { id: "10mm_auto_pistol", name: "Pistola automática 10mm", benefit: "Puedes hacer ataque a distancia usando una pistola automática de 10mm.", penalty: "" },
@@ -6329,7 +6130,7 @@
         source: "Wanderers Guide",
         description: "Los tribales del Yermo viven en comunidades extensas y poseen un fuerte sentido de comunidad. Pueden compartir una filosofía espiritual y una visión mitificada del mundo, y veneran las tecnologías antiguas con una mezcla de respeto y superstición.",
         traitName: "Rasgos",
-        traitDescription: "Podés elegir dos rasgos de la lista Tribal, dos rasgos de la lista Superviviente, o un rasgo de las listas Tribal, Superviviente o República de Nueva California y una ventaja adicional.",
+        traitDescription: "Podés elegir dos rasgos de la lista Tribal, o un rasgo y un perk adicional.",
         trait: "tribalTraitsCanon",
         traitChoices: 2,
         skillTrait: null,
@@ -6361,7 +6162,7 @@
         source: "Settlers Guide",
         description: "Sos ciudadano de la República de Nueva California, una nación surgida de los supervivientes del apocalipsis nuclear. Su sociedad promueve la democracia, las libertades individuales y el estado de derecho, aunque su expansión territorial y sus conflictos también han generado acusaciones de imperialismo.",
         traitName: "New Californian",
-        traitDescription: "Podés elegir dos rasgos de la lista de la República de Nueva California, dos rasgos de la lista Superviviente, o un rasgo de cualquiera de esas listas y una ventaja adicional.",
+        traitDescription: "Podés elegir dos rasgos de la lista de la República de Nueva California, o un rasgo y un perk adicional.",
         trait: "newCaliforniaRepublicTraitsCanon",
         traitChoices: 2,
         skillTrait: null,
@@ -6457,13 +6258,13 @@
     ];
 
     const serviceBranches = [
-        { name: "Medio Oeste: Táctica", tagSkill: "Armas Pequeñas, Armas Grandes, Explosivos", assignment: "Proteger algo de un ataque." },
-        { name: "Medio Oeste: Inteligencia", tagSkill: "Hablar, Ciencia, Sigilo", assignment: "Averiguar la ubicación de algo." },
-        { name: "Medio Oeste: Logística", tagSkill: "Reparar, Pilotar, Supervivencia", assignment: "Reparar o transportar algo." },
-        { name: "Medio Oeste: Navegación", tagSkill: "Hablar, Atletismo, Supervivencia", assignment: "Asegurar una zona del Yermo." },
-        { name: "Mariposa: Lost Hills", tagSkill: "Desarmado, Sigilo, Medicina", assignment: "Asegurarse de que un secreto nunca salga a la luz." },
-        { name: "Mariposa: Oriental", tagSkill: "Armas de Energía, Reparar, Ciencia", assignment: "Asegurar una ubicación de importancia tecnológica." },
-        { name: "Mariposa: Proscrito", tagSkill: "Armas de Energía, Medicina, Explosivos", assignment: "Destruir o inutilizar un recurso para que nadie más pueda controlarlo." }
+        { name: "Medio Oeste: Táctica", tagSkill: ["Armas Pequeñas", "Armas Grandes", "Explosivos"], assignment: "Proteger algo de un ataque." },
+        { name: "Medio Oeste: Inteligencia", tagSkill: ["Hablar", "Ciencia", "Sigilo"], assignment: "Averiguar la ubicación de algo." },
+        { name: "Medio Oeste: Logística", tagSkill: ["Reparar", "Pilotar", "Supervivencia"], assignment: "Reparar o transportar algo." },
+        { name: "Medio Oeste: Navegación", tagSkill: ["Hablar", "Atletismo", "Supervivencia"], assignment: "Asegurar una zona del Yermo." },
+        { name: "Mariposa: Lost Hills", tagSkill: ["Desarmado", "Sigilo", "Medicina"], assignment: "Asegurarse de que un secreto nunca salga a la luz." },
+        { name: "Mariposa: Oriental", tagSkill: ["Armas de Energía", "Reparar", "Ciencia"], assignment: "Asegurar una ubicación de importancia tecnológica." },
+        { name: "Mariposa: Proscrito", tagSkill: ["Armas de Energía", "Medicina", "Explosivos"], assignment: "Destruir o inutilizar un recurso para que nadie más pueda controlarlo." }
     ];
 
     const eyebotOptions = [
@@ -6502,7 +6303,7 @@
     ];
 
     const childrenOfAtomTeachingsOptions = [
-        { id: "his_will_guides_my_hand", name: "u voluntad guía mi mano", benefit: "Habilidad etiquetada adicional en Armas Pequeñas, Armas Cuerpo a Cuerpo o Armas de Energía. Una vez por encuentro de combate, podés convertir una complicación en un éxito crítico.", penalty: "Requiere 1 AP y un punto de Suerte para convertirla en un éxito crítico. Atom tarda mucho en alterar lo que debería haber sido." },
+        { id: "his_will_guides_my_hand", name: "Tu voluntad guía mi mano", benefit: "Habilidad etiquetada adicional en Armas Pequeñas, Armas Cuerpo a Cuerpo o Armas de Energía. Una vez por encuentro de combate, podés convertir una complicación en un éxito crítico.", penalty: "Requiere 1 AP y un punto de Suerte para convertirla en un éxito crítico. Atom tarda mucho en alterar lo que debería haber sido." },
         { id: "his_words_are_division", name: "Sus palabras son División", benefit: "Habilidad etiquetada adicional en Hablar o Trueque. Aumentá CAR en 1. Podés repetir 1d20 en todas las pruebas de CAR relacionadas con la religión o los Hijos de Atom.", penalty: "Cuando fallás una prueba de CAR, se convierte en una complicación. Después de todo, sos un cultista." },
         { id: "his_glow_my_illumination", name: "Su resplandor, mi iluminación", benefit: "Obtenés la etiqueta (Tag) en Supervivencia. Una vez por día, mientras estés en un área irradiada, podés rezar para recibir visiones, lo que requiere 10 minutos y te otorga 1+1 CD repeticiones de d20 durante 24 horas. Por cada 2 puntos de daño por radiación en un área, aumentá en 1 la cantidad de repeticiones.", penalty: "La primera complicación que obtengas después de usar una repetición de cualquier fuente hace que tengas visiones de pesadilla, dejándote aturdido durante 1+1 CD minutos y otorgándole una repetición al DJ. Cuando el DJ usa esta repetición, experimentás un déjà vu. Exclusivo de la Secta Iluminada." },
         { id: "his_knowledge_my_revelations", name: "Su conocimiento, mis revelaciones", benefit: "Habilidad etiquetada adicional en Reparación o Ciencia. Podés otorgar el doble de PG recuperados al reparar máquinas y objetos. Reducí en 1 la dificultad de las pruebas de INT relacionadas con máquinas.", penalty: "Cuesta 1 AP utilizarla. Si fallás una prueba de INT relacionada con máquinas, no podés volver a intentarla. Exclusivo de la Secta del Resplandor." }
@@ -6526,7 +6327,7 @@
         { id: "sticky", name: "Pegajoso.", benefit: "Tus aceites naturales tienen propiedades adhesivas, aumentando tu capacidad de carga en +50 y reduciendo en 1 la dificultad de las pruebas relacionadas con agarrar algo.", penalty: "**Moverse** se convierte en una acción mayor, al igual que **Sacar Objeto**, y **Correr** cuesta 1 AP. Las cosas suelen quedarse pegadas a vos sin que puedas controlarlo." },
         { id: "i_believe_i_can_fly", name: "Creo que puedo volar", benefit: "Te han brotado alas en la espalda, lo que te permite flotar y moverte por encima del suelo, sin verse afectado por terreno u objetos difíciles.", penalty: "Debés gastar una acción menor para comenzar a flotar y mantenerte flotando, y una lesión en el torso también cuenta como una lesión en las alas, impidiendo su uso incluso cuando sea tratada con primeros auxilios. Solo la atención médica puede reparar las lesiones en las alas." },
         { id: "eye_see_you", name: "¡Ojo que te veo!", benefit: "Tus ojos se han separado de tu cerebro y, aun así, podés seguir viendo a través de ellos en todo momento. Podés mover tus ojos a cualquier parte de tu cuerpo, o sacarlos y dejarlos en un área. Es difícil detectar tu ojo, requiriendo una prueba de **PER**+**Supervivencia** con una dificultad de 3.", penalty: "Hacer esto te provoca visión doble, aumentando en 1 la dificultad de las pruebas de **PER** (máximo 5) mientras no estés mirando lo mismo." },
-        { id: "organic_crackshot", name: "Tirador Orgánico", benefit: "Una de tus manos se retrae dentro de tu brazo, formando tres cañones. Podés utilizar el **Cañón de Mano**, listado al final de este documento.", penalty: "Elegí un brazo. Ese será tu brazo de arma y no podrás utilizarlo a menos que tengas una prótesis. No podés utilizar el arma y la prótesis al mismo tiempo. Se necesitan 5 minutos para quitar y colocar la prótesis." },
+        { id: "organic_crackshot", name: "Tirador Orgánico", benefit: "Una de tus manos se retrae dentro de tu brazo, formando tres cañones. Podés utilizar el **Cañón de Mano**, listado al final de este documentoSAMBUCA.", penalty: "Elegí un brazo. Ese será tu brazo de arma y no podrás utilizarlo a menos que tengas una prótesis. No podés utilizar el arma y la prótesis al mismo tiempo. Se necesitan 5 minutos para quitar y colocar la prótesis." },
         { id: "im_seeing_double", name: "¡Estoy viendo doble!", benefit: "Tu piel y estructura corporal se han vuelto maleables, tanto en pigmentación como en forma. Podés tomarte 1 hora para adoptar la apariencia de cualquier humanoide que recuerdes haber visto, reduciendo la dificultad de las pruebas de **CAR** relacionadas con suplantar a ese individuo durante 24 horas, después de lo cual comienza a deteriorarse.", penalty: "Debido a esto, tu cuerpo es bastante frágil y sufrís un golpe crítico si un ataque inflige +4 de daño (después de las resistencias) en un solo impacto. No podés transformarte por encima ni por debajo de tu masa corporal verdadera. Si tenés otras mutaciones, deben estar presentes." },
         { id: "hole_in_the_wall", name: "Agujero en la pared (y en todo lo demás)", benefit: "Tu aliento es un gas corrosivo e inodoro que oxida y deteriora las cosas que están cerca tuyo. Obtenés un d20 de bonificación en las pruebas relacionadas con debilitar o destruir objetos, y tus armas cuerpo a cuerpo tienen la cualidad **Perforante 1**. Además, podés dedicar tiempo a desgastar lentamente un objeto o estructura; el tiempo necesario queda determinado por el DJ.", penalty: "Tus objetos y armas se ven afectados por este gas, obteniendo la cualidad **Poco Fiable**, y la dificultad de las pruebas relacionadas con repararlos aumenta en 1 (máximo 5). Las cosas a tu alrededor tienden a debilitarse y romperse sin que puedas controlarlo. La única manera de detener este efecto es que otro gas domine al tuyo." },
         { id: "now_you_see_me", name: "Ahora me ves...", benefit: "Un pequeño conducto brota de tu cuerpo. Una vez por día, podés realizar una acción mayor para utilizarlo, liberando un líquido viscoso de camuflaje sobre vos o sobre un participante voluntario que esté a tu alcance. Esto reduce en 1 la dificultad de todas las pruebas de **Sigilo** y otorga un d20 de bonificación. Dura 1 hora, después de lo cual el fluido se desprende.", penalty: "Este líquido libera hormonas calmantes en los cerebros de los participantes, pacificándolos y relajándolos por completo. Cualquiera camuflado con esta crema no podrá atacar directamente y aumenta en 1 la dificultad de las pruebas relacionadas con intimidación." }
@@ -7756,35 +7557,28 @@
             descripcionRasgo.textContent = origen.traitDescription || "";
             panel.appendChild(descripcionRasgo);
 
-            // Si el origen no tiene opciones, no crear la tabla.
-            if (origen.trait == null) {
+            // Obtener las opciones de rasgos del origen.
+            // Algunos orígenes usan "trait" y otros usan "traitOptions".
+            let opciones = origen.traitOptions ?? origen.trait;
+
+            // Si no hay opciones, no mostrar la tabla.
+            if (opciones == null) {
                 panel.hidden = false;
                 window.fc2EleccionesRasgosRequeridas[origen.id] = 0;
                 return;
             }
 
-            // trait puede ser una lista directa o el nombre de una lista.
-            let opciones = null;
-
-            if (Array.isArray(origen.trait)) {
-                opciones = origen.trait;
-            } else if (typeof origen.trait === "string") {
-                opciones = listasRasgos[origen.trait] || null;
+            // Si las opciones son el nombre de una lista, buscarla.
+            if (typeof opciones === "string") {
+                opciones = listasRasgos[opciones] || null;
             }
 
+            // Comprobar que la lista exista.
             if (!Array.isArray(opciones)) {
-                console.error(
-                    "[Creador] No se encontró la lista de rasgos:",
-                    origen.id,
-                    origen.trait
-                );
-
                 const aviso = document.createElement("p");
-                aviso.textContent =
-                    "No se pudieron cargar los rasgos de este origen.";
+                aviso.textContent = "No se pudieron cargar los rasgos de este origen.";
                 panel.appendChild(aviso);
                 panel.hidden = false;
-
                 window.fc2EleccionesRasgosRequeridas[origen.id] = 0;
                 return;
             }
@@ -8282,44 +8076,58 @@
         }
     })();
 
-    // --- PASO 2: ASIGNACION DE S.P.E.C.I.A.L. ---
-
+    // --- PASO 2: ASIGNACIÓN DE S.P.E.C.I.A.L. ---
     (() => {
-        const fc2SpecialKeys = ["FUE", "PER", "END", "CAR", "INT", "AGI", "SUE"];
+        const claves = ["FUE", "PER", "END", "CAR", "INT", "AGI", "SUE"];
 
-        function fc2SpecialObtenerValores() {
+        // Lee los valores actuales de SPECIAL.
+        function obtenerValores() {
             const valores = {};
 
-            fc2SpecialKeys.forEach(key => {
-                const input = document.getElementById("fc2-special-" + key);
-                valores[key] = input ? Number(input.value) : 0;
+            claves.forEach(clave => {
+                const input = document.getElementById("fc2-special-" + clave);
+                valores[clave] = input ? Number(input.value) : 0;
             });
 
             return valores;
         }
 
-        function fc2SpecialObtenerPresupuesto(origen) {
-            const elecciones = window.fc2EleccionesRasgos?.[origen.id] || [];
-            return elecciones.includes("gifted") ? 7 : 5;
+        // Presupuesto base: 5 puntos.
+        // Gifted añade 2 puntos.
+        // extra_SPECIAL añade 1 punto.
+        function obtenerPresupuesto(origen) {
+            const rasgos = window.fc2EleccionesRasgos?.[origen.id] || [];
+
+            return 5
+                + (rasgos.includes("gifted") ? 2 : 0)
+                + (rasgos.includes("extra_SPECIAL") ? 1 : 0);
         }
 
-        function fc2SpecialActualizarContador(origen) {
-            const contador = document.getElementById("fc2-special-points");
-            const mensaje = document.getElementById("fc2-special-message");
+        // Calcula el gasto neto.
+        // Los valores por debajo de la base recuperan puntos.
+        function calcularGastados(valores, limites) {
+            return claves.reduce(
+                (total, clave) => total + valores[clave] - limites.base[clave],
+                0
+            );
+        }
 
+        // Actualiza el contador, el mensaje y la validación.
+        function actualizarContador(origen) {
             if (!origen || !originLimits[origen.id]) return;
 
             const limites = originLimits[origen.id];
-            const valores = fc2SpecialObtenerValores();
-            const presupuesto = window.fc2SPECIALPresupuesto ?? 5;
+            const valores = obtenerValores();
+            const presupuesto = window.fc2SPECIALPresupuesto;
+            const gastados = calcularGastados(valores, limites);
+            const disponibles = presupuesto - gastados;
 
-            const gastados = fc2SpecialKeys.reduce((total, key) => {
-                return total + Math.max(0, valores[key] - limites.base[key]);
-            }, 0);
+            const contador = document.getElementById("fc2-special-points");
+            const mensaje = document.getElementById("fc2-special-message");
 
             if (contador) {
                 contador.textContent =
-                    "PUNTOS SPECIAL: " + gastados + " / " + presupuesto;
+                    `PUNTOS SPECIAL: ${gastados} / ${presupuesto}`;
             }
 
             window.fc2SPECIALValido = gastados === presupuesto;
@@ -8327,10 +8135,9 @@
             if (mensaje) {
                 if (gastados === presupuesto) {
                     mensaje.textContent = "Distribución completa. Podés continuar.";
-                } else if (gastados < presupuesto) {
+                } else if (disponibles > 0) {
                     mensaje.textContent =
-                        "Te quedan " + (presupuesto - gastados) +
-                        " punto(s) por distribuir.";
+                        `Te quedan ${disponibles} punto(s) por distribuir.`;
                 } else {
                     mensaje.textContent =
                         "Excediste el presupuesto. Corregí los valores.";
@@ -8341,26 +8148,29 @@
                 ...(window.fc2Personaje || {}),
                 origenId: origen.id,
                 special: valores,
-                gifted: presupuesto === 7,
-                puntosSPECIALDisponibles: presupuesto - gastados
+                gifted: (window.fc2EleccionesRasgos?.[origen.id] || [])
+                    .includes("gifted"),
+                puntosSPECIALDisponibles: disponibles
             };
         }
 
-        function fc2SpecialRestablecerBase(origen) {
+        // Coloca los valores base y aplica los límites del origen.
+        function colocarBases(origen) {
             const limites = originLimits[origen.id];
 
-            fc2SpecialKeys.forEach(key => {
-                const input = document.getElementById("fc2-special-" + key);
+            claves.forEach(clave => {
+                const input = document.getElementById("fc2-special-" + clave);
                 if (!input) return;
 
-                input.min = Math.min(limites.min, limites.base[key]);
-                input.max = limites.max[key];
+                input.min = Math.min(limites.min, limites.base[clave]);
+                input.max = limites.max[clave];
                 input.step = "1";
-                input.value = limites.base[key];
-                input.dataset.lastValid = String(limites.base[key]);
+                input.value = limites.base[clave];
+                input.dataset.lastValid = String(limites.base[clave]);
             });
         }
 
+        // Inicializa SPECIAL al entrar al paso 2 o cambiar de origen.
         window.fc2InicializarSPECIAL = function (origen) {
             const mensaje = document.getElementById("fc2-special-message");
 
@@ -8369,102 +8179,87 @@
                     mensaje.textContent =
                         "No se encontraron los límites SPECIAL de este origen.";
                 }
+
                 window.fc2SPECIALValido = false;
                 return;
             }
 
             window.fc2SPECIALOrigenId = origen.id;
-            window.fc2SPECIALPresupuesto = fc2SpecialObtenerPresupuesto(origen);
+            window.fc2SPECIALPresupuesto = obtenerPresupuesto(origen);
 
-            fc2SpecialRestablecerBase(origen);
-            fc2SpecialActualizarContador(origen);
+            colocarBases(origen);
+            actualizarContador(origen);
         };
 
+        // Actualiza el presupuesto cuando cambian los rasgos.
         window.fc2ActualizarSPECIALDesdeRasgos = function (origen) {
             if (!origen || !originLimits[origen.id]) return;
             if (window.fc2SPECIALOrigenId !== origen.id) return;
 
-            const nuevoPresupuesto = fc2SpecialObtenerPresupuesto(origen);
-            const cambioPresupuesto =
-                nuevoPresupuesto !== window.fc2SPECIALPresupuesto;
+            const presupuestoAnterior = window.fc2SPECIALPresupuesto;
+            window.fc2SPECIALPresupuesto = obtenerPresupuesto(origen);
 
-            window.fc2SPECIALPresupuesto = nuevoPresupuesto;
-
-            if (cambioPresupuesto) {
-                fc2SpecialRestablecerBase(origen);
-
-                const mensaje = document.getElementById("fc2-special-message");
-                if (mensaje) {
-                    mensaje.textContent =
-                        "Cambió el presupuesto de SPECIAL. La distribución volvió a los valores base.";
-                }
+            if (presupuestoAnterior !== window.fc2SPECIALPresupuesto) {
+                colocarBases(origen);
             }
 
-            fc2SpecialActualizarContador(origen);
+            actualizarContador(origen);
         };
 
-        // Registrar los eventos una sola vez.
-        fc2SpecialKeys.forEach(key => {
-            const input = document.getElementById("fc2-special-" + key);
+        // Controla los cambios de atributos.
+        claves.forEach(clave => {
+            const input = document.getElementById("fc2-special-" + clave);
             if (!input || input.dataset.specialListener === "true") return;
 
             input.dataset.specialListener = "true";
 
             input.addEventListener("change", () => {
                 const origen = window.fc2OrigenSeleccionado;
-
                 if (!origen || !originLimits[origen.id]) return;
 
                 const limites = originLimits[origen.id];
-                const minimo = Number(input.min);
-                const maximo = Number(input.max);
-                let valor = Number(input.value);
 
+                let valor = Number(input.value);
                 if (!Number.isFinite(valor)) {
-                    valor = limites.base[key];
+                    valor = limites.base[clave];
                 }
 
                 valor = Math.trunc(valor);
-                valor = Math.max(minimo, Math.min(maximo, valor));
+                valor = Math.max(
+                    Number(input.min),
+                    Math.min(Number(input.max), valor)
+                );
 
                 const valorAnterior = Number(input.dataset.lastValid);
                 input.value = valor;
 
-                const valores = fc2SpecialObtenerValores();
-                const presupuesto = window.fc2SPECIALPresupuesto ?? 5;
+                const valores = obtenerValores();
+                const gastados = calcularGastados(valores, limites);
+                const presupuesto = window.fc2SPECIALPresupuesto;
 
-                const gastados = fc2SpecialKeys.reduce((total, atributo) => {
-                    return total +
-                        Math.max(0, valores[atributo] - limites.base[atributo]);
-                }, 0);
-
+                // No permite gastar más del presupuesto.
+                // Los puntos recuperados al bajar atributos sí cuentan.
                 if (gastados > presupuesto) {
                     input.value = Number.isFinite(valorAnterior)
                         ? valorAnterior
-                        : limites.base[key];
+                        : limites.base[clave];
 
-                    const mensaje =
-                        document.getElementById("fc2-special-message");
-
-                    if (mensaje) {
-                        mensaje.textContent =
-                            "No podés gastar más de " + presupuesto +
-                            " puntos. Se restauró el último valor válido.";
-                    }
-
-                    fc2SpecialActualizarContador(origen);
+                    actualizarContador(origen);
                     return;
                 }
 
-                input.dataset.lastValid = input.value;
-                fc2SpecialActualizarContador(origen);
+                input.dataset.lastValid = String(valor);
+                actualizarContador(origen);
             });
         });
 
-        // Impedir avanzar si el presupuesto no está distribuido exactamente.
+        // Impide avanzar si no se distribuyó el presupuesto exacto.
         const botonSiguiente = document.getElementById("fc2-next-step-2");
 
-        if (botonSiguiente && botonSiguiente.dataset.specialValidation !== "true") {
+        if (
+            botonSiguiente &&
+            botonSiguiente.dataset.specialValidation !== "true"
+        ) {
             botonSiguiente.dataset.specialValidation = "true";
 
             botonSiguiente.addEventListener("click", event => {
@@ -8478,7 +8273,7 @@
                     if (mensaje) {
                         mensaje.textContent =
                             "Antes de continuar, distribuí exactamente " +
-                            (window.fc2SPECIALPresupuesto ?? 5) +
+                            window.fc2SPECIALPresupuesto +
                             " puntos de SPECIAL.";
                     }
                 }
@@ -8488,6 +8283,48 @@
 
     // --- PASO 3: ASIGNACION DE TAGS Y RANGOS DE HABILIDADES ---
 
+    // Muestra las elecciones de habilidades Tag requeridas por el origen.
+    window.fc2MostrarEleccionesTagOrigen = function ({
+        titulo = "Elecciones de habilidades por origen",
+        cantidad = 0,
+        habilidades = [],
+        seleccionadas = []
+    } = {}) {
+        const contenedor = document.getElementById("fc2-tag-origin-choices");
+        const tituloElemento = document.getElementById("fc2-tag-origin-title");
+        const contador = document.getElementById("fc2-tag-origin-counter");
+        const opciones = document.getElementById("fc2-tag-origin-options");
+
+        if (!contenedor || !tituloElemento || !contador || !opciones) return;
+
+        // Ocultar el espacio cuando no haya elecciones pendientes.
+        if (cantidad <= 0) {
+            contenedor.hidden = true;
+            opciones.replaceChildren();
+            return;
+        }
+
+        contenedor.hidden = false;
+        tituloElemento.textContent = titulo;
+        contador.textContent =
+            `Elegí ${cantidad} habilidad(es). Seleccionadas: ${seleccionadas.length} / ${cantidad}`;
+
+        opciones.replaceChildren();
+
+        habilidades.forEach(habilidad => {
+            const boton = document.createElement("button");
+            boton.type = "button";
+            boton.className = "fc2-tag-origin-option";
+            boton.textContent = habilidad.nombre ?? habilidad.name ?? habilidad.id;
+            boton.dataset.habilidadId = habilidad.id;
+
+            if (seleccionadas.includes(habilidad.id)) {
+                boton.classList.add("selected");
+                boton.setAttribute("aria-pressed", "true");
+            } else {
+                boton.setAttribute("aria-pressed", "false");
+            }
+    
     // GRILLA DE HABILIDADES
     const grillaHabilidades = document.getElementById("fc2-skills-grid");
     const listaEquipoHabilidades = document.getElementById("fc2-skill-equipment");
