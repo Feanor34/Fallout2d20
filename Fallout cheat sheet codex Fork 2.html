@@ -2845,10 +2845,19 @@
 
                             <div id="fc2-tag-origin-options"></div>
                         </div>
+                        <div class="fc2-tag-selector">
+                            <p>SELECCIONÁ TUS 3 TAG</p>
+                            <div id="fc2-tag-buttons" class="fc2-tag-buttons"></div>
+                            <p id="fc2-tag-counter" aria-live="polite">TAG seleccionadas: 0/3</p>
+                        </div>
+                        <p class="fc2-description">
+                            Distribuí tus puntos de habilidad y elegí tus habilidades etiquetadas.
+                        </p>
+
                         <!-- Resumen de puntos y etiquetas -->
                         <div class="fc2-table-wrap">
                             <p id="fc2-skill-points-status" aria-live="polite">
-                            <p id="fc2-tag-counter" aria-live="polite">TAG seleccionadas: 0/3</p>
+                                Esperando la selección del origen y los atributos SPECIAL...
                             </p>
 
                             <p id="fc2-skill-tags-status" aria-live="polite"></p>
@@ -8283,48 +8292,6 @@
 
     // --- PASO 3: ASIGNACION DE TAGS Y RANGOS DE HABILIDADES ---
 
-    // Muestra las elecciones de habilidades Tag requeridas por el origen.
-    window.fc2MostrarEleccionesTagOrigen = function ({
-        titulo = "Elecciones de habilidades por origen",
-        cantidad = 0,
-        habilidades = [],
-        seleccionadas = []
-    } = {}) {
-        const contenedor = document.getElementById("fc2-tag-origin-choices");
-        const tituloElemento = document.getElementById("fc2-tag-origin-title");
-        const contador = document.getElementById("fc2-tag-origin-counter");
-        const opciones = document.getElementById("fc2-tag-origin-options");
-
-        if (!contenedor || !tituloElemento || !contador || !opciones) return;
-
-        // Ocultar el espacio cuando no haya elecciones pendientes.
-        if (cantidad <= 0) {
-            contenedor.hidden = true;
-            opciones.replaceChildren();
-            return;
-        }
-
-        contenedor.hidden = false;
-        tituloElemento.textContent = titulo;
-        contador.textContent =
-            `Elegí ${cantidad} habilidad(es). Seleccionadas: ${seleccionadas.length} / ${cantidad}`;
-
-        opciones.replaceChildren();
-
-        habilidades.forEach(habilidad => {
-            const boton = document.createElement("button");
-            boton.type = "button";
-            boton.className = "fc2-tag-origin-option";
-            boton.textContent = habilidad.nombre ?? habilidad.name ?? habilidad.id;
-            boton.dataset.habilidadId = habilidad.id;
-
-            if (seleccionadas.includes(habilidad.id)) {
-                boton.classList.add("selected");
-                boton.setAttribute("aria-pressed", "true");
-            } else {
-                boton.setAttribute("aria-pressed", "false");
-            }
-    
     // GRILLA DE HABILIDADES
     const grillaHabilidades = document.getElementById("fc2-skills-grid");
     const listaEquipoHabilidades = document.getElementById("fc2-skill-equipment");
