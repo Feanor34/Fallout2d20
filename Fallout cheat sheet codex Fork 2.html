@@ -2835,33 +2835,18 @@
                         <h2>03 / HABILIDADES Y ETIQUETAS</h2>
                         <!-- ELECCIONES DE HABILIDADES TAG POR ORIGEN -->
                         <div id="fc2-tag-origin-choices" hidden>
-                            <div class="fc2-section-divider"></div>
+                            <div class="fc2-section-divider fc2-cards"></div>
 
-                            <h3 id="fc2-tag-origin-title">
-                                Elecciones de habilidades por origen
-                            </h3>
 
                             <p id="fc2-tag-origin-counter"></p>
 
                             <div id="fc2-tag-origin-options"></div>
                         </div>
-                        <div class="fc2-tag-selector">
-                            <p>SELECCIONÁ TUS 3 TAG</p>
-                            <div id="fc2-tag-buttons" class="fc2-tag-buttons"></div>
-                            <p id="fc2-tag-counter" aria-live="polite">TAG seleccionadas: 0/3</p>
-                        </div>
-                        <p class="fc2-description">
-                            Distribuí tus puntos de habilidad y elegí tus habilidades etiquetadas.
-                        </p>
 
                         <!-- Resumen de puntos y etiquetas -->
                         <div class="fc2-table-wrap">
-                            <p id="fc2-skill-points-status" aria-live="polite">
-                                Esperando la selección del origen y los atributos SPECIAL...
-                            </p>
-
+                            <p id="fc2-skill-points-status" aria-live="polite"></p>
                             <p id="fc2-skill-tags-status" aria-live="polite"></p>
-
                             <p id="fc2-skill-validation" role="status" aria-live="polite"></p>
                         </div>
 
@@ -7812,6 +7797,7 @@
 
             mostrarDetallesOrigen(origen);
             window.fc2InicializarSPECIAL(origen);
+            window.fc2ActualizarTagsDesdeOrigen(origen);
         }
 
         // --- 5. GENERAR LAS GRILLAS ---
@@ -8292,14 +8278,361 @@
 
     // --- PASO 3: ASIGNACION DE TAGS Y RANGOS DE HABILIDADES ---
 
-    // GRILLA DE HABILIDADES
     const grillaHabilidades = document.getElementById("fc2-skills-grid");
     const listaEquipoHabilidades = document.getElementById("fc2-skill-equipment");
+    const listaTagsOrigen = document.getElementById("fc2-skill-special-tags");
+    const panelTagsOrigen = document.getElementById("fc2-tag-origin-choices");
+    const tituloTagsOrigen = document.getElementById("fc2-tag-origin-title");
+    const contadorTagsOrigen = document.getElementById("fc2-tag-origin-counter");
+    const botonesTagsOrigen = document.getElementById("fc2-tag-origin-options");
+    const contadorTagsNormales = document.getElementById("fc2-tag-counter");
+    const estadoTags = document.getElementById("fc2-skill-tags-status");
+    const estadoValidacion = document.getElementById("fc2-skill-validation");
+    const botonSiguiente = document.getElementById("fc2-step-3-next");
 
-    if (grillaHabilidades) {
+    // Elecciones adicionales guardadas independientemente para cada origen.
+    window.fc2EleccionesSkillTagOrigen =
+        window.fc2EleccionesSkillTagOrigen || {};
+
+    // Habilidades Tag normales elegidas por el jugador.
+    window.fc2TagsNormales = window.fc2TagsNormales || [];
+
+    const normalizarHabilidad = nombre =>
+        String(nombre || "")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .trim();
+
+    function obtenerTarjeta(nombre) {
+        if (!grillaHabilidades) return null;
+
+        const buscado = normalizarHabilidad(nombre);
+
+        return Array.from(
+            grillaHabilidades.querySelectorAll(".fc2-skill-card")
+        ).find(tarjeta =>
+            normalizarHabilidad(
+                tarjeta.querySelector(".fc2-skill-header > span")?.textContent
+            ) === buscado
+        ) || null;
+    }
+
+    function obtenerTagsAutomaticas(origen) {
+        const resultado = [];
+        const tags = origen?.skillTrait;
+
+        // skillTrait contiene habilidades otorgadas automáticamente.
+        if (Array.isArray(tags)) {
+            tags.forEach(nombre => {
+                if (typeof nombre === "string") {
+                    resultado.push(nombre);
+                }
+            });
+        } else if (typeof tags === "string" && tags.trim()) {
+            resultado.push(tags);
+        }
+
+        return resultado;
+    }
+
+    function obtenerOpcionesTagsOrigen(origen) {
+        const opciones = [];
+
+        // Las opciones adicionales son elecciones, no etiquetas automáticas.
+        if (Array.isArray(origen?.additionalSkillTraitOptions)) {
+            origen.additionalSkillTraitOptions.forEach(nombre => {
+                if (typeof nombre === "string") {
+                    opciones.push(nombre);
+                }
+            });
+        }
+
+        // Si skillTrait define opciones y existe una cantidad para elegir,
+        // tratar la lista como elecciones en lugar de etiquetas automáticas.
+        if (
+            Array.isArray(origen?.skillTrait) &&
+            Number(origen.skillTraitChoices) > 0
+        ) {
+            origen.skillTrait.forEach(nombre => {
+                if (typeof nombre === "string") {
+                    opciones.push(nombre);
+                }
+            });
+        }
+
+        return [...new Set(opciones)];
+    }
+
+    function obtenerCantidadTagsOrigen(origen) {
+        const cantidadSkill = Number(origen?.skillTraitChoices) || 0;
+        const cantidadAdicional =
+            Number(origen?.additionalSkillTraitChoices) || 0;
+
+        return Math.max(0, cantidadSkill) + Math.max(0, cantidadAdicional);
+    }
+
+    function obtenerTagsElegidasOrigen(origen) {
+        if (!origen) return [];
+
+        const automaticas = obtenerTagsAutomaticas(origen);
+        const elegidas =
+            window.fc2EleccionesSkillTagOrigen[origen.id] || [];
+
+        return [...new Set([...automaticas, ...elegidas])];
+    }
+
+    function actualizarContadorTagsNormales() {
+        const seleccionadas = window.fc2TagsNormales;
+
+        if (contadorTagsNormales) {
+            contadorTagsNormales.textContent =
+                `TAG seleccionadas: ${seleccionadas.length}/3`;
+        }
+    }
+
+    function actualizarEstadoTagsOrigen(origen) {
+        if (!panelTagsOrigen || !botonesTagsOrigen) return;
+
+        const cantidad = obtenerCantidadTagsOrigen(origen);
+        const opciones = obtenerOpcionesTagsOrigen(origen);
+        const automaticas = obtenerTagsAutomaticas(origen);
+
+        // Si no hay elecciones pendientes, ocultar el panel.
+        if (!origen || cantidad <= 0 || opciones.length === 0) {
+            panelTagsOrigen.hidden = true;
+            botonesTagsOrigen.replaceChildren();
+            return;
+        }
+
+        panelTagsOrigen.hidden = false;
+
+        if (tituloTagsOrigen) {
+            tituloTagsOrigen.textContent =
+                "Elecciones de habilidades por origen";
+        }
+
+        if (!window.fc2EleccionesSkillTagOrigen[origen.id]) {
+            window.fc2EleccionesSkillTagOrigen[origen.id] = [];
+        }
+
+        const elegidas = window.fc2EleccionesSkillTagOrigen[origen.id];
+        const cantidadMaxima = Math.min(cantidad, opciones.length);
+
+        // Eliminar elecciones que ya no sean válidas para este origen.
+        window.fc2EleccionesSkillTagOrigen[origen.id] =
+            elegidas.filter(nombre => opciones.includes(nombre));
+
+        const seleccionadas =
+            window.fc2EleccionesSkillTagOrigen[origen.id];
+
+        if (contadorTagsOrigen) {
+            contadorTagsOrigen.textContent =
+                `Elegí ${cantidadMaxima}. Seleccionadas: ${seleccionadas.length}/${cantidadMaxima}`;
+        }
+
+        botonesTagsOrigen.replaceChildren();
+
+        opciones.forEach(nombre => {
+            const boton = document.createElement("button");
+            boton.type = "button";
+            boton.className = "fc2-tag-origin-option";
+            boton.textContent = nombre;
+
+            const yaElegida = seleccionadas.includes(nombre);
+            const esAutomatica = automaticas.some(tag =>
+                normalizarHabilidad(tag) === normalizarHabilidad(nombre)
+            );
+
+            boton.classList.toggle("selected", yaElegida);
+            boton.setAttribute("aria-pressed", String(yaElegida));
+
+            if (esAutomatica) {
+                boton.disabled = true;
+                boton.title = "Esta habilidad ya la otorga automáticamente tu origen.";
+            }
+
+            boton.addEventListener("click", () => {
+                const actuales =
+                    window.fc2EleccionesSkillTagOrigen[origen.id];
+
+                const indice = actuales.indexOf(nombre);
+
+                if (indice >= 0) {
+                    actuales.splice(indice, 1);
+                } else {
+                    if (actuales.length >= cantidadMaxima) return;
+                    actuales.push(nombre);
+                }
+
+                actualizarEstadoTagsOrigen(origen);
+                actualizarTagsHabilidades();
+            });
+
+            botonesTagsOrigen.appendChild(boton);
+        });
+    }
+
+    function actualizarTagsHabilidades() {
+        const origen = window.fc2OrigenSeleccionado;
+        const tagsOrigen = obtenerTagsElegidasOrigen(origen);
+        const tagsOrigenNormalizadas =
+            new Set(tagsOrigen.map(normalizarHabilidad));
+
+        const tagsNormales = window.fc2TagsNormales;
+
+        if (grillaHabilidades) {
+            grillaHabilidades
+                .querySelectorAll(".fc2-skill-card")
+                .forEach(tarjeta => {
+                    const nombre =
+                        tarjeta.querySelector(".fc2-skill-header > span")
+                            ?.textContent || "";
+
+                    const checkbox =
+                        tarjeta.querySelector(".fc2-skill-tag input");
+
+                    if (!checkbox) return;
+
+                    const esTagOrigen =
+                        tagsOrigenNormalizadas.has(normalizarHabilidad(nombre));
+
+                    // Las habilidades del origen no consumen las tres Tag normales.
+                    checkbox.disabled = esTagOrigen;
+
+                    if (esTagOrigen) {
+                        checkbox.checked = true;
+                    } else {
+                        checkbox.checked = tagsNormales.includes(nombre);
+                    }
+
+                    tarjeta.classList.toggle("fc2-origin-tag", esTagOrigen);
+                });
+        }
+
+        actualizarContadorTagsNormales();
+
+        if (estadoTags) {
+            estadoTags.textContent =
+                `Tag normales: ${tagsNormales.length}/3. ` +
+                `Tag otorgadas por origen: ${tagsOrigen.length}.`;
+        }
+
+        actualizarEquipoHabilidades();
+        actualizarListaTagsOrigen();
+        validarPaso3();
+    }
+
+    function actualizarListaTagsOrigen() {
+        if (!listaTagsOrigen) return;
+
+        listaTagsOrigen.replaceChildren();
+
+        const origen = window.fc2OrigenSeleccionado;
+
+        if (!origen) {
+            const li = document.createElement("li");
+            li.textContent = "Seleccioná un origen para ver sus reglas.";
+            listaTagsOrigen.appendChild(li);
+            return;
+        }
+
+        const automaticas = obtenerTagsAutomaticas(origen);
+        const elegidas =
+            window.fc2EleccionesSkillTagOrigen[origen.id] || [];
+
+        [...new Set([...automaticas, ...elegidas])].forEach(nombre => {
+            const li = document.createElement("li");
+            li.textContent = `${nombre} (Tag de origen)`;
+            listaTagsOrigen.appendChild(li);
+        });
+
+        if (!listaTagsOrigen.children.length) {
+            const li = document.createElement("li");
+            li.textContent = "Este origen no otorga habilidades Tag adicionales.";
+            listaTagsOrigen.appendChild(li);
+        }
+    }
+
+    function actualizarEquipoHabilidades() {
+        if (!listaEquipoHabilidades || !grillaHabilidades) return;
+
+        listaEquipoHabilidades.replaceChildren();
+
+        const seleccionadas = grillaHabilidades.querySelectorAll(
+            ".fc2-skill-tag input:checked"
+        );
+
+        seleccionadas.forEach(checkbox => {
+            const tarjeta = checkbox.closest(".fc2-skill-card");
+            const nombre =
+                tarjeta.querySelector(".fc2-skill-header > span")?.textContent;
+
+            const equipo = tagSkillItems?.[nombre];
+            if (!equipo) return;
+
+            const li = document.createElement("li");
+            li.textContent = `${nombre}: ${equipo}`;
+            listaEquipoHabilidades.appendChild(li);
+        });
+
+        if (!listaEquipoHabilidades.children.length) {
+            const li = document.createElement("li");
+            li.textContent =
+                "Seleccioná tus habilidades TAG para ver el equipo correspondiente.";
+            listaEquipoHabilidades.appendChild(li);
+        }
+    }
+
+    function validarPaso3() {
+        const origen = window.fc2OrigenSeleccionado;
+        const cantidadOrigen = obtenerCantidadTagsOrigen(origen);
+        const opcionesOrigen = obtenerOpcionesTagsOrigen(origen);
+        const maximoOrigen = Math.min(cantidadOrigen, opcionesOrigen.length);
+
+        const elegidasOrigen = origen
+            ? (window.fc2EleccionesSkillTagOrigen[origen.id] || [])
+            : [];
+
+        const tagsNormalesValidas =
+            window.fc2TagsNormales.length === 3;
+
+        const tagsOrigenValidas =
+            elegidasOrigen.length === maximoOrigen;
+
+        const valido =
+            Boolean(origen) &&
+            tagsNormalesValidas &&
+            tagsOrigenValidas;
+
+        if (estadoValidacion) {
+            if (!origen) {
+                estadoValidacion.textContent = "Seleccioná un origen.";
+            } else if (!tagsOrigenValidas) {
+                estadoValidacion.textContent =
+                    `Elegí ${maximoOrigen} Tag adicionales de tu origen.`;
+            } else if (!tagsNormalesValidas) {
+                estadoValidacion.textContent =
+                    null;
+            } else {
+                estadoValidacion.textContent =
+                    "Habilidades Tag completas.";
+            }
+        }
+
+        if (botonSiguiente) {
+            botonSiguiente.disabled = !valido;
+        }
+
+        window.fc2Paso3Valido = valido;
+    }
+
+    // Construir las tarjetas de habilidades una sola vez.
+    if (grillaHabilidades && !grillaHabilidades.dataset.inicializada) {
+        grillaHabilidades.dataset.inicializada = "true";
         grillaHabilidades.replaceChildren();
 
-        skillListOrdered.forEach(h => {
+        skillListOrdered.forEach(habilidad => {
             const tarjeta = document.createElement("div");
             tarjeta.className = "fc2-skill-card";
 
@@ -8307,7 +8640,7 @@
             encabezado.className = "fc2-skill-header";
 
             const nombre = document.createElement("span");
-            nombre.textContent = h.name;
+            nombre.textContent = habilidad.name;
 
             const bloqueTag = document.createElement("label");
             bloqueTag.className = "fc2-skill-tag";
@@ -8315,24 +8648,27 @@
             const textoTag = document.createElement("span");
             textoTag.textContent = "TAG";
 
-            const etiqueta = document.createElement("input");
-            etiqueta.type = "checkbox";
-            etiqueta.setAttribute("aria-label", "Etiquetar " + h.name);
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.setAttribute(
+                "aria-label",
+                "Etiquetar " + habilidad.name
+            );
 
-            bloqueTag.append(textoTag, etiqueta);
+            bloqueTag.append(textoTag, checkbox);
             encabezado.append(nombre, bloqueTag);
 
             const atributo = document.createElement("div");
             atributo.className = "fc2-skill-attr";
-            atributo.textContent = h.attr;
+            atributo.textContent = habilidad.attr;
 
-            const contador = document.createElement("div");
-            contador.className = "fc2-skill-points";
+            const controles = document.createElement("div");
+            controles.className = "fc2-skill-points";
 
             const sumar = document.createElement("button");
             sumar.type = "button";
             sumar.textContent = "+";
-            sumar.setAttribute("aria-label", "Sumar punto a " + h.name);
+            sumar.setAttribute("aria-label", "Sumar punto a " + habilidad.name);
 
             const valor = document.createElement("span");
             valor.className = "fc2-skill-value";
@@ -8341,54 +8677,90 @@
             const restar = document.createElement("button");
             restar.type = "button";
             restar.textContent = "−";
-            restar.setAttribute("aria-label", "Restar punto a " + h.name);
+            restar.setAttribute("aria-label", "Restar punto a " + habilidad.name);
 
             sumar.addEventListener("click", () => {
                 const puntos = Number(valor.textContent);
-                if (puntos < 6) valor.textContent = puntos + 1;
+                if (puntos < 6) valor.textContent = String(puntos + 1);
             });
 
             restar.addEventListener("click", () => {
                 const puntos = Number(valor.textContent);
-                if (puntos > 0) valor.textContent = puntos - 1;
+                if (puntos > 0) valor.textContent = String(puntos - 1);
             });
 
-            tarjeta.append(encabezado, atributo, contador);
-            contador.append(sumar, valor, restar);
+            checkbox.addEventListener("change", () => {
+                const origen = window.fc2OrigenSeleccionado;
+                const nombreHabilidad = habilidad.name;
+                const tagsOrigen = obtenerTagsElegidasOrigen(origen);
+                const esTagOrigen = tagsOrigen.some(tag =>
+                    normalizarHabilidad(tag) ===
+                    normalizarHabilidad(nombreHabilidad)
+                );
 
-            etiqueta.addEventListener("change", actualizarEquipoHabilidades);
+                if (esTagOrigen) {
+                    checkbox.checked = true;
+                    return;
+                }
 
+                const seleccionadas = window.fc2TagsNormales;
+                const indice = seleccionadas.indexOf(nombreHabilidad);
+
+                if (checkbox.checked && indice < 0) {
+                    if (seleccionadas.length >= 3) {
+                        checkbox.checked = false;
+                        if (estadoValidacion) {
+                            estadoValidacion.textContent =
+                                "Ya elegiste las 3 Tag normales.";
+                        }
+                        return;
+                    }
+
+                    seleccionadas.push(nombreHabilidad);
+                } else if (!checkbox.checked && indice >= 0) {
+                    seleccionadas.splice(indice, 1);
+                }
+
+                actualizarTagsHabilidades();
+            });
+
+            controles.append(sumar, valor, restar);
+            tarjeta.append(encabezado, atributo, controles);
             grillaHabilidades.appendChild(tarjeta);
         });
     }
 
-    function actualizarEquipoHabilidades() {
-        if (!listaEquipoHabilidades || typeof tagSkillItems === "undefined") return;
+    // Actualizar el paso 3 al elegir otro origen.
+    window.fc2ActualizarTagsDesdeOrigen = function (origen) {
+        if (!origen) return;
 
-        listaEquipoHabilidades.replaceChildren();
-
-        const etiquetasElegidas = grillaHabilidades.querySelectorAll(
-            ".fc2-skill-tag input:checked"
-        );
-
-        if (etiquetasElegidas.length === 0) {
-            const li = document.createElement("li");
-            li.textContent = "Seleccioná tus habilidades TAG para ver el equipo correspondiente.";
-            listaEquipoHabilidades.appendChild(li);
-            return;
+        if (!window.fc2EleccionesSkillTagOrigen[origen.id]) {
+            window.fc2EleccionesSkillTagOrigen[origen.id] = [];
         }
 
-        etiquetasElegidas.forEach(checkbox => {
-            const tarjeta = checkbox.closest(".fc2-skill-card");
-            const nombreHabilidad = tarjeta.querySelector(".fc2-skill-header > span").textContent;
-            const equipo = tagSkillItems[nombreHabilidad];
+        actualizarEstadoTagsOrigen(origen);
+        actualizarTagsHabilidades();
+    };
 
-            if (!equipo) return;
+    // El botón Siguiente valida las Tag antes de avanzar.
+    if (botonSiguiente && !botonSiguiente.dataset.validacionTags) {
+        botonSiguiente.dataset.validacionTags = "true";
 
-            const li = document.createElement("li");
-            li.textContent = nombreHabilidad + ": " + equipo;
-            listaEquipoHabilidades.appendChild(li);
+        botonSiguiente.addEventListener("click", event => {
+            validarPaso3();
+
+            if (!window.fc2Paso3Valido) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
         });
+    }
+
+    // Inicializar el paso 3 si ya existe un origen seleccionado.
+    if (window.fc2OrigenSeleccionado) {
+        window.fc2ActualizarTagsDesdeOrigen(window.fc2OrigenSeleccionado);
+    } else {
+        actualizarTagsHabilidades();
     }
 
     // --- PASO 4: SELECCION DE PERKS ---
