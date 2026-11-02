@@ -2879,36 +2879,36 @@
                     <!-- PASO 4 -->
                     <section class="fc2-panel fc2-panel-4">
                         <h2>04 / VENTAJAS</h2>
+
                         <p class="fc2-description">
-                            Catálogo de ventajas y sus requisitos.
+                            Seleccioná las ventajas disponibles para tu personaje.
+                            Las nuevas opciones aparecerán a medida que cumplas sus requisitos.
                         </p>
 
-                        <label class="fc2-search-label">
-                            BUSCAR VENTAJA
-                            <input type="search" placeholder="Nombre o palabra clave...">
-                        </label>
-
-                        <div class="fc2-cards">
-                            <article class="fc2-card">
-                                <span class="fc2-tag">OFICIAL</span>
-                                <h4>Ventaja oficial</h4>
-                                <p>Espacio para requisitos, rangos y descripción.</p>
-                            </article>
-                            <article class="fc2-card">
-                                <span class="fc2-tag">OFICIAL</span>
-                                <h4>Ventaja oficial</h4>
-                                <p>La lista real se cargará desde los datos del proyecto.</p>
-                            </article>
-                            <article class="fc2-card">
-                                <span class="fc2-tag fc2-home-tag">HOMEBREW</span>
-                                <h4>Ventaja personalizada</h4>
-                                <p>Opción reservada para contenido casero.</p>
-                            </article>
+                        <!-- CATÁLOGO DE PERKS -->
+                        <div
+                            id="fc2-perks-grid"
+                            class="fc2-perks-grid"
+                            aria-live="polite"
+                        >
+                            <p class="fc2-perks-empty">
+                                Las ventajas disponibles aparecerán acá.
+                            </p>
                         </div>
 
+                        <!-- NAVEGACIÓN -->
                         <div class="fc2-actions">
-                            <label class="fc2-button" for="fc2-step-3">← ANTERIOR</label>
-                            <label class="fc2-button fc2-primary" for="fc2-step-5">SIGUIENTE →</label>
+                            <label class="fc2-button" for="fc2-step-3">
+                                ← ANTERIOR
+                            </label>
+
+                            <button
+                                type="button"
+                                id="fc2-step-4-next"
+                                class="fc2-button fc2-primary"
+                            >
+                                SIGUIENTE →
+                            </button>
                         </div>
                     </section>
 
@@ -4118,7 +4118,8 @@
             {"id": "arpeq-12", "class": "arpeq", "name": "Pistola de Tubería", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "2", "alcance": "C", "cualidades": "Corta Distancia, Poco Confiable", "cargador": "12", "peso": "2", "coste": "30", "rareza": "0", "descripcion": "Un arma rudimentaria y casera, normalmente en manos de quienes no pueden fabricar, comprar o encontrar algo mejor. Las armas de tubería son rudimentarias y algo poco confiables, pero lo bastante eficaces.", "modReceptor": ["mod-rec-4", "mod-rec-1", "mod-rec-5", "mod-rec-6", "mod-rec-2", "mod-rec-8"], "modCaño": ["mod-can-3", "mod-can-4", "mod-can-8"], "modEmpuñadura": ["mod-emp-2"], "modCulata": ["mod-cul-1", "mod-cul-2", "mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-3", "mod-boc-1", "mod-boc-4", "mod-boc-2"]},
             {"id": "arpeq-13", "class": "arpeq", "name": "Revólver de Tubería", "daño": "4", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "1", "alcance": "C", "cualidades": "Corta Distancia, Poco Confiable", "cargador": "6", "peso": "4", "coste": "25", "rareza": "0", "descripcion": "Al igual que las otras variantes de armas de tubería, el revólver de tubería es un arma improvisada o casera, en este caso basada en un revólver. Logra un equilibrio entre el poder de detención del rifle de cerrojo de tubería y la cadencia de fuego de la pistola de tubería.", "modReceptor": ["mod-rec-4", "mod-rec-1", "mod-rec-2", "mod-rec-7", "mod-rec-8"], "modCaño": ["mod-can-3", "mod-can-4", "mod-can-8"], "modEmpuñadura": ["mod-emp-2"], "modCulata": ["mod-cul-1", "mod-cul-2", "mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-3", "mod-boc-1", "mod-boc-4", "mod-boc-2"]},
             {"id": "arpeq-14", "class": "arpeq", "name": "Rifle de Ferrocarril", "daño": "10", "tipo de daño": "Físico", "efecto del daño": "Ruptura", "cadencia": "0", "alcance": "M", "cualidades": "Debilitante, A Dos Manos, Poco Confiable", "cargador": "10", "peso": "14", "coste": "290", "rareza": "4", "descripcion": "Un arma improvisada creada por ingenieros ingeniosos del Yermo. El rifle de ferrocarril utiliza vapor a alta presión para propulsar espigas de ferrocarril a velocidades suficientes para atravesar y empalar una gran variedad de objetivos.", "modReceptor": ["mod-rec-10"], "modCaño": ["mod-can-3"], "modEmpuñadura": [], "modCulata": ["mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": ["mod-boc-3"]},
-            {"id": "arpeq-15", "class": "arpeq", "name": "Fusil de jeringas", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "0", "alcance": "M", "cualidades": "A Dos Manos", "cargador": "1", "peso": "6", "coste": "132", "rareza": "2", "descripcion": "Un arma improvisada que utiliza presión de aire para propulsar jeringas modificadas hacia un objetivo. Por sí sola inflige poco daño, pero las jeringas pueden producir una amplia variedad de efectos debilitantes.", "modReceptor": [], "modCaño": ["mod-can-3"], "modEmpuñadura": [], "modCulata": ["mod-cul-2", "mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": []}
+            {"id": "arpeq-15", "class": "arpeq", "name": "Fusil de jeringas", "daño": "3", "tipo de daño": "Físico", "efecto del daño": "—", "cadencia": "0", "alcance": "M", "cualidades": "A Dos Manos", "cargador": "1", "peso": "6", "coste": "132", "rareza": "2", "descripcion": "Un arma improvisada que utiliza presión de aire para propulsar jeringas modificadas hacia un objetivo. Por sí sola inflige poco daño, pero las jeringas pueden producir una amplia variedad de efectos debilitantes.", "modReceptor": [], "modCaño": ["mod-can-3"], "modEmpuñadura": [], "modCulata": ["mod-cul-2", "mod-cul-3"], "modMira": ["mod-mir-2", "mod-mir-4", "mod-mir-5", "mod-mir-6", "mod-mir-3"], "modBoca": []},
+            {"id": "arpeq-16", "class": "arpeq", "name": "Cañon de mano", "daño": "4", "tipo de daño": "Físico", "efecto del daño": "Rafaga", "cadencia": "3", "alcance": "C", "cualidades": "Corta Distancia, Oculta", "cargador": "1", "peso": "0", "coste": "5000", "rareza": "6", "descripcion": "Multiple holes recessed into your arm where your hand used to be, which may fire fingernails and calcified tissue at your enemies. This is somewhat straining on your system, but its strength increases as you hone your skills. You usually get this through heavy mutation, but some doctors provide a cybernetic version at a hefty fee. This weapon pulls from your body, draining 1 Health point per shot. Increase damage rate by +1 CD every 5 levels(Max 15 CD).", "modReceptor": [], "modCaño": [], "modEmpuñadura": [], "modCulata": [], "modMira": [], "modBoca": []}
         ];
 
         <!-- DB: Mods de armas pequeñas -->
@@ -5882,7 +5883,7 @@
         "NCR_Soldier_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
         "New_Canaanite_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
         "Children_of_Atom_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
-        "Hairy_Deathclaw_Shadowclaw_Homebrew": { max: { FUE: 14, PER: 12, END: 14, CAR: 4, INT: 4, AGI: 12, SUE: 6 }, min: 4, base: { FUE: 9, PER: 5, END: 6, CAR: 4, INT: 4, AGI: 6, SUE: 4 } },
+        "Hairy_Deathclaw_Shadowclaw_Homebrew": { max: { FUE: 12, PER: 12, END: 12, CAR: 4, INT: 4, AGI: 12, SUE: 6 }, min: 4, base: { FUE: 6, PER: 6, END: 6, CAR: 4, INT: 4, AGI: 6, SUE: 4 } },
         "Protectron_Homebrew_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
         "Numen_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
         "Enclave_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
@@ -6311,7 +6312,7 @@
         { id: "sticky", name: "Pegajoso.", benefit: "Tus aceites naturales tienen propiedades adhesivas, aumentando tu capacidad de carga en +50 y reduciendo en 1 la dificultad de las pruebas relacionadas con agarrar algo.", penalty: "**Moverse** se convierte en una acción mayor, al igual que **Sacar Objeto**, y **Correr** cuesta 1 AP. Las cosas suelen quedarse pegadas a vos sin que puedas controlarlo." },
         { id: "i_believe_i_can_fly", name: "Creo que puedo volar", benefit: "Te han brotado alas en la espalda, lo que te permite flotar y moverte por encima del suelo, sin verse afectado por terreno u objetos difíciles.", penalty: "Debés gastar una acción menor para comenzar a flotar y mantenerte flotando, y una lesión en el torso también cuenta como una lesión en las alas, impidiendo su uso incluso cuando sea tratada con primeros auxilios. Solo la atención médica puede reparar las lesiones en las alas." },
         { id: "eye_see_you", name: "¡Ojo que te veo!", benefit: "Tus ojos se han separado de tu cerebro y, aun así, podés seguir viendo a través de ellos en todo momento. Podés mover tus ojos a cualquier parte de tu cuerpo, o sacarlos y dejarlos en un área. Es difícil detectar tu ojo, requiriendo una prueba de **PER**+**Supervivencia** con una dificultad de 3.", penalty: "Hacer esto te provoca visión doble, aumentando en 1 la dificultad de las pruebas de **PER** (máximo 5) mientras no estés mirando lo mismo." },
-        { id: "organic_crackshot", name: "Tirador Orgánico", benefit: "Una de tus manos se retrae dentro de tu brazo, formando tres cañones. Podés utilizar el **Cañón de Mano**, listado al final de este documentoSAMBUCA.", penalty: "Elegí un brazo. Ese será tu brazo de arma y no podrás utilizarlo a menos que tengas una prótesis. No podés utilizar el arma y la prótesis al mismo tiempo. Se necesitan 5 minutos para quitar y colocar la prótesis." },
+        { id: "organic_crackshot", name: "Tirador Orgánico", benefit: "Una de tus manos se retrae dentro de tu brazo, formando tres cañones. Podés utilizar el Cañón de Mano.", penalty: "Elegí un brazo. Ese será tu brazo de arma y no podrás utilizarlo a menos que tengas una prótesis. No podés utilizar el arma y la prótesis al mismo tiempo. Se necesitan 5 minutos para quitar y colocar la prótesis." },
         { id: "im_seeing_double", name: "¡Estoy viendo doble!", benefit: "Tu piel y estructura corporal se han vuelto maleables, tanto en pigmentación como en forma. Podés tomarte 1 hora para adoptar la apariencia de cualquier humanoide que recuerdes haber visto, reduciendo la dificultad de las pruebas de **CAR** relacionadas con suplantar a ese individuo durante 24 horas, después de lo cual comienza a deteriorarse.", penalty: "Debido a esto, tu cuerpo es bastante frágil y sufrís un golpe crítico si un ataque inflige +4 de daño (después de las resistencias) en un solo impacto. No podés transformarte por encima ni por debajo de tu masa corporal verdadera. Si tenés otras mutaciones, deben estar presentes." },
         { id: "hole_in_the_wall", name: "Agujero en la pared (y en todo lo demás)", benefit: "Tu aliento es un gas corrosivo e inodoro que oxida y deteriora las cosas que están cerca tuyo. Obtenés un d20 de bonificación en las pruebas relacionadas con debilitar o destruir objetos, y tus armas cuerpo a cuerpo tienen la cualidad **Perforante 1**. Además, podés dedicar tiempo a desgastar lentamente un objeto o estructura; el tiempo necesario queda determinado por el DJ.", penalty: "Tus objetos y armas se ven afectados por este gas, obteniendo la cualidad **Poco Fiable**, y la dificultad de las pruebas relacionadas con repararlos aumenta en 1 (máximo 5). Las cosas a tu alrededor tienden a debilitarse y romperse sin que puedas controlarlo. La única manera de detener este efecto es que otro gas domine al tuyo." },
         { id: "now_you_see_me", name: "Ahora me ves...", benefit: "Un pequeño conducto brota de tu cuerpo. Una vez por día, podés realizar una acción mayor para utilizarlo, liberando un líquido viscoso de camuflaje sobre vos o sobre un participante voluntario que esté a tu alcance. Esto reduce en 1 la dificultad de todas las pruebas de **Sigilo** y otorga un d20 de bonificación. Dura 1 hora, después de lo cual el fluido se desprende.", penalty: "Este líquido libera hormonas calmantes en los cerebros de los participantes, pacificándolos y relajándolos por completo. Cualquiera camuflado con esta crema no podrá atacar directamente y aumenta en 1 la dificultad de las pruebas relacionadas con intimidación." }
@@ -8718,14 +8719,29 @@
         inputInteligencia.addEventListener("change", actualizarPaso3);
     }
 
-    if (botonSiguiente && !botonSiguiente.dataset.skillValidation) {
+        if (botonSiguiente && !botonSiguiente.dataset.skillValidation) {
         botonSiguiente.dataset.skillValidation = "true";
+
         botonSiguiente.addEventListener("click", event => {
+            event.preventDefault();
+
+            // Actualizar y validar las elecciones del Paso 3.
             actualizarPaso3();
 
-            if (!window.fc2Paso3Valido) {
-                event.preventDefault();
-                event.stopImmediatePropagation();
+            // No avanzar si falta completar algún requisito.
+            if (window.fc2Paso3Valido !== true) {
+                botonSiguiente.disabled = true;
+                return;
+            }
+
+            // Avanzar al Paso 4: Ventajas.
+            const paso4 = document.getElementById("fc2-step-4");
+
+            if (paso4) {
+                paso4.checked = true;
+                paso4.dispatchEvent(
+                    new Event("change", { bubbles: true })
+                );
             }
         });
     }
@@ -8855,6 +8871,332 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
 
     // --- PASO 4: SELECCION DE PERKS ---
 
+    (() => {
+        const SPECIAL_ALIASES = {
+            FUE: "FUE", STR: "FUE", PER: "PER", END: "END", CAR: "CAR", CHA: "CAR", INT: "INT", AGI: "AGI", SUE: "SUE", LCK: "SUE" 
+        };
+
+            // --- CONTADOR DINÁMICO DE PERKS ---
+        window.fc2CalcularPerksDisponibles = function () {
+            const origen = window.fc2OrigenSeleccionado;
+
+            const perksAdicionales = Number(origen?.perksAdicionales) || 0;
+
+            return Math.max(1, 1 + perksAdicionales);
+        };
+
+        window.fc2ActualizarContadorPerks = function () {
+            const panel = document.querySelector(".fc2-panel-4");
+            if (!panel) return;
+
+            let contador = document.getElementById("fc2-perks-counter");
+
+            if (!contador) {
+                contador = document.createElement("p");
+                contador.id = "fc2-perks-counter";
+                contador.className = "fc2-description";
+
+                const titulo = panel.querySelector("h2");
+                titulo?.insertAdjacentElement("afterend", contador);
+            }
+
+            const total = window.fc2CalcularPerksDisponibles();
+            const elegidos = window.fc2Personaje?.perksElegidos?.length || 0;
+
+            contador.textContent = `${elegidos}/${total} perks seleccionados`;
+        };
+
+        // --- 1. LEER LOS DATOS DEL PERSONAJE ---
+
+        window.fc2ObtenerRevisionPersonaje = function () {
+            const personaje = window.fc2Personaje || {};
+            return {
+                origen: personaje.origen || window.fc2OrigenSeleccionado || null,
+                origenId:
+                    personaje.origenId || window.fc2OrigenSeleccionado?.id || null,
+                special: personaje.special || {},
+                habilidades: personaje.habilidades || {},
+                nivel: Math.max( 1, Number(personaje.nivel) || 1 ),
+                perksAdquiridos:
+                    Array.isArray(personaje.perksAdquiridos)
+                        ? personaje.perksAdquiridos
+                        : []
+            };
+        };
+
+        // --- 2. CALCULAR LA CANTIDAD DE PERKS DISPONIBLES
+
+        window.fc2CalcularPerksDisponibles = function () {
+            const personaje = window.fc2ObtenerRevisionPersonaje();
+
+            // Todos los personajes comienzan con 1 Perk.
+            const cantidadBase = 1;
+
+            // Los orígenes podrán declarar Perks adicionales
+            // mediante la propiedad perksAdicionales.
+            const adicionales = Math.max(
+                0,
+                Number(personaje.origen?.perksAdicionales) || 0
+            );
+
+            return cantidadBase + adicionales;
+        };
+
+        // --- 3. NORMALIZAR NOMBRES
+
+        function normalizarTexto(texto) {
+            return String(texto || "")
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase()
+                .trim();
+        }
+
+        // --- 4. CONSULTAR RANGOS DE HABILIDADES
+
+        function obtenerValorHabilidad(habilidades, nombre) {
+            const buscado = normalizarTexto(nombre);
+
+            const entrada = Object.entries(habilidades).find(
+                ([clave]) => normalizarTexto(clave) === buscado
+            );
+
+            if (!entrada) return null;
+
+            const habilidad = entrada[1];
+
+            if (typeof habilidad === "number") {
+                return habilidad;
+            }
+
+            if (habilidad.total !== undefined) {
+                return Number(habilidad.total);
+            }
+
+            return Number(habilidad.rangos || 0);
+        }
+
+        // --- 5. COMPROBAR LOS REQUISITOS DE SPECIAL Y NIVEL
+
+        function comprobarRequisitosDirectos(perk, personaje) {
+            const requisitos = perk.reqs || {};
+
+            for (const [clave, valor] of Object.entries(requisitos)) {
+                const requisito = Number(valor);
+
+                if (!Number.isFinite(requisito)) return false;
+
+                if (clave === "Nivel") {
+                    if (personaje.nivel < requisito) return false;
+                    continue;
+                }
+
+                const atributo = SPECIAL_ALIASES[clave];
+
+                if (atributo) {
+                    const actual = Number(personaje.special[atributo] || 0);
+
+                    if (actual < requisito) return false;
+                    continue;
+                }
+
+                // Si el requisito no es SPECIAL ni Nivel,
+                // intentamos identificarlo como una habilidad.
+                const valorHabilidad = obtenerValorHabilidad(
+                    personaje.habilidades,
+                    clave
+                );
+
+                // No se permite pasar por alto requisitos
+                // que no podamos identificar.
+                if (valorHabilidad === null) return false;
+
+                if (valorHabilidad < requisito) return false;
+            }
+
+            return true;
+        }
+
+        // --- 6. COMPROBAR REQUISITOS DE HABILIDADES EN reqText ---
+
+        function comprobarHabilidadesEnTexto(perk, personaje) {
+            const texto = String(perk.reqText || "");
+
+            const nombresHabilidades = Object.keys(
+                personaje.habilidades
+            ).sort((a, b) => b.length - a.length);
+
+            if (!nombresHabilidades.length) return true;
+
+            const escaparRegex = texto =>
+                texto.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+            const alternativas = nombresHabilidades
+                .map(escaparRegex)
+                .join("|");
+
+            // Detecta requisitos como:
+            // "Armas Pequeñas 2"
+            // "Armas Pequeñas/Armas Grandes/Armas de Energía 2"
+            const patron = new RegExp(
+                `(${alternativas}(?:\\s*\\/\\s*(?:${alternativas}))*)\\s+(\\d+)`,
+                "gi"
+            );
+
+            let coincidencia;
+
+            while ((coincidencia = patron.exec(texto)) !== null) {
+                const habilidadesExigidas = coincidencia[1]
+                    .split("/")
+                    .map(nombre => nombre.trim());
+
+                const rangoExigido = Number(coincidencia[2]);
+
+                for (const nombre of habilidadesExigidas) {
+                    const valor = obtenerValorHabilidad(
+                        personaje.habilidades,
+                        nombre
+                    );
+
+                    if (valor === null || valor < rangoExigido) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        // --- 7. COMPROBAR SI EL RANGO ANTERIOR ESTÁ ADQUIRIDO
+
+        function comprobarRangoAnterior(perk, adquiridos) {
+            if (Number(perk.rank) <= 1) return true;
+
+            const rangoAnterior = Number(perk.rank) - 1;
+
+            return adquiridos.some(adquirido => {
+                if (typeof adquirido === "string") {
+                    const anterior = perksDetailedList.find(
+                        p => p.id === adquirido
+                    );
+
+                    return anterior &&
+                        anterior.name === perk.name &&
+                        Number(anterior.rank) === rangoAnterior;
+                }
+
+                return adquirido &&
+                    adquirido.name === perk.name &&
+                    Number(adquirido.rank) === rangoAnterior;
+            });
+        }
+
+        // --- 8. EVALUAR UN PERK ---
+
+        window.fc2EvaluarPerk = function (perk, personaje) {
+            if (!perk || !personaje) return false;
+
+            if (!comprobarRequisitosDirectos(perk, personaje)) {
+                return false;
+            }
+
+            if (!comprobarHabilidadesEnTexto(perk, personaje)) {
+                return false;
+            }
+
+            if (!comprobarRangoAnterior(
+                perk,
+                personaje.perksAdquiridos
+            )) {
+                return false;
+            }
+
+            return true;
+        };
+
+        // --- 9. OBTENER SOLAMENTE LOS PERKS ELEGIBLES ---
+
+        window.fc2FuentePerkHabilitada = function (perk) {
+            const fuente = String(perk.source || "")
+                .trim()
+                .toLowerCase();
+            // Las Perks del Core siempre están habilitadas.
+            if ( fuente === "core rulebook" || fuente === "corebook" || fuente === "core"
+            ) {
+                return true;
+            }
+
+            const controles = { homebrew: "fc2-homebrew-toggle", settlers: "fc2-settlers-toggle", wanderers: "fc2-wanderers-toggle" };
+
+            let grupo = null;
+
+            if (fuente === "homebrew") {
+                grupo = "homebrew";
+            } else if (
+                fuente === "settlers guide" || fuente === "settlersguide"
+            ) {
+                grupo = "settlers";
+            } else if (
+                fuente === "wanderers guide" || fuente === "wanderersguide"
+            ) {
+                grupo = "wanderers";
+            }
+
+            // Si la fuente no está identificada, no mostrar la Perk.
+            if (!grupo) {
+                return false;
+            }
+
+            const boton = document.getElementById(controles[grupo]);
+
+            return Boolean(
+                boton && boton.classList.contains("selected")
+            );
+        };
+
+        window.fc2ObtenerPerksElegibles = function () {
+            const personaje = window.fc2ObtenerRevisionPersonaje();
+
+            return perksDetailedList.filter(perk =>
+                fc2FuentePerkHabilitada(perk) &&
+                window.fc2EvaluarPerk(perk, personaje)
+            );
+        };
+
+        // --- 10. RESUMEN DE LA REVISIÓN
+
+        window.fc2RevisarPersonajeParaPaso4 = function () {
+            const personaje = window.fc2ObtenerRevisionPersonaje();
+
+            const elegibles = window.fc2ObtenerPerksElegibles();
+
+            const disponibles = window.fc2CalcularPerksDisponibles();
+
+            const adquiridos = personaje.perksAdquiridos.length;
+
+            const resultado = {
+                nivel: personaje.nivel,
+                special: personaje.special,
+                habilidades: personaje.habilidades,
+
+                perksDisponibles: disponibles,
+                perksAdquiridos: adquiridos,
+
+                perksRestantes: Math.max(0, disponibles - adquiridos),
+
+                perksElegibles: elegibles
+            };
+
+            console.info(
+                "[Paso 4] Revisión del personaje:",
+                resultado
+            );
+
+            return resultado;
+        };
+
+    })();
+    
     // --- PASO 5: CALCULOS DERIVADOS DE ORIGENES, SPECIAL Y PERKS ---
 
     // --- PASO 6: SELECCION DE EQUIPO, TRINKETS Y NOTAS ---
