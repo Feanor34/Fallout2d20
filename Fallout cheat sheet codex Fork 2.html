@@ -1789,6 +1789,21 @@
             }
         }
 
+        /* --- Paquetes de equipo --- */
+        #fallout-character-creator #fc2-equipment-packages .fc2-card,
+        #fallout-character-creator #fc2-trinkets-grid .fc2-card {
+            cursor: pointer;
+            color: var(--fc2-dim);
+            text-align: left;
+        }
+
+        #fallout-character-creator #fc2-equipment-packages .fc2-card.selected,
+        #fallout-character-creator #fc2-trinkets-grid .fc2-card.selected {
+            border: 2px solid var(--fc2-green);
+            background: rgba(140, 255, 102, 0.12);
+            color: var(--fc2-green);
+        }
+
         /* MEJORA DE LEGIBILIDAD DEL CREADOR */
         #fallout-character-creator {
             font-size: 16px;
@@ -3073,31 +3088,31 @@
 
                     <!-- PASO 6 -->
                     <section class="fc2-panel fc2-panel-6">
-                    <h2>06 / EQUIPO Y PERTENENCIAS</h2>
+                        <h2>06 / EQUIPO Y PERTENENCIAS</h2>
 
-                    <h3>PAQUETES DE EQUIPO</h3>
-                    <p class="fc2-description">
-                        Elegí uno de los paquetes disponibles para tu origen.
-                    </p>
+                        <h3>PAQUETES DE EQUIPO</h3>
+                        <p class="fc2-description">
+                            Elegí uno de los paquetes disponibles para tu origen.
+                        </p>
 
-                    <div id="fc2-equipment-packages" class="fc2-cards">
-                        <p>Seleccioná un origen para ver los paquetes disponibles.</p>
-                    </div>
+                        <div id="fc2-equipment-packages" class="fc2-cards">
+                            <p>Seleccioná un origen para ver los paquetes disponibles.</p>
+                        </div>
 
-                    <h3>BARATIJA PERSONAL</h3>
-                    <p class="fc2-description">
-                        Elegí uno de los 20 objetos o creá uno personalizado.
-                    </p>
+                        <h3>BARATIJA PERSONAL</h3>
+                        <p class="fc2-description">
+                            Elegí uno de los 20 objetos o creá uno personalizado.
+                        </p>
 
-                    <div id="fc2-trinkets-grid" class="fc2-cards"></div>
+                        <div id="fc2-trinkets-grid" class="fc2-cards"></div>
 
-                    <div class="fc2-actions">
-                        <label class="fc2-button" for="fc2-step-5">← ANTERIOR</label>
-                        <label class="fc2-button fc2-primary" for="fc2-step-7">
-                            FICHA FINAL →
-                        </label>
-                    </div>
-                </section>
+                        <div class="fc2-actions">
+                            <label class="fc2-button" for="fc2-step-5">← ANTERIOR</label>
+                            <label class="fc2-button fc2-primary" id="fc2-step-6-next" for="fc2-step-7">
+                                FICHA FINAL →
+                            </label>
+                        </div>
+                    </section>
 
                     <!-- PASO 7 -->
                     <section class="fc2-panel fc2-panel-7">
@@ -6005,12 +6020,20 @@
         "New_Canaanite_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
         "Children_of_Atom_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
         "Hairy_Deathclaw_Shadowclaw_Homebrew": { max: { FUE: 12, PER: 12, END: 12, CAR: 4, INT: 4, AGI: 12, SUE: 6 }, min: 4, base: { FUE: 6, PER: 6, END: 6, CAR: 4, INT: 4, AGI: 6, SUE: 4 } },
-        "Protectron_Homebrew_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
+        "Protectron_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
         "Numen_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
         "Enclave_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
-        "Asaultron_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
+        "Assaultron_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
         "Synth_Homebrew": { max: { FUE: 10, PER: 10, END: 10, CAR: 10, INT: 10, AGI: 10, SUE: 10 }, min: 4, base: { FUE: 5, PER: 5, END: 5, CAR: 5, INT: 5, AGI: 5, SUE: 5 } },
     };
+
+    // --- PAQUETES DE EQUIPO INICIAL ---
+
+    // --- PAQUETES CANON ---
+    const bortherhoodInitiateKit = [
+        { origin: "brotherhoodInitiateOrigin", id: "BoSInitiate", name: "Iniciado en la Hermandad de Acero", desc: "Sos un nuevo recluta de la Hermandad de Acero, entrenando para luchar en las batallas de la Hermandad. Aspirás a convertirte en Caballero de la Hermandad, encargado de utilizar poderosas Armaduras de Potencia, armas y otras tecnologías avanzadas para preservar el conocimiento y la civilización humana.", content: [ "arm-05", "arm-25", "melee-06", "areng-3", "municion-8", "Con 10 + 5 CD disparos", "o", "arpeq-2", "municion-2", "Con 10 + 5 CD disparos", "Chapas de identificación de la Hermandad de Acero" ] },
+        { origin: "brotherhoodInitiateOrigin", id: "BoSScribe", name: "Escriba en la Hermandad de Acero", desc: "Sos uno de los mejores y más brillantes de la Hermandad. Tu vida está dedicada a investigar ciencia y tecnología para preservar ese conocimiento, mantener registros para asegurar que la historia no sea olvidada y mantener y mejorar las armas, armaduras y vehículos de la Hermandad. Aunque no estás tan preparado para el combate como otros miembros de la Hermandad, a veces tus obligaciones requieren salir al campo.", content: [ "arm-13", "arm-26", "areng-3", "municion-8", "Con 6 + 3 CD disparos", "o", "arpeq-2", "municion-2", "Con 6 + 3 CD disparos", "Chapas de identificación de la Hermandad de Acero" ] }
+    ];
 
     // --- TRAITS BY ORIGIN CANON ---
     const misterHandyTraitsCanon = [
@@ -6084,7 +6107,8 @@
         additionalSkillTraitOptions: ["Armas de Energía", "Ciencia", "Reparación"],
         additionalSkillTraitChoices: 1,
         originOptions: null,
-        perkTag: ["humanoid", "brotherhood"]
+        perkTag: ["humanoid", "brotherhood"],
+        equipmentKit: bortherhoodInitiateKit
     };
 
     const ghoulOrigin = {
@@ -6101,7 +6125,8 @@
         additionalSkillTraitOptions: [],
         additionalSkillTraitChoices: 0,
         originOptions: null,
-        perkTag: ["mutant"]
+        perkTag: ["mutant"],
+        equipmentKit: ghoulKit
     };
 
     const supermutantOrigin = {
@@ -6118,7 +6143,8 @@
         additionalSkillTraitOptions: [],
         additionalSkillTraitChoices: 0,
         originOptions: null,
-        perkTag: ["mutant"]
+        perkTag: ["mutant"],
+        equipmentKit: supermutantKit
     };
 
     const misterHandyOrigin = {
@@ -6135,7 +6161,8 @@
         additionalSkillTraitOptions: [],
         additionalSkillTraitChoices: 0,
         originOptions: null,
-        perkTag: ["robot"]
+        perkTag: ["robot"],
+        equipmentKit: misterHandyKit
     };
 
     const survivorOrigin = {
@@ -6152,7 +6179,8 @@
         additionalSkillTraitOptions: [],
         additionalSkillTraitChoices: 0,
         originOptions: null,
-        perkTag: ["humanoid"]
+        perkTag: ["humanoid"],
+        equipmentKit: survivorKit
     };
 
     const vaultDwellerOrigin = {
@@ -6169,7 +6197,8 @@
         additionalSkillTraitOptions: [],
         additionalSkillTraitChoices: 0,
         originOptions: null,
-        perkTag: ["humanoid"]
+        perkTag: ["humanoid"],
+        equipmentKit: vaultDwellerKit
     };
 
     const assaultronOrigin = {
@@ -6186,7 +6215,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["robot"]
+        perkTag: ["robot"],
+        equipmentKit: assaultronKit
     };
 
     const brotherhoodOutcastOrigin = {
@@ -6203,7 +6233,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["humanoid", "brotherhood"]
+        perkTag: ["humanoid", "brotherhood"],
+        equipmentKit: brotherhoodOutcastkit
     }
 
     const childOfTheAtomOrigin = {
@@ -6220,7 +6251,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["humanoid", "atomite"]
+        perkTag: ["humanoid", "atomite"],
+        equipmentKit: childrenOfAtomKit
     };
 
     const nightkinOrigin = {
@@ -6237,7 +6269,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["mutant", "nightkin"]
+        perkTag: ["mutant", "nightkin"],
+        equipmentKit: nightkinKit
     };
 
     const tribalOrigin = {
@@ -6254,7 +6287,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["humanoid", "tribal"]
+        perkTag: ["humanoid", "tribal"],
+        equipmentKit: tribalKit
     };
 
     const commonwealthMinutemanOrigin = {
@@ -6271,7 +6305,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["humanoid", "minuteman"]
+        perkTag: ["humanoid", "minuteman"],
+        equipmentKit: commonwealthMinutemanKit
     };
 
     const newCaliforniaRepublicOrigin = {
@@ -6288,7 +6323,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["humanoid", "NCR"]
+        perkTag: ["humanoid", "NCR"],
+        equipmentKit: newCaliforniaRepublicKit
     };
 
     const protectronOrigin = {
@@ -6305,7 +6341,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["robot"]
+        perkTag: ["robot"],
+        equipmentKit: protectronKit
     };
 
     const robobrainOrigin = {
@@ -6322,7 +6359,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["robot"]
+        perkTag: ["robot"],
+        equipmentKit: robobrainKit
     };
 
     const securitronOrigin = {
@@ -6339,7 +6377,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["robot"]
+        perkTag: ["robot"],
+        equipmentKit: securitronKit
     };
 
     const gen3SynthOrigin = {
@@ -6356,7 +6395,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: 1,
         originOptions: null,
-        perkTag: ["robot", "synth"]
+        perkTag: ["robot", "synth"],
+        equipmentKit: gen3SynthKit
     };
 
     // --- TRAITS BY ORIGIN HOMEBREW ---
@@ -6505,7 +6545,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["humanoid"]
+        perkTag: ["humanoid"],
+        equipmentKit: raiderHomebrewKit
     };
 
     const Sobreviviente_Homebrew = {
@@ -6522,7 +6563,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["humanoid"]
+        perkTag: ["humanoid"],
+        equipmentKit: surviborHomebrewKit
     };
 
     const Tribal_Homebrew = {
@@ -6539,7 +6581,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["humanoid"]
+        perkTag: ["humanoid"],
+        equipmentKit: tribalHomebrewKit
     };
 
     const Brotherhood_Initiate_Homebrew = {
@@ -6556,7 +6599,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["humanoid", "brotherhood"]
+        perkTag: ["humanoid", "brotherhood"],
+        equipmentKit: brotherhooInitiateHomebrewKit
     };
 
     const Eyebot_Homebrew = {
@@ -6573,7 +6617,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["robot"]
+        perkTag: ["robot"],
+        equipmentKit: eyebotHomebrewKit
     };
 
     const Nightkin_Homebrew = {
@@ -6590,7 +6635,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["mutant", "nightkin"]
+        perkTag: ["mutant", "nightkin"],
+        equipmentKit: nightkinHomebrewKit
     };
 
     const Followers_of_the_Fourfathers_Homebrew = {
@@ -6607,7 +6653,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["humanoid"]
+        perkTag: ["humanoid"],
+        equipmentKit: followersOfTheFourfathersKit
     };
 
     const Intelligent_Deathclaw_Brawns_Homebrew = {
@@ -6624,7 +6671,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["deathclaw"]
+        perkTag: ["deathclaw"],
+        equipmentKit: intelligentDeathclawBrawnsHomebrewKit
     };
 
     const Intelligent_Deathclaw_Brains_Homebrew = {
@@ -6639,7 +6687,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["deathclaw"]
+        perkTag: ["deathclaw"],
+        equipmentKit: intelligentDeathclawBrainsHomebrewKit
     };
 
     const NCR_Soldier_Homebrew = {
@@ -6656,7 +6705,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["humanoid", "NCR"]
+        perkTag: ["humanoid", "NCR"],
+        equipmentKit: ncrSoldierHomebrewKit
     };
 
     const New_Canaanite_Homebrew = {
@@ -6672,7 +6722,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["humanoid"]
+        perkTag: ["humanoid"],
+        equipmentKit: newCanaaniteHomebrewKit
     };
 
     const Children_of_Atom_Homebrew = {
@@ -6689,7 +6740,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["humanoid", "atomite"]
+        perkTag: ["humanoid", "atomite"],
+        equipmentKit: childrenOfAtomHomebrewKit
     };
 
     const Hairy_Deathclaw_Shadowclaw_Homebrew = {
@@ -6705,11 +6757,12 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["deathclaw"]
+        perkTag: ["deathclaw"],
+        equipmentKit: HairyDeathclawShadowclawHomebrewKit
     };
 
-    const Protectron_Homebrew_Homebrew = {
-        id: "Protectron_Homebrew_Homebrew",
+    const Protectron_Homebrew = {
+        id: "Protectron_Homebrew",
         name: "Protectron",
         source: "Homebrew",
         description: "Uno de los modelos más extendidos y populares del catálogo de RobCo Industries. El Protectron fue diseñado como un dron de trabajo económico, capaz de realizar una amplia variedad de tareas, desde construcción y seguridad hasta labores de oficina.\n\nComo Protectron, generalmente se te considera menos inteligente y carismático que tus hermanos robóticos producidos por General Atomics, los Mister Handies. Los Protectrons generalmente carecen de una voz similar a la humana y, combinada con sus movimientos lentos y torpes, mucha gente puede asumir que no sos más que una terminal con piernas. Sin embargo, los Protectrons son fuertes, resistentes y adaptables por diseño. Algunos permanecen sentados, durmiendo eternamente en cápsulas de recarga, o vagan por lugares de trabajo con sus inhibidores de combate degradados hace mucho tiempo, atacando todo lo que ven. Vos no sos ninguno de estos; por voluntad propia o por la de otra persona, recorrés el Yermo.\n\nExisten varios modelos de Protectron además del modelo estándar, adaptados para una variedad de usos que serían peligrosos para los humanos. Podés ser un modelo de Policía, un modelo de Servicios Públicos, un modelo de Bombero o incluso un modelo Médico. Funcionás con un Núcleo nuclear, cuya carga completa puede mantenerte en funcionamiento durante más de 200 años, por lo que no tenés que preocuparte por recargarlo con frecuencia. Podés repararte a vos mismo o a otras unidades Protectron. Tenés una estructura corporal mayormente humanoide, con dos piernas para caminar y dos brazos, sobre los cuales se pueden montar una variedad de accesorios, como herramientas, armas o, más comúnmente, manos.\n\nA discreción del Director de Juego, aquellos competentes con máquinas pueden ser capaces de instalar otros equipamientos.",
@@ -6721,7 +6774,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["robot"]
+        perkTag: ["robot"],
+        equipmentKit: protectronHomebrewKit
     };
 
     const Numen_Homebrew = {
@@ -6737,7 +6791,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["mutant", "numen"]
+        perkTag: ["mutant", "numen"],
+        equipmentKit: numenHomebrewKit
     };
 
     const Enclave_Homebrew = {
@@ -6753,11 +6808,12 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["humanoid", "enclave"]
+        perkTag: ["humanoid", "enclave"],
+        equipmentKit: enclaveHomebrewKit
     };
 
-    const Asaultron_Homebrew = {
-        id: "Asaultron_Homebrew",
+    const Assaultron_Homebrew = {
+        id: "Assaultron_Homebrew",
         name: "Assaultron",
         source: "Homebrew",
         description: "Designed by RobCo Industries in a collaboration with General Atomics, the Sallytron Personal Domestic Automaton  (often simply referred to as the Sallytron) brings the sleek and deadly Assaultron to the homefront! In the time before the Great War, the Sallytron was designed to serve as a companion piece and competitor to the popular Mister Handy line of personal domestic automatons. Most of the Sallytron models found on the market hail from damaged Assaultrons, which were salvaged and repurposed for Project: Girl Next Door, the initiative behind the Sallytron’s introduction to the domestic robot market. While seeing limited success in testing markets across the United States, many complained of faulty programming and bugs as a result of the Sallytron’s hasty push to market, resulting in several reports of injury and death. You are one of these semi-domestic automatons, hovering somewhere between a household servant and a personal security system. Despite a handful of rumored programming errors attributing to increased aggression, your state-of-the-art programming grants you initiative and the ability to adapt your own coding to learn from your surroundings. This capacity for self-determination– as well as your ability to hold your own in a fight due to your militant robotic origins –has enabled you to survive the Great War; where other robots may have broken down, you have managed to shake loose from the shackles of your programming and find a life for yourself.",
@@ -6769,7 +6825,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["robot"]
+        perkTag: ["robot"],
+        equipmentKit: assaultronHomebrewKit
     };
 
     const Synth_Homebrew = {
@@ -6787,7 +6844,8 @@
         additionalSkillTraitOptions: null,
         additionalSkillTraitChoices: null,
         originOptions: null,
-        perkTag: ["robot", "synth"]
+        perkTag: ["robot", "synth"],
+        equipmentKit: synthHomebrewKit
     };
 
     // --- HABILIDADES DESCIPCION Y ATRIBUTOS ---
@@ -7656,7 +7714,7 @@
             core: [ brotherhoodInitiateOrigin, ghoulOrigin, supermutantOrigin, survivorOrigin, misterHandyOrigin, vaultDwellerOrigin ],
             settlers: [ commonwealthMinutemanOrigin, newCaliforniaRepublicOrigin, protectronOrigin, robobrainOrigin, securitronOrigin, gen3SynthOrigin ],
             wanderers: [ assaultronOrigin, brotherhoodOutcastOrigin, childOfTheAtomOrigin, nightkinOrigin, tribalOrigin ],
-            homebrew: [ Raider_Homebrew, Sobreviviente_Homebrew, Tribal_Homebrew, Brotherhood_Initiate_Homebrew, Eyebot_Homebrew, Nightkin_Homebrew, Followers_of_the_Fourfathers_Homebrew, Intelligent_Deathclaw_Brawns_Homebrew, Intelligent_Deathclaw_Brains_Homebrew, NCR_Soldier_Homebrew, New_Canaanite_Homebrew, Children_of_Atom_Homebrew, Hairy_Deathclaw_Shadowclaw_Homebrew, Protectron_Homebrew_Homebrew, Numen_Homebrew, Enclave_Homebrew, Asaultron_Homebrew, Synth_Homebrew ]
+            homebrew: [ Raider_Homebrew, Sobreviviente_Homebrew, Tribal_Homebrew, Brotherhood_Initiate_Homebrew, Eyebot_Homebrew, Nightkin_Homebrew, Followers_of_the_Fourfathers_Homebrew, Intelligent_Deathclaw_Brawns_Homebrew, Intelligent_Deathclaw_Brains_Homebrew, NCR_Soldier_Homebrew, New_Canaanite_Homebrew, Children_of_Atom_Homebrew, Hairy_Deathclaw_Shadowclaw_Homebrew, Protectron_Homebrew, Numen_Homebrew, Enclave_Homebrew, Assaultron_Homebrew, Synth_Homebrew ]
         };
 
         const fc2RegistroOrigenes = [
@@ -9754,7 +9812,238 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
 
     // --- PASO 6: SELECCION DE EQUIPO, TRINKETS Y NOTAS ---
 
+    function actualizarPaso6() {
+        const origen = window.fc2OrigenSeleccionado;
+        const paquetesHTML = document.getElementById("fc2-equipment-packages");
+        const trinketsHTML = document.getElementById("fc2-trinkets-grid");
+
+        if (!origen || !paquetesHTML || !trinketsHTML) return;
+
+        paquetesHTML.replaceChildren();
+
+        const canon = equipmentPackages.filter(p => p.origin === origen.name);
+        const claveHomebrew = origen.id.replace(/_Homebrew$/, "");
+        const grupoHomebrew = equipmentPackagesHomebrew[
+            equipmentPackagesHomebrew.indexOf(claveHomebrew) + 1
+        ];
+        const homebrew = grupoHomebrew?.packages || [];
+
+        [...canon, ...homebrew].forEach(p => {
+            const boton = document.createElement("button");
+            boton.type = "button";
+            boton.className = "fc2-card";
+            boton.innerHTML = `<h4>${p.name}</h4><p>${p.desc || ""}</p><p>${p.content || p.equipment.join(", ")}</p>`;
+            boton.onclick = () => {
+                window.fc2Personaje.paqueteEquipo = p;
+                paquetesHTML.querySelectorAll("button").forEach(b => b.classList.remove("selected"));
+                boton.classList.add("selected");
+            };
+            paquetesHTML.appendChild(boton);
+        });
+
+        trinketsHTML.replaceChildren();
+
+        trinketsList.forEach(t => {
+            const boton = document.createElement("button");
+            boton.type = "button";
+            boton.className = "fc2-card";
+            if (window.fc2Personaje?.baratija === t) {
+                boton.classList.add("selected");
+            }
+            boton.textContent = t;
+            boton.onclick = () => {
+                window.fc2Personaje.baratija = t;
+                trinketsHTML.querySelectorAll("button").forEach(b => b.classList.remove("selected"));
+                boton.classList.add("selected");
+            };
+            trinketsHTML.appendChild(boton);
+        });
+
+        const personalizada = document.createElement("input");
+        personalizada.type = "text";
+        personalizada.placeholder = "Baratija personalizada";
+        personalizada.onchange = () => {
+            window.fc2Personaje.baratija = personalizada.value.trim();
+        };
+        trinketsHTML.appendChild(personalizada);
+    }
+
+    document.getElementById("fc2-step-6")?.addEventListener("change", function () {
+        if (this.checked) actualizarPaso6();
+    });
+
+    // --- VALIDACION PASO 6 Y FICHA FINAL ---
+    const botonSiguientePaso6 = document.getElementById("fc2-step-6-next");
+    const paso7 = document.getElementById("fc2-step-7");
+
+    botonSiguientePaso6?.addEventListener("click", function (evento) {
+        const personaje = window.fc2Personaje || {};
+
+        if (!personaje.paqueteEquipo) {
+            evento.preventDefault();
+            alert("Seleccioná un paquete de equipo antes de continuar.");
+            return;
+        }
+
+        if (!personaje.baratija || !String(personaje.baratija).trim()) {
+            evento.preventDefault();
+            alert("Seleccioná una baratija antes de continuar.");
+            return;
+        }
+
+        window.fc2Personaje = personaje;
+        window.fc2ActualizarFichaFinal();
+    });
+
+    window.fc2ActualizarFichaFinal = function () {
+        const personaje = window.fc2Personaje || {};
+        const origen = personaje.origen || window.fc2OrigenSeleccionado || {};
+        const special = {};
+
+        ["FUE", "PER", "END", "CAR", "INT", "AGI", "SUE"].forEach(clave => {
+            const input = document.getElementById("fc2-special-" + clave);
+            special[clave] = Number(input?.value) || 0;
+        });
+
+        personaje.special = special;
+
+        const ficha = document.querySelector(".fc2-panel-7 .fc2-final-sheet");
+        if (!ficha) return;
+
+        // IDENTIDAD
+        const datosIdentidad = ficha.querySelectorAll(".fc2-sheet-grid:first-of-type strong");
+
+        const nombre = document.getElementById("fc2-character-name")?.value.trim() || "—";
+        const jugador = document.getElementById("fc2-player-name")?.value.trim() || "—";
+
+        const identidad = [
+            nombre,
+            jugador,
+            origen.name || "—",
+            personaje.nivel || 1,
+            "",
+            ""
+        ];
+
+        datosIdentidad.forEach((elemento, indice) => {
+            if (identidad[indice] !== undefined) {
+                elemento.textContent = identidad[indice];
+            }
+        });
+
+        // SPECIAL
+        const valoresSpecial = ficha.querySelectorAll(".fc2-sheet-special strong");
+        const ordenSpecial = ["FUE", "PER", "END", "CAR", "INT", "AGI", "SUE"];
+
+        valoresSpecial.forEach((elemento, indice) => {
+            elemento.textContent = special[ordenSpecial[indice]] ?? "—";
+        });
+
+        // HABILIDADES Y TAGS
+        const placeholders = ficha.querySelectorAll(".fc2-placeholder");
+
+        const habilidadesHTML = document.createElement("ul");
+        habilidadesHTML.className = "fc2-sum-list";
+
+        Object.entries(window.fc2Habilidades || {}).forEach(([nombre, habilidad]) => {
+            if (!habilidad || Number(habilidad.total) <= 0) return;
+
+            const item = document.createElement("li");
+            item.textContent =
+                `${habilidad.tag ? "■ " : ""}${nombre}: ${habilidad.total}`;
+
+            habilidadesHTML.appendChild(item);
+        });
+
+        if (!habilidadesHTML.children.length) {
+            const item = document.createElement("li");
+            item.textContent = "Sin habilidades asignadas";
+            habilidadesHTML.appendChild(item);
+        }
+
+        if (placeholders[0]) {
+            placeholders[0].replaceWith(habilidadesHTML);
+        }
+
+        // PERKS
+        const perksHTML = document.createElement("ul");
+        perksHTML.className = "fc2-sum-list";
+
+        (personaje.perksElegidos || []).forEach(perk => {
+            const item = document.createElement("li");
+            item.textContent = typeof perk === "string" ? perk : perk.name;
+            perksHTML.appendChild(item);
+        });
+
+        if (!perksHTML.children.length) {
+            const item = document.createElement("li");
+            item.textContent = "Sin perks seleccionados";
+            perksHTML.appendChild(item);
+        }
+
+        if (placeholders[1]) {
+            placeholders[1].replaceWith(perksHTML);
+        }
+
+        // ESTADISTICAS DERIVADAS
+        window.fc2ActualizarEstadisticasDerivadas?.();
+
+        const stats = window.fc2CalcularEstadisticasDerivadas();
+        const statsHTML = document.createElement("ul");
+        statsHTML.className = "fc2-sum-list";
+
+        [
+            ["Puntos de salud", stats.hp],
+            ["Defensa", stats.defensa],
+            ["Iniciativa", stats.iniciativa],
+            ["Puntos de suerte", stats.suerte],
+            ["Carga", `${stats.carga} lb`],
+            ["Daño cuerpo a cuerpo", `${stats.melee >= 0 ? "+" : ""}${stats.melee} CD${stats.heavyHanded ? " / +1 CD Heavy Handed" : ""}`]
+        ].forEach(([nombre, valor]) => {
+            const item = document.createElement("li");
+            item.textContent = `${nombre}: ${valor}`;
+            statsHTML.appendChild(item);
+        });
+
+        if (placeholders[2]) {
+            placeholders[2].replaceWith(statsHTML);
+        }
+
+        // EQUIPO Y BARATIJA
+        const equipoHTML = document.createElement("div");
+        equipoHTML.className = "fc2-sheet-equipment";
+
+        const paquete = personaje.paqueteEquipo;
+        const nombrePaquete = document.createElement("h5");
+        nombrePaquete.textContent = paquete.name || "Paquete de equipo";
+        equipoHTML.appendChild(nombrePaquete);
+
+        const descripcionPaquete = document.createElement("p");
+        descripcionPaquete.textContent = paquete.content || paquete.equipment?.join(", ") || paquete.desc || "";
+        equipoHTML.appendChild(descripcionPaquete);
+
+        const tituloBaratija = document.createElement("h5");
+        tituloBaratija.textContent = "Baratija personal";
+        equipoHTML.appendChild(tituloBaratija);
+
+        const baratija = document.createElement("p");
+        baratija.textContent = personaje.baratija;
+        equipoHTML.appendChild(baratija);
+
+        if (placeholders[3]) {
+            placeholders[3].replaceWith(equipoHTML);
+        }
+    };
+
+    paso7?.addEventListener("change", function () {
+        if (paso7.checked) {
+            window.fc2ActualizarFichaFinal();
+        }
+    });
+
     // --- PASO 7: FICHA FINAL ---
+
+
 
     // --- PASO 8: SUBIR DE NIVEL ---
 
