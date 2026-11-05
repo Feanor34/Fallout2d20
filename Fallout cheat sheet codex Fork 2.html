@@ -1136,68 +1136,17 @@
         }
 
         #fallout-character-creator .fc2-final-sheet {
-            padding: 18px;
-            border: 1px solid var(--fc2-green);
-            background: #071007;
-        }
-
-        #fallout-character-creator .fc2-sheet-heading {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 10px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--fc2-green);
-        }
-
-        #fallout-character-creator .fc2-sheet-heading small {
-            color: var(--fc2-dim);
-            font-size: 9px;
-        }
-
-        #fallout-character-creator .fc2-sheet-heading h3 {
-            margin-top: 6px;
-        }
-
-        #fallout-character-creator .fc2-sheet-heading > span {
+            margin-left: 18px;
+            margin-right: 18px;
+            padding: 20px;
+            background: rgba(0, 40, 10, 0.8);
+            border: 2px double var(--fc2-green);
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            line-height: 1.5;
+            font-family: 'Monofonto', 'Courier New', monospace;
+            font-size: 13px;
             color: var(--fc2-green);
-            font-size: 10px;
-        }
-
-        #fallout-character-creator .fc2-sheet-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 8px;
-            margin-top: 14px;
-        }
-
-        #fallout-character-creator .fc2-sheet-grid > div {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            padding: 9px;
-            border: 1px solid var(--fc2-line);
-        }
-
-        #fallout-character-creator .fc2-sheet-grid small {
-            color: var(--fc2-dim);
-            font-size: 9px;
-        }
-
-        #fallout-character-creator .fc2-sheet-grid strong {
-            color: var(--fc2-green);
-            font-size: 12px;
-        }
-
-        #fallout-character-creator .fc2-final-sheet h4 {
-            margin: 20px 0 8px;
-            color: var(--fc2-green);
-            font-size: 11px;
-            letter-spacing: 1px;
-        }
-
-        #fallout-character-creator .fc2-final-sheet .fc2-placeholder {
-            margin: 0;
         }
 
         @media (max-width: 1100px) {
@@ -1911,6 +1860,147 @@
             gap: 8px;
         }
 
+        #fallout-character-creator .fc2-final-sheet {
+    padding: 20px;
+    border: 1px solid var(--fc2-green);
+    background: #071007;
+    color: var(--fc2-green);
+    font-family: 'Monofonto', 'Courier New', monospace;
+}
+
+#fallout-character-creator .fc2-sheet-title {
+    margin: 0 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--fc2-green);
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+#fallout-character-creator .fc2-sheet-identity {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 18px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--fc2-line);
+    font-size: 12px;
+}
+
+#fallout-character-creator .fc2-sheet-section {
+    margin-top: 18px;
+}
+
+#fallout-character-creator .fc2-sheet-section h4 {
+    margin: 0 0 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--fc2-green);
+    color: var(--fc2-green);
+    font-size: 12px;
+    letter-spacing: 1.5px;
+}
+
+#fallout-character-creator .fc2-sheet-special-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px 24px;
+    font-size: 12px;
+}
+
+#fallout-character-creator .fc2-sheet-derived {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 24px;
+    font-size: 12px;
+}
+
+#fallout-character-creator .fc2-sheet-derived-item {
+    padding: 5px 0;
+    border-bottom: 1px dotted var(--fc2-line);
+}
+
+#fallout-character-creator .fc2-sheet-skills {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 12px;
+}
+
+#fallout-character-creator .fc2-sheet-skill {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) 55px 75px;
+    gap: 8px;
+    align-items: center;
+    padding: 4px 5px;
+    border-bottom: 1px dotted var(--fc2-line);
+}
+
+#fallout-character-creator .fc2-sheet-skill-header {
+    color: var(--fc2-dim);
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+#fallout-character-creator .fc2-sheet-skill-tag {
+    text-align: center;
+    color: var(--fc2-green);
+}
+
+#fallout-character-creator .fc2-sheet-skill-rank,
+#fallout-character-creator .fc2-sheet-skill-difficulty {
+    text-align: center;
+    font-weight: bold;
+}
+
+#fallout-character-creator .fc2-sheet-perk {
+    margin-bottom: 13px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+#fallout-character-creator .fc2-sheet-perk strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--fc2-green);
+}
+
+#fallout-character-creator .fc2-sheet-perk p {
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+#fallout-character-creator .fc2-sheet-items {
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+#fallout-character-creator .fc2-sheet-items p {
+    margin: 6px 0 12px;
+}
+
+#fallout-character-creator .fc2-sheet-trinket {
+    padding-top: 8px;
+    border-top: 1px dotted var(--fc2-line);
+    color: var(--fc2-green);
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    #fallout-character-creator .fc2-sheet-identity {
+        flex-direction: column;
+    }
+
+    #fallout-character-creator .fc2-sheet-special-list,
+    #fallout-character-creator .fc2-sheet-derived {
+        grid-template-columns: 1fr;
+    }
+
+    #fallout-character-creator .fc2-sheet-skill {
+        grid-template-columns: 25px minmax(0, 1fr) 35px 55px;
+        gap: 4px;
+        font-size: 10px;
+    }
+}
+
         /* =========================================================
         GENERADOR DE BOTÍN — CONTROLES DE SELECCIÓN
         ========================================================= */
@@ -2167,6 +2257,178 @@
                 grid-row: 1;
             }
         }
+
+        /* Ocultar resumen lateral únicamente en la ficha final */
+        #fallout-character-creator #fc2-step-7:checked ~ .fc2-layout {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        #fallout-character-creator #fc2-step-7:checked ~ .fc2-layout .fc2-summary {
+            display: none;
+        }
+
+        /* HOJA FINAL: DISTRIBUCIÓN COMPACTA */
+#fallout-character-creator .fc2-final-sheet {
+    padding: 14px;
+    border: 1px solid var(--fc2-green);
+    background: #071007;
+    color: var(--fc2-green);
+}
+
+#fallout-character-creator .fc2-sheet-title {
+    margin: 0 0 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--fc2-green);
+    text-align: left;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+#fallout-character-creator .fc2-sheet-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(220px, 1fr);
+    gap: 12px;
+    align-items: stretch;
+}
+
+#fallout-character-creator .fc2-sheet-data {
+    min-width: 0;
+}
+
+#fallout-character-creator .fc2-sheet-image {
+    min-width: 0;
+    min-height: 560px;
+    border-left: 1px solid var(--fc2-line);
+}
+
+#fallout-character-creator .fc2-sheet-identity {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    padding: 5px 0 9px;
+    border-bottom: 1px solid var(--fc2-line);
+    font-size: 11px;
+}
+
+#fallout-character-creator .fc2-sheet-section {
+    margin: 9px 0 0;
+    padding: 0 0 7px;
+    border-bottom: 1px solid var(--fc2-line);
+}
+
+#fallout-character-creator .fc2-sheet-section h4 {
+    margin: 0 0 5px;
+    padding: 0;
+    border: 0;
+    color: var(--fc2-green);
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+#fallout-character-creator .fc2-sheet-special-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 11px;
+}
+
+#fallout-character-creator .fc2-sheet-special-item {
+    display: flex;
+    gap: 5px;
+    justify-content: flex-start;
+}
+
+#fallout-character-creator .fc2-sheet-derived {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, max-content));
+    justify-content: start;
+    gap: 3px 18px;
+    font-size: 11px;
+}
+
+#fallout-character-creator .fc2-sheet-derived-item {
+    white-space: nowrap;
+}
+
+#fallout-character-creator .fc2-sheet-skills {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    font-size: 11px;
+}
+
+#fallout-character-creator .fc2-sheet-skill {
+    display: grid;
+    grid-template-columns: 14px 190px 25px 35px;
+    gap: 5px;
+    align-items: center;
+    width: auto;
+    padding: 1px 0;
+    border: 0;
+}
+
+#fallout-character-creator .fc2-sheet-skill-tag {
+    text-align: center;
+}
+
+#fallout-character-creator .fc2-sheet-skill-rank,
+#fallout-character-creator .fc2-sheet-skill-difficulty {
+    text-align: center;
+}
+
+#fallout-character-creator .fc2-sheet-perk {
+    margin: 0 0 7px;
+    font-size: 11px;
+    line-height: 1.35;
+}
+
+#fallout-character-creator .fc2-sheet-perk strong {
+    display: block;
+    margin-bottom: 2px;
+    color: var(--fc2-green);
+}
+
+#fallout-character-creator .fc2-sheet-perk p {
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+#fallout-character-creator .fc2-sheet-items {
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+#fallout-character-creator .fc2-sheet-items p {
+    margin: 3px 0;
+}
+
+#fallout-character-creator .fc2-sheet-trinket {
+    margin: 3px 0 0;
+    padding: 0;
+    border: 0;
+    font-weight: normal;
+}
+
+@media (max-width: 700px) {
+    #fallout-character-creator .fc2-sheet-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    #fallout-character-creator .fc2-sheet-image {
+        min-height: 250px;
+        border-left: 0;
+        border-top: 1px solid var(--fc2-line);
+    }
+
+    #fallout-character-creator .fc2-sheet-derived {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    #fallout-character-creator .fc2-sheet-skill {
+        grid-template-columns: 14px minmax(130px, 190px) 25px 35px;
+    }
+}
 
     </style>
 </head>
@@ -3116,62 +3378,10 @@
 
                     <!-- PASO 7 -->
                     <section class="fc2-panel fc2-panel-7">
-                        <h2>07 / FICHA FINAL</h2>
-                        <p class="fc2-description">
-                            Vista preliminar de la hoja de personaje.
-                        </p>
-
                         <div class="fc2-final-sheet">
-                            <div class="fc2-sheet-heading">
-                                <div>
-                                    <small>VAULT-TEC · REGISTRO DE PERSONAJE</small>
-                                    <h3>FICHA DE SUPERVIVIENTE</h3>
-                                </div>
-                                <span>FALLOUT 2d20</span>
+                            <div id="fc2-final-sheet-content">
+                                La ficha se completará con los datos del personaje.
                             </div>
-
-                            <div class="fc2-sheet-grid">
-                                <div><small>NOMBRE</small><strong>—</strong></div>
-                                <div><small>JUGADOR</small><strong>—</strong></div>
-                                <div><small>ORIGEN</small><strong>—</strong></div>
-                                <div><small>NIVEL</small><strong>—</strong></div>
-                                <div><small>CONCEPTO</small><strong>—</strong></div>
-                                <div><small>HOME BREW</small><strong>Desactivado</strong></div>
-                            </div>
-
-                            <h4>SPECIAL</h4>
-                            <div class="fc2-sheet-grid fc2-sheet-special">
-                                <div><small>FUERZA</small><strong>—</strong></div>
-                                <div><small>PERCEPCIÓN</small><strong>—</strong></div>
-                                <div><small>RESISTENCIA</small><strong>—</strong></div>
-                                <div><small>CARISMA</small><strong>—</strong></div>
-                                <div><small>INTELIGENCIA</small><strong>—</strong></div>
-                                <div><small>AGILIDAD</small><strong>—</strong></div>
-                                <div><small>SUERTE</small><strong>—</strong></div>
-                            </div>
-
-                            <h4>HABILIDADES Y ETIQUETAS</h4>
-                            <div class="fc2-placeholder">Se completará al conectar los datos.</div>
-
-                            <h4>VENTAJAS</h4>
-                            <div class="fc2-placeholder">Se completará al conectar los datos.</div>
-
-                            <h4>ESTADÍSTICAS DERIVADAS</h4>
-                            <div class="fc2-placeholder">Se completará al conectar los cálculos.</div>
-
-                            <h4>EQUIPO Y NOTAS</h4>
-                            <div class="fc2-placeholder">Se completará al conectar el equipo.</div>
-
-                            <h4>SUBIDA DE NIVEL</h4>
-                            <div class="fc2-placeholder">
-                                La selección y confirmación de mejoras se implementará posteriormente.
-                            </div>
-                        </div>
-
-                        <div class="fc2-actions">
-                            <label class="fc2-button" for="fc2-step-6">← ANTERIOR</label>
-                            <button class="fc2-button fc2-primary" type="button"
-                                    onclick="window.print()">IMPRIMIR / PDF</button>
                         </div>
                     </section>
 
@@ -6206,7 +6416,7 @@
         { origin: "", id:"", name: "", desc: "", equipment: [ "" ] }
     ];
 
-    const NCRSoldierKit = [
+    const ncrSoldierHomebrewKit = [
         { origin: "newCaliforniaRepublicOrigin", id:"ncrRanger", name: "Ranger", desc: "Sos un Ranger de la RNC.", equipment: [ "Armadura de Combate de Ranger de la RNC", "Sombrero de Ranger de la RNC", "Escopeta de Combate", "20 +4d6 proyectiles de munición" ] },
         { origin: "newCaliforniaRepublicOrigin", id:"ncrVRanger", name: "Ranger Veterano", desc: "Sos un Ranger Veterano de la RNC.", equipment: [ "Armadura de Combate de Ranger Veterano de la RNC", "Casco de Ranger Veterano de la RNC", "Ranger Sequoia", "Rifle Antimaterial", "20 +4d6 proyectiles de munición" ] },
         { origin: "newCaliforniaRepublicOrigin", id:"ncrTroop", name: "Tropa", desc: "Sos un soldado de linea de la NCR.", equipment: [ "Rifle de Servicio O Ametralladora Ligera", "Armadura de Tropa de la RNC", "20 +3d6 proyectiles 5.56", "Casco de Tropa de la RNC", "Cantimplora militar con 1 agua purificada", "Placa de identificación de la RNC", "Radio portátil", "1 objeto pequeño de tu elección" ] },
@@ -6216,7 +6426,7 @@
         { origin: "newCaliforniaRepublicOrigin", id:"ncrSniper", name: "Francotirador", desc: "Sos un Francotirador de la NCR.", equipment: [ "Rifle de Caza con accesorios de Cañón Largo, Culata Completa y Mira", "Boina de la RNC", "Armadura de Tropa de la RNC", "10 + 2d6 proyectiles .308", "Placa de identificación de la RNC", "Radio portátil", "1 objeto pequeño de tu elección" ] }
     ];
 
-    const newCanaaniteKit = [
+    const newCanaaniteHomebrewKit = [
         { origin: "New_Canaanite", name: "Juez de los Caminos", desc: "Althroug your people taught you the ways of pacifism it never really made sense to you. Whether you came to the realizatoin that your people need to actively protect themselves from those who’d harm them or you are questioning The Book entirely. You came to the decisión to set out and wander the trails dealing out your own judgements.", content: [ "Ropa de carretera", "Una pieza de pecho de Armadura de Combate con el logo de SLCPD", "Cuchillo de combate", "Una pistola de tubería calibre .45 con 8 +4CD proyectiles de munición calibre .45", "1 Estimulante", "Baratija personal o Biblia mormona", "Un cartel de Se Busca con una recompensa de 50 chapas", "20 chapas" ] }, 
         { origin: "New_Canaanite", name: "Pionero Aarónico", desc: "Entrusted by the prieshood of your people with spreding the good Word you’ve set out into the wastes. Armed with the strenght of your convictions, a bible, and a trusty weapon you’re ready to iluminate the wastes with words and muzzle flashes.", content: [ "Abrigo pesado y una capucha o cogulla", "Una pistola de tubería con 6 +3CD proyectiles de munición calibre .38", "Un arma cuerpo a cuerpo de la siguiente lista: navaja automática, bastón, porra, nudillos", "Una copia de la revista Meeting People", "Una linterna", "Baratija personal o Biblia mormona", "10 chapas" ] },
         { origin: "New_Canaanite", name: "Consagrador de Caravanas", desc: "Sometimes the most important Jobs are the most inglorious. Running supplies between settlements and keeping trade lines open is the lifeblood of any comunity. Vital and at times profitable to those involved, this is your line of work. Whether you’re helping build the prosperity of god’s kingdom or just the prosperity of your cap stash you are ready to load up on godos.", content: [ "Ropa apropiada", "Una pieza de pecho de Armadura de Cuero, o una pieza de brazo y una de pierna de Armadura de Cuero", "Una pistola de tubería calibre .45 con 6 +4CD proyectiles de munición calibre .45", "Mercancías: 3 tiradas en cada una de las tablas de botín de munición, ayuda y chatarra", "Una manada de brahmin", "Baratija personal o Biblia mormona", "35 chapas" ] }
@@ -7126,13 +7336,26 @@
 
     // --- TRINKETS ---
     const trinketsList = [
-        "1. Un reloj de bolsillo de oro", "2. Un holodisco con datos corruptos", "3. Un pañuelo de colores brillantes",
-        "4. Un relicario de plata", "5. Una medalla", "6. Una planta en maceta", "7. Entradas para un evento anterior a la guerra",
-        "8. Un anillo de bodas", "9. Una invitación a una fiesta anterior a la guerra", "10. Un encendedor de tapa grabado",
-        "11. Dados de casino cargados", "12. Una tarjeta de identificación", "13. Un estuche de cosméticos",
-        "14. Un instrumento musical", "15. Anteojos rotos", "16. Un collar hecho de chatarra",
-        "17. Páginas de una historia inconclusa", "18. Un libro de biblioteca vencido", "19. Una postal con una dirección",
-        "20. Una corbata anterior a la guerra"
+        "Un reloj de bolsillo de oro", 
+        "Un holodisco con datos corruptos", 
+        "Un pañuelo de colores brillantes",
+        "Un relicario de plata", 
+        "Una medalla", 
+        "Una planta en maceta", 
+        "Entradas para un evento anterior a la guerra",
+        "Un anillo de bodas", 
+        "Una invitación a una fiesta anterior a la guerra", 
+        "Un encendedor de tapa grabado",
+        "Dados de casino cargados", 
+        "Una tarjeta de identificación", 
+        "Un estuche de cosméticos",
+        "Un instrumento musical", 
+        "Anteojos rotos", 
+        "Un collar hecho de chatarra",
+        "Páginas de una historia inconclusa", 
+        "Un libro de biblioteca vencido", 
+        "Una postal con una dirección",
+        "Una corbata anterior a la guerra"
     ];
 
     // --- LISTA DE PAQUETES DE EQUIPO CANON ---
@@ -10129,11 +10352,15 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
         window.fc2ActualizarFichaFinal();
     });
 
+    // --- PASO 7: FICHA FINAL ---
     window.fc2ActualizarFichaFinal = function () {
         const personaje = window.fc2Personaje || {};
         const origen = personaje.origen || window.fc2OrigenSeleccionado || {};
-        const special = {};
+        const ficha = document.querySelector(".fc2-panel-7 .fc2-final-sheet");
 
+        if (!ficha) return;
+
+        const special = {};
         ["FUE", "PER", "END", "CAR", "INT", "AGI", "SUE"].forEach(clave => {
             const input = document.getElementById("fc2-special-" + clave);
             special[clave] = Number(input?.value) || 0;
@@ -10141,132 +10368,221 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
 
         personaje.special = special;
 
-        const ficha = document.querySelector(".fc2-panel-7 .fc2-final-sheet");
-        if (!ficha) return;
+        const crear = (etiqueta, clase, texto) => {
+            const elemento = document.createElement(etiqueta);
+            if (clase) elemento.className = clase;
+            if (texto !== undefined) elemento.textContent = texto;
+            return elemento;
+        };
+
+        const seccion = (titulo, clase = "") => {
+            const contenedor = crear("section", "fc2-sheet-section " + clase);
+            contenedor.appendChild(crear("h4", "", titulo));
+            return contenedor;
+        };
+
+        ficha.replaceChildren();
+
+        // TÍTULO
+        ficha.appendChild(crear("h3", "fc2-sheet-title", "HOJA DE PERSONAJE"));
+
+        // DISTRIBUCIÓN PRINCIPAL
+        const cuerpo = crear("div", "fc2-sheet-layout");
+        const columnaDatos = crear("div", "fc2-sheet-data");
+        const columnaImagen = crear("div", "fc2-sheet-image");
+        cuerpo.append(columnaDatos, columnaImagen);
+        ficha.appendChild(cuerpo);
 
         // IDENTIDAD
-        const datosIdentidad = ficha.querySelectorAll(".fc2-sheet-grid:first-of-type strong");
-
-        const nombre = document.getElementById("fc2-character-name")?.value.trim() || "—";
-        const jugador = document.getElementById("fc2-player-name")?.value.trim() || "—";
-
-        const identidad = [
-            nombre,
-            jugador,
-            origen.name || "—",
-            personaje.nivel || 1,
-            "",
-            ""
-        ];
-
-        datosIdentidad.forEach((elemento, indice) => {
-            if (identidad[indice] !== undefined) {
-                elemento.textContent = identidad[indice];
-            }
+        const identidad = crear("div", "fc2-sheet-identity");
+        [
+            ["NOMBRE", document.getElementById("fc2-character-name")?.value.trim() || "—"],
+            ["JUGADOR", document.getElementById("fc2-player-name")?.value.trim() || "—"],
+            ["ORIGEN", origen.name || "—"],
+            ["NIVEL", personaje.nivel || 1],
+            ["EXPERIENCIA", "          "]
+        ].forEach(([etiqueta, valor]) => {
+            const dato = crear("span", "");
+            dato.append(
+                crear("strong", "", etiqueta + ": "),
+                crear("span", "", valor)
+            );
+            identidad.appendChild(dato);
         });
+        columnaDatos.appendChild(identidad);
 
         // SPECIAL
-        const valoresSpecial = ficha.querySelectorAll(".fc2-sheet-special strong");
-        const ordenSpecial = ["FUE", "PER", "END", "CAR", "INT", "AGI", "SUE"];
+        const nombresSpecial = [
+            ["FUE", "FUERZA"],
+            ["PER", "PERCEPCIÓN"],
+            ["END", "RESISTENCIA"],
+            ["CAR", "CARISMA"],
+            ["INT", "INTELIGENCIA"],
+            ["AGI", "AGILIDAD"],
+            ["SUE", "SUERTE"]
+        ];
 
-        valoresSpecial.forEach((elemento, indice) => {
-            elemento.textContent = special[ordenSpecial[indice]] ?? "—";
+        const specialSection = seccion("SPECIAL");
+        const specialLista = crear("div", "fc2-sheet-special-list");
+
+        nombresSpecial.forEach(([clave, nombre]) => {
+            const fila = crear("div", "fc2-sheet-special-item");
+            fila.append(
+                crear("span", "", nombre + ":"),
+                crear("strong", "", special[clave])
+            );
+            specialLista.appendChild(fila);
         });
 
-        // HABILIDADES Y TAGS
-        const placeholders = ficha.querySelectorAll(".fc2-placeholder");
+        specialSection.appendChild(specialLista);
+        columnaDatos.appendChild(specialSection);
 
-        const habilidadesHTML = document.createElement("ul");
-        habilidadesHTML.className = "fc2-sum-list";
-
-        Object.entries(window.fc2Habilidades || {}).forEach(([nombre, habilidad]) => {
-            if (!habilidad || Number(habilidad.total) <= 0) return;
-
-            const item = document.createElement("li");
-            item.textContent =
-                `${habilidad.tag ? "■ " : ""}${nombre}: ${habilidad.total}`;
-
-            habilidadesHTML.appendChild(item);
-        });
-
-        if (!habilidadesHTML.children.length) {
-            const item = document.createElement("li");
-            item.textContent = "Sin habilidades asignadas";
-            habilidadesHTML.appendChild(item);
-        }
-
-        if (placeholders[0]) {
-            placeholders[0].replaceWith(habilidadesHTML);
-        }
-
-        // PERKS
-        const perksHTML = document.createElement("ul");
-        perksHTML.className = "fc2-sum-list";
-
-        (personaje.perksElegidos || []).forEach(perk => {
-            const item = document.createElement("li");
-            item.textContent = typeof perk === "string" ? perk : perk.name;
-            perksHTML.appendChild(item);
-        });
-
-        if (!perksHTML.children.length) {
-            const item = document.createElement("li");
-            item.textContent = "Sin perks seleccionados";
-            perksHTML.appendChild(item);
-        }
-
-        if (placeholders[1]) {
-            placeholders[1].replaceWith(perksHTML);
-        }
-
-        // ESTADISTICAS DERIVADAS
-        window.fc2ActualizarEstadisticasDerivadas?.();
-
+        // ESTADÍSTICAS DERIVADAS
         const stats = window.fc2CalcularEstadisticasDerivadas();
-        const statsHTML = document.createElement("ul");
-        statsHTML.className = "fc2-sum-list";
+        const derivedSection = seccion("ESTADÍSTICAS DERIVADAS");
+        const derivedLista = crear("div", "fc2-sheet-derived");
 
         [
             ["Puntos de salud", stats.hp],
             ["Defensa", stats.defensa],
             ["Iniciativa", stats.iniciativa],
             ["Puntos de suerte", stats.suerte],
-            ["Carga", `${stats.carga} lb`],
-            ["Daño cuerpo a cuerpo", `${stats.melee >= 0 ? "+" : ""}${stats.melee} CD${stats.heavyHanded ? " / +1 CD Heavy Handed" : ""}`]
+            ["Carga", stats.carga + " lb"],
+            [
+                "Daño cuerpo a cuerpo",
+                (stats.melee >= 0 ? "+" : "") + stats.melee +
+                " CD" + (stats.heavyHanded ? " / +1 CD Heavy Handed" : "")
+            ]
         ].forEach(([nombre, valor]) => {
-            const item = document.createElement("li");
-            item.textContent = `${nombre}: ${valor}`;
-            statsHTML.appendChild(item);
+            const fila = crear("div", "fc2-sheet-derived-item");
+            fila.append(
+                crear("span", "", nombre + ": "),
+                crear("strong", "", valor)
+            );
+            derivedLista.appendChild(fila);
         });
 
-        if (placeholders[2]) {
-            placeholders[2].replaceWith(statsHTML);
+        derivedSection.appendChild(derivedLista);
+        columnaDatos.appendChild(derivedSection);
+
+        // HABILIDADES
+        const skillsSection = seccion("HABILIDADES");
+        const skillsLista = crear("div", "fc2-sheet-skills");
+
+        const abreviaturas = {
+            Fuerza: ["FUE", "FUE"],
+            Percepción: ["PER", "PER"],
+            Resistencia: ["RES", "END"],
+            Carisma: ["CAR", "CAR"],
+            Inteligencia: ["INT", "INT"],
+            Agilidad: ["AGI", "AGI"]
+        };
+
+        skillListOrdered.forEach(definicion => {
+            const habilidad = window.fc2Habilidades?.[definicion.name];
+
+            if (!habilidad || Number(habilidad.total) <= 0) return;
+
+            const [abreviatura, claveSpecial] = abreviaturas[definicion.attr];
+            const dificultad = special[claveSpecial] + Number(habilidad.total);
+
+            const fila = crear("div", "fc2-sheet-skill");
+            fila.append(
+                crear("span", "fc2-sheet-skill-tag", habilidad.tag ? "■" : ""),
+                crear("span", "fc2-sheet-skill-name",
+                    definicion.name + " (" + abreviatura + ")"
+                ),
+                crear("span", "fc2-sheet-skill-rank", habilidad.rangos),
+                crear("span", "fc2-sheet-skill-difficulty", dificultad)
+            );
+
+            skillsLista.appendChild(fila);
+        });
+
+        skillsSection.appendChild(skillsLista);
+        columnaDatos.appendChild(skillsSection);
+
+        // PERKS Y RASGO DE ORIGEN
+        const perksSection = seccion("PERKS");
+        const perksElegidos = personaje.perksElegidos || [];
+
+        perksElegidos.forEach(perkElegido => {
+            const perk = typeof perkElegido === "string"
+                ? perksDetailedList.find(item => item.id === perkElegido || item.name === perkElegido)
+                : perksDetailedList.find(item => item.id === perkElegido.id);
+
+            const nombre = typeof perkElegido === "string"
+                ? perk?.name || perkElegido
+                : perkElegido.name;
+
+            const descripcion = perk?.desc || "";
+
+            const bloque = crear("div", "fc2-sheet-perk");
+            bloque.appendChild(crear("strong", "", nombre));
+            if (descripcion) bloque.appendChild(crear("p", "", descripcion));
+            perksSection.appendChild(bloque);
+        });
+
+        if (
+            origen.traitName &&
+            origen.traitName !== "Rasgos"
+        ) {
+            const rasgo = crear("div", "fc2-sheet-perk");
+            rasgo.appendChild(crear("strong", "", origen.traitName));
+
+            if (origen.traitDescription) {
+                rasgo.appendChild(crear("p", "", origen.traitDescription));
+            }
+
+            perksSection.appendChild(rasgo);
         }
+
+        (personaje.rasgosElegidos || []).forEach(rasgoElegido => {
+            const nombre = typeof rasgoElegido === "string"
+                ? rasgoElegido
+                : rasgoElegido.name;
+
+            if (!nombre || nombre === origen.traitName) return;
+
+            const rasgo = crear("div", "fc2-sheet-perk");
+            rasgo.appendChild(crear("strong", "", nombre));
+
+            if (rasgoElegido.description || rasgoElegido.desc) {
+                rasgo.appendChild(
+                    crear("p", "", rasgoElegido.description || rasgoElegido.desc)
+                );
+            }
+
+            perksSection.appendChild(rasgo);
+        });
+
+        columnaDatos.appendChild(perksSection);
 
         // EQUIPO Y BARATIJA
-        const equipoHTML = document.createElement("div");
-        equipoHTML.className = "fc2-sheet-equipment";
-
+        const itemsSection = seccion("ITEMS", "fc2-sheet-items");
         const paquete = personaje.paqueteEquipo;
-        const nombrePaquete = document.createElement("h5");
-        nombrePaquete.textContent = paquete.name || "Paquete de equipo";
-        equipoHTML.appendChild(nombrePaquete);
 
-        const descripcionPaquete = document.createElement("p");
-        descripcionPaquete.textContent = paquete.content || paquete.equipment?.join(", ") || paquete.desc || "";
-        equipoHTML.appendChild(descripcionPaquete);
+        if (paquete) {
+            const contenido = paquete.content ||
+                (Array.isArray(paquete.equipment) ? paquete.equipment.join(" | ") : "") ||
+                paquete.desc ||
+                "";
 
-        const tituloBaratija = document.createElement("h5");
-        tituloBaratija.textContent = "Baratija personal";
-        equipoHTML.appendChild(tituloBaratija);
-
-        const baratija = document.createElement("p");
-        baratija.textContent = personaje.baratija;
-        equipoHTML.appendChild(baratija);
-
-        if (placeholders[3]) {
-            placeholders[3].replaceWith(equipoHTML);
+            itemsSection.appendChild(
+                crear("p", "fc2-sheet-equipment", paquete.name + (contenido ? ": " + contenido : ""))
+            );
         }
+
+        if (personaje.baratija) {
+            itemsSection.appendChild(
+                crear("p", "fc2-sheet-trinket", personaje.baratija)
+            );
+        }
+
+        columnaDatos.appendChild(itemsSection);
+
+        // ESPACIO RESERVADO PARA LA IMAGEN
+        columnaImagen.setAttribute("aria-label", "Imagen del personaje");
     };
 
     paso7?.addEventListener("change", function () {
@@ -10274,10 +10590,6 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
             window.fc2ActualizarFichaFinal();
         }
     });
-
-    // --- PASO 7: FICHA FINAL ---
-
-
 
     // --- PASO 8: SUBIR DE NIVEL ---
 
