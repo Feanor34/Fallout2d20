@@ -37,6 +37,14 @@
             color: var(--pipboy-green);
         }
 
+        .armor-table-group {
+            margin-bottom: 22px;
+        }
+
+        .armor-table-group h4 {
+            margin-bottom: 8px;
+        }
+
         body {
             background-color: var(--pipboy-bg);
             padding: 20px;
@@ -2971,7 +2979,16 @@
             <!-- Subpestaña 15: Apariencia y Armaduras -->
             <div id="sub-apariencia" class="equip-sub-content perro ropa atuendo cabeza raider metal combat sintetica vault-tec" style="display:none; margin-top:15px;">
                 <h3>APARIENCIA Y ARMADURAS</h3>
-                <div id="tabla-apariencia-container"></div>
+                <div id="tabla-armor-dog"></div>
+                <div id="tabla-armor-clothes"></div>
+                <div id="tabla-armor-outfit"></div>
+                <div id="tabla-armor-head"></div>
+                <div id="tabla-armor-raider"></div>
+                <div id="tabla-armor-leather"></div>
+                <div id="tabla-armor-metal"></div>
+                <div id="tabla-armor-combat"></div>
+                <div id="tabla-armor-synth"></div>
+                <div id="tabla-armor-vault-tec"></div>
                 <h3 style="margin-top:25px;">MODIFICACIONES DE ARMADURA</h3>
                 <div id="tabla-mods-armadura-container"></div>
             </div>
@@ -4187,54 +4204,50 @@
 
         /* --- CREADOR DE TABLAS DE APARIENCIA Y ARMADURAS --- */
         function renderAparienciayArmaduras() {
-            const container =
-                document.getElementById('tabla-apariencia-container');
-            const modsContainer =
-                document.getElementById('tabla-mods-armadura-container');
-            if (container) {
-                container.innerHTML =
-                    crearTablaEquipamiento( aparienciaArmaduas,
-                        {
-                            columns: columnasArmaduras
-                        }
-                    );
-            }
+            const tablasArmaduras = [
+                ["tabla-armor-dog", armorDog],
+                ["tabla-armor-clothes", armorClothes],
+                ["tabla-armor-outfit", armorOutfit],
+                ["tabla-armor-head", armorHead],
+                ["tabla-armor-raider", armorRaider],
+                ["tabla-armor-leather", armorLeather],
+                ["tabla-armor-metal", armorMetal],
+                ["tabla-armor-combat", armorCombat],
+                ["tabla-armor-synth", armorSynth],
+                ["tabla-armor-vault-tec", armorVaultTec]
+            ];
+
+            tablasArmaduras.forEach(([id, datos]) => {
+                const container = document.getElementById(id);
+
+                if (container) {
+                    container.innerHTML = crearTablaEquipamiento(datos, {
+                        columns: columnasArmaduras
+                    });
+                }
+            });
+
+            const modsContainer = document.getElementById("tabla-mods-armadura-container");
+
             if (modsContainer) {
-                const modsArmadura = combinarArrays( ballisticWave, modRaiderArmor, modLeatherArmor, modMetalArmor, modCombatArmor, modGenralArmor );
-                modsContainer.innerHTML =
-                    crearTablaEquipamiento(
-                        modsArmadura,
-                        {
-                            columns: columnasModsArmadura
-                        }
-                    );
+                const modsArmadura = combinarArrays(
+                    ballisticWave,
+                    modRaiderArmor,
+                    modLeatherArmor,
+                    modMetalArmor,
+                    modCombatArmor,
+                    modGenralArmor
+                );
+
+                modsContainer.innerHTML = crearTablaEquipamiento(modsArmadura, {
+                    columns: columnasModsArmadura
+                });
             }
         }
 
         /* --- CREADOR DE TABLAS DE MODS APARIENCIA Y ARMADURAS --- */
         function renderModsAparienciayArmaduras() {
-            const container =
-                document.getElementById('tabla-mods-apariencia-container');
-            const modsContainer =
-                document.getElementById('tabla-mods-armadura-container');
-            if (container) {
-                container.innerHTML =
-                    crearTablaEquipamiento( aparienciaArmaduas,
-                        {
-                            columns: columnasArmaduras
-                        }
-                    );
-            }
-            if (modsContainer) {
-                const modsArmadura = combinarArrays( ballisticWave, modRaiderArmor, modLeatherArmor, modMetalArmor, modCombatArmor, modGenralArmor );
-                modsContainer.innerHTML =
-                    crearTablaEquipamiento(
-                        modsArmadura,
-                        {
-                            columns: columnasModsArmadura
-                        }
-                    );
-            }
+            renderAparienciayArmaduras();
         }
 
         /* --- CREADOR DE TABLAS DE SERVOARMADURAS --- */
@@ -4829,15 +4842,15 @@
 
         const armorLeather = [
             // --- ARMADURA DE CUERO ---
-            { "id": "leather-01", "class": "raider", "name": "Pechera de saqueador", "rdFisico": "1", "rdEnergia": "1", "rdRadiacion": "0", "localizacion": "Torso", "peso": "7", "coste": "18", "rareza": "0", "descripcion": "Pechera improvisada de saqueador." },
-            { "id": "leather-02", "class": "raider", "name": "Pierna de saqueador", "rdFisico": "1", "rdEnergia": "1", "rdRadiacion": "0", "localizacion": "Pierna", "peso": "3", "coste": "8", "rareza": "0", "descripcion": "Protección para pierna improvisada." },
-            { "id": "leather-03", "class": "raider", "name": "Brazo de saqueador", "rdFisico": "1", "rdEnergia": "1", "rdRadiacion": "0", "localizacion": "Brazo", "peso": "3", "coste": "6", "rareza": "0", "descripcion": "Protección para brazo improvisada." },
-            { "id": "leather-04", "class": "raider", "name": "Pechera de saqueador resistente", "rdFisico": "2", "rdEnergia": "2", "rdRadiacion": "0", "localizacion": "Torso", "peso": "12", "coste": "33", "rareza": "1", "descripcion": "Pechera de saqueador reforzada." },
-            { "id": "leather-05", "class": "raider", "name": "Pierna de saqueador resistente", "rdFisico": "2", "rdEnergia": "2", "rdRadiacion": "0", "localizacion": "Pierna", "peso": "7", "coste": "13", "rareza": "1", "descripcion": "Pierna de saqueador reforzada." },
-            { "id": "leather-06", "class": "raider", "name": "Brazo de saqueador resistente", "rdFisico": "2", "rdEnergia": "2", "rdRadiacion": "0", "localizacion": "Brazo", "peso": "7", "coste": "8", "rareza": "1", "descripcion": "Brazo de saqueador reforzado." },
-            { "id": "leather-07", "class": "raider", "name": "Pechera de saqueador pesada", "rdFisico": "3", "rdEnergia": "3", "rdRadiacion": "0", "localizacion": "Torso", "peso": "17", "coste": "48", "rareza": "2", "descripcion": "Pechera de saqueador muy robusta." },
-            { "id": "leather-08", "class": "raider", "name": "Pierna de saqueador pesada", "rdFisico": "3", "rdEnergia": "3", "rdRadiacion": "0", "localizacion": "Pierna", "peso": "10", "coste": "18", "rareza": "2", "descripcion": "Pierna de saqueador muy robusta." },
-            { "id": "leather-09", "class": "raider", "name": "Brazo de saqueador pesado", "rdFisico": "3", "rdEnergia": "3", "rdRadiacion": "0", "localizacion": "Brazo", "peso": "10", "coste": "15", "rareza": "2", "descripcion": "Brazo de saqueador muy robusto." },
+            { "id": "leather-01", "class": "raider", "name": "Pechera de cuero", "rdFisico": "1", "rdEnergia": "2", "rdRadiacion": "0", "localizacion": "Torso", "peso": "5", "coste": "25", "rareza": "1", "descripcion": "." },
+            { "id": "leather-02", "class": "raider", "name": "Pierna de cuero", "rdFisico": "1", "rdEnergia": "2", "rdRadiacion": "0", "localizacion": "Pierna", "peso": "2", "coste": "10", "rareza": "1", "descripcion": "." },
+            { "id": "leather-03", "class": "raider", "name": "Brazo de cuero", "rdFisico": "1", "rdEnergia": "2", "rdRadiacion": "0", "localizacion": "Brazo", "peso": "2", "coste": "8", "rareza": "1", "descripcion": "." },
+            { "id": "leather-04", "class": "raider", "name": "Pechera de cuero resistente", "rdFisico": "3", "rdEnergia": "2", "rdRadiacion": "0", "localizacion": "Torso", "peso": "10", "coste": "50", "rareza": "2", "descripcion": "." },
+            { "id": "leather-05", "class": "raider", "name": "Pierna de cuero resistente", "rdFisico": "3", "rdEnergia": "2", "rdRadiacion": "0", "localizacion": "Pierna", "peso": "5", "coste": "20", "rareza": "2", "descripcion": "." },
+            { "id": "leather-06", "class": "raider", "name": "Brazo de cuero resistente", "rdFisico": "3", "rdEnergia": "2", "rdRadiacion": "0", "localizacion": "Brazo", "peso": "5", "coste": "18", "rareza": "2", "descripcion": "." },
+            { "id": "leather-07", "class": "raider", "name": "Pechera de cuero pesada", "rdFisico": "4", "rdEnergia": "3", "rdRadiacion": "0", "localizacion": "Torso", "peso": "15", "coste": "75", "rareza": "3", "descripcion": "." },
+            { "id": "leather-08", "class": "raider", "name": "Pierna de cuero pesada", "rdFisico": "4", "rdEnergia": "3", "rdRadiacion": "0", "localizacion": "Pierna", "peso": "7", "coste": "30", "rareza": "3", "descripcion": "." },
+            { "id": "leather-09", "class": "raider", "name": "Brazo de cuero pesado", "rdFisico": "4", "rdEnergia": "3", "rdRadiacion": "0", "localizacion": "Brazo", "peso": "7", "coste": "28", "rareza": "3", "descripcion": "." },
         ];
 
         const armorMetal = [
@@ -4894,6 +4907,19 @@
             { "id": "vault-02", "class": "vault-tec", "name": "Armadura de seguridad de Vault-Tec", "rdFisico": "2", "rdEnergia": "0", "rdRadiacion": "2", "localizacion": "Brazos, Piernas, Torso", "peso": "8", "coste": "16", "rareza": "1", "descripcion": "Equipo de seguridad corporativo del Refugio." }
         ];
 
+        const aparienciaArmaduas = combinarArrays(
+            armorDog,
+            armorClothes,
+            armorOutfit,
+            armorHead,
+            armorRaider,
+            armorLeather,
+            armorMetal,
+            armorCombat,
+            armorSynth,
+            armorVaultTec
+        );
+
         // --- MODS PARA ARMADURAS ---
 
         // --- BALLISTIC WAVE ---
@@ -4925,18 +4951,18 @@
         // --- MODS PARA ARMADURA DE METAL ---
         const modMetalArmor = [
             { "id": "mod-metal-01", "class": "morArmor modMetal", "name": "Metal pintado", "fisico": "+1", "energia": "+1", "radiacion": "–", "otrosEfectos": "–", "peso": "+1", "coste": "+10", "perks": "–" },
-            { "id": "mod-metal-01", "class": "morArmor modMetal", "name": "Metal esmaltado", "fisico": "+2", "energia": "+2", "radiacion": "–", "otrosEfectos": "–", "peso": "+2", "coste": "+20", "perks": "Armero 1" },
-            { "id": "mod-metal-01", "class": "morArmor modMetal", "name": "Metal sombreado", "fisico": "+2", "energia": "+2", "radiacion": "–", "otrosEfectos": "Sombreado", "peso": "+2", "coste": "+25", "perks": "Armero 1" },
-            { "id": "mod-metal-01", "class": "morArmor modMetal", "name": "Metal aleado", "fisico": "+3", "energia": "+3", "radiacion": "–", "otrosEfectos": "–", "peso": "+3", "coste": "+30", "perks": "Armero 1" },
-            { "id": "mod-metal-01", "class": "morArmor modMetal", "name": "Metal pulido", "fisico": "+4", "energia": "+4", "radiacion": "–", "otrosEfectos": "–", "peso": "+4", "coste": "+40", "perks": "Armero 2" }
+            { "id": "mod-metal-02", "class": "morArmor modMetal", "name": "Metal esmaltado", "fisico": "+2", "energia": "+2", "radiacion": "–", "otrosEfectos": "–", "peso": "+2", "coste": "+20", "perks": "Armero 1" },
+            { "id": "mod-metal-03", "class": "morArmor modMetal", "name": "Metal sombreado", "fisico": "+2", "energia": "+2", "radiacion": "–", "otrosEfectos": "Sombreado", "peso": "+2", "coste": "+25", "perks": "Armero 1" },
+            { "id": "mod-metal-04", "class": "morArmor modMetal", "name": "Metal aleado", "fisico": "+3", "energia": "+3", "radiacion": "–", "otrosEfectos": "–", "peso": "+3", "coste": "+30", "perks": "Armero 1" },
+            { "id": "mod-metal-05", "class": "morArmor modMetal", "name": "Metal pulido", "fisico": "+4", "energia": "+4", "radiacion": "–", "otrosEfectos": "–", "peso": "+4", "coste": "+40", "perks": "Armero 2" }
         ];
 
         // --- MODS PARA ARMADURA DE COMBATE ---
         const modCombatArmor = [
             { "id": "mod-combat-01", "class": "morArmor modCombat", "name": "Reforzada", "fisico": "+1", "energia": "+1", "radiacion": "–", "otrosEfectos": "–", "peso": "+1", "coste": "+15", "perks": "–" },
-            { "id": "mod-combat-01", "class": "morArmor modCombat", "name": "Sombreada", "fisico": "+1", "energia": "+1", "radiacion": "–", "otrosEfectos": "Sombreado", "peso": "+1", "coste": "+15", "perks": "Armero 1" },
-            { "id": "mod-combat-01", "class": "morArmor modCombat", "name": "Fibra de vidrio", "fisico": "+2", "energia": "+2", "radiacion": "–", "otrosEfectos": "–", "peso": "+1", "coste": "+30", "perks": "Armero 1" },
-            { "id": "mod-combat-01", "class": "morArmor modCombat", "name": "Polímero", "fisico": "+3", "energia": "+3", "radiacion": "–", "otrosEfectos": "–", "peso": "+2", "coste": "+45", "perks": "Armero 1" }
+            { "id": "mod-combat-02", "class": "morArmor modCombat", "name": "Sombreada", "fisico": "+1", "energia": "+1", "radiacion": "–", "otrosEfectos": "Sombreado", "peso": "+1", "coste": "+15", "perks": "Armero 1" },
+            { "id": "mod-combat-03", "class": "morArmor modCombat", "name": "Fibra de vidrio", "fisico": "+2", "energia": "+2", "radiacion": "–", "otrosEfectos": "–", "peso": "+1", "coste": "+30", "perks": "Armero 1" },
+            { "id": "mod-combat-04", "class": "morArmor modCombat", "name": "Polímero", "fisico": "+3", "energia": "+3", "radiacion": "–", "otrosEfectos": "–", "peso": "+2", "coste": "+45", "perks": "Armero 1" }
         ];
 
         // --- MODS PARA ARMADURAS GENERALES ---
