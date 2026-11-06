@@ -3046,6 +3046,10 @@
                 <button type="button" class="tab-button" data-categoria="servoarmadura"> Servoarmaduras </button>
                 <button type="button" class="tab-button" data-categoria="roboArmor"> Armaduras para robots </button> 
             </div>
+            <!-- SUBCATEGORÍAS DE ARMADURAS -->
+            <div id="gen-tipos-armadura" class="gen-botones" hidden></div>
+            <!-- DIVS DE TIPOS DE ARMADURA -->
+            <div id="gen-paneles-armadura"></div>
 
             </section>
 
@@ -4788,29 +4792,29 @@
         
         const armorClothes = [
             // --- ROPA ---
-            { "id": "clothes-01", "class": "ropa", "name": "Uniforme de la Hermandad del Acero", "rdFisico": "1", "rdEnergia": "1", "rdRadiacion": "1", "localizacion": "Brazos, Piernas, Torso", "peso": "2", "coste": "20", "rareza": "2", "descripcion": "Uniforme oficial que cubre todo el cuerpo." },
-            { "id": "clothes-02", "class": "ropa", "name": "Ropa informal", "rdFisico": "0", "rdEnergia": "0", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "2", "coste": "20", "rareza": "1", "descripcion": "Ropa casual y básica del Yermo." },
-            { "id": "clothes-03", "class": "ropa", "name": "Arnés", "rdFisico": "0", "rdEnergia": "0", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "1", "coste": "5", "rareza": "0", "descripcion": "Arnés ligero de correas." },
-            { "id": "clothes-04", "class": "ropa", "name": "Fatigas militares", "rdFisico": "0", "rdEnergia": "1", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "3", "coste": "12", "rareza": "1", "descripcion": "Ropa militar resistente." },
-            { "id": "clothes-05", "class": "ropa", "name": "Cuero de carretera", "rdFisico": "1", "rdEnergia": "1", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "1", "coste": "5", "rareza": "1", "descripcion": "Atuendo de cuero flexible usado en carreteras." },
-            { "id": "clothes-06", "class": "ropa", "name": "Ropa resistente", "rdFisico": "1", "rdEnergia": "1", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "3", "coste": "20", "rareza": "1", "descripcion": "Ropa reforzada para el Yermo." },
-            { "id": "clothes-06", "class": "ropa", "name": "Mono del Refugio", "rdFisico": "0", "rdEnergia": "1", "rdRadiacion": "2", "localizacion": "Brazos, Piernas, Torso", "peso": "1", "coste": "20", "rareza": "2", "descripcion": "Mono estándar de Vault-Tec." },
+            { "id": "clothes-01", "class": "ropa", "name": "Uniforme de la Hermandad del Acero", "rdFisico": "1", "rdEnergia": "1", "rdRadiacion": "1", "localizacion": "Brazos, Piernas, Torso", "peso": "2", "coste": "20", "rareza": "2", "descripcion": "Uniforme oficial que cubre todo el cuerpo.", mod: [] },
+            { "id": "clothes-02", "class": "ropa", "name": "Ropa informal", "rdFisico": "0", "rdEnergia": "0", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "2", "coste": "20", "rareza": "1", "descripcion": "Ropa casual y básica del Yermo.", mod: [] },
+            { "id": "clothes-03", "class": "ropa", "name": "Arnés", "rdFisico": "0", "rdEnergia": "0", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "1", "coste": "5", "rareza": "0", "descripcion": "Arnés ligero de correas.", mod: [] },
+            { "id": "clothes-04", "class": "ropa", "name": "Fatigas militares", "rdFisico": "0", "rdEnergia": "1", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "3", "coste": "12", "rareza": "1", "descripcion": "Ropa militar resistente.", mod: [] },
+            { "id": "clothes-05", "class": "ropa", "name": "Cuero de carretera", "rdFisico": "1", "rdEnergia": "1", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "1", "coste": "5", "rareza": "1", "descripcion": "Atuendo de cuero flexible usado en carreteras.", mod: [] },
+            { "id": "clothes-06", "class": "ropa", "name": "Ropa resistente", "rdFisico": "1", "rdEnergia": "1", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "3", "coste": "20", "rareza": "1", "descripcion": "Ropa reforzada para el Yermo.", mod: [] },
+            { "id": "clothes-06", "class": "ropa", "name": "Mono del Refugio", "rdFisico": "0", "rdEnergia": "1", "rdRadiacion": "2", "localizacion": "Brazos, Piernas, Torso", "peso": "1", "coste": "20", "rareza": "2", "descripcion": "Mono estándar de Vault-Tec.", mod: [] },
         ];
 
         const armorOutfit = [
             // --- ATUENDOS ---
-            { "id": "outfit-01", "class": "atuendo", "name": "Fatigas de la Hermandad del Acero", "rdFisico": "2", "rdEnergia": "2", "rdRadiacion": "2", "localizacion": "Brazos, Piernas, Torso", "peso": "4", "coste": "20", "rareza": "3", "descripcion": "Atuendo completo de la Hermandad." },
-            { "id": "outfit-02", "class": "atuendo", "name": "Armadura de escriba de la Hermandad", "rdFisico": "1", "rdEnergia": "2", "rdRadiacion": "2", "localizacion": "Brazos, Piernas, Torso", "peso": "4", "coste": "20", "rareza": "2", "descripcion": "Atuendo protector para escribas." },
-            { "id": "outfit-03", "class": "atuendo", "name": "Armadura de jaula", "rdFisico": "3", "rdEnergia": "4", "rdRadiacion": "0", "localizacion": "Cabeza, Brazos, Piernas, Torso", "peso": "33", "coste": "110", "rareza": "3", "descripcion": "Armadura pesada soldada a partir de jaulas." },
-            { "id": "outfit-04", "class": "atuendo", "name": "Atuendo de vagabundo", "rdFisico": "1", "rdEnergia": "2", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "10", "coste": "35", "rareza": "1", "descripcion": "Ropa gruesa de merodeador." },
-            { "id": "outfit-05", "class": "atuendo", "name": "Armadura de ingeniero", "rdFisico": "1", "rdEnergia": "1", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "2", "coste": "15", "rareza": "1", "descripcion": "Atuendo de trabajo especializado." },
-            { "id": "outfit-06", "class": "atuendo", "name": "Ropa formal", "rdFisico": "0", "rdEnergia": "0", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "2", "coste": "30", "rareza": "2", "descripcion": "Traje elegante de antes de la guerra." },
-            { "id": "outfit-07", "class": "atuendo", "name": "Traje anti-radiación", "rdFisico": "0", "rdEnergia": "0", "rdRadiacion": "Inmune", "localizacion": "Cabeza, Brazos, Piernas, Torso", "peso": "5", "coste": "85", "rareza": "3", "descripcion": "Traje protector contra radiación extrema." },
-            { "id": "outfit-08", "class": "atuendo", "name": "Abrigo pesado", "rdFisico": "1", "rdEnergia": "1", "rdRadiacion": "1", "localizacion": "Brazos, Piernas, Torso", "peso": "2", "coste": "20", "rareza": "1", "descripcion": "Abrigo grueso para el frío del Yermo." },
-            { "id": "outfit-09", "class": "atuendo", "name": "Pieles", "rdFisico": "1", "rdEnergia": "0", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "4", "coste": "13", "rareza": "0", "descripcion": "Atuendo rudimentario de pieles de animales." },
-            { "id": "outfit-10", "class": "atuendo", "name": "Bata de laboratorio", "rdFisico": "0", "rdEnergia": "0", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "2", "coste": "10", "rareza": "1", "descripcion": "Bata blanca de científico." },
-            { "id": "outfit-11", "class": "atuendo", "name": "Armadura con pinchos", "rdFisico": "2", "rdEnergia": "2", "rdRadiacion": "0", "localizacion": "Cabeza, Brazos, Piernas, Torso", "peso": "17", "coste": "65", "rareza": "2", "descripcion": "Atuendo peligroso cubierto de púas." },
-            { "id": "outfit-12", "class": "atuendo", "name": "Mono de trabajo", "rdFisico": "2", "rdEnergia": "0", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "2", "coste": "12", "rareza": "1", "descripcion": "Mono resistente para obreros." },
+            { "id": "outfit-01", "class": "atuendo", "name": "Fatigas de la Hermandad del Acero", "rdFisico": "2", "rdEnergia": "2", "rdRadiacion": "2", "localizacion": "Brazos, Piernas, Torso", "peso": "4", "coste": "20", "rareza": "3", "descripcion": "Atuendo completo de la Hermandad.", mod: [] },
+            { "id": "outfit-02", "class": "atuendo", "name": "Armadura de escriba de la Hermandad", "rdFisico": "1", "rdEnergia": "2", "rdRadiacion": "2", "localizacion": "Brazos, Piernas, Torso", "peso": "4", "coste": "20", "rareza": "2", "descripcion": "Atuendo protector para escribas.", mod: [] },
+            { "id": "outfit-03", "class": "atuendo", "name": "Armadura de jaula", "rdFisico": "3", "rdEnergia": "4", "rdRadiacion": "0", "localizacion": "Cabeza, Brazos, Piernas, Torso", "peso": "33", "coste": "110", "rareza": "3", "descripcion": "Armadura pesada soldada a partir de jaulas.", mod: [] },
+            { "id": "outfit-04", "class": "atuendo", "name": "Atuendo de vagabundo", "rdFisico": "1", "rdEnergia": "2", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "10", "coste": "35", "rareza": "1", "descripcion": "Ropa gruesa de merodeador.", mod: [] },
+            { "id": "outfit-05", "class": "atuendo", "name": "Armadura de ingeniero", "rdFisico": "1", "rdEnergia": "1", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "2", "coste": "15", "rareza": "1", "descripcion": "Atuendo de trabajo especializado.", mod: [] },
+            { "id": "outfit-06", "class": "atuendo", "name": "Ropa formal", "rdFisico": "0", "rdEnergia": "0", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "2", "coste": "30", "rareza": "2", "descripcion": "Traje elegante de antes de la guerra.", mod: [] },
+            { "id": "outfit-07", "class": "atuendo", "name": "Traje anti-radiación", "rdFisico": "0", "rdEnergia": "0", "rdRadiacion": "Inmune", "localizacion": "Cabeza, Brazos, Piernas, Torso", "peso": "5", "coste": "85", "rareza": "3", "descripcion": "Traje protector contra radiación extrema.", mod: [] },
+            { "id": "outfit-08", "class": "atuendo", "name": "Abrigo pesado", "rdFisico": "1", "rdEnergia": "1", "rdRadiacion": "1", "localizacion": "Brazos, Piernas, Torso", "peso": "2", "coste": "20", "rareza": "1", "descripcion": "Abrigo grueso para el frío del Yermo.", mod: [] },
+            { "id": "outfit-09", "class": "atuendo", "name": "Pieles", "rdFisico": "1", "rdEnergia": "0", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "4", "coste": "13", "rareza": "0", "descripcion": "Atuendo rudimentario de pieles de animales.", mod: [] },
+            { "id": "outfit-10", "class": "atuendo", "name": "Bata de laboratorio", "rdFisico": "0", "rdEnergia": "0", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "2", "coste": "10", "rareza": "1", "descripcion": "Bata blanca de científico.", mod: [] },
+            { "id": "outfit-11", "class": "atuendo", "name": "Armadura con pinchos", "rdFisico": "2", "rdEnergia": "2", "rdRadiacion": "0", "localizacion": "Cabeza, Brazos, Piernas, Torso", "peso": "17", "coste": "65", "rareza": "2", "descripcion": "Atuendo peligroso cubierto de púas.", mod: [] },
+            { "id": "outfit-12", "class": "atuendo", "name": "Mono de trabajo", "rdFisico": "2", "rdEnergia": "0", "rdRadiacion": "0", "localizacion": "Brazos, Piernas, Torso", "peso": "2", "coste": "12", "rareza": "1", "descripcion": "Mono resistente para obreros.", mod: [] },
         ];
 
         const armorHead = [
@@ -5601,11 +5605,52 @@
                 "armasPequeñas": { nombre: "Armas pequeñas", items: armasPequeñas, mods: modsArmasPequeñas, tieneMods: true },
                 "armasEnergia": { nombre: "Armas de energía", items: armasEnergia, mods: modsArmasEnergia, tieneMods: true },
                 "armasGrandes": { nombre: "Armas grandes", items: armasGrandes, mods: modsArmasGrandes, tieneMods: true },
-                "armasMelee": { nombre: "Armas cuerpo a cuerpo", items: armasMelee, mods: combinarArrays( modsArmasMelee05, modsArmasMelee06, modsArmasMelee07, modsArmasMelee08, modsArmasMelee09, armasMelee10, modsArmasMelee11, modsArmasMelee12, modsArmasMelee13, modsArmasMelee14, modsArmasMelee15, modsArmasMelee16, modsArmasMelee17, modsArmasMelee18, modsArmasMelee19, modsArmasMelee20, modsArmasMelee21, modsArmasMelee22, modsArmasMelee23, modsArmasMelee24, modsArmasMelee25, modsArmasMelee26 ), tieneMods: true },
+                "armasMelee": { nombre: "Armas cuerpo a cuerpo", items: armasMelee, mods: combinarArrays( 
+                    modsArmasMelee05, modsArmasMelee06, modsArmasMelee07, modsArmasMelee08, modsArmasMelee09, armasMelee10, modsArmasMelee11, modsArmasMelee12, modsArmasMelee13, modsArmasMelee14, 
+                    modsArmasMelee15, modsArmasMelee16, modsArmasMelee17, modsArmasMelee18, modsArmasMelee19, modsArmasMelee20, modsArmasMelee21, modsArmasMelee22, modsArmasMelee23, modsArmasMelee24, 
+                    modsArmasMelee25, modsArmasMelee26 
+                ), tieneMods: true },
                 "aparienciaArmaduas": { nombre: "Armaduras", items: aparienciaArmaduas, mods: [], tieneMods: false },
                 "servoarmadura": { nombre: "Servoarmaduras", items: servoArmor, mods: [], tieneMods: false },
                 "roboArmor": { nombre: "Armaduras para robots", items: roboArmor, mods: [], tieneMods: false }
             };
+
+            const tiposArmadura = {
+                aparienciaArmaduas: [
+                    { id: "perros", nombre: "Perros", items: armorDog },
+                    { id: "ropa", nombre: "Ropa", items: armorClothes },
+                    { id: "atuendos", nombre: "Atuendos", items: armorOutfit },
+                    { id: "cabeza", nombre: "Cabeza", items: armorHead },
+                    { id: "saqueador", nombre: "Saqueador", items: armorRaider },
+                    { id: "cuero", nombre: "Cuero", items: armorLeather },
+                    { id: "metal", nombre: "Metal", items: armorMetal },
+                    { id: "combate", nombre: "Combate", items: armorCombat },
+                    { id: "sintetica", nombre: "Sintética", items: armorSynth },
+                    { id: "vaulttec", nombre: "Vault-Tec", items: armorVaultTec }
+                ],
+                servoarmadura: [
+                    { id: "armazon", nombre: "Armazón", items: servoArmor.filter(i => i.id === "servo-armazon") },
+                    { id: "raider", nombre: "Raider", items: servoArmor.filter(i => i.clase === "raiderServo") },
+                    { id: "t45", nombre: "T-45", items: servoArmor.filter(i => i.clase === "t-45") },
+                    { id: "t51", nombre: "T-51", items: servoArmor.filter(i => i.clase === "t-51") },
+                    { id: "t60", nombre: "T-60", items: servoArmor.filter(i => i.clase === "t-60") },
+                    { id: "x01", nombre: "X-01", items: servoArmor.filter(i => i.clase === "x-01") }
+                ],
+                roboArmor: [
+                    { id: "robots", nombre: "Armaduras para robots", items: roboArmor }
+                ]
+            };
+
+            const contTiposArmadura = document.getElementById("gen-tipos-armadura");
+            const contPanelesArmadura = document.getElementById("gen-paneles-armadura");
+
+            const modsArmaduras = combinarArrays(
+                ballisticWave, modRaiderArmor, modLeatherArmor, modMetalArmor, modCombatArmor, modGenralArmor, modServoArmorRaider, modServoArmort45, modServoArmort51,
+                modServoArmort60, modServoArmorX01, modServoArmorGeneral
+            );
+
+            let tipoArmaduraActual = null;
+
             const slotsArmas = [
                 { key: "modReceptor", nombre: "Receptor" },
                 { key: "modCaño", nombre: "Cañón" },
@@ -5652,38 +5697,99 @@
             }
 
             function cambiarCategoria(clave) {
-                if (!categorias[clave]) {
-                    console.error("Generador: categoría desconocida:", clave);
-                    return;
-                }
+                if (!categorias[clave]) return;
 
                 categoriaActual = clave;
                 itemActual = null;
                 modsSeleccionados = {};
+                tipoArmaduraActual = null;
 
                 mostrarCategorias();
-                mostrarListaItems();
+
                 contInfo.innerHTML = "";
                 contMods.innerHTML = "";
                 contResultado.innerHTML = "";
-                tituloMods.hidden = true;
+                contArmas.innerHTML = "";
+                contPanelesArmadura.innerHTML = "";
+                contTiposArmadura.innerHTML = "";
+
+                const tipos = tiposArmadura[clave];
+
+                if (tipos) {
+                    contTiposArmadura.hidden = false;
+
+                    contTiposArmadura.innerHTML = tipos.map(tipo =>
+                        crearBoton(
+                            escapar(tipo.nombre),
+                            `data-tipo-armadura="${tipo.id}"`
+                        )
+                    ).join("");
+
+                    tipos.forEach(tipo => {
+                        const panel = document.createElement("div");
+                        panel.id = `panel-armadura-${tipo.id}`;
+                        panel.hidden = true;
+                        panel.className = "gen-panel-armadura";
+                        contPanelesArmadura.appendChild(panel);
+                    });
+
+                    contTiposArmadura.querySelectorAll("[data-tipo-armadura]").forEach(boton => {
+                        boton.addEventListener("click", () => {
+                            tipoArmaduraActual = boton.dataset.tipoArmadura;
+                            itemActual = null;
+                            modsSeleccionados = {};
+
+                            contTiposArmadura.querySelectorAll("[data-tipo-armadura]").forEach(b => {
+                                b.classList.toggle("active", b === boton);
+                            });
+
+                            contPanelesArmadura.querySelectorAll(".gen-panel-armadura").forEach(panel => {
+                                panel.hidden = panel.id !== `panel-armadura-${tipoArmaduraActual}`;
+                            });
+
+                            contInfo.innerHTML = "";
+                            contMods.innerHTML = "";
+                            contResultado.innerHTML = "";
+                            tituloMods.hidden = true;
+
+                            mostrarListaItems();
+                        });
+                    });
+
+                    tituloMods.hidden = true;
+                    return;
+                }
+
+                contTiposArmadura.hidden = true;
+                mostrarListaItems();
             }
 
             function mostrarListaItems() {
                 const config = categorias[categoriaActual];
+                const tipos = tiposArmadura[categoriaActual];
 
-                contArmas.innerHTML = config.items.map(item =>
+                let items = config.items;
+                let contenedor = contArmas;
+
+                if (tipos) {
+                    const tipo = tipos.find(t => t.id === tipoArmaduraActual);
+
+                    if (!tipo) return;
+
+                    items = tipo.items;
+                    contenedor = document.getElementById(`panel-armadura-${tipo.id}`);
+                }
+
+                contenedor.innerHTML = items.map(item =>
                     crearBoton(
                         escapar(item.name),
                         `data-item-id="${escapar(item.id)}"`
                     )
                 ).join("");
 
-                contArmas.querySelectorAll("[data-item-id]").forEach(boton => {
+                contenedor.querySelectorAll("[data-item-id]").forEach(boton => {
                     boton.addEventListener("click", () => {
-                        const item = config.items.find(
-                            candidato => candidato.id === boton.dataset.itemId
-                        );
+                        const item = items.find(i => i.id === boton.dataset.itemId);
 
                         if (!item) return;
 
@@ -5691,7 +5797,7 @@
                         modsSeleccionados = {};
 
                         marcarActivo(
-                            contArmas,
+                            contenedor,
                             "[data-item-id]",
                             "data-item-id",
                             item.id
