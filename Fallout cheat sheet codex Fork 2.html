@@ -3140,6 +3140,7 @@
             <input type="radio" name="fc2-step" id="fc2-step-5">
             <input type="radio" name="fc2-step" id="fc2-step-6">
             <input type="radio" name="fc2-step" id="fc2-step-7">
+            <input type="radio" name="fc2-step" id="fc2-step-8">
 
             <nav class="fc2-tabs">
                 <label for="fc2-step-1">01 · Identidad</label>
@@ -3399,12 +3400,26 @@
 
                     <!-- PASO 7 -->
                     <section class="fc2-panel fc2-panel-7">
-                        <div class="fc2-final-sheet">
-                            <div id="fc2-final-sheet-content">
-                                La ficha se completará con los datos del personaje.
-                            </div>
+                    <div class="fc2-final-sheet">
+                        <div id="fc2-final-sheet-content">
+                            La ficha se completará con los datos del personaje.
                         </div>
-                    </section>
+                    </div>
+
+                    <div class="fc2-actions">
+                        <label class="fc2-button" for="fc2-step-6">
+                            ← ATRÁS
+                        </label>
+
+                        <button type="button" class="fc2-button" onclick="window.print()">
+                            IMPRIMIR / PDF
+                        </button>
+
+                        <label class="fc2-button fc2-primary" for="fc2-step-8">
+                            SUBIR DE NIVEL →
+                        </label>
+                    </div>
+                </section>
 
                 </main>
 
@@ -8174,13 +8189,48 @@
     
     // --- INICIO DE SCRIPT DE CREACION DE PERSONAJE ---
 
-    // --- PASO 1: NOMBRE, JUGADOR Y ORIGEN ---
+    // --- CONFIGURACIÓN GLOBAL DE CONTENIDO ---
+    window.fc2ContenidoHabilitado = {
+        core: true,
+        settlers: false,
+        wanderers: false,
+        homebrew: false
+    };
 
+    window.fc2ContenidoPermitido = function (fuente) {
+        const clave = String(fuente || "")
+            .trim()
+            .toLowerCase()
+            .replace(/[\s_-]/g, "");
+
+        if (
+            clave === "core" ||
+            clave === "corebook" ||
+            clave === "corerulebook"
+        ) {
+            return true;
+        }
+
+        if (clave === "settlers" || clave === "settlersguide") {
+            return window.fc2ContenidoHabilitado.settlers;
+        }
+
+        if (clave === "wanderers" || clave === "wanderersguide") {
+            return window.fc2ContenidoHabilitado.wanderers;
+        }
+
+        if (clave === "homebrew") {
+            return window.fc2ContenidoHabilitado.homebrew;
+        }
+
+        return false;
+    };
+
+    // --- PASO 1: NOMBRE, JUGADOR Y ORIGEN ---
     (() => {
         "use strict";
 
         // --- 1. CONTROLES DE HOMEBREW, SETTLERS Y WANDERERS ---
-
         const controlesContenido = [
             { botonId: "fc2-homebrew-toggle", estadoId: "fc2-homebrew-status", contenidoId: "fc2-origins-homebrew", etiqueta: "HOMEBREW", funcion: "toggleHomebrewContent" },
             { botonId: "fc2-settlers-toggle", estadoId: "fc2-settlers-status", contenidoId: "fc2-origins-settlers", etiqueta: "SETTLERS GUIDE", funcion: "toggleSettlersContent" },
@@ -8206,21 +8256,37 @@
                     return;
                 }
 
-                // Estado inicial: contenido oculto.
+                // Estado inicial.
+                const grupo = control.etiqueta === "HOMEBREW"
+                    ? "homebrew"
+                    : control.etiqueta === "SETTLERS GUIDE"
+                        ? "settlers"
+                        : "wanderers";
+
                 contenido.hidden = true;
                 boton.classList.remove("selected");
-                estado.textContent = control.etiqueta + ": OCULTO";
 
-                // El HTML existente puede usar onclick.
+                window.fc2ContenidoHabilitado[grupo] = false;
+
+                estado.textContent = control.etiqueta + ": DESACTIVADO";
+
+                // Actualizar el estado global al pulsar el botón.
                 window[control.funcion] = function () {
-                    const activar = contenido.hidden;
+                    const activar = !window.fc2ContenidoHabilitado[grupo];
+
+                    window.fc2ContenidoHabilitado[grupo] = activar;
 
                     contenido.hidden = !activar;
                     boton.classList.toggle("selected", activar);
 
                     estado.textContent =
                         control.etiqueta + ": " +
-                        (activar ? "ACTIVADO" : "OCULTO");
+                        (activar ? "ACTIVADO" : "DESACTIVADO");
+
+                    // Si cambia el contenido habilitado, actualizar los perks.
+                    if (typeof window.fc2RenderizarPerks === "function") {
+                        window.fc2RenderizarPerks();
+                    }
                 };
             });
 
@@ -8613,6 +8679,9 @@
                 const grilla = grillas[grupo];
 
                 origenes.forEach(origen => {
+                    if (!window.fc2ContenidoPermitido(grupo)) {
+                        return;
+                    }
                     if (
                         !origen ||
                         !origen.id ||
@@ -9905,41 +9974,7 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
 
         // --- 9. OBTENER SOLAMENTE LOS PERKS ELEGIBLES ---
         window.fc2FuentePerkHabilitada = function (perk) {
-            const fuente = String(perk.source || "")
-                .trim()
-                .toLowerCase();
-            // Las Perks del Core siempre están habilitadas.
-            if ( fuente === "core rulebook" || fuente === "corebook" || fuente === "core"
-            ) {
-                return true;
-            }
-
-            const controles = { homebrew: "fc2-homebrew-toggle", settlers: "fc2-settlers-toggle", wanderers: "fc2-wanderers-toggle" };
-
-            let grupo = null;
-
-            if (fuente === "homebrew") {
-                grupo = "homebrew";
-            } else if (
-                fuente === "settlers guide" || fuente === "settlersguide"
-            ) {
-                grupo = "settlers";
-            } else if (
-                fuente === "wanderers guide" || fuente === "wanderersguide"
-            ) {
-                grupo = "wanderers";
-            }
-
-            // Si la fuente no está identificada, no mostrar la Perk.
-            if (!grupo) {
-                return false;
-            }
-
-            const boton = document.getElementById(controles[grupo]);
-
-            return Boolean(
-                boton && boton.classList.contains("selected")
-            );
+            return window.fc2ContenidoPermitido(perk?.source);
         };
 
         window.fc2ObtenerPerksElegibles = function () {
@@ -10330,7 +10365,6 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
     }
 
     // --- PASO 6: SELECCION DE EQUIPO, TRINKETS Y NOTAS ---
-
     function actualizarPaso6() {
         const origen = window.fc2OrigenSeleccionado;
         const paquetesHTML = document.getElementById("fc2-equipment-packages");
@@ -10338,52 +10372,92 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
 
         if (!origen || !paquetesHTML || !trinketsHTML) return;
 
+        window.fc2Personaje = window.fc2Personaje || {};
+
+        // PAQUETES DE EQUIPO DEL ORIGEN
         paquetesHTML.replaceChildren();
 
-        const canon = equipmentPackages.filter(p => p.origin === origen.name);
-        const claveHomebrew = origen.id.replace(/_Homebrew$/, "");
-        const grupoHomebrew = equipmentPackagesHomebrew[
-            equipmentPackagesHomebrew.indexOf(claveHomebrew) + 1
-        ];
-        const homebrew = grupoHomebrew?.packages || [];
+        const paquetes = origen.equipmentKit || [];
 
-        [...canon, ...homebrew].forEach(p => {
+        if (paquetes.length === 0) {
+            paquetesHTML.innerHTML = "<p>Este origen no tiene paquetes de equipo definidos.</p>";
+        }
+
+        paquetes.forEach(p => {
             const boton = document.createElement("button");
             boton.type = "button";
             boton.className = "fc2-card";
-            boton.innerHTML = `<h4>${p.name}</h4><p>${p.desc || ""}</p><p>${p.content || p.equipment.join(", ")}</p>`;
+
+            const contenido = Array.isArray(p.content)
+                ? p.content.join(", ")
+                : p.content || (
+                    Array.isArray(p.equipment)
+                        ? p.equipment.join(", ")
+                        : ""
+                );
+
+            boton.innerHTML = `
+                <h4>${p.name || "Equipo"}</h4>
+                <p>${p.desc || ""}</p>
+                <p>${contenido}</p>
+            `;
+
+            if (window.fc2Personaje.paqueteEquipo?.id === p.id) {
+                boton.classList.add("selected");
+            }
+
             boton.onclick = () => {
                 window.fc2Personaje.paqueteEquipo = p;
-                paquetesHTML.querySelectorAll("button").forEach(b => b.classList.remove("selected"));
+
+                paquetesHTML.querySelectorAll("button").forEach(b =>
+                    b.classList.remove("selected")
+                );
+
                 boton.classList.add("selected");
             };
+
             paquetesHTML.appendChild(boton);
         });
 
+        // TRINKETS
         trinketsHTML.replaceChildren();
 
         trinketsList.forEach(t => {
             const boton = document.createElement("button");
             boton.type = "button";
             boton.className = "fc2-card";
-            if (window.fc2Personaje?.baratija === t) {
+            boton.textContent = t;
+
+            if (window.fc2Personaje.baratija === t) {
                 boton.classList.add("selected");
             }
-            boton.textContent = t;
+
             boton.onclick = () => {
                 window.fc2Personaje.baratija = t;
-                trinketsHTML.querySelectorAll("button").forEach(b => b.classList.remove("selected"));
+
+                trinketsHTML.querySelectorAll("button").forEach(b =>
+                    b.classList.remove("selected")
+                );
+
                 boton.classList.add("selected");
             };
+
             trinketsHTML.appendChild(boton);
         });
 
+        // BARATIJA PERSONALIZADA
         const personalizada = document.createElement("input");
         personalizada.type = "text";
         personalizada.placeholder = "Baratija personalizada";
+
+        if (!trinketsList.includes(window.fc2Personaje.baratija)) {
+            personalizada.value = window.fc2Personaje.baratija || "";
+        }
+
         personalizada.onchange = () => {
             window.fc2Personaje.baratija = personalizada.value.trim();
         };
+
         trinketsHTML.appendChild(personalizada);
     }
 
