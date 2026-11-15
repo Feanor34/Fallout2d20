@@ -8938,14 +8938,19 @@
 
     // --- PASO 2: ASIGNACIÓN DE S.P.E.C.I.A.L. ---
     (() => {
-        const claves = ["FUE", "PER", "END", "CAR", "INT", "AGI", "SUE"];
+        const claves = ["STR", "PER", "END", "CHA", "INT", "AGI", "LUK"];
+
+        const clavesUI = { STR: "FUE", PER: "PER", END: "END", CHA: "CAR", INT: "INT", AGI: "AGI", LUK: "SUE" };
 
         // Lee los valores actuales de SPECIAL.
         function obtenerValores() {
             const valores = {};
 
             claves.forEach(clave => {
-                const input = document.getElementById("fc2-special-" + clave);
+                const input = document.getElementById(
+                    "fc2-special-" + clavesUI[clave]
+                );
+
                 valores[clave] = input ? Number(input.value) : 0;
             });
 
@@ -8967,7 +8972,8 @@
         // Los valores por debajo de la base recuperan puntos.
         function calcularGastados(valores, limites) {
             return claves.reduce(
-                (total, clave) => total + valores[clave] - limites.base[clave],
+                (total, clave) =>
+                    total + valores[clave] - limites.base[clavesUI[clave]],
                 0
             );
         }
@@ -9019,14 +9025,15 @@
             const limites = originLimits[origen.id];
 
             claves.forEach(clave => {
-                const input = document.getElementById("fc2-special-" + clave);
+                const claveUI = clavesUI[clave];
+                const input = document.getElementById("fc2-special-" + claveUI);
                 if (!input) return;
 
-                input.min = Math.min(limites.min, limites.base[clave]);
-                input.max = limites.max[clave];
+                input.min = Math.min(limites.min, limites.base[claveUI]);
+                input.max = limites.max[claveUI];
                 input.step = "1";
-                input.value = limites.base[clave];
-                input.dataset.lastValid = String(limites.base[clave]);
+                input.value = limites.base[claveUI];
+                input.dataset.lastValid = String(limites.base[claveUI]);
             });
         }
 
@@ -9068,7 +9075,8 @@
 
         // Controla los cambios de atributos.
         claves.forEach(clave => {
-            const input = document.getElementById("fc2-special-" + clave);
+            const claveUI = clavesUI[clave];
+            const input = document.getElementById("fc2-special-" + claveUI);
             if (!input || input.dataset.specialListener === "true") return;
 
             input.dataset.specialListener = "true";
@@ -9079,9 +9087,11 @@
 
                 const limites = originLimits[origen.id];
 
+                const claveUI = clavesUI[clave];
+
                 let valor = Number(input.value);
                 if (!Number.isFinite(valor)) {
-                    valor = limites.base[clave];
+                    valor = limites.base[claveUI];
                 }
 
                 valor = Math.trunc(valor);
@@ -9102,7 +9112,7 @@
                 if (gastados > presupuesto) {
                     input.value = Number.isFinite(valorAnterior)
                         ? valorAnterior
-                        : limites.base[clave];
+                        : limites.base[claveUI];
 
                     actualizarContador(origen);
                     return;
@@ -9744,12 +9754,8 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
 };
 
     // --- PASO 4: SELECCION DE PERKS ---
-
     (() => {
-        const SPECIAL_ALIASES = {
-            FUE: "FUE", STR: "FUE", PER: "PER", END: "END", CAR: "CAR", CHA: "CAR", INT: "INT", AGI: "AGI", SUE: "SUE", LCK: "SUE" 
-        };
-
+        
         // --- 1. LEER LOS DATOS DEL PERSONAJE ---
        window.fc2ObtenerRevisionPersonaje = function () {
             const personaje = window.fc2Personaje || {};
@@ -9833,38 +9839,31 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
             const requisitos = perk.reqs || {};
             const special = personaje.special || {};
 
-            const SPECIAL_ALIASES = {
-                STR: "FUE", PER: "PER", END: "END", CHA: "CAR", INT: "INT", AGI: "AGI", LUK: "SUE" 
-            };
+            const specialKeys = [ "STR", "PER", "END", "CHA", "INT", "AGI", "LUK" ];
 
             for (const [clave, valor] of Object.entries(requisitos)) {
+                const requisito = Number(valor);
+
+                if (!Number.isFinite(requisito)) return false;
+
                 if (clave === "Level") {
-                    if ((Number(personaje.nivel) || 1) < Number(valor)) {
+                    if ((Number(personaje.nivel) || 1) < requisito) {
                         return false;
                     }
                     continue;
                 }
 
-                const atributo = aliases[clave];
+                if (!specialKeys.includes(clave)) continue;
 
-                // Ignorar cualquier requisito que no sea SPECIAL o Nivel.
-                if (!atributo) continue;
+                const actual = Number(special[clave]) || 0;
 
-                const actual = Number(
-                    special[atributo] ??
-                    special[clave]
-                ) || 0;
-
-                if (actual < Number(valor)) {
-                    return false;
-                }
+                if (actual < requisito) return false;
             }
 
             return true;
         }
 
         // --- 6. COMPROBAR REQUISITOS DE HABILIDADES EN reqText ---
-
         function comprobarHabilidadesEnTexto(perk, personaje) {
             const texto = String(perk.reqText || "");
 
@@ -10320,15 +10319,15 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
 
         const rasgos = personaje.rasgosElegidos || [];
 
-        const fue = Number(special.FUE) || 5;
+        const str = Number(special.STR) || 5;
         const per = Number(special.PER) || 5;
         const end = Number(special.END) || 5;
         const agi = Number(special.AGI) || 5;
-        const sue = Number(special.SUE) || 5;
+        const luk = Number(special.LUK) || 5;
 
         const tieneRasgo = id => rasgos.includes(id);
 
-        const hp = end + sue;
+        const hp = end + luk;
         const iniciativa = per + agi;
         const defensa = agi >= 9 ? 2 : 1;
 
@@ -10337,7 +10336,7 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
             sue - (tieneRasgo("gifted") ? 1 : 0)
         );
 
-        let carga = 150 + fue * (tieneRasgo("small_frame") ? 5 : 10);
+        let carga = 150 + str * (tieneRasgo("small_frame") ? 5 : 10);
 
         if (origen.id === "Mister_Handy") {
             carga = 150;
@@ -10523,11 +10522,15 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
 
         if (!ficha) return;
 
-        const special = {};
-        ["FUE", "PER", "END", "CAR", "INT", "AGI", "SUE"].forEach(clave => {
-            const input = document.getElementById("fc2-special-" + clave);
-            special[clave] = Number(input?.value) || 0;
-        });
+       const special = {
+            STR: Number(document.getElementById("fc2-special-FUE")?.value) || 0,
+            PER: Number(document.getElementById("fc2-special-PER")?.value) || 0,
+            END: Number(document.getElementById("fc2-special-END")?.value) || 0,
+            CHA: Number(document.getElementById("fc2-special-CAR")?.value) || 0,
+            INT: Number(document.getElementById("fc2-special-INT")?.value) || 0,
+            AGI: Number(document.getElementById("fc2-special-AGI")?.value) || 0,
+            LUK: Number(document.getElementById("fc2-special-SUE")?.value) || 0
+        };
 
         personaje.special = special;
 
@@ -10575,15 +10578,14 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
         columnaDatos.appendChild(identidad);
 
         // SPECIAL
-        const nombresSpecial = [
-            ["FUE", "FUERZA"],
-            ["PER", "PERCEPCIÓN"],
-            ["END", "RESISTENCIA"],
-            ["CAR", "CARISMA"],
-            ["INT", "INTELIGENCIA"],
-            ["AGI", "AGILIDAD"],
-            ["SUE", "SUERTE"]
-        ];
+        const abreviaturas = {
+            Fuerza: ["FUE", "STR"],
+            Percepción: ["PER", "PER"],
+            Resistencia: ["RES", "END"],
+            Carisma: ["CAR", "CHA"],
+            Inteligencia: ["INT", "INT"],
+            Agilidad: ["AGI", "AGI"]
+        };
 
         const specialSection = seccion("SPECIAL");
         const specialLista = crear("div", "fc2-sheet-special-list");
