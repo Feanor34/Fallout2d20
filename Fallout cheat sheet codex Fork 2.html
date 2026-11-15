@@ -2368,12 +2368,28 @@
 
 #fallout-character-creator .fc2-sheet-skill {
     display: grid;
-    grid-template-columns: 14px 190px 25px 35px;
+    grid-template-columns: 42px minmax(0, 1fr) 65px 45px;
     gap: 5px;
     align-items: center;
-    width: auto;
-    padding: 1px 0;
-    border: 0;
+    width: 100%;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--fc2-line);
+}
+
+#fallout-character-creator .fc2-sheet-skill-header {
+    color: var(--fc2-green);
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--fc2-green);
+    padding-bottom: 6px;
+}
+
+#fallout-character-creator .fc2-sheet-skill-header span {
+    text-align: center;
+}
+
+#fallout-character-creator .fc2-sheet-skill-header span:nth-child(2) {
+    text-align: left;
 }
 
 #fallout-character-creator .fc2-sheet-skill-tag {
@@ -2435,6 +2451,54 @@
 
     #fallout-character-creator .fc2-sheet-skill {
         grid-template-columns: 14px minmax(130px, 190px) 25px 35px;
+    }
+}
+
+
+@media print {
+
+    /* Fondo blanco y texto negro */
+    #fallout-character-creator,
+    #fallout-character-creator * {
+        color: #000000 !important;
+        background-color: #ffffff !important;
+        border-color: #777777 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    /* Títulos y encabezados */
+    #fallout-character-creator h1,
+    #fallout-character-creator h2,
+    #fallout-character-creator h3,
+    #fallout-character-creator strong,
+    #fallout-character-creator .fc2-sheet-skill-header {
+        color: #000000 !important;
+        font-weight: bold !important;
+    }
+
+    /* Evitar fondos oscuros */
+    #fallout-character-creator {
+        background: #ffffff !important;
+    }
+
+    /* Ocultar botones y controles */
+    #fallout-character-creator button,
+    #fallout-character-creator input,
+    #fallout-character-creator select,
+    #fallout-character-creator textarea {
+        display: none !important;
+    }
+
+    /* Evitar cortes innecesarios */
+    #fallout-character-creator .fc2-sheet-section {
+        break-inside: avoid;
+    }
+
+    /* Imprimir colores de forma consistente */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
     }
 }
 
@@ -10584,7 +10648,8 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
             Resistencia: ["RES", "END"],
             Carisma: ["CAR", "CHA"],
             Inteligencia: ["INT", "INT"],
-            Agilidad: ["AGI", "AGI"]
+            Agilidad: ["AGI", "AGI"],
+            Suerte: ["SUE", "LUK"]
         };
 
         const specialSection = seccion("SPECIAL");
@@ -10594,7 +10659,7 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
             const fila = crear("div", "fc2-sheet-special-item");
             fila.append(
                 crear("span", "", nombres[0] + ":"),
-                crear("strong", "", special[clave])
+                crear("strong", "", special[nombres[1]])
             );
             specialLista.appendChild(fila);
         });
@@ -10633,6 +10698,17 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
         // HABILIDADES
         const skillsSection = seccion("HABILIDADES");
         const skillsLista = crear("div", "fc2-sheet-skills");
+        const encabezadoHabilidades = crear("div", "fc2-sheet-skill fc2-sheet-skill-header");
+
+        encabezadoHabilidades.append(
+            crear("span", "", "TAG"),
+            crear("span", "", "HABILIDAD"),
+            crear("span", "", "RANGOS"),
+            crear("span", "", "NO")
+        );
+
+        skillsLista.appendChild(encabezadoHabilidades);
+
 
         skillListOrdered.forEach(definicion => {
             const habilidad = window.fc2Habilidades?.[definicion.name];
