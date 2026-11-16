@@ -10786,7 +10786,7 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
                 crear("span", "fc2-sheet-skill-name",
                     definicion.name + " (" + abreviatura + ")"
                 ),
-                crear("span", "fc2-sheet-skill-rank", habilidad.rangos),
+                crear("span", "fc2-sheet-skill-rank", habilidad.total),
                 crear("span", "fc2-sheet-skill-difficulty", dificultad)
             );
 
@@ -10886,28 +10886,39 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
     });
 
     // --- PASO 8: SUBIR DE NIVEL ---
-    const paso8 = document.getElementById("fc2-step-8");
-    const grillaHabilidadesNivel = document.getElementById("fc2-levelup-skills");
-    const botonConfirmarHabilidad = document.getElementById("fc2-levelup-confirm-skill");
 
-    let fc2NivelEnProceso = false;
-    let fc2NivelHabilidadElegida = null;
-    let fc2NivelHabilidades = {};
+    const fc2LevelUpPaso = document.getElementById("fc2-step-8");
+    const fc2LevelUpGrilla = document.getElementById("fc2-levelup-skills");
+    const fc2LevelUpConfirmar = document.getElementById("fc2-levelup-confirm-skill");
 
-    // Recupera los valores actuales de las habilidades de la ficha.
-    function fc2NivelRecuperarHabilidades() {
-        const personaje = window.fc2Personaje || {};
-        const actuales = window.fc2Habilidades || personaje.habilidades || {};
+    const fc2LevelUpStage1 = document.getElementById("fc2-levelup-stage-1");
+    const fc2LevelUpStage2 = document.getElementById("fc2-levelup-stage-2");
+    const fc2LevelUpGrillaPerks = document.getElementById("fc2-levelup-perks");
+    const fc2LevelUpOpciones = document.getElementById("fc2-levelup-options");
+    const fc2LevelUpFinalizar = document.getElementById("fc2-levelup-finish");
+    const fc2LevelUpVolver = document.getElementById("fc2-levelup-back-skill");
+
+    let fc2LevelUpEnProceso = false;
+    let fc2LevelUpSeleccionada = null;
+    let fc2LevelUpPerkSeleccionado = null;
+    let fc2LevelUpDatos = {};
+    let fc2LevelUpPerksDisponibles = [];
+
+    // Recupera las habilidades actuales.
+    function fc2LevelUpRecuperarDatos() {
+        const actuales = window.fc2Habilidades ||
+            window.fc2Personaje?.habilidades || {};
+
         const resultado = {};
 
-        skillListOrdered.forEach(definicion => {
-            const habilidad = actuales[definicion.name] || {};
-            const rangos = Number(habilidad.rangos) || 0;
-            const tag = Boolean(habilidad.tag);
+        skillListOrdered.forEach(def => {
+            const actual = actuales[def.name] || {};
+            const rangos = Number(actual.rangos) || 0;
+            const tag = Boolean(actual.tag);
 
-            resultado[definicion.name] = {
-                rangos: rangos,
-                tag: tag,
+            resultado[def.name] = {
+                rangos,
+                tag,
                 total: rangos + (tag ? 2 : 0)
             };
         });
@@ -10915,114 +10926,266 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
         return resultado;
     }
 
+    // Muestra las habilidades seleccionables.
+    function fc2LevelUpMostrarHabilidades() {
+        fc2LevelUpGrilla.replaceChildren();
+        fc2LevelUpSeleccionada = null;
+        fc2LevelUpConfirmar.disabled = true;
 
-    // Muestra las habilidades disponibles.
-    function fc2NivelMostrarHabilidades() {
-        grillaHabilidadesNivel.replaceChildren();
-
-        fc2NivelHabilidadElegida = null;
-        botonConfirmarHabilidad.disabled = true;
-
-        skillListOrdered.forEach(definicion => {
-            const habilidad = fc2NivelHabilidades[definicion.name];
+        skillListOrdered.forEach(def => {
+            const habilidad = fc2LevelUpDatos[def.name];
 
             const boton = document.createElement("button");
             boton.type = "button";
             boton.className = "fc2-card";
-            boton.dataset.habilidad = definicion.name;
+            boton.dataset.habilidad = def.name;
 
             boton.textContent =
-                `${definicion.name} (${habilidad.total}/6)` +
+                `${def.name} (${habilidad.total}/6)` +
                 (habilidad.tag ? " · TAG" : "");
 
             boton.disabled = habilidad.total >= 6;
+            boton.style.pointerEvents = "auto";
+            boton.style.cursor = boton.disabled ? "not-allowed" : "pointer";
 
-            grillaHabilidadesNivel.appendChild(boton);
+            boton.addEventListener("click", function (evento) {
+                evento.preventDefault();
+
+                if (boton.disabled) return;
+
+                fc2LevelUpGrilla.querySelectorAll("button").forEach(opcion => {
+                    opcion.classList.remove("selected");
+                    opcion.setAttribute("aria-pressed", "false");
+                });
+
+                boton.classList.add("selected");
+                boton.setAttribute("aria-pressed", "true");
+
+                fc2LevelUpSeleccionada = def.name;
+                fc2LevelUpConfirmar.disabled = false;
+            });
+
+            fc2LevelUpGrilla.appendChild(boton);
         });
     }
 
-
-    // Selección de habilidad mediante un único evento en la grilla.
-    grillaHabilidadesNivel.addEventListener("click", evento => {
-        const boton = evento.target.closest("button[data-habilidad]");
-
-        if (!boton || boton.disabled) return;
-
-        grillaHabilidadesNivel.querySelectorAll("button").forEach(b => {
-            b.classList.remove("selected");
-        });
-
-        boton.classList.add("selected");
-
-        fc2NivelHabilidadElegida = boton.dataset.habilidad;
-        botonConfirmarHabilidad.disabled = false;
-    });
-
-
-    // Inicia una subida de nivel.
-    paso8?.addEventListener("change", () => {
-        if (!paso8.checked || fc2NivelEnProceso) return;
+    // Inicia la subida de nivel.
+    fc2LevelUpPaso.addEventListener("change", () => {
+        if (!fc2LevelUpPaso.checked || fc2LevelUpEnProceso) return;
 
         const personaje = window.fc2Personaje;
-
         if (!personaje) return;
 
-        // Recupera los valores actuales de la ficha.
-        fc2NivelHabilidades = fc2NivelRecuperarHabilidades();
+        fc2LevelUpEnProceso = true;
 
-        // Sube un nivel.
+        fc2LevelUpDatos = fc2LevelUpRecuperarDatos();
+
         personaje.nivel = (Number(personaje.nivel) || 1) + 1;
-
-        // Actualiza los HP: un nivel adicional equivale a un HP adicional.
         personaje.levelHP = Math.max(0, personaje.nivel - 1);
 
-        fc2NivelEnProceso = true;
-
-        // Recalcula las estadísticas y actualiza el resumen.
         window.fc2CalcularEstadisticasDerivadas();
         window.actualizarResumenPersonaje?.();
 
-        // Muestra las habilidades.
-        fc2NivelMostrarHabilidades();
+        fc2LevelUpStage1.hidden = false;
+        fc2LevelUpStage2.hidden = true;
+
+        fc2LevelUpMostrarHabilidades();
     });
 
+    // Confirma el aumento de habilidad y pasa a elegir un perk.
+    fc2LevelUpConfirmar.addEventListener("click", () => {
+        if (!fc2LevelUpEnProceso || !fc2LevelUpSeleccionada) return;
 
-    // Confirma el aumento de habilidad.
-    botonConfirmarHabilidad?.addEventListener("click", () => {
-        if (!fc2NivelEnProceso || !fc2NivelHabilidadElegida) return;
-
-        const habilidad = fc2NivelHabilidades[fc2NivelHabilidadElegida];
+        const habilidad = fc2LevelUpDatos[fc2LevelUpSeleccionada];
 
         if (!habilidad || habilidad.total >= 6) return;
 
-        // Aumenta un rango.
         habilidad.rangos += 1;
         habilidad.total += 1;
 
-        // Guarda los valores actualizados.
-        window.fc2Personaje.habilidades = fc2NivelHabilidades;
-        window.fc2Habilidades = fc2NivelHabilidades;
+        // Guardar las habilidades actualizadas antes de evaluar perks.
+        window.fc2Habilidades = fc2LevelUpDatos;
+        window.fc2Personaje.habilidades = fc2LevelUpDatos;
 
-        // Actualiza la ficha.
+        window.fc2CalcularEstadisticasDerivadas();
+
+        // Pasar a la segunda etapa.
+        fc2LevelUpMostrarPerks();
+
+        fc2LevelUpStage1.hidden = true;
+        fc2LevelUpStage2.hidden = false;
+    });
+
+    // Evalúa los perks disponibles con los datos actuales del personaje.
+    function fc2LevelUpObtenerPerks() {
+        const personaje = window.fc2Personaje;
+
+        if (!personaje) return [];
+
+        if (typeof window.fc2ObtenerPerksElegibles !== "function") {
+            return [];
+        }
+
+        const adquiridos = (personaje.perksElegidos || []).map(perk =>
+            typeof perk === "string" ? perk : perk.id
+        );
+
+        return window.fc2ObtenerPerksElegibles().filter(perk =>
+            !adquiridos.includes(perk.id)
+        );
+    }
+
+    // Construye las tarjetas de perks elegibles.
+    function fc2LevelUpMostrarPerks() {
+        fc2LevelUpGrillaPerks.replaceChildren();
+        fc2LevelUpPerkSeleccionado = null;
+
+        fc2LevelUpPerksDisponibles = fc2LevelUpObtenerPerks();
+
+        fc2LevelUpFinalizar.disabled =
+            fc2LevelUpPerksDisponibles.length > 0;
+
+        fc2LevelUpPerksDisponibles.forEach(perk => {
+            const tarjeta = document.createElement("article");
+            tarjeta.className = "fc2-perk-card";
+            tarjeta.dataset.perk = perk.id;
+            tarjeta.setAttribute("role", "button");
+            tarjeta.setAttribute("aria-pressed", "false");
+            tarjeta.tabIndex = 0;
+
+            const titulo = document.createElement("h3");
+            titulo.className = "fc2-perk-title";
+            titulo.textContent =
+                `${perk.name} · Rango ${perk.rank}`;
+
+            const requisitos = document.createElement("p");
+            requisitos.className = "fc2-perk-reqs";
+            requisitos.textContent =
+                `REQUISITOS: ${perk.reqText || "Ninguno"}`;
+
+            const descripcion = document.createElement("p");
+            descripcion.className = "fc2-perk-desc";
+            descripcion.textContent = perk.desc || "";
+
+            tarjeta.append(titulo, requisitos, descripcion);
+
+            const seleccionar = () => {
+                fc2LevelUpGrillaPerks
+                    .querySelectorAll(".fc2-perk-card")
+                    .forEach(opcion => {
+                        opcion.classList.remove("selected");
+                        opcion.setAttribute("aria-pressed", "false");
+                    });
+
+                tarjeta.classList.add("selected");
+                tarjeta.setAttribute("aria-pressed", "true");
+
+                fc2LevelUpPerkSeleccionado = perk.id;
+                fc2LevelUpFinalizar.disabled = false;
+
+                fc2LevelUpOpciones.replaceChildren();
+
+                const detalle = document.createElement("p");
+                detalle.className = "fc2-description";
+                detalle.textContent =
+                    `${perk.name}, rango ${perk.rank}: ${perk.desc || ""}`;
+
+                fc2LevelUpOpciones.appendChild(detalle);
+            };
+
+            tarjeta.addEventListener("click", seleccionar);
+
+            tarjeta.addEventListener("keydown", evento => {
+                if (evento.key === "Enter" || evento.key === " ") {
+                    evento.preventDefault();
+                    seleccionar();
+                }
+            });
+
+            fc2LevelUpGrillaPerks.appendChild(tarjeta);
+        });
+
+        if (!fc2LevelUpPerksDisponibles.length) {
+            const mensaje = document.createElement("p");
+            mensaje.className = "fc2-perks-empty";
+            mensaje.textContent =
+                "No hay perks disponibles que cumplan los requisitos de tu personaje en este nivel.";
+
+            fc2LevelUpGrillaPerks.appendChild(mensaje);
+        }
+
+        if (fc2LevelUpOpciones) {
+            fc2LevelUpOpciones.replaceChildren();
+
+            const mensaje = document.createElement("p");
+            mensaje.className = "fc2-description";
+            mensaje.textContent =
+                "Seleccioná un perk para consultar su descripción.";
+
+            fc2LevelUpOpciones.appendChild(mensaje);
+        }
+    }
+
+    // Volver a la selección de habilidad.
+    fc2LevelUpVolver.addEventListener("click", () => {
+        fc2LevelUpStage2.hidden = true;
+        fc2LevelUpStage1.hidden = false;
+    });
+
+    // Finalizar la subida y guardar el perk elegido.
+    fc2LevelUpFinalizar.addEventListener("click", () => {
+        if (!fc2LevelUpEnProceso) return;
+
+        const personaje = window.fc2Personaje;
+
+        if (fc2LevelUpPerksDisponibles.length > 0) {
+            if (!fc2LevelUpPerkSeleccionado) return;
+
+            const perk = fc2LevelUpPerksDisponibles.find(
+                item => item.id === fc2LevelUpPerkSeleccionado
+            );
+
+            if (!perk) return;
+
+            if (!Array.isArray(personaje.perksElegidos)) {
+                personaje.perksElegidos = [];
+            }
+
+            personaje.perksElegidos.push({
+                id: perk.id,
+                name: perk.name,
+                rank: Number(perk.rank) || 1
+            });
+
+            document.dispatchEvent(
+                new CustomEvent("fc2-perks-updated")
+            );
+        }
+
+        // Actualizar ficha y resumen.
         window.fc2CalcularEstadisticasDerivadas();
         window.fc2ActualizarFichaFinal();
         window.actualizarResumenPersonaje?.();
 
-        // Cierra la subida de nivel.
-        fc2NivelEnProceso = false;
-        fc2NivelHabilidadElegida = null;
-        fc2NivelHabilidades = {};
+        // Cerrar la subida de nivel.
+        fc2LevelUpEnProceso = false;
+        fc2LevelUpSeleccionada = null;
+        fc2LevelUpPerkSeleccionado = null;
+        fc2LevelUpDatos = {};
+        fc2LevelUpPerksDisponibles = [];
 
-        // Regresa a la ficha.
-        const pasoFicha = document.getElementById("fc2-step-7");
+        fc2LevelUpStage1.hidden = false;
+        fc2LevelUpStage2.hidden = true;
 
-        pasoFicha.checked = true;
-        pasoFicha.dispatchEvent(
+        // Regresar a la ficha.
+        const ficha = document.getElementById("fc2-step-7");
+        ficha.checked = true;
+        ficha.dispatchEvent(
             new Event("change", { bubbles: true })
         );
     });
 
-    //FIN DE SCRIPT DE CREACION DE PERSONAJE ---
+    // --- FIN DE SCRIPT DE CREACION DE PERSONAJE ---
 
     // --- INICIO DEL RESUMEN LATERAL ---
 
