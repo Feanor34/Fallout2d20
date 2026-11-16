@@ -3553,8 +3553,11 @@
                         <div class="fc2-sum-player">
                             JUGADOR: <span id="fc2-sum-player">—</span>
                         </div>
-                        <div class="fc2-sum-origin">
+                       <div class="fc2-sum-origin">
                             ORIGEN: <strong id="fc2-sum-origin">Pendiente</strong>
+                        </div>
+                        <div class="fc2-sum-origin">
+                            NIVEL: <strong id="fc2-sum-level">1</strong>
                         </div>
                     </section>
 
@@ -10884,182 +10887,137 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
 
     // --- PASO 8: SUBIR DE NIVEL ---
     const paso8 = document.getElementById("fc2-step-8");
-    const panelHabilidadesNivel = document.getElementById("fc2-levelup-stage-1");
-    const panelPerksNivel = document.getElementById("fc2-levelup-stage-2");
     const grillaHabilidadesNivel = document.getElementById("fc2-levelup-skills");
-    const grillaPerksNivel = document.getElementById("fc2-levelup-perks");
     const botonConfirmarHabilidad = document.getElementById("fc2-levelup-confirm-skill");
-    const botonFinalizarNivel = document.getElementById("fc2-levelup-finish");
 
-    function fc2MostrarHabilidadesNivel() {
+    let fc2NivelEnProceso = false;
+    let fc2NivelHabilidadElegida = null;
+    let fc2NivelHabilidades = {};
+
+    // Recupera los valores actuales de las habilidades de la ficha.
+    function fc2NivelRecuperarHabilidades() {
+        const personaje = window.fc2Personaje || {};
+        const actuales = window.fc2Habilidades || personaje.habilidades || {};
+        const resultado = {};
+
+        skillListOrdered.forEach(definicion => {
+            const habilidad = actuales[definicion.name] || {};
+            const rangos = Number(habilidad.rangos) || 0;
+            const tag = Boolean(habilidad.tag);
+
+            resultado[definicion.name] = {
+                rangos: rangos,
+                tag: tag,
+                total: rangos + (tag ? 2 : 0)
+            };
+        });
+
+        return resultado;
+    }
+
+
+    // Muestra las habilidades disponibles.
+    function fc2NivelMostrarHabilidades() {
         grillaHabilidadesNivel.replaceChildren();
-        levelUpSkillChosen = "";
 
+        fc2NivelHabilidadElegida = null;
         botonConfirmarHabilidad.disabled = true;
 
         skillListOrdered.forEach(definicion => {
-            const habilidad = window.fc2Habilidades?.[definicion.name] || {
-                rangos: 0,
-                total: 0,
-                tag: false
-            };
+            const habilidad = fc2NivelHabilidades[definicion.name];
 
-            const total = Number(habilidad.total) || 0;
             const boton = document.createElement("button");
-
             boton.type = "button";
             boton.className = "fc2-card";
+            boton.dataset.habilidad = definicion.name;
+
             boton.textContent =
-                `${definicion.name} (${total}/6)` +
+                `${definicion.name} (${habilidad.total}/6)` +
                 (habilidad.tag ? " · TAG" : "");
 
-            boton.disabled = total >= 6;
-
-            boton.addEventListener("click", () => {
-                grillaHabilidadesNivel.querySelectorAll("button").forEach(b =>
-                    b.classList.remove("selected")
-                );
-
-                boton.classList.add("selected");
-                levelUpSkillChosen = definicion.name;
-                botonConfirmarHabilidad.disabled = false;
-            });
+            boton.disabled = habilidad.total >= 6;
 
             grillaHabilidadesNivel.appendChild(boton);
         });
-
-        panelHabilidadesNivel.hidden = false;
-        panelPerksNivel.hidden = true;
     }
 
-    function fc2MostrarPerksNivel() {
-        grillaPerksNivel.replaceChildren();
-        levelUpPerkChosen = "";
-        botonFinalizarNivel.disabled = true;
 
-        const personaje = window.fc2ObtenerRevisionPersonaje();
+    // Selección de habilidad mediante un único evento en la grilla.
+    grillaHabilidadesNivel.addEventListener("click", evento => {
+        const boton = evento.target.closest("button[data-habilidad]");
 
-        const elegibles = perksDetailedList.filter(perk =>
-            window.fc2FuentePerkHabilitada(perk) &&
-            window.fc2EvaluarPerk(perk, personaje)
-        );
+        if (!boton || boton.disabled) return;
 
-        if (!elegibles.length) {
-            const mensaje = document.createElement("p");
-            mensaje.className = "fc2-perks-empty";
-            mensaje.textContent =
-                "No hay ventajas disponibles que cumplan tus requisitos.";
-
-            grillaPerksNivel.appendChild(mensaje);
-        }
-
-        elegibles.forEach(perk => {
-            const boton = document.createElement("button");
-
-            boton.type = "button";
-            boton.className = "fc2-card";
-            boton.innerHTML = `
-                <h4>${perk.name}</h4>
-                <p>${perk.reqText || "Sin requisitos adicionales"}</p>
-                <p>${perk.desc || ""}</p>
-            `;
-
-            boton.addEventListener("click", () => {
-                grillaPerksNivel.querySelectorAll("button").forEach(b =>
-                    b.classList.remove("selected")
-                );
-
-                boton.classList.add("selected");
-                levelUpPerkChosen = perk.id;
-                botonFinalizarNivel.disabled = false;
-            });
-
-            grillaPerksNivel.appendChild(boton);
+        grillaHabilidadesNivel.querySelectorAll("button").forEach(b => {
+            b.classList.remove("selected");
         });
 
-        panelHabilidadesNivel.hidden = true;
-        panelPerksNivel.hidden = false;
-    }
+        boton.classList.add("selected");
 
+        fc2NivelHabilidadElegida = boton.dataset.habilidad;
+        botonConfirmarHabilidad.disabled = false;
+    });
+
+
+    // Inicia una subida de nivel.
     paso8?.addEventListener("change", () => {
-        if (!paso8.checked) return;
-
-        const personaje = window.fc2Personaje || {};
-        window.fc2Personaje = personaje;
-
-        // El nivel y los HP se aumentan una sola vez por subida.
-        if (!wantLevelUp) {
-            personaje.nivel = (Number(personaje.nivel) || 1) + 1;
-            personaje.levelHP = personaje.nivel - 1;
-
-            wantLevelUp = true;
-            levelUpSkillSpent = false;
-            levelUpSkillChosen = "";
-            levelUpPerkChosen = "";
-        }
-
-        window.fc2CalcularEstadisticasDerivadas();
-        fc2MostrarHabilidadesNivel();
-    });
-
-    botonConfirmarHabilidad?.addEventListener("click", () => {
-        if (!levelUpSkillChosen || levelUpSkillSpent) return;
+        if (!paso8.checked || fc2NivelEnProceso) return;
 
         const personaje = window.fc2Personaje;
-        const habilidades = window.fc2Habilidades || {};
-        const habilidad = habilidades[levelUpSkillChosen];
 
-        if (!habilidad || Number(habilidad.total) >= 6) return;
+        if (!personaje) return;
 
-        // El punto se suma al rango comprado, no al bono TAG.
-        habilidad.rangos = (Number(habilidad.rangos) || 0) + 1;
-        habilidad.total = (Number(habilidad.total) || 0) + 1;
+        // Recupera los valores actuales de la ficha.
+        fc2NivelHabilidades = fc2NivelRecuperarHabilidades();
 
-        personaje.habilidades = habilidades;
-        window.fc2Habilidades = habilidades;
+        // Sube un nivel.
+        personaje.nivel = (Number(personaje.nivel) || 1) + 1;
 
-        levelUpSkillSpent = true;
-
-        fc2MostrarPerksNivel();
-    });
-
-    document.getElementById("fc2-levelup-back-skill")?.addEventListener("click", () => {
-        // Volver a revisar la habilidad sin gastar otro punto.
-        fc2MostrarHabilidadesNivel();
-        botonConfirmarHabilidad.disabled = true;
-    });
-
-    botonFinalizarNivel?.addEventListener("click", () => {
-        if (!levelUpPerkChosen) return;
-
-        const personaje = window.fc2Personaje;
-        const perk = perksDetailedList.find(p => p.id === levelUpPerkChosen);
-
-        if (!perk) return;
-
-        if (!Array.isArray(personaje.perksElegidos)) {
-            personaje.perksElegidos = [];
-        }
-
-        personaje.perksElegidos.push({
-            id: perk.id,
-            name: perk.name,
-            rank: Number(perk.rank) || 1
-        });
-
+        // Actualiza los HP: un nivel adicional equivale a un HP adicional.
         personaje.levelHP = Math.max(0, personaje.nivel - 1);
 
+        fc2NivelEnProceso = true;
+
+        // Recalcula las estadísticas y actualiza el resumen.
+        window.fc2CalcularEstadisticasDerivadas();
+        window.actualizarResumenPersonaje?.();
+
+        // Muestra las habilidades.
+        fc2NivelMostrarHabilidades();
+    });
+
+
+    // Confirma el aumento de habilidad.
+    botonConfirmarHabilidad?.addEventListener("click", () => {
+        if (!fc2NivelEnProceso || !fc2NivelHabilidadElegida) return;
+
+        const habilidad = fc2NivelHabilidades[fc2NivelHabilidadElegida];
+
+        if (!habilidad || habilidad.total >= 6) return;
+
+        // Aumenta un rango.
+        habilidad.rangos += 1;
+        habilidad.total += 1;
+
+        // Guarda los valores actualizados.
+        window.fc2Personaje.habilidades = fc2NivelHabilidades;
+        window.fc2Habilidades = fc2NivelHabilidades;
+
+        // Actualiza la ficha.
         window.fc2CalcularEstadisticasDerivadas();
         window.fc2ActualizarFichaFinal();
         window.actualizarResumenPersonaje?.();
 
-        wantLevelUp = false;
-        levelUpSkillSpent = false;
-        levelUpSkillChosen = "";
-        levelUpPerkChosen = "";
+        // Cierra la subida de nivel.
+        fc2NivelEnProceso = false;
+        fc2NivelHabilidadElegida = null;
+        fc2NivelHabilidades = {};
 
-        document.getElementById("fc2-step-7").checked = true;
-        document.getElementById("fc2-step-7").dispatchEvent(
+        // Regresa a la ficha.
+        const pasoFicha = document.getElementById("fc2-step-7");
+
+        pasoFicha.checked = true;
+        pasoFicha.dispatchEvent(
             new Event("change", { bubbles: true })
         );
     });
@@ -11092,6 +11050,8 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
 
             obtener("fc2-sum-origin").textContent =
                 origen?.name || "Pendiente";
+            obtener("fc2-sum-level").textContent =
+                window.fc2Personaje?.nivel || 1;
 
             // SPECIAL: toma los siete campos en el orden del formulario.
             const atributos = Array.from(
