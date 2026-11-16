@@ -723,7 +723,7 @@
 
         #fallout-character-creator .fc2-tabs {
             display: grid;
-            grid-template-columns: repeat(7, minmax(0, 1fr));
+            grid-template-columns: repeat(8, minmax(0, 1fr));
             gap: 6px;
             margin: 14px 0;
         }
@@ -754,7 +754,8 @@
         #fallout-character-creator #fc2-step-4:checked ~ .fc2-tabs label[for="fc2-step-4"],
         #fallout-character-creator #fc2-step-5:checked ~ .fc2-tabs label[for="fc2-step-5"],
         #fallout-character-creator #fc2-step-6:checked ~ .fc2-tabs label[for="fc2-step-6"],
-        #fallout-character-creator #fc2-step-7:checked ~ .fc2-tabs label[for="fc2-step-7"] {
+        #fallout-character-creator #fc2-step-7:checked ~ .fc2-tabs label[for="fc2-step-7"],
+        #fallout-character-creator #fc2-step-8:checked ~ .fc2-tabs label[for="fc2-step-8"] {
             color: var(--fc2-green);
             border-color: var(--fc2-green);
             background: #172b15;
@@ -785,7 +786,8 @@
         #fallout-character-creator #fc2-step-4:checked ~ .fc2-layout .fc2-panel-4,
         #fallout-character-creator #fc2-step-5:checked ~ .fc2-layout .fc2-panel-5,
         #fallout-character-creator #fc2-step-6:checked ~ .fc2-layout .fc2-panel-6,
-        #fallout-character-creator #fc2-step-7:checked ~ .fc2-layout .fc2-panel-7 {
+        #fallout-character-creator #fc2-step-7:checked ~ .fc2-layout .fc2-panel-7,
+        #fallout-character-creator #fc2-step-8:checked ~ .fc2-layout .fc2-panel-8 {
             display: block;
         }
 
@@ -3485,7 +3487,60 @@
                     </div>
                 </section>
 
-                </main>
+                <!-- PASO 8: SUBIR DE NIVEL -->
+                <section class="fc2-panel fc2-panel-8">
+                    <h2>08 / SUBIR DE NIVEL</h2>
+
+                    <div id="fc2-levelup-stage-1">
+                        <h3>01 / MEJORAR UNA HABILIDAD</h3>
+                        <p class="fc2-description">
+                            Elegí una habilidad para aumentar su rango en 1.
+                            Ninguna habilidad puede superar un valor total de 6.
+                        </p>
+
+                        <div id="fc2-levelup-skills" class="fc2-cards"></div>
+
+                        <div class="fc2-actions">
+                            <label class="fc2-button" for="fc2-step-7">
+                                ← FICHA
+                            </label>
+                            <button type="button" id="fc2-levelup-confirm-skill"
+                                class="fc2-button fc2-primary" disabled>
+                                CONFIRMAR HABILIDAD →
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="fc2-levelup-stage-2" hidden>
+                        <h3>02 / ELEGIR UNA VENTAJA</h3>
+                        <p class="fc2-description">
+                            Estos son los perks que cumplen tus requisitos
+                            con el nuevo nivel y las habilidades actualizadas.
+                        </p>
+
+                        <div id="fc2-levelup-perks" class="fc2-cards"></div>
+
+                        <h3>03 / OPCIONES DEL PERK</h3>
+                        <div id="fc2-levelup-options">
+                            <p class="fc2-description">
+                                Las opciones específicas del perk aparecerán aquí.
+                            </p>
+                        </div>
+
+                        <div class="fc2-actions">
+                            <button type="button" id="fc2-levelup-back-skill"
+                                class="fc2-button">
+                                ← HABILIDAD
+                            </button>
+                            <button type="button" id="fc2-levelup-finish"
+                                class="fc2-button fc2-primary" disabled>
+                                FINALIZAR SUBIDA
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
 
                 <!-- PANEL LATERAL: RESUMEN COMPACTO -->
                 <aside class="fc2-summary" id="fc2-summary">
@@ -7806,8 +7861,8 @@
         { id: "perk121", img: "073", source:"coreBook" , name: "Resistencia a la Radiación", rank: 1, ranks: 2, perkRequired: [], perkExclusive: [], reqs: { END: 8, Level: 1 }, reqText: "END 8, Nivel 1+", desc: "Tu Resistencia al Daño por radiación, en todas las ubicaciones impactadas, aumenta en +1.", system: [{ type: "extraRadiationDR", value: 1 }] },
         { id: "perk122", img: "073", source:"coreBook" , name: "Resistencia a la Radiación", rank: 2, ranks: 2, perkRequired: [], perkExclusive: [], reqs: { END: 8, Level: 5 }, reqText: "END 8, Nivel 5+", desc: "Tu Resistencia al Daño por radiación, en todas las ubicaciones impactadas, aumenta en +2.", system: [{ type: "extraRadiationDR", value: 2 }] },
 
-        { id: "perk123", img: "074", source:"coreBook" , name: "Refractor", rank: 1, ranks: 2, perkRequired: [], perkExclusive: [], reqs: { PER: 6, LUK: 7, Level: 1 }, reqText: "PER 6, LCK 7, Nivel 1+", desc: "Tu Resistencia al Daño de energía en todas las ubicaciones impactadas aumenta en +1.", system: [{ type: "extraEnergyDR", value: 1 }] },
-        { id: "perk124", img: "074", source:"coreBook" , name: "Refractor", rank: 2, ranks: 2, perkRequired: [], perkExclusive: [], reqs: { PER: 6, LUK: 7, Level: 5 }, reqText: "PER 6, LCK 7, Nivel 5+", desc: "Tu Resistencia al Daño de energía en todas las ubicaciones impactadas aumenta en +2.", system: [{ type: "extraEnergyDR", value: 2 }] },
+        { id: "perk123", img: "074", source:"coreBook" , name: "Refractor", rank: 1, ranks: 2, perkRequired: [], perkExclusive: [], reqs: { PER: 6, LCK: 7, Level: 1 }, reqText: "PER 6, LCK 7, Nivel 1+", desc: "Tu Resistencia al Daño de energía en todas las ubicaciones impactadas aumenta en +1.", system: [{ type: "extraEnergyDR", value: 1 }] },
+        { id: "perk124", img: "074", source:"coreBook" , name: "Refractor", rank: 2, ranks: 2, perkRequired: [], perkExclusive: [], reqs: { PER: 6, LCK: 7, Level: 5 }, reqText: "PER 6, LCK 7, Nivel 5+", desc: "Tu Resistencia al Daño de energía en todas las ubicaciones impactadas aumenta en +2.", system: [{ type: "extraEnergyDR", value: 2 }] },
 
         { id: "perk125", img: "075", source:"coreBook" , name: "Rebote", rank: 1, ranks: 1, perkRequired: [], perkExclusive: [], reqs: { LCK: 10, Level: 5 }, reqText: "LCK 10, Nivel 5+", desc: "Si un enemigo realiza un ataque a distancia contra vos y obtiene una complicación, podés gastar un Punto de Suerte para hacer que su rebote lo impacte. Resolvé la tirada de daño contra el enemigo atacante." },
 
@@ -7858,7 +7913,7 @@
 
         { id: "perk158", img: "089", source:"coreBook" , name: "Alimentado por el Sol", rank: 1, ranks: 1, perkRequired: [], perkExclusive: [], reqs: { END: 7 }, reqText: "END 7", desc: "Por cada hora que pasás bajo la luz solar directa, curás 1 punto de daño por radiación." },
 
-        { id: "perk159", img: "090", source:"coreBook" , name: "Puntería Estable", rank: 1, ranks: 1, perkRequired: [], perkExclusive: [], reqs: { FUE: 8, AGI: 7 }, reqText: "FUE 8, AGI 7", desc: "Cuando realizás la acción menor Apuntar, podés volver a tirar 2d20 en el primer ataque que realices durante este turno, o volver a tirar 1d20 en todos los ataques que realices durante este turno." },
+        { id: "perk159", img: "090", source:"coreBook" , name: "Puntería Estable", rank: 1, ranks: 1, perkRequired: [], perkExclusive: [], reqs: { STR: 8, AGI: 7 }, reqText: "FUE 8, AGI 7", desc: "Cuando realizás la acción menor Apuntar, podés volver a tirar 2d20 en el primer ataque que realices durante este turno, o volver a tirar 1d20 en todos los ataques que realices durante este turno." },
 
         { id: "perk160", img: "091", source:"coreBook" , name: "Espalda Fuerte", rank: 1, ranks: 3, perkRequired: [], perkExclusive: [], reqs: { STR: 5, Level: 1 }, reqText: "FUE 5, Nivel 1+", desc: "Tu peso de carga máximo aumenta en +25 lb.", system: [{ type: "extraCarryWeight", value: 25 }] },
         { id: "perk161", img: "091", source:"coreBook" , name: "Espalda Fuerte", rank: 2, ranks: 3, perkRequired: [], perkExclusive: [], reqs: { STR: 5, Level: 3 }, reqText: "FUE 5, Nivel 3+", desc: "Tu peso de carga máximo aumenta en +50 lb.", system: [{ type: "extraCarryWeight", value: 50 }] },
@@ -7869,8 +7924,8 @@
         { id: "perk164", img: "093", source:"coreBook" , name: "Presencia Aterradora", rank: 1, ranks: 2, perkRequired: [], perkExclusive: [], reqs: { STR: 6, CHA: 8, Level: 3 }, reqText: "FUE 6, CAR 8, Nivel 3+", desc: "Cuando realizás una prueba de Hablar para amenazar o asustar a alguien, podés volver a tirar 1d20." },
         { id: "perk165", img: "093", source:"coreBook" , name: "Presencia Aterradora", rank: 2, ranks: 2, perkRequired: [], perkExclusive: [], reqs: { STR: 6, CHA: 8, Level: 8 }, reqText: "FUE 6, CAR 8, Nivel 8+", desc: "Podés utilizar una acción mayor durante el combate para amenazar a un enemigo a alcance Medio, utilizando una prueba de FUE + Hablar con una dificultad de 2. Si tenés éxito, ese enemigo debe alejarse de vos durante su próximo turno (aunque puede realizar cualquier otra acción que desee)." },
 
-        { id: "perk166", img: "094", source:"coreBook" , name: "Dureza", rank: 1, ranks: 2, perkRequired: [], perkExclusive: [], reqs: { END: 6, LUK: 6, Level: 1 }, reqText: "END 6, LCK 6, Nivel 1+", desc: "Tu Resistencia al Daño físico en todas las ubicaciones impactadas aumenta en +1.", system: [{ type: "extraPhysicalDR", value: 1 }] },
-        { id: "perk167", img: "094", source:"coreBook" , name: "Dureza", rank: 2, ranks: 2, perkRequired: [], perkExclusive: [], reqs: { END: 6, LUK: 6, Level: 5 }, reqText: "END 6, LCK 6, Nivel 5+", desc: "Tu Resistencia al Daño físico en todas las ubicaciones impactadas aumenta en +2.", system: [{ type: "extraPhysicalDR", value: 2 }] },
+        { id: "perk166", img: "094", source:"coreBook" , name: "Dureza", rank: 1, ranks: 2, perkRequired: [], perkExclusive: [], reqs: { END: 6, LCK: 6, Level: 1 }, reqText: "END 6, LCK 6, Nivel 1+", desc: "Tu Resistencia al Daño físico en todas las ubicaciones impactadas aumenta en +1.", system: [{ type: "extraPhysicalDR", value: 1 }] },
+        { id: "perk167", img: "094", source:"coreBook" , name: "Dureza", rank: 2, ranks: 2, perkRequired: [], perkExclusive: [], reqs: { END: 6, LCK: 6, Level: 5 }, reqText: "END 6, LCK 6, Nivel 5+", desc: "Tu Resistencia al Daño físico en todas las ubicaciones impactadas aumenta en +2.", system: [{ type: "extraPhysicalDR", value: 2 }] },
 
         { id: "perk168", img: "095", source:"homebrew" , name: "La Cadena que nos Une a Todos", rank: 1, ranks: 2, perkRequired: ["brotherhood"], perkExclusive: [], reqs: { Level: 3 }, reqText: "Iniciado de la Hermandad o No Humano, Nivel 3+", desc: "Cada vez que adquirís este Perk, elegí una rama de servicio apropiada de la Hermandad de la lista de Iniciado de la Hermandad. Estableciste contactos y conexiones con esa rama, y obtenés la capacidad de gastar 2 AP para solicitar refuerzos de esa rama una vez por aventura.\n\nSi todavía no estabas sujeto a la Cadena que nos Une, ahora lo estás. No necesitás tener el origen Iniciado de la Hermandad para adquirir este Perk; solo necesitás ser miembro de la Hermandad, incluso si no sos humano. El hecho de que tengas que adquirir un Perk para obtener acceso a los refuerzos no representa que la Hermandad del Medio Oeste sea lenta a la hora de aceptar no humanos, sino que refleja el hecho de que ya obtuviste un Origen que te dio cosas geniales. Un no humano incluso podría unirse a una rama de Mariposa si demostró ser tan competente que la Hermandad no puede darse el lujo de rechazar su ayuda." },
         { id: "perk169", img: "095", source:"homebrew" , name: "La Cadena que nos Une a Todos", rank: 2, ranks: 2, perkRequired: ["brotherhood"], perkExclusive: [], reqs: { Level: 6 }, reqText: "Iniciado de la Hermandad o No Humano, Nivel 6+", desc: "Cada vez que adquirís este Perk, elegí una rama de servicio apropiada de la Hermandad de la lista de Iniciado de la Hermandad. Estableciste contactos y conexiones con esa rama, y obtenés la capacidad de gastar 2 AP para solicitar refuerzos de esa rama una vez por aventura.\n\nSi todavía no estabas sujeto a la Cadena que nos Une, ahora lo estás. No necesitás tener el origen Iniciado de la Hermandad para adquirir este Perk; solo necesitás ser miembro de la Hermandad, incluso si no sos humano. El hecho de que tengas que adquirir un Perk para obtener acceso a los refuerzos no representa que la Hermandad del Medio Oeste sea lenta a la hora de aceptar no humanos, sino que refleja el hecho de que ya obtuviste un Origen que te dio cosas geniales. Un no humano incluso podría unirse a una rama de Mariposa si demostró ser tan competente que la Hermandad no puede darse el lujo de rechazar su ayuda." },
@@ -9002,9 +9057,9 @@
 
     // --- PASO 2: ASIGNACIÓN DE S.P.E.C.I.A.L. ---
     (() => {
-        const claves = ["STR", "PER", "END", "CHA", "INT", "AGI", "LUK"];
+        const claves = ["STR", "PER", "END", "CHA", "INT", "AGI", "LCK"];
 
-        const clavesUI = { STR: "FUE", PER: "PER", END: "END", CHA: "CAR", INT: "INT", AGI: "AGI", LUK: "SUE" };
+        const clavesUI = { STR: "FUE", PER: "PER", END: "END", CHA: "CAR", INT: "INT", AGI: "AGI", LCK: "SUE" };
 
         // Lee los valores actuales de SPECIAL.
         function obtenerValores() {
@@ -9903,7 +9958,7 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
             const requisitos = perk.reqs || {};
             const special = personaje.special || {};
 
-            const specialKeys = [ "STR", "PER", "END", "CHA", "INT", "AGI", "LUK" ];
+            const specialKeys = [ "STR", "PER", "END", "CHA", "INT", "AGI", "LCK" ];
 
             for (const [clave, valor] of Object.entries(requisitos)) {
                 const requisito = Number(valor);
@@ -10387,11 +10442,15 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
         const per = Number(special.PER) || 5;
         const end = Number(special.END) || 5;
         const agi = Number(special.AGI) || 5;
-        const luk = Number(special.LUK) || 5;
+        const luk = Number(special.LCK) || 5;
 
         const tieneRasgo = id => rasgos.includes(id);
-
-        const hp = end + luk;
+        const levelHP = Math.max(
+            0,
+            (Number(personaje.nivel) || 1) - 1
+        );
+        personaje.levelHP = levelHP;
+        const hp = end + luk + levelHP;
         const iniciativa = per + agi;
         const defensa = agi >= 9 ? 2 : 1;
 
@@ -10414,7 +10473,7 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
         else if (str >= 7) melee = 1;
         else if (str <= 3) melee = -1;
 
-        return { hp, iniciativa, defensa, suerte, carga, melee, heavyHanded: tieneRasgo("heavy_handed")
+        return { hp, levelHP, iniciativa, defensa, suerte, carga, melee, heavyHanded: tieneRasgo("heavy_handed")
         };
     };
 
@@ -10593,7 +10652,7 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
             CHA: Number(document.getElementById("fc2-special-CAR")?.value) || 0,
             INT: Number(document.getElementById("fc2-special-INT")?.value) || 0,
             AGI: Number(document.getElementById("fc2-special-AGI")?.value) || 0,
-            LUK: Number(document.getElementById("fc2-special-SUE")?.value) || 0
+            LCK: Number(document.getElementById("fc2-special-SUE")?.value) || 0
         };
 
         personaje.special = special;
@@ -10649,7 +10708,7 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
             Carisma: ["CAR", "CHA"],
             Inteligencia: ["INT", "INT"],
             Agilidad: ["AGI", "AGI"],
-            Suerte: ["SUE", "LUK"]
+            Suerte: ["SUE", "LCK"]
         };
 
         const specialSection = seccion("SPECIAL");
@@ -10824,6 +10883,186 @@ window.fc2ActualizarTagsDesdeOrigen = function(origen) {
     });
 
     // --- PASO 8: SUBIR DE NIVEL ---
+    const paso8 = document.getElementById("fc2-step-8");
+    const panelHabilidadesNivel = document.getElementById("fc2-levelup-stage-1");
+    const panelPerksNivel = document.getElementById("fc2-levelup-stage-2");
+    const grillaHabilidadesNivel = document.getElementById("fc2-levelup-skills");
+    const grillaPerksNivel = document.getElementById("fc2-levelup-perks");
+    const botonConfirmarHabilidad = document.getElementById("fc2-levelup-confirm-skill");
+    const botonFinalizarNivel = document.getElementById("fc2-levelup-finish");
+
+    function fc2MostrarHabilidadesNivel() {
+        grillaHabilidadesNivel.replaceChildren();
+        levelUpSkillChosen = "";
+
+        botonConfirmarHabilidad.disabled = true;
+
+        skillListOrdered.forEach(definicion => {
+            const habilidad = window.fc2Habilidades?.[definicion.name] || {
+                rangos: 0,
+                total: 0,
+                tag: false
+            };
+
+            const total = Number(habilidad.total) || 0;
+            const boton = document.createElement("button");
+
+            boton.type = "button";
+            boton.className = "fc2-card";
+            boton.textContent =
+                `${definicion.name} (${total}/6)` +
+                (habilidad.tag ? " · TAG" : "");
+
+            boton.disabled = total >= 6;
+
+            boton.addEventListener("click", () => {
+                grillaHabilidadesNivel.querySelectorAll("button").forEach(b =>
+                    b.classList.remove("selected")
+                );
+
+                boton.classList.add("selected");
+                levelUpSkillChosen = definicion.name;
+                botonConfirmarHabilidad.disabled = false;
+            });
+
+            grillaHabilidadesNivel.appendChild(boton);
+        });
+
+        panelHabilidadesNivel.hidden = false;
+        panelPerksNivel.hidden = true;
+    }
+
+    function fc2MostrarPerksNivel() {
+        grillaPerksNivel.replaceChildren();
+        levelUpPerkChosen = "";
+        botonFinalizarNivel.disabled = true;
+
+        const personaje = window.fc2ObtenerRevisionPersonaje();
+
+        const elegibles = perksDetailedList.filter(perk =>
+            window.fc2FuentePerkHabilitada(perk) &&
+            window.fc2EvaluarPerk(perk, personaje)
+        );
+
+        if (!elegibles.length) {
+            const mensaje = document.createElement("p");
+            mensaje.className = "fc2-perks-empty";
+            mensaje.textContent =
+                "No hay ventajas disponibles que cumplan tus requisitos.";
+
+            grillaPerksNivel.appendChild(mensaje);
+        }
+
+        elegibles.forEach(perk => {
+            const boton = document.createElement("button");
+
+            boton.type = "button";
+            boton.className = "fc2-card";
+            boton.innerHTML = `
+                <h4>${perk.name}</h4>
+                <p>${perk.reqText || "Sin requisitos adicionales"}</p>
+                <p>${perk.desc || ""}</p>
+            `;
+
+            boton.addEventListener("click", () => {
+                grillaPerksNivel.querySelectorAll("button").forEach(b =>
+                    b.classList.remove("selected")
+                );
+
+                boton.classList.add("selected");
+                levelUpPerkChosen = perk.id;
+                botonFinalizarNivel.disabled = false;
+            });
+
+            grillaPerksNivel.appendChild(boton);
+        });
+
+        panelHabilidadesNivel.hidden = true;
+        panelPerksNivel.hidden = false;
+    }
+
+    paso8?.addEventListener("change", () => {
+        if (!paso8.checked) return;
+
+        const personaje = window.fc2Personaje || {};
+        window.fc2Personaje = personaje;
+
+        // El nivel y los HP se aumentan una sola vez por subida.
+        if (!wantLevelUp) {
+            personaje.nivel = (Number(personaje.nivel) || 1) + 1;
+            personaje.levelHP = personaje.nivel - 1;
+
+            wantLevelUp = true;
+            levelUpSkillSpent = false;
+            levelUpSkillChosen = "";
+            levelUpPerkChosen = "";
+        }
+
+        window.fc2CalcularEstadisticasDerivadas();
+        fc2MostrarHabilidadesNivel();
+    });
+
+    botonConfirmarHabilidad?.addEventListener("click", () => {
+        if (!levelUpSkillChosen || levelUpSkillSpent) return;
+
+        const personaje = window.fc2Personaje;
+        const habilidades = window.fc2Habilidades || {};
+        const habilidad = habilidades[levelUpSkillChosen];
+
+        if (!habilidad || Number(habilidad.total) >= 6) return;
+
+        // El punto se suma al rango comprado, no al bono TAG.
+        habilidad.rangos = (Number(habilidad.rangos) || 0) + 1;
+        habilidad.total = (Number(habilidad.total) || 0) + 1;
+
+        personaje.habilidades = habilidades;
+        window.fc2Habilidades = habilidades;
+
+        levelUpSkillSpent = true;
+
+        fc2MostrarPerksNivel();
+    });
+
+    document.getElementById("fc2-levelup-back-skill")?.addEventListener("click", () => {
+        // Volver a revisar la habilidad sin gastar otro punto.
+        fc2MostrarHabilidadesNivel();
+        botonConfirmarHabilidad.disabled = true;
+    });
+
+    botonFinalizarNivel?.addEventListener("click", () => {
+        if (!levelUpPerkChosen) return;
+
+        const personaje = window.fc2Personaje;
+        const perk = perksDetailedList.find(p => p.id === levelUpPerkChosen);
+
+        if (!perk) return;
+
+        if (!Array.isArray(personaje.perksElegidos)) {
+            personaje.perksElegidos = [];
+        }
+
+        personaje.perksElegidos.push({
+            id: perk.id,
+            name: perk.name,
+            rank: Number(perk.rank) || 1
+        });
+
+        personaje.levelHP = Math.max(0, personaje.nivel - 1);
+
+        window.fc2CalcularEstadisticasDerivadas();
+        window.fc2ActualizarFichaFinal();
+        window.actualizarResumenPersonaje?.();
+
+        wantLevelUp = false;
+        levelUpSkillSpent = false;
+        levelUpSkillChosen = "";
+        levelUpPerkChosen = "";
+
+        document.getElementById("fc2-step-7").checked = true;
+        document.getElementById("fc2-step-7").dispatchEvent(
+            new Event("change", { bubbles: true })
+        );
+    });
 
     //FIN DE SCRIPT DE CREACION DE PERSONAJE ---
 
